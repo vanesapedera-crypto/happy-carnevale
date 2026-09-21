@@ -87,15 +87,31 @@ export default function ReservationForm() {
   }
 
   async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  e.preventDefault();
 
-    setLoading(true);
+  setLoading(true);
 
-    // Firebase saglabāšana būs šeit
+  try {
+    const response = await fetch("/api/events", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form),
+    });
 
-    setLoading(false);
+    if (!response.ok) {
+      throw new Error("Neizdevās nosūtīt rezervāciju");
+    }
+
     setSuccess(true);
+  } catch (error) {
+    console.error(error);
+    alert("Kļūda! Rezervāciju neizdevās nosūtīt.");
+  } finally {
+    setLoading(false);
   }
+}
     return (
     <>
       <form
