@@ -8,7 +8,7 @@ export async function POST(req: Request) {
 
   try {
     await resend.emails.send({
-      from: "Happy Carnevale <onboarding@resend.dev>",
+      from: "Happy Carnevale <carnevalehappy@gmail.com>",
       to: "carnevalehappy@gmail.com",
 
       subject: `🎉 Jauna pasākuma rezervācija - ${body.pakalpojums}`,
