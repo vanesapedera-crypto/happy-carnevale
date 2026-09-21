@@ -2,11 +2,11 @@
 
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import { useState, type FormEvent } from "react";
+import { Suspense, useState, type FormEvent } from "react";
 
 type DeliveryMode = "pickup" | "address" | "omniva";
 
-export default function ReservationPage() {
+function ReservationContent() {
   const searchParams = useSearchParams();
 
   const costume = searchParams.get("kostims");
@@ -309,5 +309,12 @@ export default function ReservationPage() {
         </div>
       </div>
     </main>
+  );
+}
+export default function ReservationPage() {
+  return (
+    <Suspense fallback={<div className="p-10 text-center">Ielādē...</div>}>
+      <ReservationContent />
+    </Suspense>
   );
 }

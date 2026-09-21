@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-// @ts-expect-error Global CSS is handled by Next.js at build time.
 import "./globals.css";
 import { CartProvider } from "@/context/CartContext";
 import Header from "@/components/layout/Header";
