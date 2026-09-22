@@ -37,12 +37,13 @@ export default function ExtrasSection() {
   return (
     <section className="bg-white py-20">
       <div className="mx-auto max-w-7xl px-6">
+        {/* Virsraksts */}
         <div className="mx-auto mb-14 max-w-3xl text-center">
           <span className="inline-flex rounded-full bg-pink-100 px-5 py-2 text-sm font-bold uppercase tracking-[0.25em] text-pink-600">
             Papildpakalpojumi
           </span>
 
-          <h2 className="mt-5 text-5xl font-black text-slate-900">
+          <h2 className="mt-5 text-4xl font-black text-slate-900 lg:text-5xl">
             Padari ballīti vēl iespaidīgāku
           </h2>
 
@@ -52,13 +53,13 @@ export default function ExtrasSection() {
           </p>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+        {/* ================= DESKTOP ================= */}
+        <div className="hidden gap-6 sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
           {extras.map((item) => (
             <div
               key={item.title}
               className="group rounded-[28px] border border-pink-100 bg-white p-5 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-pink-300 hover:shadow-xl"
             >
-              {/* Attēls */}
               <div className="overflow-hidden rounded-2xl border border-pink-100 bg-pink-50">
                 <Image
                   src={item.image}
@@ -69,14 +70,43 @@ export default function ExtrasSection() {
                 />
               </div>
 
-              {/* Nosaukums */}
               <h3 className="mt-5 text-lg font-bold leading-6 text-slate-900">
                 {item.title}
               </h3>
 
-              {/* Cena */}
-              <div className="mt-2 text-3xl font-black text-pink-500">
+              <div className="mt-3 text-3xl font-black text-pink-500">
                 + {item.price}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* ================= MOBILE ================= */}
+        <div className="flex flex-col gap-5 sm:hidden">
+          {extras.map((item) => (
+            <div
+              key={item.title}
+              className="overflow-hidden rounded-[26px] border border-pink-100 bg-white shadow-md"
+            >
+              <div className="flex">
+                <div className="relative h-36 w-32 shrink-0">
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+
+                <div className="flex flex-1 flex-col justify-center p-5">
+                  <h3 className="text-xl font-bold leading-6 text-slate-900">
+                    {item.title}
+                  </h3>
+
+                  <div className="mt-4 text-3xl font-black text-pink-500">
+                    + {item.price}
+                  </div>
+                </div>
               </div>
             </div>
           ))}

@@ -168,9 +168,6 @@ export default function GaisaPlusmaSection() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="rounded-[40px] border border-violet-200 bg-gradient-to-br from-white via-violet-50/40 to-white p-10 shadow-xl">
           <div className="mb-12">
-            <h2 className="text-4xl font-black text-gray-900">
-              Gaisa plūsmas kostīmi
-            </h2>
 
             <div className="mt-3 h-1 w-24 rounded-full bg-violet-500"></div>
           </div>

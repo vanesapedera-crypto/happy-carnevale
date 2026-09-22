@@ -10,7 +10,6 @@ export default function VeikalsPage() {
 
       <MixedGallery
         items={[
-          { type: "video", src: "/videos/shop/1.mp4" },
           { type: "image", src: "/images/shop/gallery/1.jpg", alt: "Burbuļu bilde 1" },
           { type: "image", src: "/images/shop/gallery/2.jpg", alt: "Burbuļu bilde 2" },
           { type: "image", src: "/images/shop/gallery/3.jpg", alt: "Burbuļu bilde 3" },

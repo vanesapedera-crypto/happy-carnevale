@@ -5,6 +5,7 @@ import {
   Sparkles,
   Gift,
   Heart,
+  ChevronRight,
 } from "lucide-react";
 
 const features = [
@@ -39,13 +40,15 @@ export default function ProgramSection() {
     <section className="bg-white py-20">
       <div className="mx-auto max-w-7xl px-6">
 
+        {/* Virsraksts */}
+
         <div className="mx-auto mb-12 max-w-3xl text-center">
 
-          <span className="inline-flex rounded-full bg-pink-100 px-5 py-2 text-sm font-semibold tracking-[0.2em] uppercase text-pink-600">
+          <span className="inline-flex rounded-full bg-pink-100 px-5 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-pink-600">
             Kas iekļauts programmā
           </span>
 
-          <h2 className="mt-5 text-5xl font-black text-slate-900">
+          <h2 className="mt-5 text-4xl font-black text-slate-900 lg:text-5xl">
             Viss nepieciešamais jautrai ballītei
           </h2>
 
@@ -56,7 +59,9 @@ export default function ProgramSection() {
 
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+        {/* ================= DESKTOP ================= */}
+
+        <div className="hidden gap-6 sm:grid-cols-2 lg:grid lg:grid-cols-3 xl:grid-cols-6">
 
           {features.map((item) => {
             const Icon = item.icon;
@@ -84,6 +89,32 @@ export default function ProgramSection() {
           })}
 
         </div>
+
+        {/* ================= MOBILE ================= */}
+
+<div className="space-y-4 lg:hidden">
+  {features.map((item) => {
+    const Icon = item.icon;
+
+    return (
+      <div
+        key={item.title}
+        className="flex items-center gap-4 rounded-2xl border border-pink-100 bg-white px-5 py-4 shadow-sm"
+      >
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-pink-50">
+          <Icon
+            className="h-6 w-6 text-pink-500"
+            strokeWidth={2}
+          />
+        </div>
+
+        <h3 className="text-base font-semibold text-slate-900">
+          {item.title}
+        </h3>
+      </div>
+    );
+  })}
+</div>
 
       </div>
     </section>
