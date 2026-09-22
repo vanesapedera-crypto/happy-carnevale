@@ -161,15 +161,14 @@ export default function Hero() {
 
           <div className="mt-5 flex justify-center">
 
-          <Image
+    <Image
   src="/images/hero/group-10.svg"
   alt="Sveiki! Es esmu Burbulīte"
-  width={700}
-  height={320}
+  width={1000}
+  height={460}
   priority
-  className="w-[110%] max-w-none"
- />
-
+  className="w-full max-w-[1000px] h-auto -mt-8"
+/>
           </div>
 
           {/* Apraksts */}
