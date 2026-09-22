@@ -1,29 +1,31 @@
 import Image from "next/image";
 import Link from "next/link";
+import { FiTag } from "react-icons/fi";
+import { TbRulerMeasure } from "react-icons/tb";
 
 const animals = [
   {
     title: "Bembijs",
     image: "/kostimi/dzivnieki/bembijs.jpg",
-    price: "25 € / līdz 3 diennaktīm",
+    price: "25 €",
     size: "XS-M",
   },
   {
     title: "Bite",
     image: "/kostimi/dzivnieki/bite.jpg",
-    price: "25 € / līdz 3 diennaktīm",
+    price: "25 €",
     size: "Derēs līdz 195cm",
   },
     {
     title: "Bitīte",
     image: "/kostimi/dzivnieki/bitite.jpg",
-    price: "25 € / līdz 3 diennaktīm",
+    price: "25 €",
     size: "M",
   },
   {
     title: "Lapsa meitene",
     image: "/kostimi/dzivnieki/lapsas.jpg",
-    price: "25 € / līdz 3 diennaktīm",
+    price: "25 €",
     size: "S-L",
   },
   {
@@ -35,13 +37,13 @@ const animals = [
   {
     title: "Lauva",
     image: "/kostimi/dzivnieki/lauva.jpg",
-    price: "25 € / līdz 3 diennaktīm",
+    price: "25 €",
     size: "S-L",
   },
   {
     title: "Runcis",
     image: "/kostimi/dzivnieki/runcis.jpg",
-    price: "25 € / līdz 3 diennaktīm",
+    price: "25 €",
     size: "S-L",
   },
   {
@@ -59,37 +61,37 @@ const animals = [
   {
     title: "Zaķis (3)",
     image: "/kostimi/dzivnieki/zakis-4.jpg",
-    price: "25 € / līdz 3 diennaktīm",
+    price: "25 €",
     size: "XS-L",
   },
   {
     title: "Zaķis (4)",
     image: "/kostimi/dzivnieki/zakis-5.jpg",
-    price: "35 € / līdz 3 diennaktīm",
+    price: "35 €",
     size: "XS-XXL",
   },
   {
     title: "Zaķa zēns",
     image: "/kostimi/dzivnieki/zakis-3.jpg",
-    price: "25 € / līdz 3 diennaktīm",
+    price: "25 €",
     size: "XS-XXL",
   },
   {
     title: "Zaķa meitenīte",
     image: "/kostimi/dzivnieki/zakis-6.jpg",
-    price: "25 € / līdz 3 diennaktīm",
+    price: "25 €",
     size: "XS-XXL",
   },
   {
     title: "Žirafe",
     image: "/kostimi/dzivnieki/zirafe.jpg",
-    price: "20 € / līdz 3 diennaktīm",
+    price: "20 €",
     size: "S-L",
   },
     {
     title: "Lācis",
     image: "/kostimi/dzivnieki/lacis.jpg",
-    price: "25 € / līdz 3 diennaktīm",
+    price: "25 € ",
     size: "XS-XL",
   },
 ];
@@ -114,7 +116,8 @@ export default function DzivniekiSection() {
           </div>
 
           {/* Kartītes */}
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+{/* ================= DESKTOP ================= */}
+<div className="hidden lg:grid gap-8 lg:grid-cols-4">
 
 {animals.map((item) => (
   <div
@@ -131,42 +134,91 @@ export default function DzivniekiSection() {
       />
     </div>
 
-    {/* Saturs */}
-    <div className="flex flex-1 flex-col p-6">
+   {/* Saturs */}
+<div className="flex flex-1 flex-col p-6">
 
-      <h3 className="min-h-[64px] text-2xl font-bold leading-tight tracking-tight text-gray-900">
-        {item.title}
-      </h3>
+  <h3 className="min-h-[64px] text-2xl font-bold leading-tight tracking-tight text-gray-900">
+    {item.title}
+  </h3>
 
-      <div className="mt-5 inline-flex w-fit rounded-full bg-violet-500 px-4 py-2 text-sm font-bold text-white shadow">
-        💶 {item.price}
-      </div>
+  {/* Cena */}
+  <div className="mt-5 flex items-center gap-2 text-pink-600">
+    <FiTag className="h-5 w-5" />
+    <span className="font-semibold">{item.price}</span>
+  </div>
 
-      <p className="mt-4 text-gray-600">
-        📏 {item.size}
-      </p>
+  {/* Izmērs */}
+  <div className="mt-2 flex items-center gap-2 text-gray-600">
+    <TbRulerMeasure className="h-5 w-5" />
+    <span>{item.size}</span>
+  </div>
 
-      <Link
-        href={`/rezervacija-kostimiem?kostims=${encodeURIComponent(
-          item.title
-        )}&image=${encodeURIComponent(
-          item.image
-        )}&price=${encodeURIComponent(
-          item.price
-        )}&size=${encodeURIComponent(item.size)}`}
-        className="mt-auto flex w-full items-center justify-center rounded-full bg-gradient-to-r from-violet-500 to-violet-400 py-3.5 font-semibold text-white shadow-md transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
-      >
-        Rezervēt →
-      </Link>
+  <Link
+    href={`/rezervacija-kostimiem?kostims=${encodeURIComponent(
+      item.title
+    )}&image=${encodeURIComponent(
+      item.image
+    )}&price=${encodeURIComponent(
+      item.price
+    )}&size=${encodeURIComponent(item.size)}`}
+    className="mt-auto flex w-full items-center justify-center rounded-full bg-gradient-to-r from-violet-500 to-violet-400 py-3.5 font-semibold text-white shadow-md transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+  >
+    Rezervēt →
+  </Link>
+
+</div>
 
     </div>
-  </div>
+  
 ))}
-
-          </div>
-
+</div> 
+{/* ================= MOBILE ================= */}
+<div className="flex flex-col gap-5 lg:hidden">
+  {animals.map((item) => (
+    <div
+      key={item.title}
+      className="overflow-hidden rounded-[26px] bg-white shadow-lg"
+    >
+      <div className="flex">
+        <div className="relative h-44 w-36 shrink-0">
+          <Image
+            src={item.image}
+            alt={item.title}
+            fill
+            className="object-cover"
+          />
         </div>
 
+        <div className="flex flex-1 flex-col justify-between p-4">
+          <div>
+            <h3 className="text-2xl font-bold text-gray-900">
+              {item.title}
+            </h3>
+
+             <div className="mt-5 flex items-center gap-2 text-pink-600">
+  <FiTag className="h-5 w-5" />
+  <span className="font-semibold">{item.price}</span>
+</div>
+
+<div className="mt-2 flex items-center gap-2 text-gray-600">
+  <TbRulerMeasure className="h-5 w-5" />
+  <span>{item.size}</span>
+          </div>
+
+          <Link
+            href={`/rezervacija-kostimiem?kostims=${encodeURIComponent(item.title)}&image=${encodeURIComponent(item.image)}&price=${encodeURIComponent(item.price)}&size=${encodeURIComponent(item.size)}`}
+            className="mt-5 flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-fuchsia-500 font-semibold text-white"
+          >
+            Rezervēt →
+          </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
+
+        </div>
       </div>
     </section>
   );
