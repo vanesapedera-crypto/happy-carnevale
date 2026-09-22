@@ -186,7 +186,8 @@ export default function Hero() {
   </div>
 
 </div>
-
+{/* Bottom gradient */}
+<div className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent via-[#FFEFF7] to-white z-30" />
 </section>
 
   );
