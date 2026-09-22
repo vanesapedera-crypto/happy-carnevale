@@ -18,7 +18,11 @@ export default function RootLayout({
       <body>
         <CartProvider>
           <Header />
-          {children}
+
+          <main className="pt-16 lg:pt-24">
+            {children}
+          </main>
+
         </CartProvider>
       </body>
     </html>

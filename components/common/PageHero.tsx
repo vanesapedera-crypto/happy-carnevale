@@ -14,26 +14,38 @@ export default function PageHero({
   image,
 }: PageHeroProps) {
   return (
-    <section className="relative overflow-hidden bg-[#f7f9ff] py-24 lg:min-h-[720px] lg:flex lg:items-center">
-      {/* Background dekorācijas */}
+    <section className="relative overflow-hidden bg-[#f7f9ff] py-8 lg:min-h-[720px] lg:flex lg:items-center">
+      {/* Dekorācijas */}
       <div className="absolute -left-24 top-10 h-80 w-80 rounded-full bg-violet-200/30 blur-3xl" />
       <div className="absolute bottom-[-120px] right-[-120px] h-96 w-96 rounded-full bg-sky-200/30 blur-3xl" />
 
-      {/* Teksts */}
+      {/* Mobilais fona attēls */}
+      <div className="absolute inset-0 lg:hidden">
+        <Image
+          src={image}
+          alt={title}
+          fill
+          priority
+          sizes="100vw"
+className="object-cover object-top opacity-35"        />
+        <div className="absolute inset-0 bg-white/70" />
+      </div>
+
+      {/* Saturs */}
       <div className="relative z-20 mx-auto w-full max-w-7xl px-6">
         <div className="grid items-center lg:grid-cols-2">
-          <div className="py-10 lg:py-16">
-            <span className="inline-flex rounded-full bg-violet-100 px-5 py-2 text-sm font-bold uppercase tracking-[0.35em] text-violet-600">
+          <div className="py-6 lg:py-16">
+            <span className="inline-flex rounded-full bg-violet-100 px-4 py-2 text-xs font-bold uppercase tracking-[0.3em] text-violet-600 lg:px-5 lg:text-sm">
               {badge}
             </span>
 
-            <h1 className="mt-8 max-w-3xl text-5xl font-black leading-tight text-gray-900 lg:text-6xl">
+            <h1 className="mt-5 text-4xl font-black leading-tight text-gray-900 lg:mt-8 lg:max-w-3xl lg:text-6xl">
               {title}
             </h1>
 
-            <div className="mt-8 h-1 w-24 rounded-full bg-violet-500" />
+            <div className="mt-6 h-1 w-20 rounded-full bg-violet-500 lg:mt-8 lg:w-24" />
 
-            <p className="mt-8 max-w-2xl text-xl leading-9 text-gray-600">
+            <p className="mt-6 max-w-xl text-base leading-7 text-gray-700 lg:mt-8 lg:text-xl lg:leading-9">
               {description}
             </p>
           </div>
@@ -55,26 +67,6 @@ export default function PageHero({
                 "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.05) 8%, rgba(0,0,0,0.2) 18%, rgba(0,0,0,0.45) 30%, rgba(0,0,0,0.7) 42%, rgba(0,0,0,0.88) 54%, black 68%, black 100%)",
               maskImage:
                 "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.05) 8%, rgba(0,0,0,0.2) 18%, rgba(0,0,0,0.45) 30%, rgba(0,0,0,0.7) 42%, rgba(0,0,0,0.88) 54%, black 68%, black 100%)",
-            }}
-          />
-        </div>
-      </div>
-
-      {/* Mobilā bilde */}
-      <div className="relative mt-8 px-6 lg:hidden">
-        <div className="relative mx-auto h-[360px] w-full max-w-[600px]">
-          <Image
-            src={image}
-            alt={title}
-            fill
-            priority
-            sizes="100vw"
-            className="object-contain object-bottom"
-            style={{
-              WebkitMaskImage:
-                "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.35) 18%, rgba(0,0,0,0.7) 40%, black 65%, black 100%)",
-              maskImage:
-                "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.35) 18%, rgba(0,0,0,0.7) 40%, black 65%, black 100%)",
             }}
           />
         </div>

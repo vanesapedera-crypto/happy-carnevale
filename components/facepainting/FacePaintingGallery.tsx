@@ -12,7 +12,6 @@ const images = [
   "/images/facepainting/5.jpg",
   "/images/facepainting/6.jpg",
   "/images/facepainting/7.jpg",
-  
 ];
 
 export default function FacePaintingGallery() {
@@ -27,12 +26,10 @@ export default function FacePaintingGallery() {
   };
 
   return (
-    <div className="w-full">
+<div className="mx-auto w-full max-w-[360px] lg:max-w-none">
+        {/* Galvenā bilde */}
 
-      {/* Galvenais attēls */}
-
-      <div className="relative aspect-[4/5] overflow-hidden rounded-[32px] border border-gray-200 shadow-xl">
-
+      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl border border-gray-200 shadow-xl">
         <Image
           src={images[current]}
           alt={`Sejas apgleznošana ${current + 1}`}
@@ -44,33 +41,32 @@ export default function FacePaintingGallery() {
         <button
           type="button"
           onClick={prev}
-          className="absolute left-4 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-lg transition hover:scale-105"
+          className="absolute left-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-md"
         >
-          <ChevronLeft size={22} />
+          <ChevronLeft size={18} />
         </button>
 
         <button
           type="button"
           onClick={next}
-          className="absolute right-4 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-lg transition hover:scale-105"
+          className="absolute right-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-md"
         >
-          <ChevronRight size={22} />
+          <ChevronRight size={18} />
         </button>
       </div>
 
       {/* Miniatūras */}
 
-      <div className="mt-5 flex gap-3 overflow-x-auto pb-2">
-
+      <div className="mt-3 flex justify-center gap-2 overflow-x-auto pb-2">
         {images.map((image, index) => (
           <button
             key={image}
             type="button"
             onClick={() => setCurrent(index)}
-            className={`relative h-20 w-20 shrink-0 overflow-hidden rounded-2xl border-2 transition ${
+            className={`relative h-12 w-12 shrink-0 overflow-hidden rounded-xl border-2 ${
               current === index
                 ? "border-pink-500"
-                : "border-gray-200 hover:border-pink-300"
+                : "border-gray-200"
             }`}
           >
             <Image
@@ -81,9 +77,7 @@ export default function FacePaintingGallery() {
             />
           </button>
         ))}
-
       </div>
-
     </div>
   );
 }
