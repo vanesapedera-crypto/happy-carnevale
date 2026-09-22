@@ -1,12 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-  ArrowRight,
-  Sparkles,
-  VenetianMask,
-  PartyPopper,
-  Award,
-} from "lucide-react";
+
 
 export default function Hero() {
   return (
@@ -14,92 +8,109 @@ export default function Hero() {
 
       {/* ================= DESKTOP ================= */}
 
-      <div className="hidden lg:block">
+<div className="hidden lg:block">
 
-        <Image
-          src="/images/hero/bubble.png"
-          alt=""
-          width={260}
-          height={260}
-          className="absolute right-32 top-16 z-0 opacity-40"
-        />
+  {/* Burbuļi */}
+  <Image
+    src="/images/hero/bubble.png"
+    alt=""
+    width={260}
+    height={260}
+    className="absolute right-32 top-16 z-0 opacity-40 select-none"
+  />
 
-        <Image
-          src="/images/hero/bubble.png"
-          alt=""
-          width={150}
-          height={150}
-          className="absolute right-12 top-80 z-0 opacity-30"
-        />
+  <Image
+    src="/images/hero/bubble.png"
+    alt=""
+    width={150}
+    height={150}
+    className="absolute right-12 top-80 z-0 opacity-30 select-none"
+  />
 
-        <Image
-          src="/images/hero/bubble.png"
-          alt=""
-          width={100}
-          height={100}
-          className="absolute bottom-40 right-[430px] z-0 opacity-25"
-        />
+  <Image
+    src="/images/hero/bubble.png"
+    alt=""
+    width={100}
+    height={100}
+    className="absolute bottom-40 right-[430px] z-0 opacity-25 select-none"
+  />
 
-        <Image
-          src="/images/hero/hero-right.png"
-          alt="Burbulīte"
-          width={1000}
-          height={1100}
-          priority
-          className="absolute -right-48 bottom-0 z-10 h-[96%] w-auto object-contain"
-        />
+  {/* Burbulīte */}
+  <Image
+    src="/images/hero/hero-right.png"
+    alt="Burbulīte"
+    width={1800}
+    height={2200}
+    quality={100}
+    priority
+    className="absolute -right-36 bottom-0 z-10 h-[98%] w-auto object-contain select-none"
+  />
 
-        <div className="relative z-20 mx-auto flex min-h-screen max-w-7xl items-center px-6">
+  <div className="relative z-20 mx-auto flex min-h-screen max-w-7xl items-center px-6">
 
-          <div className="relative -ml-12 w-full max-w-[760px]">
+    <div className="relative -ml-8 w-full max-w-[780px]">
 
-            <Image
-              src="/images/hero/hero-bubble.svg"
-              alt="Happy Carnevale"
-              width={760}
-              height={700}
-              priority
-              className="h-auto w-full"
-            />
+      {/* SVG */}
+      <Image
+        src="/images/hero/hero-bubble.svg"
+        alt="Happy Carnevale"
+        width={1600}
+        height={1450}
+        priority
+        unoptimized
+        className="w-full h-auto select-none"
+      />
 
-            <div className="absolute left-1/2 top-[59%] w-[360px] -translate-x-1/2">
+      {/* Teksts */}
+      <div className="absolute left-1/2 top-[58%] w-[380px] -translate-x-1/2">
 
-              <p className="text-[18px] leading-8 text-gray-700">
-                Priecājos Tevi redzēt!
-                <br />
-                Pie mums vari iznomāt košus kostīmus,
-                <br />
-                satikt iemīļotus pasaku tēlus,
-                <br />
-                uzaicināt animatoru un iegādāties
-                visu milzu ziepju burbuļu salūtam.
-              </p>
+  <p className="text-[19px] leading-9 text-gray-700">
+    Priecājos Tevi redzēt!
+    <br />
+    Pie mums vari iznomāt košus kostīmus,
+    <br />
+    satikt iemīļotus pasaku tēlus,
+    <br />
+    uzaicināt animatoru un iegādāties
+    <br />
+    visu milzu ziepju burbuļu salūtam.
+  </p>
 
-            </div>
+</div>
 
-            <div className="absolute bottom-20 left-1/2 flex -translate-x-1/2 gap-5">
+      {/* Pogas */}
+<div className="absolute bottom-20 left-1/2 -translate-x-1/2 translate-y-5">
+  <Link
+    href="/kostimu-noma"
+    className="
+      flex
+      h-10
+      w-[250px]
+      items-center
+      justify-center
+      rounded-full
+      bg-gradient-to-r
+      from-pink-500
+      to-pink-500
+      text-base
+      font-semibold
+      text-white
+      shadow-lg
+      transition-all
+      duration-300
+      hover:-translate-y-0.5
+      hover:shadow-xl
+    "
+  >
+    Kostīmu noma
+  </Link>
+</div>
 
-              <Link
-                href="/kostimu-noma"
-                className="rounded-full bg-pink-500 px-8 py-4 font-semibold text-white transition hover:bg-pink-600"
-              >
-                Kostīmu noma
-              </Link>
+    </div>
 
-              <Link
-                href="/veikals"
-                className="rounded-full border-2 border-pink-500 bg-white px-8 py-4 font-semibold text-pink-500 transition hover:bg-pink-500 hover:text-white"
-              >
-                Burbulītes burbuļi
-              </Link>
+  </div>
 
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
+</div>
 
       {/* ================= MOBILE ================= */}
 
@@ -130,7 +141,7 @@ export default function Hero() {
     width={900}
     height={1100}
     priority
-    className="relative z-10 w-[130%] max-w-[600px] -mt-12 object-contain"
+    className="relative z-10 w-[130%] max-w-[600px] -mt-4 object-contain"
   />
 
   {/* Gradient pāreja */}
@@ -173,58 +184,68 @@ export default function Hero() {
 
           {/* Apraksts */}
 
-          <p className="mx-auto mt-6 max-w-[340px] text-center text-[17px] leading-8 text-gray-600">
-            Pie mums vari iznomāt košus kostīmus,
-            satikt iemīļotus pasaku tēlus,
-            uzaicināt animatoru un iegādāties
-            visu milzu ziepju burbuļu salūtam.
-          </p>
+<p className="mx-auto mt-6 max-w-[340px] text-center text-[17px] leading-8 text-gray-600">
+  Pie mums vari iznomāt košus kostīmus,
+  satikt iemīļotus pasaku tēlus,
+  uzaicināt animatoru un iegādāties
+  visu milzu ziepju burbuļu salūtam.
+</p>
 
-          {/* ================= CTA ================= */}
+{/* ================= CTA ================= */}
 
-          <div className="mt-9 flex flex-col gap-4">
+<div className="mt-10 flex flex-col gap-5">
 
-            <Link
-              href="/kostimu-noma"
-              className="group flex h-16 items-center justify-between rounded-full bg-gradient-to-r from-pink-500 to-fuchsia-500 px-6 text-white shadow-[0_18px_40px_rgba(236,72,153,0.35)] transition active:scale-95"
-            >
-              <div className="flex items-center gap-4">
+  <Link
+    href="/kostimu-noma"
+    className="
+      flex
+      h-16
+      items-center
+      justify-center
+      rounded-full
+      bg-gradient-to-r
+      from-pink-500
+      to-fuchsia-500
+      text-white
+      text-lg
+      font-bold
+      shadow-[0_18px_40px_rgba(236,72,153,0.35)]
+      transition-all
+      duration-300
+      hover:-translate-y-1
+      hover:shadow-[0_24px_45px_rgba(236,72,153,0.45)]
+      active:scale-95
+    "
+  >
+    Kostīmu noma
+  </Link>
 
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20">
-                  <VenetianMask size={20} />
-                </div>
+  <Link
+    href="/veikals"
+    className="
+      flex
+      h-16
+      items-center
+      justify-center
+      rounded-full
+      border-2
+      border-pink-500
+      bg-white
+      text-pink-500
+      text-lg
+      font-bold
+      shadow-[0_12px_30px_rgba(236,72,153,0.15)]
+      transition-all
+      duration-300
+      hover:-translate-y-1
+      hover:bg-pink-50
+      active:scale-95
+    "
+  >
+    Burbulītes burbuļi
+  </Link>
 
-                <span className="text-lg font-bold">
-                  Kostīmu noma
-                </span>
-
-              </div>
-
-              <ArrowRight size={22} />
-
-            </Link>
-
-            <Link
-              href="/veikals"
-              className="group flex h-16 items-center justify-between rounded-full border-2 border-pink-500 bg-white px-6 text-pink-500 shadow-lg transition active:scale-95"
-            >
-              <div className="flex items-center gap-4">
-
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-pink-100">
-                  <Sparkles size={20} />
-                </div>
-
-                <span className="text-lg font-bold">
-                  Burbulītes burbuļi
-                </span>
-
-              </div>
-
-              <ArrowRight size={22} />
-
-            </Link>
-
-          </div>
+</div>
         
 </div>
 

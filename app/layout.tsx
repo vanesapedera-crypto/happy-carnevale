@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
+
 import { CartProvider } from "@/context/CartContext";
+
 import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
   title: "Happy Carneval",
@@ -19,10 +22,11 @@ export default function RootLayout({
         <CartProvider>
           <Header />
 
-          <main className="pt-16 lg:pt-24">
+          <main className="pt-16 lg:pt-24 min-h-screen">
             {children}
           </main>
 
+          <Footer />
         </CartProvider>
       </body>
     </html>

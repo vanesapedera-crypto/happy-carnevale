@@ -1,71 +1,115 @@
-import Link from "next/link";
-import Container from "@/components/ui/Container";
-import Logo from "@/components/ui/Logo";
-import { NAV_LINKS, SITE, SOCIAL_LINKS } from "@/lib/constants";
+import Image from "next/image";
+import {
+  FaInstagram,
+  FaFacebookF,
+  FaTiktok,
+  FaPhoneAlt,
+  FaEnvelope,
+  FaMapMarkerAlt,
+} from "react-icons/fa";
 
 export default function Footer() {
-  const year = new Date().getFullYear();
-
   return (
-    <footer className="border-t border-ink/5 bg-white">
-      <Container className="grid gap-12 py-16 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="flex flex-col gap-4 sm:col-span-2 lg:col-span-1">
-          <Logo />
-          <p className="max-w-xs text-sm leading-relaxed text-ink/55">
-            {SITE.description}
+    <footer className="border-t border-pink-100 bg-gradient-to-b from-white to-[#FFF4F9]">
+      <div className="mx-auto max-w-7xl px-6 py-10">
+
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+
+          {/* Logo */}
+          <div>
+            <Image
+              src="/images/logo.png"
+              alt="Happy Carnevale"
+              width={180}
+              height={70}
+              className="w-44 h-auto"
+              priority
+            />
+
+            <p className="mt-4 max-w-xs text-gray-600 leading-7">
+              Radām neaizmirstamus svētkus bērniem visā Latvijā.
+            </p>
+          </div>
+
+          {/* Kontakti */}
+          <div>
+            <h3 className="text-lg font-semibold text-gray-900">
+              Kontakti
+            </h3>
+
+            <div className="mt-4 space-y-3">
+
+              <a
+                href="tel:+37126126313"
+                className="flex items-center gap-3 text-gray-600 transition hover:text-pink-500"
+              >
+                <FaPhoneAlt className="text-pink-500 text-sm" />
+                <span>+371 26 126 313</span>
+              </a>
+
+              <a
+                href="mailto:carnevalehappy@gmail.com"
+                className="flex items-center gap-3 text-gray-600 transition hover:text-pink-500"
+              >
+                <FaEnvelope className="text-pink-500 text-sm" />
+                <span>carnevalehappy@gmail.com</span>
+              </a>
+
+              <div className="flex items-center gap-3 text-gray-600">
+                <FaMapMarkerAlt className="text-pink-500 text-sm" />
+                <span>Stabu iela 90, Rīga</span>
+              </div>
+
+            </div>
+          </div>
+
+          {/* Sociālie tīkli */}
+          <div>
+            <h3 className="text-lg font-semibold text-gray-900">
+              Seko mums
+            </h3>
+
+            <div className="mt-4 flex gap-3">
+
+              <a
+                href="https://www.instagram.com/burbulites_burbuli/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-pink-200 bg-white text-pink-500 transition-all duration-300 hover:bg-pink-500 hover:text-white hover:shadow-md"
+              >
+                <FaInstagram size={19} />
+              </a>
+
+              <a
+                href="https://www.facebook.com/Burbulitesburbuli"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-pink-200 bg-white text-pink-500 transition-all duration-300 hover:bg-pink-500 hover:text-white hover:shadow-md"
+              >
+                <FaFacebookF size={17} />
+              </a>
+
+              <a
+                href="https://www.tiktok.com/@burbulitesburbuli"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-pink-200 bg-white text-pink-500 transition-all duration-300 hover:bg-pink-500 hover:text-white hover:shadow-md"
+              >
+                <FaTiktok size={17} />
+              </a>
+
+            </div>
+          </div>
+
+        </div>
+
+        {/* Apakšējā līnija */}
+        <div className="mt-8 border-t border-pink-100 pt-4">
+          <p className="text-center text-sm text-gray-500">
+            © {new Date().getFullYear()} Happy Carnevale. Visas tiesības aizsargātas.
           </p>
         </div>
 
-        <div className="flex flex-col gap-3">
-          <span className="text-sm font-medium text-ink">Navigācija</span>
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-sm text-ink/55 transition-colors hover:text-primary"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </div>
-
-        <div className="flex flex-col gap-3">
-          <span className="text-sm font-medium text-ink">Kontakti</span>
-          <a href={SITE.phoneHref} className="text-sm text-ink/55 hover:text-primary">
-            {SITE.phone}
-          </a>
-          <a
-            href={`mailto:${SITE.email}`}
-            className="text-sm text-ink/55 hover:text-primary"
-          >
-            {SITE.email}
-          </a>
-          <span className="text-sm text-ink/55">{SITE.address}</span>
-        </div>
-
-        <div className="flex flex-col gap-3">
-          <span className="text-sm font-medium text-ink">Seko līdzi</span>
-          <div className="flex flex-col gap-3">
-            {SOCIAL_LINKS.map((social) => (
-              <a
-                key={social.label}
-                href={social.href}
-                target="_blank"
-                rel="noreferrer"
-                className="text-sm text-ink/55 hover:text-primary"
-              >
-                {social.label}
-              </a>
-            ))}
-          </div>
-        </div>
-      </Container>
-
-      <div className="border-t border-ink/5 py-6">
-        <Container className="flex flex-col items-center justify-between gap-2 text-xs text-ink/40 sm:flex-row">
-          <span>© {year} Happy Carnevale. Visas tiesības aizsargātas.</span>
-          <span>Rīga, Latvija</span>
-        </Container>
       </div>
     </footer>
   );
