@@ -26,13 +26,6 @@ export default function CitiTeliPage() {
           </a>
 
           <a
-            href="#parukas"
-            className="whitespace-nowrap rounded-full border border-violet-200 bg-white px-5 py-3 text-sm font-semibold text-violet-600 transition hover:bg-violet-50"
-          >
-            Parūkas
-          </a>
-
-          <a
             href="#uzvalki"
             className="whitespace-nowrap rounded-full border border-violet-200 bg-white px-5 py-3 text-sm font-semibold text-violet-600 transition hover:bg-violet-50"
           >
@@ -44,6 +37,13 @@ export default function CitiTeliPage() {
             className="whitespace-nowrap rounded-full border border-violet-200 bg-white px-5 py-3 text-sm font-semibold text-violet-600 transition hover:bg-violet-50"
           >
             Retro
+          </a>
+
+            <a
+            href="#parukas"
+            className="whitespace-nowrap rounded-full border border-violet-200 bg-white px-5 py-3 text-sm font-semibold text-violet-600 transition hover:bg-violet-50"
+          >
+            Parūkas
           </a>
         </div>
       </div>
