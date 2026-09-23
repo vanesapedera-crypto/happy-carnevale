@@ -51,9 +51,6 @@ export default function CitiTeliPage() {
         <SmiekligiTeliSection />
       </section>
 
-      <section id="parukas" className="scroll-mt-24">
-        <ParukasSection />
-      </section>
 
       <section id="retro" className="scroll-mt-24">
         <RetroSection />
@@ -61,6 +58,10 @@ export default function CitiTeliPage() {
 
       <section id="uzvalki" className="scroll-mt-24">
         <UzvalkiSection />
+      </section>
+
+       <section id="parukas" className="scroll-mt-24">
+        <ParukasSection />
       </section>
     </main>
   );
