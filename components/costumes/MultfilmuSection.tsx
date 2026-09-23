@@ -13,7 +13,7 @@ const cartoons = [
   {
     title: "Bailīgā mūķene",
     image: "/kostimi/multfilmu/bailiga-mukene.jpg",
-    price: "20 €",
+    price: "25 €",
     size: "XS-L",
   },
   {
