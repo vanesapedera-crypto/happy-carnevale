@@ -11,19 +11,19 @@ import {
 const features = [
   {
     icon: Theater,
-    title: "Pasaku tēls",
+    title: "Teatrāla pasaku tēla ierašanās",
   },
   {
     icon: Dices,
-    title: "Spēles un stafetes",
+    title: "Jautras spēles un uzdevumi",
   },
   {
     icon: PartyPopper,
-    title: "Balonu figūras",
+    title: "Balonu modelēšana",
   },
   {
     icon: Sparkles,
-    title: "Glitter Tattoo",
+    title: "Tematiskie tetovējumi",
   },
   {
     icon: Gift,

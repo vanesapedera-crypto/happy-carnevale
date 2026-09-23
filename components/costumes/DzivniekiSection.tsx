@@ -58,6 +58,12 @@ const animals = [
     price: "25 € / līdz 3 diennaktīm",
     size: "S-L",
   },
+   {
+    title: "Pīle",
+    image: "/kostimi/smiekligi-teli/IMG_6832.jpg",
+    price: "25 €",
+    size: "XS-L",
+  },
   {
     title: "Zaķis (3)",
     image: "/kostimi/dzivnieki/zakis-4.jpg",

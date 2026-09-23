@@ -27,7 +27,7 @@ const extras = [
     image: "/images/events/animatori/led-disco.jpg",
   },
   {
-    title: "Folijas Disco",
+    title: "Follija Disco",
     price: "70 €",
     image: "/images/events/animatori/folijas-disco.jpg",
   },

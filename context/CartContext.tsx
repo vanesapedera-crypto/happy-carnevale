@@ -29,6 +29,7 @@ type CartContextValue = {
 };
 
 const CartContext = createContext<CartContextValue | undefined>(undefined);
+
 const STORAGE_KEY = "happy-carneval-cart";
 
 function loadInitialItems(): CartItem[] {
@@ -49,13 +50,21 @@ export function CartProvider({ children }: { children: ReactNode }) {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
   }, [items]);
 
-  const addItem = (item: Omit<CartItem, "quantity">, quantity = 1) => {
+  const addItem = (
+    item: Omit<CartItem, "quantity">,
+    quantity = 1
+  ) => {
+    console.log("ADD ITEM");
+    console.log(item);
+
     setItems((current) => {
       const existing = current.find((x) => x.id === item.id);
 
       if (existing) {
         return current.map((x) =>
-          x.id === item.id ? { ...x, quantity: x.quantity + quantity } : x,
+          x.id === item.id
+            ? { ...x, quantity: x.quantity + quantity }
+            : x
         );
       }
 
@@ -70,19 +79,31 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const updateQuantity = (id: string, quantity: number) => {
     setItems((current) =>
       current
-        .map((x) => (x.id === id ? { ...x, quantity } : x))
-        .filter((x) => x.quantity > 0),
+        .map((x) =>
+          x.id === id
+            ? { ...x, quantity }
+            : x
+        )
+        .filter((x) => x.quantity > 0)
     );
   };
 
-  const clearCart = () => setItems([]);
+  const clearCart = () => {
+    setItems([]);
+  };
 
-  const subtotal = useMemo(
-    () => items.reduce((sum, item) => sum + item.price * item.quantity, 0),
-    [items],
-  );
+  const subtotal = useMemo(() => {
+    return items.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0
+    );
+  }, [items]);
 
-  const shipping = subtotal >= 40 || items.length === 0 ? 0 : 4.5;
+  const shipping =
+    subtotal >= 40 || items.length === 0
+      ? 0
+      : 4.5;
+
   const total = subtotal + shipping;
 
   return (
@@ -105,8 +126,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
 export function useCart() {
   const context = useContext(CartContext);
+
   if (!context) {
-    throw new Error("useCart must be used inside CartProvider");
+    throw new Error(
+      "useCart must be used inside CartProvider"
+    );
   }
+
   return context;
 }

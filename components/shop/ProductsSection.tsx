@@ -50,7 +50,7 @@ const products = [
     id: "kocins-4",
     slug: "burbulu-kocins-4",
     title: "Burbuļu kociņš Nr.4",
-    description: "Veido četrus burbuļus vienlaicīgi.",
+    description: "Veido daudz burbuļus vienlaicīgi.",
     price: "8.00 €",
     image: "/images/shop/burbulu-kocins-4.png",
   },
