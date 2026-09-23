@@ -1,8 +1,9 @@
 import PageHero from "@/components/common/PageHero";
 import SmiekligiTeliSection from "@/components/costumes/SmiekligiTeliSection";
-import ParukasSection from "@/components/costumes/ParukasSection";
 import RetroSection from "@/components/costumes/RetroSection";
 import UzvalkiSection from "@/components/costumes/UzvalkiSection";
+import ParukasSection from "@/components/costumes/ParukasSection";
+
 
 export default function CitiTeliPage() {
   return (
