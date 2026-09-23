@@ -38,8 +38,9 @@ export default function ReservationForm() {
     berni: "",
     vecums: "",
 
-    tels: "",
-    ilgums: "",
+   tels: "",
+telsImage: "",
+ilgums: "",
 
     jubilars: "",
     jubilaraVecums: "",
@@ -318,19 +319,30 @@ export default function ReservationForm() {
           success={success}
         />
       </form>
-            <AnimatorSelectorModal
-                open={openAnimatorSelector}
-                onClose={() => setOpenAnimatorSelector(false)}
-                onSelect={(character) => setForm((prev) => ({ ...prev, tels: String(character) }))}
-      />
+           <AnimatorSelectorModal
+  open={openAnimatorSelector}
+  onClose={() => setOpenAnimatorSelector(false)}
+  onSelect={(character) =>
+    setForm((prev) => ({
+      ...prev,
+      tels: character.name,
+      telsImage: character.image,
+    }))
+  }
+/>
 
       <MascotSelectorModal
-        open={openMascotSelector}
-        onClose={() => setOpenMascotSelector(false)}
-              onSelect={(character) =>
-                setForm((prev) => ({ ...prev, tels: String(character) }))
-              }
-      />
+  open={openMascotSelector}
+  onClose={() => setOpenMascotSelector(false)}
+  onSelect={(character) => {
+    setForm((prev) => ({
+      ...prev,
+      tels: character.name,
+      telsImage: character.image,
+    }));
+    setOpenMascotSelector(false);
+  }}
+/>
     </>
   );
 }

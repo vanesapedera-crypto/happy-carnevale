@@ -6,7 +6,10 @@ import { animatorCharacters } from "@/data/animatorCharacters";
 type Props = {
   open: boolean;
   onClose: () => void;
-  onSelect: (name: string) => void;
+  onSelect: (character: {
+    name: string;
+    image: string;
+  }) => void;
 };
 
 export default function AnimatorSelectorModal({
@@ -45,10 +48,10 @@ export default function AnimatorSelectorModal({
             <button
               key={item.name}
               type="button"
-              onClick={() => {
-                onSelect(item.name);
-                onClose();
-              }}
+           onClick={() => {
+  onSelect(item);
+  onClose();
+}}
               className="overflow-hidden rounded-3xl border border-pink-100 bg-white transition hover:border-pink-500 hover:shadow-xl"
             >
               <div className="relative aspect-[3/4]">

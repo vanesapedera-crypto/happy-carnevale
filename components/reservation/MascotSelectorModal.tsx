@@ -8,7 +8,7 @@ import { X } from "lucide-react";
 type Props = {
   open: boolean;
   onClose: () => void;
-  onSelect: (name: string) => void;
+  onSelect: (character: { name: string; image: string }) => void;
 };
 
 export default function MascotSelectorModal({
@@ -71,9 +71,9 @@ export default function MascotSelectorModal({
                   key={item.name}
                   type="button"
                   onClick={() => {
-                    onSelect(item.name);
-                    onClose();
-                  }}
+  onSelect(item);
+  onClose();
+}}
                   className="group overflow-hidden rounded-3xl border border-pink-100 bg-white transition hover:-translate-y-1 hover:border-pink-500 hover:shadow-xl"
                 >
                   <div className="relative aspect-[3/4] overflow-hidden bg-pink-50">
@@ -113,9 +113,9 @@ export default function MascotSelectorModal({
                   key={item.name}
                   type="button"
                   onClick={() => {
-                    onSelect(item.name);
-                    onClose();
-                  }}
+  onSelect(item);
+  onClose();
+}}
                   className="group overflow-hidden rounded-3xl border border-pink-100 bg-white transition hover:-translate-y-1 hover:border-pink-500 hover:shadow-xl"
                 >
                   <div className="relative aspect-[3/4] overflow-hidden bg-pink-50">
