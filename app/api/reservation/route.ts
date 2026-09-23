@@ -13,60 +13,104 @@ export async function POST(req: Request) {
       subject: "🎭 Jauna kostīmu rezervācija",
 
       html: `
-        <div style="max-width:700px;margin:auto;font-family:Arial,sans-serif;background:#fff;border-radius:20px;border:1px solid #eee;overflow:hidden;">
+      <div style="max-width:700px;margin:auto;font-family:Arial,sans-serif;background:#fff;border-radius:20px;border:1px solid #eee;overflow:hidden;">
 
-          <div style="background:#ec4899;padding:25px;text-align:center;">
-            <h1 style="color:#fff;margin:0;">🎭 Happy Carnevale</h1>
-            <p style="color:#fff;margin-top:8px;">
-              Jauna kostīmu rezervācija
-            </p>
-          </div>
+        <div style="background:#ec4899;padding:25px;text-align:center;">
+          <h1 style="color:#fff;margin:0;">🎭 Happy Carnevale</h1>
+          <p style="color:#fff;margin-top:8px;">
+            Jauna kostīmu rezervācija
+          </p>
+        </div>
 
-          <div style="padding:35px;">
+        <div style="padding:35px;">
 
+          ${
+            body.image
+              ? `
+              <div style="text-align:center;margin-bottom:30px;">
+                <img
+                  src="https://happycarnevale.lv${body.image}"
+                  alt="${body.costume || ""}"
+                  style="max-width:300px;width:100%;border-radius:16px;border:1px solid #ddd;"
+                />
+              </div>
+              `
+              : ""
+          }
+
+          <h2 style="color:#ec4899;margin-bottom:20px;">
+            ${body.costume || "-"}
+          </h2>
+
+          <hr style="margin:25px 0;">
+
+          <h3>👤 Klienta informācija</h3>
+
+          <p><strong>Vārds:</strong> ${body.name || "-"}</p>
+
+          <p><strong>Tālrunis:</strong> ${body.phone || "-"}</p>
+
+          <p><strong>E-pasts:</strong> ${body.email || "-"}</p>
+
+          <hr style="margin:25px 0;">
+
+          <h3>🎭 Kostīma informācija</h3>
+
+          <p><strong>Kostīms:</strong> ${body.costume || "-"}</p>
+
+          <p><strong>Cena:</strong> ${body.price || "-"}</p>
+
+          <p><strong>Izmērs:</strong> ${body.size || "-"}</p>
+
+          <hr style="margin:25px 0;">
+
+          <h3>📅 Rezervācijas informācija</h3>
+
+          <p><strong>Pasākuma datums:</strong> ${body.date || "-"}</p>
+
+          <p><strong>Saņemšanas datums:</strong> ${
+            body.pickupDate || "-"
+          }</p>
+
+          <p>
+            <strong>Saņemšanas veids:</strong>
             ${
-              body.image
-                ? `
-                <div style="text-align:center;margin-bottom:30px;">
-                  <img
-                    src="https://happycarnevale.lv${body.image}"
-                    alt="${body.costume || ""}"
-                    style="max-width:280px;width:100%;border-radius:16px;border:1px solid #ddd;"
-                  />
-                </div>
-                `
-                : ""
+              body.delivery === "pickup"
+                ? "Saņemšana klātienē"
+                : body.delivery === "address"
+                ? "Piegāde uz adresi"
+                : body.delivery === "omniva"
+                ? "Pakomāts"
+                : "-"
             }
+          </p>
 
-            <h2 style="color:#ec4899;margin-bottom:20px;">
-              ${body.costume || "-"}
-            </h2>
+          ${
+            body.address
+              ? `
+              <p>
+                <strong>${
+                  body.delivery === "omniva"
+                    ? "Pakomāts"
+                    : "Piegādes adrese"
+                }:</strong>
+                ${body.address}
+              </p>
+              `
+              : ""
+          }
 
-            <hr style="margin:25px 0;">
+          <hr style="margin:25px 0;">
 
-            <h3>👤 Klienta informācija</h3>
+          <h3>💬 Papildu informācija</h3>
 
-            <p><strong>Vārds:</strong> ${body.name || "-"}</p>
-            <p><strong>Tālrunis:</strong> ${body.phone || "-"}</p>
-            <p><strong>E-pasts:</strong> ${body.email || "-"}</p>
-
-            <hr style="margin:25px 0;">
-
-            <h3>📅 Rezervācijas informācija</h3>
-
-            <p><strong>Datums:</strong> ${body.date || "-"}</p>
-
-            <hr style="margin:25px 0;">
-
-            <h3>💬 Papildu informācija</h3>
-
-            <div style="background:#fafafa;padding:18px;border-radius:12px;">
-              ${body.message || "-"}
-            </div>
-
+          <div style="background:#fafafa;padding:18px;border-radius:12px;">
+            ${body.message || "-"}
           </div>
 
         </div>
+
+      </div>
       `,
     });
 
