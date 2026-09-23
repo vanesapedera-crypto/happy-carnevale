@@ -16,6 +16,12 @@ const cartoons = [
     price: "25 €",
     size: "XS-L",
   },
+   {
+    title: "Malificienta",
+    image: "/kostimi/multfilmu/malificienta.jpg",
+    price: "25 €",
+    size: "XS-L",
+  },
   {
     title: "Bings",
     image: "/kostimi/multfilmu/bings.jpg",

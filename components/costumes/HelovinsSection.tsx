@@ -37,16 +37,16 @@ const halloween = [
     size: "XS-L",
   },
    {
-    title: "Klauns",
-    image: "/kostimi/multfilmu/klauns.jpg",
-    price: "20 €",
-    size: "S-L",
-  },
-   {
     title: "Džokers (1)",
     image: "/kostimi/multfilmu/dzokers-1.jpg",
     price: "25 €",
     size: "M-L",
+  },
+   {
+    title: "Malificienta",
+    image: "/kostimi/multfilmu/malificienta.jpg",
+    price: "25 €",
+    size: "XS-L",
   },
   {
     title: "Džokers (2)",

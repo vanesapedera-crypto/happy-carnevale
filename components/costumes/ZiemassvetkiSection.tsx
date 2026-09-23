@@ -52,6 +52,12 @@ const christmas = [
     price: "30 €",
     size: "160-190 cm",
   },
+  {
+    title: "Sniegavīrs",
+    image: "/kostimi/ziemassvetki/sniegavirs.jpg",
+    price: "25 €",
+    size: "XS-L",
+  },
 ];
 
 export default function ZiemassvetkiSection() {
