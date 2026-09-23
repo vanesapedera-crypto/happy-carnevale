@@ -54,8 +54,8 @@ const seasonalCategories = [
 export default function PasakumuOrganizesanaPage() {
   return (
     <main className="bg-[#fff7fb] pb-24">
-<section className="relative overflow-hidden pt-15 pb-12 lg:pt-20 lg:pb-20">
-          <div className="absolute left-[-80px] top-10 h-72 w-72 rounded-full bg-pink-200/50 blur-3xl" />
+<section className="relative overflow-hidden pt-4 pb-12 lg:pt-10 lg:pb-20">
+            <div className="absolute left-[-80px] top-10 h-72 w-72 rounded-full bg-pink-200/50 blur-3xl" />
         <div className="absolute right-[-100px] top-20 h-80 w-80 rounded-full bg-yellow-200/40 blur-3xl" />
 
          <Image
@@ -97,8 +97,8 @@ className="pointer-events-none hidden lg:block absolute left-[-26px] top-80 z-0 
   className="pointer-events-none hidden lg:block absolute left-7 top-24 z-0 h-auto w-32"
 />
 
-<div className="relative z-10 mx-auto max-w-7xl px-5 pt-8 lg:px-6 lg:pt-20">
-              <div className="mb-8 flex items-center justify-center gap-6">
+<div className="relative z-10 mx-auto max-w-7xl px-5 lg:px-6">
+                  <div className="mb-8 flex items-center justify-center gap-6">
 <div className="hidden h-px w-28 bg-pink-200 lg:block" />
 <h2 className="text-center text-lg font-black uppercase tracking-[0.2em] text-pink-500 sm:text-xl lg:text-2xl lg:tracking-[0.45em]">              Galvenās kategorijas
             </h2>
@@ -142,8 +142,8 @@ className="pointer-events-none hidden lg:block absolute left-[-26px] top-80 z-0 
         </div>
       </section>
 
-      <section className="relative mx-auto mt-10 max-w-7xl overflow-hidden px-5 lg:mt-16 lg:px-6">
-        <div className="absolute left-[-80px] top-0 h-72 w-72 rounded-full bg-pink-200/40 blur-3xl" />
+<section className="relative mx-auto mt-8 max-w-7xl overflow-hidden px-5 lg:mt-16 lg:px-6">
+          <div className="absolute left-[-80px] top-0 h-72 w-72 rounded-full bg-pink-200/40 blur-3xl" />
         <div className="absolute right-[-100px] bottom-0 h-80 w-80 rounded-full bg-yellow-200/30 blur-3xl" />
 
         <Image
@@ -218,12 +218,12 @@ className="pointer-events-none hidden lg:block absolute left-[-26px] top-80 z-0 
 
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
 
-                <div className="absolute inset-x-0 bottom-0 p-7 pb-8">
-                  <h3 className="max-w-[90%] text-3xl font-black leading-tight text-white">
-                    {item.title}
+<div className="absolute inset-x-0 bottom-0 p-5 lg:p-7 lg:pb-8">
+<h3 className="text-2xl lg:text-3xl font-black leading-tight text-white">
+                      {item.title}
                   </h3>
 
-                  <p className="mt-3 text-base leading-7 text-white/90">
+<p className="mt-2 text-sm leading-6 text-white/90 lg:mt-3 lg:text-base lg:leading-7">
                     {item.description}
                   </p>
 

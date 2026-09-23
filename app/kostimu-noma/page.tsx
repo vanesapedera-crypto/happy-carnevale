@@ -52,8 +52,8 @@ const seasonalCategories = [
 export default function KostimuNomaPage() {
   return (
     <main className="bg-[#fff7fb] pb-24">
-<section className="relative overflow-hidden pt-15 pb-12 lg:pt-20 lg:pb-20">
-          {/* dekorācijas */}
+<section className="relative overflow-hidden pb-12 lg:pb-20">
+              {/* dekorācijas */}
        <Image
   src="/mask-group.svg"
   alt=""
@@ -150,8 +150,8 @@ export default function KostimuNomaPage() {
   className="pointer-events-none hidden lg:block absolute right-[8%] bottom-[30%] z-0 h-auto w-7"
 />
 
-<div className="relative z-10 mx-auto max-w-7xl px-5 pt-4 lg:px-6 lg:pt-20">
-            <div className="mb-8 flex items-center justify-center gap-6">
+<div className="relative z-10 mx-auto max-w-7xl px-5 pt-0 lg:px-6 lg:pt-10">
+              <div className="mb-8 flex items-center justify-center gap-6">
   <div className="hidden h-px w-28 bg-pink-200 lg:block" />
 
   <h2 className="text-center text-lg font-black uppercase tracking-[0.2em] text-pink-500 sm:text-xl lg:text-2xl lg:tracking-[0.45em]">
