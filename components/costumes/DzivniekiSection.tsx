@@ -29,7 +29,7 @@ const animals = [
     size: "S-L",
   },
   {
-    title: "Lapsa Krūmiņš",
+    title: "Lapsa Kūmiņš",
     image: "/kostimi/dzivnieki/lapsa-krumins.jpg",
     price: "25 € / līdz 3 diennaktīm",
     size: "S-L",
@@ -55,7 +55,7 @@ const animals = [
   {
     title: "Zaķis (2)",
     image: "/kostimi/dzivnieki/zakis-2.jpg",
-    price: "15 € / līdz 3 diennaktīm",
+    price: "25 € / līdz 3 diennaktīm",
     size: "S-L",
   },
   {
@@ -67,6 +67,12 @@ const animals = [
   {
     title: "Zaķis (4)",
     image: "/kostimi/dzivnieki/zakis-5.jpg",
+    price: "35 €",
+    size: "XS-XXL",
+  },
+   {
+    title: "Zaķis (5)",
+    image: "/kostimi/dzivnieki/zakis-7.jpg",
     price: "35 €",
     size: "XS-XXL",
   },

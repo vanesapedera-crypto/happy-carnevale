@@ -43,7 +43,7 @@ const cartoons = [
   {
     title: "Dino mazulis",
     image: "/kostimi/multfilmu/Dino mazulis.jpg",
-    price: "15 €",
+    price: "25 €",
     size: "S-L",
   },
   {
@@ -161,7 +161,7 @@ const cartoons = [
     size: "S-L",
   },
   {
-    title: "Marsels",
+    title: "Māršals",
     image: "/kostimi/multfilmu/marsels.jpg",
     price: "25 €",
     size: "XS-L",
@@ -185,13 +185,13 @@ const cartoons = [
     size: "S-L",
   },
   {
-    title: "Money Heist (1)",
+    title: "SQUID GAME",
     image: "/kostimi/multfilmu/money-heist-1.jpg",
     price: "25 €",
     size: "S-L",
   },
   {
-    title: "Money Heist (2)",
+    title: "Money Heist",
     image: "/kostimi/multfilmu/money-heist-2.jpg",
     price: "25 €",
     size: "S-L",
@@ -229,7 +229,7 @@ const cartoons = [
   {
     title: "Pirātu meitene",
     image: "/kostimi/multfilmu/pirata-meitene.jpg",
-    price: "20 €",
+    price: "25 €",
     size: "S-M",
   },
   {
@@ -319,18 +319,12 @@ const cartoons = [
   {
     title: "Super Mario",
     image: "/kostimi/multfilmu/supermario.jpg",
-    price: "20 €",
+    price: "25 €",
     size: "S-L",
   },
   {
     title: "Transformeris",
     image: "/kostimi/multfilmu/transformer.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Ninja Bruņurupucis",
-    image: "/kostimi/multfilmu/turtles-ninja.jpg",
     price: "25 €",
     size: "S-L",
   },
@@ -356,7 +350,7 @@ const cartoons = [
     title: "Wednesday",
     image: "/kostimi/multfilmu/wednesday.jpg",
     price: "25 €",
-    size: "S-L",
+    size: "XS-L",
   },
   {
     title: "Zars",
@@ -399,6 +393,12 @@ const cartoons = [
     image: "/kostimi/ziemassvetki/grincs.jpg",
     price: "25 €",
     size: "S-L",
+  },
+  {
+    title: "Lego Ninjago",
+    image: "/kostimi/mascotas/lego-ninjago.jpg",
+    price: "25 €  ",
+    size: "XS-L",
   },
 ];
 

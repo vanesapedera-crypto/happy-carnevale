@@ -108,12 +108,6 @@ const professions = [
     size: "S-L",
   },
   {
-    title: "Rallija braucējs (3)",
-    image: "/kostimi/profesijas/rallija-braucejs-3.jpg",
-    price: "25 €",
-    size: "M-L",
-  },
-  {
     title: "Stjuarte",
     image: "/kostimi/profesijas/Stjuarte.jpg",
     price: "25 €",

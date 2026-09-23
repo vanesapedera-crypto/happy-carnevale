@@ -45,11 +45,12 @@ ilgums: "",
     jubilars: "",
     jubilaraVecums: "",
 
-    eksperimenti: false,
-    slaims: false,
-    glitter: false,
-    baloni: false,
-    individuali: false,
+   eksperimenti: false,
+slaims: false,
+burbuli: false,
+darbnica: false,
+led: false,
+folija: false,
 
     komentars: "",
   });

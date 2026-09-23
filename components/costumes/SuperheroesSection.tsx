@@ -43,14 +43,20 @@ const superheroes = [
   {
     title: "Spiderman",
     image: "/kostimi/supervaroni/spiderman.jpg",
-    price: "15 €",
+    price: "25 €",
     size: "S-L",
   },
   {
     title: "Supermeitene",
     image: "/kostimi/supervaroni/super-meitene.jpg",
-    price: "20 €",
+    price: "25 €",
     size: "S-M",
+  },
+   {
+    title: "Ninja Bruņurupucis",
+    image: "/kostimi/multfilmu/turtles-ninja.jpg",
+    price: "25 €",
+    size: "S-L",
   },
   {
     title: "Supermens",

@@ -137,12 +137,6 @@ const mascots = [
     price: "45 €  ",
     size: "XS-M",
   },
-  {
-    title: "Lego Ninjago",
-    image: "/kostimi/mascotas/lego-ninjago.jpg",
-    price: "25 €  ",
-    size: "XS-L",
-  },
 ];
 
 export default function MascotasSection() {

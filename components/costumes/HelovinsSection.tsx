@@ -3,10 +3,11 @@ import Link from "next/link";
 import { FiTag } from "react-icons/fi";
 import { TbRulerMeasure } from "react-icons/tb";
 
+
 const halloween = [
   // Pievieno savus kostīmus šeit
   {
-    title: "Trešdiena",
+    title: "Wednesday",
     image: "/kostimi/multfilmu/wednesday.jpg",
     price: "25 €",
     size: "XS-L",
@@ -56,7 +57,7 @@ const halloween = [
    {
     title: "Bailīgā mūķene",
     image: "/kostimi/multfilmu/bailiga-mukene.jpg",
-    price: "20 €",
+    price: "25 €",
     size: "XS-L",
   },
 ];

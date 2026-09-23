@@ -59,55 +59,43 @@ export default function AnimatorSection({
             <div className="space-y-4">
 
               {[
-                {
-                  label: "1 stunda",
-                  price: "160 €",
-                },
-                {
-                  label: "1,5 stundas",
-                  price: "175 €",
-                },
-                {
-                  label: "2 stundas",
-                  price: "190 €",
-                },
-              ].map((item) => (
-                <label
-                  key={item.label}
-                  className={`flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition ${
-                    form.programma === item.label
-                      ? "border-pink-500 bg-pink-50"
-                      : "border-gray-200"
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
+  {
+    label: "1 stunda",
+    price: "160 €",
+  },
+  {
+    label: "1,5 stundas",
+    price: "175 €",
+  },
+  {
+    label: "2 stundas",
+    price: "190 €",
+  },
+].map((item) => (
+  <label
+    key={item.label}
+    className={`flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition ${
+      form.ilgums === item.label
+        ? "border-pink-500 bg-pink-50"
+        : "border-gray-200"
+    }`}
+  >
+    <div className="flex items-center gap-3">
+      <input
+        type="radio"
+        name="ilgums"
+        value={item.label}
+        checked={form.ilgums === item.label}
+        onChange={handleChange}
+      />
 
-                    <input
-                      type="radio"
-                      name="programma"
-                      value={item.label}
-                      checked={
-                        form.programma === item.label
-                      }
-                      onChange={handleChange}
-                    />
-
-                    <div>
-
-                      <div className="font-bold">
-                        {item.label}
-                      </div>
-
-                      <div className="text-sm text-gray-500">
-                        {item.price}
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                </label>
-              ))}
+      <div>
+        <div className="font-bold">{item.label}</div>
+        <div className="text-sm text-gray-500">{item.price}</div>
+      </div>
+    </div>
+  </label>
+))}
 
             </div>
 

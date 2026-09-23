@@ -89,11 +89,12 @@ ${
 <h3>✨ Papildpakalpojumi</h3>
 
 <ul>
-${body.eksperimenti ? "<li>🧪 Eksperimentu ballīte</li>" : ""}
-${body.laimesBallite ? "<li>🎈 Laimes ballīte</li>" : ""}
-${body.glitter ? "<li>✨ Glitter tetovējumi</li>" : ""}
-${body.baloni ? "<li>🎉 Balonu locīšana</li>" : ""}
-${body.individuali ? "<li>⭐ Individuāls piedāvājums</li>" : ""}
+${body.eksperimenti ? "<li>🧪 Eksperimenti</li>" : ""}
+${body.slaims ? "<li>🧫 Slaimu meistarklase</li>" : ""}
+${body.burbuli ? "<li>🫧 Milzu ziepju burbuļi</li>" : ""}
+${body.darbnica ? "<li>🎨 Radošā darbnīca</li>" : ""}
+${body.led ? "<li>💡 LED Disco</li>" : ""}
+${body.folija ? "<li>✨ Folijas Disco</li>" : ""}
 </ul>
 `
     : ""

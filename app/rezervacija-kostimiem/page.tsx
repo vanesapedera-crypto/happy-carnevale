@@ -86,7 +86,7 @@ function ReservationContent() {
         </h1>
 
         <p className="mx-auto mt-5 max-w-3xl text-center text-lg leading-8 text-gray-600">
-          Aizpildi formu, un mēs ar Jums sazināsimies, lai apstiprinātu
+          Aizpildi formu un mēs ar Jums sazināsimies, lai apstiprinātu
           rezervāciju un vienotos par detaļām.
         </p>
 

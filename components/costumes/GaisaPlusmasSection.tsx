@@ -61,8 +61,8 @@ const costumes = [
   {
     title: "Dinozaurs (1)",
     image: "/kostimi/gaisa-plusma/dinazaurs-1.jpg",
-    price: "30 €",
-    size: "Universāls",
+    price: "25 €",
+  size: "3 pieaugušo kostīmi (165–195 cm) + 1 bērnu kostīms (120–150 cm)",
   },
   {
     title: "Dinozaurs (2)",
@@ -74,7 +74,7 @@ const costumes = [
   title: "Vienradzis (3)",
   image: "/kostimi/gaisa-plusma/vienradzis-3.jpg",
   price: "25 €",
-  size: "3 pieaugušo kostīmi (165–195 cm) + 1 bērnu kostīms (120–150 cm)",
+    size: "XS-XL",
 },
   {
     title: "Citplanētietis",
@@ -119,8 +119,14 @@ const costumes = [
     size: "S-XL",
   },
   {
-    title: "Sumo zilis",
+    title: "Sumo zils",
     image: "/kostimi/gaisa-plusma/sumo-zils.jpg",
+    price: "20 €",
+    size: "S-XL",
+  },
+   {
+    title: "Sumo sarkans",
+    image: "/kostimi/gaisa-plusma/sumo-sarkans.jpg",
     price: "20 €",
     size: "S-XL",
   },
