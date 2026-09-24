@@ -100,8 +100,7 @@ className="pointer-events-none hidden lg:block absolute left-[-26px] top-80 z-0 
 <div className="relative z-10 mx-auto max-w-7xl px-5 lg:px-6">
                   <div className="mb-8 flex items-center justify-center gap-6">
 <div className="hidden h-px w-28 bg-pink-200 lg:block" />
-<h2 className="text-center text-lg font-black uppercase tracking-[0.2em] text-pink-500 sm:text-xl lg:text-2xl lg:tracking-[0.45em]">              Galvenās kategorijas
-            </h2>
+
 <div className="hidden h-px w-28 bg-pink-200 lg:block" />
           </div>
 
