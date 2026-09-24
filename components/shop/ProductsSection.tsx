@@ -76,7 +76,7 @@ const products = [
 
 export default function ProductsSection() {
   return (
-<section className="bg-[#FFF7FB] pt-16 pb-20 lg:pt-20 lg:pb-28">
+<section className="bg-[#FFF7FB] pt-16 pb-20 lg:pt-12 lg:pb-28">
         <div className="mx-auto max-w-7xl px-6">
            <div className="mx-auto max-w-3xl text-center">
           <p className="font-bold uppercase tracking-[0.3em] text-pink-500">

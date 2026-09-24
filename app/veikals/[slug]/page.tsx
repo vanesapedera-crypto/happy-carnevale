@@ -96,14 +96,15 @@ export default async function ProductPage({
   if (!product) notFound();
 
   return (
-    <main className="bg-[#fff7fb] pb-24 pt-36">
+    <main className="bg-[#fff7fb] pb-24 pt-12">
       <div className="mx-auto max-w-7xl px-6">
-        <Link
-          href="/veikals"
-          className="mb-12 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-semibold text-pink-500 shadow transition hover:shadow-lg"
-        >
-          ← Atpakaļ uz veikalu
-        </Link>
+       <Link
+  href="/veikals"
+  className="mb-8 inline-flex items-center gap-2 text-base font-bold text-pink-500 transition-all hover:gap-3"
+>
+  <span className="text-xl">←</span>
+  <span>Atpakaļ uz veikalu</span>
+</Link>
 
         <div className="grid gap-16 lg:grid-cols-2">
           <div className="rounded-3xl border border-pink-100 bg-white p-8 shadow-xl">

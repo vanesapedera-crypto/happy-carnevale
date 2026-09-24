@@ -147,8 +147,8 @@ export default function Hero() {
   </Link>
 
   <Link
-    href="/animatori"
-    className="rounded-2xl bg-white p-5 shadow-sm transition hover:shadow-md"
+  href="/pasakumu-organizesana/animatori"
+      className="rounded-2xl bg-white p-5 shadow-sm transition hover:shadow-md"
   >
     <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-pink-50">
       <PartyPopper className="h-7 w-7 text-pink-500" />
@@ -159,9 +159,10 @@ export default function Hero() {
     </p>
   </Link>
 
-  <Link
-    href="/parsteiguma-teli"
-    className="rounded-2xl bg-white p-5 shadow-sm transition hover:shadow-md"
+
+<Link
+  href="/pasakumu-organizesana/parsteiguma-tels"
+      className="rounded-2xl bg-white p-5 shadow-sm transition hover:shadow-md"
   >
     <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-pink-50">
       <Crown className="h-7 w-7 text-pink-500" />

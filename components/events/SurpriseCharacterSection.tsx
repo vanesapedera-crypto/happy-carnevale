@@ -11,36 +11,39 @@ import SurpriseGallery from "./SurpriseGallery";
 
 export default function SurpriseCharacterSection() {
   return (
-    <section className="bg-white py-16 lg:py-24">
+    <section className="bg-gradient-to-b from-white to-pink-50 py-16 lg:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="grid items-start gap-10 lg:gap-16 lg:grid-cols-[1.15fr_0.85fr]">
 
-          {/* GALERIJA */}
+        <div className="grid items-start gap-12 lg:grid-cols-[1.15fr_0.85fr]">
+
+          {/* Galerija */}
           <SurpriseGallery />
 
-          {/* SATURS */}
+          {/* Saturs */}
           <div>
 
-            <h2 className="text-3xl font-black leading-tight text-gray-900 sm:text-4xl lg:mt-5 lg:text-5xl">
-              Pārsteiguma
-              <br />
-              tēls
+            <span className="inline-flex rounded-full bg-pink-100 px-4 py-2 text-xs font-bold uppercase tracking-[0.25em] text-pink-600">
+              Pārsteiguma tēli
+            </span>
+
+            <h2 className="mt-5 text-4xl font-black leading-tight text-[#17223b] sm:text-5xl">
+              Pārsteiguma tēls
             </h2>
 
-            <p className="mt-5 text-base leading-7 text-gray-600 lg:text-lg lg:leading-8">
+            <p className="mt-6 text-base leading-8 text-gray-600 lg:text-lg">
               Pārsteiguma tēls ierodas Jūsu pasākumā uz
               <strong> 25–30 minūtēm</strong>, lai radītu
               neaizmirstamu pārsteigumu, prieku un daudz smaidu.
             </p>
 
-            <p className="mt-4 text-base leading-7 text-gray-600 lg:mt-5 lg:text-lg lg:leading-8">
+            <p className="mt-4 text-base leading-8 text-gray-600 lg:text-lg">
               Vizītes laikā tēls sasveicinās ar jubilāru,
               fotografēsies ar viesiem un kopīgi radīs
               skaistas atmiņas.
             </p>
 
-            {/* IEGUVUMI */}
-            <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:mt-10 lg:gap-4">
+            {/* Ieguvumi */}
+            <div className="mt-10 grid gap-4 sm:grid-cols-2">
 
               {[
                 {
@@ -62,16 +65,16 @@ export default function SurpriseCharacterSection() {
               ].map((item) => (
                 <div
                   key={item.text}
-                  className="flex items-center gap-3 rounded-2xl border border-gray-200 bg-gray-50 p-3 lg:p-4"
+                  className="flex items-center gap-4 rounded-2xl border border-pink-100 bg-white p-4 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg"
                 >
-                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-pink-100 lg:h-10 lg:w-10">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-full bg-pink-100">
                     <item.icon
-                      size={18}
+                      size={20}
                       className="text-pink-500"
                     />
                   </div>
 
-                  <span className="text-sm font-medium text-gray-700 lg:text-base">
+                  <span className="font-semibold text-gray-700">
                     {item.text}
                   </span>
                 </div>
@@ -79,34 +82,35 @@ export default function SurpriseCharacterSection() {
 
             </div>
 
-            {/* CENA */}
-            <div className="mt-8 rounded-3xl border border-gray-200 bg-gray-50 p-4 lg:mt-10 lg:p-6">
+            {/* Cena */}
+            <div className="mt-10 rounded-[32px] bg-gradient-to-br from-pink-50 via-white to-pink-100 p-6 shadow-xl">
 
-              <h3 className="mb-4 text-lg font-bold lg:mb-5 lg:text-xl">
+              <h3 className="text-xl font-black text-[#17223b]">
                 Pakalpojuma cena
               </h3>
 
-              <div className="rounded-2xl border-2 border-pink-500 bg-white p-4 lg:p-6">
+              <div className="mt-6 rounded-3xl border-2 border-pink-500 bg-white p-6 shadow-md">
 
                 <div className="flex items-center justify-between">
 
                   <div>
 
-                    <div className="flex items-center gap-2 font-semibold text-sm lg:text-base">
+                    <div className="flex items-center gap-2 font-bold text-[#17223b]">
                       <Sparkles
                         size={18}
                         className="text-pink-500"
                       />
+
                       Pārsteiguma tēls
                     </div>
 
-                    <div className="mt-1 text-xs text-gray-500 lg:text-sm">
+                    <p className="mt-2 text-sm text-gray-500">
                       Vizītes ilgums 25–30 minūtes
-                    </div>
+                    </p>
 
                   </div>
 
-                  <div className="text-2xl font-black text-pink-600 lg:text-3xl">
+                  <div className="text-4xl font-black text-pink-600">
                     110 €
                   </div>
 
@@ -116,7 +120,7 @@ export default function SurpriseCharacterSection() {
 
               <Link
                 href="/rezervacija-pasakumiem"
-                className="mt-5 flex h-12 lg:h-14 items-center justify-center rounded-2xl bg-pink-500 text-base lg:text-lg font-bold text-white transition hover:bg-pink-600"
+                className="mt-6 flex h-14 items-center justify-center rounded-2xl bg-gradient-to-r from-pink-500 to-pink-600 text-lg font-bold text-white shadow-lg transition duration-300 hover:scale-[1.02] hover:shadow-xl"
               >
                 Rezervēt
               </Link>
@@ -126,6 +130,7 @@ export default function SurpriseCharacterSection() {
           </div>
 
         </div>
+
       </div>
     </section>
   );

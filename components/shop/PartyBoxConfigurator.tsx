@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { Droplets, WandSparkles } from "lucide-react";
@@ -89,8 +90,17 @@ const addPartyBoxToCart = () => {
   alert("4");
 };
   return (
-    <section className="py-20">
-      <div className="mx-auto max-w-7xl rounded-[40px] bg-[#fff7fb] p-10 shadow-xl">
+   <section className="py-20">
+  <div className="mx-auto max-w-7xl px-6">
+
+    <Link
+      href="/veikals"
+      className="mb-8 inline-flex items-center gap-2 text-lg font-semibold text-pink-500 hover:text-pink-600 transition"
+    >
+      ← Atpakaļ uz veikalu
+    </Link>
+
+    <div className="rounded-[40px] bg-[#fff7fb] p-10 shadow-xl">
 
       <div className="mx-auto max-w-2xl text-center">
   <span className="inline-block rounded-full bg-pink-100 px-4 py-2 text-xs font-bold uppercase tracking-[0.3em] text-pink-600">
@@ -254,7 +264,7 @@ const addPartyBoxToCart = () => {
 </div>
 
         </div>
-        
+        </div>
       </div>
       </div>
     </section>

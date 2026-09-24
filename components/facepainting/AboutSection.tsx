@@ -15,14 +15,18 @@ export default function AboutSection() {
 
         <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
 
-          <FacePaintGallery />
+                    {/* Galerija */}
+                 <FacePaintGallery /> 
+          
+                    {/* Saturs */}
+                    <div>
 
-          <div>
+          <span className="inline-flex rounded-full bg-pink-100 px-4 py-2 text-xs font-bold uppercase tracking-[0.25em] text-pink-600">
+Sejas apgleznošana
+            </span>
 
-            <h2 className="mt-4 text-3xl font-black leading-tight text-gray-900 sm:text-4xl lg:mt-5 lg:text-5xl">
-              Sejas
-              <br />
-              apgleznošana
+            <h2 className="mt-5 text-4xl font-black leading-tight text-[#17223b] sm:text-5xl">
+Sejas apgleznošana
             </h2>
 
             <p className="mt-5 text-base leading-7 text-gray-600 lg:text-lg lg:leading-8">

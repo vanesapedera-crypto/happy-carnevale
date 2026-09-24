@@ -7,7 +7,7 @@ import {
 
 export default function ContactSection() {
   return (
-<section className="bg-[#FFF7FB] pt-16 pb-20 lg:pt-20 lg:pb-28">
+<section className="bg-[#FFF7FB] pt-16 pb-20 lg:pt-12 lg:pb-28">
         <div className="mx-auto max-w-7xl px-6">
 
         {/* Virsraksts */}
