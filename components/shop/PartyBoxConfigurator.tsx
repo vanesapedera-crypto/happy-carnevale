@@ -33,17 +33,17 @@ const sticks = [
   {
     id: "2",
     title: "Burbuļu kociņš A",
-    image: "/images/shop/burbulu-kocins-2.png",
+    image: "/images/shop/burbulu-kocins-11.png",
   },
   {
     id: "3",
     title: "Burbuļu kociņš B",
-    image: "/images/shop/burbulu-kocins-3.png",
+    image: "/images/shop/burbulu-kocins-33.png",
   },
   {
     id: "4",
     title: "Burbuļu kociņš C",
-    image: "/images/shop/burbulu-kocins-4.png",
+    image: "/images/shop/burbulu-kocins-44.png",
   },
 ];
 
@@ -102,7 +102,7 @@ const addPartyBoxToCart = () => {
   </h2>
 
   <p className="mt-4 text-base leading-7 text-gray-600 md:text-lg">
-    Katrā komplektā ietilpst <strong>5 L ziepju burbuļu šķidrums</strong> un
+    Katrā komplektā ietilpst <strong>5 L ziepju burbuļu koncentrāts</strong> un
     noteikts burbuļu kociņu skaits. Izvēlies komplektu un pēc tam izvēlies
     burbuļu kociņus.
   </p>
@@ -136,7 +136,7 @@ const addPartyBoxToCart = () => {
     <Droplets className="h-5 w-5 text-pink-500" />
 
     <span className="text-sm font-medium text-gray-700">
-      5L ziepju burbuļu šķidrums
+      5L ziepju burbuļu koncentrāts
     </span>
   </div>
 

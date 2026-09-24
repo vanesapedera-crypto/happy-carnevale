@@ -7,84 +7,85 @@ import {
 
 export default function ContactSection() {
   return (
-    <section className="bg-white py-40">
-      <div className="mx-auto max-w-7xl px-6">
+<section className="bg-[#FFF7FB] pt-16 pb-20 lg:pt-20 lg:pb-28">
+        <div className="mx-auto max-w-7xl px-6">
 
+        {/* Virsraksts */}
         <div className="mx-auto max-w-3xl text-center">
-          <p className="font-bold uppercase tracking-[0.3em] text-orange-500">
+          <p className="font-bold uppercase tracking-[0.3em] text-pink-500">
             KONTAKTI
           </p>
 
-          <h2 className="mt-4 text-5xl font-black text-gray-900">
+          <h2 className="mt-4 text-4xl font-black text-[#17223b] md:text-5xl">
             Sazinies ar mums
           </h2>
 
-          <p className="mt-6 text-lg leading-8 text-gray-600">
-            Ja Tev radušies jautājumi par kostīmu nomu, ziepju burbuļu
-            produktiem vai pasūtījumiem, droši sazinies ar mums.
+          <p className="mt-5 text-lg leading-8 text-gray-600">
+            Ja Tev radušies jautājumi par kostīmu nomu, animatoriem,
+            pārsteiguma tēliem vai pasūtījumiem, droši sazinies ar mums.
           </p>
         </div>
 
-        <div className="mt-16 grid gap-8 lg:grid-cols-2">
+        <div className="mt-12 grid gap-6 lg:mt-16 lg:grid-cols-2">
 
-          {/* Kontaktinformācija */}
-          <div className="rounded-3xl border border-orange-100 bg-white p-10 shadow-lg">
+          {/* Kreisā puse */}
+          <div className="rounded-3xl border border-pink-100 bg-white p-6 shadow-lg lg:p-10">
 
-            <h3 className="text-3xl font-black text-gray-900">
+            <h3 className="text-3xl font-black text-[#17223b]">
               Kontaktinformācija
             </h3>
 
-            <div className="mt-10 space-y-8">
+            <div className="mt-8 space-y-7">
 
-              <div className="flex items-start gap-5">
-                <div className="rounded-full bg-orange-100 p-4">
-                  <Phone className="h-6 w-6 text-orange-500" />
+              <div className="flex items-start gap-4">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-pink-100">
+                  <Phone className="h-6 w-6 text-pink-500" />
                 </div>
 
                 <div>
-                  <p className="font-semibold text-gray-500">
+                  <p className="text-sm font-semibold text-gray-500">
                     Tālrunis
                   </p>
 
                   <a
                     href="tel:+37126126313"
-                    className="text-xl font-bold text-gray-900 hover:text-orange-500"
+                    className="text-lg font-bold text-[#17223b] hover:text-pink-500"
                   >
                     +371 26126313
                   </a>
                 </div>
               </div>
 
-              <div className="flex items-start gap-5">
-                <div className="rounded-full bg-orange-100 p-4">
-                  <Mail className="h-6 w-6 text-orange-500" />
+              <div className="flex items-start gap-4">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-pink-100">
+                  <Mail className="h-6 w-6 text-pink-500" />
                 </div>
 
                 <div>
-                  <p className="font-semibold text-gray-500">
+                  <p className="text-sm font-semibold text-gray-500">
                     E-pasts
                   </p>
 
                   <a
                     href="mailto:carnevalehappy@gmail.com"
-                    className="text-xl font-bold text-gray-900 hover:text-orange-500"
+                    className="break-all text-lg font-bold text-[#17223b] hover:text-pink-500"
                   >
                     carnevalehappy@gmail.com
                   </a>
                 </div>
               </div>
 
-              <div className="flex items-start gap-5">
-                <div className="rounded-full bg-orange-100 p-4">
-                  <Clock className="h-6 w-6 text-orange-500" />
+              <div className="flex items-start gap-4">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-pink-100">
+                  <Clock className="h-6 w-6 text-pink-500" />
                 </div>
 
                 <div>
-                  <p className="font-semibold text-gray-500">
+                  <p className="text-sm font-semibold text-gray-500">
                     Darba laiks
                   </p>
 
-                  <p className="text-lg text-gray-700">
+                  <p className="text-lg font-semibold text-[#17223b]">
                     Katru dienu
                   </p>
 
@@ -97,33 +98,35 @@ export default function ContactSection() {
             </div>
           </div>
 
-          {/* Informācija */}
-          <div className="rounded-3xl bg-gradient-to-br from-orange-500 to-orange-600 p-10 text-white shadow-xl">
+          {/* Labā puse */}
+          <div className="rounded-3xl bg-gradient-to-br from-pink-500 to-fuchsia-500 p-6 text-white shadow-xl lg:p-10">
 
             <h3 className="text-3xl font-black">
               Svarīga informācija
             </h3>
 
-            <p className="mt-8 text-lg leading-8 text-orange-100">
-              Happy Carnevale ir interneta veikals.
-              Mums nav fiziska veikala, kuru iespējams apmeklēt ikdienā.
+            <p className="mt-6 leading-8 text-pink-100">
+              Happy Carnevale ir interneta veikals. Mums nav fiziska veikala,
+              kuru iespējams apmeklēt ikdienā.
             </p>
 
-            <div className="mt-10 flex items-start gap-5">
-              <MapPin className="mt-1 h-7 w-7" />
+            <div className="mt-8 flex items-start gap-4">
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-white/15">
+                <MapPin className="h-7 w-7" />
+              </div>
 
               <div>
                 <h4 className="text-2xl font-bold">
                   Kostīmu saņemšana
                 </h4>
 
-                <p className="mt-3 text-orange-100">
-                  Stabu iela 10, Rīga
+                <p className="mt-2 font-semibold text-pink-100">
+                  Stabu iela 90, Rīga
                 </p>
 
-                <p className="mt-4 leading-8 text-orange-100">
-                  Kostīmu nomas pasūtījumus iespējams saņemt
-                  tikai pēc iepriekšējas vienošanās.
+                <p className="mt-4 leading-7 text-pink-100">
+                  Pasūtījumus iespējams saņemt tikai pēc iepriekšējas
+                  vienošanās.
                 </p>
               </div>
             </div>

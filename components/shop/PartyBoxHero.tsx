@@ -33,7 +33,7 @@ export default function PartyBoxHero() {
 
           <div className="mt-10 flex flex-wrap gap-3">
             <span className="rounded-full bg-white px-5 py-3 font-semibold text-pink-600 shadow">
-              ✓ 5L želeja
+              ✓ 5L koncentrāts
             </span>
 
             <span className="rounded-full bg-white px-5 py-3 font-semibold text-pink-600 shadow">

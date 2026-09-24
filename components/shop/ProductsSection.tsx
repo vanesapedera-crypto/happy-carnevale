@@ -76,19 +76,19 @@ const products = [
 
 export default function ProductsSection() {
   return (
-    <section id="veikals" className="bg-white py-24">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="mx-auto max-w-3xl text-center">
+<section className="bg-[#FFF7FB] pt-16 pb-20 lg:pt-20 lg:pb-28">
+        <div className="mx-auto max-w-7xl px-6">
+           <div className="mx-auto max-w-3xl text-center">
           <p className="font-bold uppercase tracking-[0.3em] text-pink-500">
             VEIKALS
           </p>
 
           <h2 className="mt-3 text-5xl font-black text-gray-900">
-            Ziepju burbuļu produkti
+            Milzu burbuļu produkti
           </h2>
 
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            Viss nepieciešamais burbuļu maģijai – ziepju burbuļu koncentrāts un
+            Viss nepieciešamais burbuļu maģijai – burbuļu koncentrāts un
             burbuļu kociņi, bērnu svētkiem, animatoriem un pasākumiem.
           </p>
         </div>
