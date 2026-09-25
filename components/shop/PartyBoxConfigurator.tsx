@@ -249,7 +249,7 @@ const addPartyBoxToCart = () => {
   </h3>
 
   <p className="mt-2 text-gray-600">
-    Noskaties, kā pareizi salikt Party Box un izmantot burbuļu kociņus.
+    Noskaties kā uzjaukt labāko milzu ziepju burbuļu šķidrumu un izmantot kociņus!
   </p>
 
   <video

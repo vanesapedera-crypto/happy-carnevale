@@ -100,9 +100,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, [items]);
 
   const shipping =
-    subtotal >= 40 || items.length === 0
+    subtotal >= 30 || items.length === 0
       ? 0
-      : 4.5;
+      : 3;
 
   const total = subtotal + shipping;
 

@@ -31,7 +31,7 @@ const retro = [
   {
     title: "Disko meitene (1)",
     image: "/kostimi/retro-kostimi/disko-meitene-1.jpg",
-    price: "20 €",
+    price: "25 €",
     size: "S-M",
   },
   {
@@ -43,7 +43,7 @@ const retro = [
   {
     title: "Disko puisis",
     image: "/kostimi/retro-kostimi/disko-puisis.jpg",
-    price: "20 €",
+    price: "25 €",
     size: "S-M",
   },
   {

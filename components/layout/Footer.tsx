@@ -72,7 +72,7 @@ export default function Footer() {
             <div className="mt-4 flex gap-3">
 
               <a
-                href="https://www.instagram.com/burbulites_burbuli/"
+                href="https://www.instagram.com/happycarnevale/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex h-11 w-11 items-center justify-center rounded-full border border-pink-200 bg-white text-pink-500 transition-all duration-300 hover:bg-pink-500 hover:text-white hover:shadow-md"

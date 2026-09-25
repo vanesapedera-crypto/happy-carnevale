@@ -137,12 +137,16 @@ export default function Hero() {
   priority
 className="mx-auto w-full"/>
 
-            <p className="mx-auto mt-5 max-w-xs text-center text-sm leading-6 text-gray-600">
-              Pie manis vari rezervēt animatorus,
-              pārsteiguma tēlus,
-              kostīmu nomu un iegādāties
-              milzu ziepju burbuļus.
-            </p>
+            <p className="mt-5 text-center text-sm font-semibold text-[#17223b]">
+  Kas Tevi šeit sagaida?
+</p>
+
+<div className="mt-4 space-y-2 text-center text-sm leading-6 text-gray-600">
+  <p>✓ Košu kostīmu noma</p>
+  <p>✓ Profesionāli animatori</p>
+  <p>✓ Pārsteiguma tēli</p>
+  <p>✓ Milzu ziepju burbuļi</p>
+</div>
 
           </div>
 

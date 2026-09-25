@@ -57,6 +57,30 @@ const easter = [
     price: "30 €",
     size: "S-XL",
   },
+    {
+    title: "Zaķis Kundziņš",
+    image: "/kostimi/mascotas/zakis-1.jpg",
+    price: "40 €  ",
+    size: "XS-L",
+  },
+  {
+    title: "Zaķis (1)",
+    image: "/kostimi/mascotas/zakis-2.jpg",
+    price: "40 €  ",
+    size: "165-185 cm",
+  },
+  {
+    title: "Zaķis (2)",
+    image: "/kostimi/mascotas/zakis-3.jpg",
+    price: "25 €  ",
+    size: "XS-L",
+  },
+    {
+    title: "Zaķis (3)",
+    image: "/kostimi/multfilmu/zakis-4.jpg",
+    price: "25 €  ",
+    size: "XS-L",
+  },
 ];
 
 export default function LieldienasSection() {

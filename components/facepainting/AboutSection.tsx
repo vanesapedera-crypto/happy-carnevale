@@ -30,19 +30,18 @@ Sejas apgleznošana
             </h2>
 
             <p className="mt-5 text-base leading-7 text-gray-600 lg:text-lg lg:leading-8">
-              Jūsu pasākumā ierodas profesionāla sejiņu apgleznotāja, kura
-              visas programmas laikā apglezno bērnus par viņu izvēlēto tēlu.
+              Jūsu pasākumā ieradīsies profesionāla sejiņu apgleznotāja, kura
+radīs skaistus, orģinālus gleznojumus.
             </p>
 
             <p className="mt-4 text-base leading-7 text-gray-600 lg:text-lg lg:leading-8">
               Princeses, supervaroņi, vienradži, dzīvnieki, tauriņi,
-              dinozauri un desmitiem citu dizainu.
+              dinozauri - Jūs izvēlsties - mēs radām!
             </p>
 
             <p className="mt-4 text-base leading-7 text-gray-600 lg:text-lg lg:leading-8">
-              Ja pasākumā ir vairāk nekā <strong>20 bērni</strong>, iesakām
-              izvēlēties sejas akcentus vai puses sejas gleznojumus, lai
-              ikviens bērns paspētu tikt pie sava zīmējuma.
+              Ja pasākumā ir vairāk kā <strong>20 bērni</strong>, iesakām
+              izvēlēties sejas akcentus vai gleznojumus, kas ietver pusi sejas, lai ikviens bērns tiktu pie kārotā.
             </p>
 
             {/* Ieguvumi */}

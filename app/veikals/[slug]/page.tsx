@@ -10,6 +10,7 @@ type Product = {
   price: string;
   image: string;
   description?: string;
+  parcelLocker?: boolean;
 };
 
 const products: Record<string, Product> = {
@@ -70,9 +71,11 @@ Vislabāko rezultātu nodrošina kopā ar mūsu profesionālo ziepju burbuļu ko
   "burbulu-kocins-5": {
     title: "Burbuļu kociņš Nr.5",
     price: "10.00 €",
+    
     image: "/images/shop/burbulu-kocins-5.png",
+    parcelLocker: false,
     description: `Burbuļu kociņš daudz mazu ziepju burbuļu veidošanai vienlaikus.
-Kociņa garums ir 70 cm, tāpēc tas ir piemērots lielākiem bērniem un pieaugušajiem. Garāks rokturis nodrošina ērtāku lietošanu un ļauj veidot vēl iespaidīgākus ziepju burbuļus.
+Kociņa garums ir 90 cm, tāpēc tas ir piemērots lielākiem bērniem un pieaugušajiem. Garāks rokturis nodrošina ērtāku lietošanu un ļauj veidot vēl iespaidīgākus ziepju burbuļus.
 
 Vislabāko rezultātu nodrošina kopā ar mūsu profesionālo ziepju burbuļu koncentrātu.`,
   },
@@ -132,6 +135,24 @@ export default async function ProductPage({
               price={product.price}
               image={product.image}
             />
+            {product.parcelLocker === false && (
+  <div className="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-5">
+    <div className="flex items-start gap-3">
+      <Package className="mt-0.5 h-6 w-6 text-amber-600" />
+
+      <div>
+        <p className="font-bold text-amber-900">
+          Pakomāta piegāde nav pieejama
+        </p>
+
+        <p className="mt-1 text-sm leading-6 text-amber-800">
+          Šī produkta izmēra dēļ to nevar nosūtīt ar pakomātu.
+          Lūdzu, izvēlieties piegādi ar kurjeru vai saņemšanu uz vietas.
+        </p>
+      </div>
+    </div>
+  </div>
+)}
 
             {slug.includes("skidrums") && (
               <div className="mt-10 rounded-3xl border border-pink-200 bg-pink-50 p-6">
@@ -177,8 +198,7 @@ export default async function ProductPage({
         </h3>
 
         <p className="mt-2 leading-7 text-gray-600">
-          Pasūtījumus nosūtām ar Omniva, DPD un Venipak pakomātiem.
-        </p>
+Pasūtījumus nosūtam ar jebkuru Jums ērtu pakomātu.        </p>
       </div>
 
       <div className="text-center">

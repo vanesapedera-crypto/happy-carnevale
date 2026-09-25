@@ -372,7 +372,7 @@ const cartoons = [
   },
    {
     title: "Eglīte",
-    image: "/kostimi/ziemassvetki/eglite.jpg",
+    image: "/kostimi/ziemassvetki/egle.jpg",
     price: "25 €",
     size: "XS-M",
   },

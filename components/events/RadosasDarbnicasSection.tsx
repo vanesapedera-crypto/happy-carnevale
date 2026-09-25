@@ -25,11 +25,11 @@ export default function RadosasDarbnicasSection() {
             <div className="mt-3 h-1 w-24 rounded-full bg-violet-500" />
 
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              Šī sadaļa ir paredzēta juridiskām personām. Darbnīcu saturs un
-              ilgums tiek pielāgots pasākuma vajadzībām, bērnu skaitam,
-              norises vietai un vēlamajam formātam. Cena tiek saskaņota
-              individuāli pēc pasākuma detaļām.
-            </p>
+  Radošās darbnīcas saturs un ilgums tiek pielāgots pasākuma vajadzībām,
+  bērnu skaitam, norises vietai un vēlamajam formātam. Pakalpojuma cena
+  tiek saskaņota individuāli pēc pasākuma detaļu precizēšanas. Sazinies ar
+  mums, un kopā atradīsim piemērotāko risinājumu Tavam pasākumam!
+</p>
           </div>
 
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

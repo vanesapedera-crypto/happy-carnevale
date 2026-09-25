@@ -157,7 +157,7 @@ export default function CartPage() {
             </Link>
 
             <p className="mt-8 text-sm leading-7 text-gray-500">
-              Piegāde ir bez maksas pasūtījumiem virs 40 €.
+              Piegāde ir bez maksas pasūtījumiem virs 30 €.
             </p>
           </aside>
         </div>

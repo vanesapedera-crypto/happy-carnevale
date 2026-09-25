@@ -7,7 +7,7 @@ export default function RadosasDarbnicasPage() {
       <PageHero
         badge="PASĀKUMU ORGANIZĒŠANA"
         title="Radošās darbnīcas"
-        description="Piedāvājums juridiskām personām — radošas un pielāgojamas darbnīcas pasākumiem, uzņēmumu svētkiem un bērnu dienām."
+        description="Radošas un pielāgojamas darbnīcas pasākumiem, uzņēmumu svētkiem un bērnu dienām."
         image="/images/hero/radosas-darbnicas.png"
       />
 

@@ -61,6 +61,7 @@ const products = [
     description: "Veido daudz burbuļus vienlaicīgi.",
     price: "10.00 €",
     image: "/images/shop/burbulu-kocins-5.png",
+    parcelLocker: false,
   },
     {
   id: "party-box",
@@ -125,7 +126,11 @@ export default function ProductsSection() {
                 <p className="mt-5 text-3xl font-black text-pink-500">
                   {product.price}
                 </p>
-
+{product.parcelLocker === false && (
+  <p className="mt-2 rounded-lg bg-amber-50 px-3 py-2 text-sm font-medium text-amber-700">
+    Pakomāta piegāde nav pieejama
+  </p>
+)}
                 <Link
                   href={`/veikals/${product.slug}`}
                   className="mt-6 flex items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-pink-600 px-6 py-4 text-lg font-bold text-white transition hover:scale-[1.02] hover:shadow-xl"

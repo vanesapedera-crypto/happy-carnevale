@@ -42,7 +42,7 @@ export default function AnimatorHero() {
           </h1>
 
           <p className="mt-8 text-lg leading-8 text-gray-700 lg:text-xl lg:leading-9">
-            Jautras rotaļas, konkursi, dejas, balonu figūras, Glitter Tattoo,
+            Jautras rotaļas, konkursi, dejas, balonu figūras, tematiskie tetovējumi,
             radošās aktivitātes un daudz neaizmirstamu emociju bērnu
             dzimšanas dienās un citos pasākumos.
           </p>
