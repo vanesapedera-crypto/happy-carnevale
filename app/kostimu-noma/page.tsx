@@ -15,7 +15,7 @@ const mainCategories = [
     description: "Viegli, ērti un spilgti pasākumiem.",
   },
   {
-    title: "Filmu un multfilmu tēli",
+    title: "Kino tēli un citi interesanti kostīmi",
     href: "/kostimu-noma/filmu-un-pasaku-teli",
     image: "/images/hero/filmu-teli.png",
     description: "Iemīļoti varoņi bērnu svētkiem.",

@@ -11,7 +11,7 @@ export default function FilmuUnPasakuTeliPage() {
     <>
       <PageHero
         badge="KOSTĪMU NOMA"
-        title="Filmu un multfilmu tēli"
+        title="Kino tēli un citi interesanti kostīmi"
         description="Izvēlies iemīļotākos filmu, multfilmu un pasaku varoņus bērnu ballītēm, tematiskajiem pasākumiem un karnevāliem."
         image="/images/hero/filmu-teli.png"
       />

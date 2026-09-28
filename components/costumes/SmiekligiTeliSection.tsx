@@ -28,6 +28,12 @@ const funnyCharacters = [
     price: "25 €",
     size: "XS-L",
   },
+    {
+    title: "Daudz laimes!",
+    image: "/kostimi/gaisa-plusma/daudz-laimes.jpg",
+    price: "25 €",
+    size: "150-190cm",
+  },
 ];
 
 export default function SmiekligiTeliSection() {

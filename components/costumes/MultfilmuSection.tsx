@@ -417,7 +417,7 @@ export default function MultfilmuSection() {
 
           <div className="mb-12">
             <h2 className="text-4xl font-black text-gray-900">
-              Filmu un multfilmu tēli
+              Kino tēli un citi interesanti kostīmi
             </h2>
 
             <div className="mt-3 h-1 w-24 rounded-full bg-violet-500"></div>

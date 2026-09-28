@@ -26,7 +26,7 @@ export const SOCIAL_LINKS = [
   },
   {
     label: "Instagram",
-    href: "https://www.instagram.com/burbulites_burbuli/",
+                href: "https://www.instagram.com/happycarnevale/"
   },
   {
     label: "TikTok",

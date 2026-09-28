@@ -60,6 +60,54 @@ const halloween = [
     price: "25 €",
     size: "XS-L",
   },
+    {
+    title: "Līgava",
+    image: "/kostimi/helovini/ligava.jpg",
+    price: "25 €",
+    size: "M-L",
+  },
+    {
+    title: "Skelets (spīd tumsā)",
+    image: "/kostimi/helovini/skelets.jpg",
+    price: "25 €",
+    size: "M-L",
+  },
+    {
+    title: "Maska (1)",
+    image: "/kostimi/helovini/1.JPG",
+    price: "8 €",
+    size: "One size",
+  },
+   {
+    title: "Maska (2)",
+    image: "/kostimi/helovini/2.JPG",
+    price: "8 €",
+    size: "One size",
+  },
+    {
+    title: "Maska (3)",
+    image: "/kostimi/helovini/3.JPG",
+    price: "8 €",
+    size: "One size",
+  },
+    {
+    title: "Maska (4)",
+    image: "/kostimi/helovini/4.JPG",
+    price: "8 €",
+    size: "One size",
+  },
+    {
+    title: "Maska (5)",
+    image: "/kostimi/helovini/5.JPG",
+    price: "8 €",
+    size: "One size",
+  },
+    {
+    title: "Maska (6)",
+    image: "/kostimi/helovini/6.JPG",
+    price: "8 €",
+    size: "One size",
+  },
 ];
 
 export default function HelovinsSection() {
