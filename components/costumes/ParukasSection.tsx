@@ -33,7 +33,6 @@ const parukas = [
   { title: "Parūka 27", image: "/kostimi/parukas/paruka-27.jpg", price: "12 €", size: "One size" },
   { title: "Parūka 28", image: "/kostimi/parukas/paruka-28.jpg", price: "12 €", size: "One size" },
   { title: "Parūka 29", image: "/kostimi/parukas/paruka-29.jpg", price: "12 €", size: "One size" },
-  { title: "Parūka 30", image: "/kostimi/parukas/paruka-30.jpg", price: "12 €", size: "One size" },
 ];
 
 
