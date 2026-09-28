@@ -34,6 +34,12 @@ const funnyCharacters = [
     price: "25 €",
     size: "150-190cm",
   },
+  {
+    title: "Zirnīši",
+    image: "/kostimi/multfilmu/zirnisi.jpg",
+    price: "20 €",
+    size: "XS-M",
+  },
 ];
 
 export default function SmiekligiTeliSection() {

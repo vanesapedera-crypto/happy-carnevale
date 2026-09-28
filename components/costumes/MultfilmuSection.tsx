@@ -142,6 +142,12 @@ const cartoons = [
     price: "20 €",
     size: "XS-L",
   },
+    {
+    title: "Karlsons",
+    image: "/kostimi/multfilmu/karlsons.jpg",
+    price: "20 €",
+    size: "S-XL",
+  },
   {
     title: "LEGO Ninjago",
     image: "/kostimi/multfilmu/lego-ninjago.jpg",
@@ -363,12 +369,6 @@ const cartoons = [
     image: "/kostimi/multfilmu/zars.jpg",
     price: "25 €",
     size: "S-L",
-  },
-  {
-    title: "Zirnīši",
-    image: "/kostimi/multfilmu/zirnisi.jpg",
-    price: "20 €",
-    size: "XS-M",
   },
    {
     title: "Eglīte",

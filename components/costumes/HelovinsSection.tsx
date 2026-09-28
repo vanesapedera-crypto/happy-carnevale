@@ -108,6 +108,12 @@ const halloween = [
     price: "8 €",
     size: "One size",
   },
+   {
+    title: "Maska (7)",
+    image: "/kostimi/helovini/7.JPG",
+    price: "8 €",
+    size: "One size",
+  },
 ];
 
 export default function HelovinsSection() {
