@@ -11,7 +11,7 @@ export default function AnimatorHero() {
           alt=""
           fill
           priority
-          className="object-cover"
+          className="object-contain p-4"
         />
         <div className="absolute inset-0 bg-white/70" />
       </div>
@@ -23,7 +23,7 @@ export default function AnimatorHero() {
           alt=""
           fill
           priority
-          className="object-cover"
+          className="object-contain p-4"
         />
         <div className="absolute inset-0 bg-white/75" />
       </div>

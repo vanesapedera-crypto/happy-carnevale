@@ -32,7 +32,7 @@ export default function CostumeGallery({
                   src={`/kostimi/${folder}/${costume}.jpg`}
                   alt={costume}
                   fill
-                  className="object-cover"
+                  className="object-contain p-4"
                 />
               </div>
 

@@ -107,8 +107,7 @@ export default function SuperheroesSection() {
     <section className="py-20 bg-white">
       <div className="mx-auto max-w-7xl px-6">
 
-        <div className="rounded-[40px] border border-violet-200 bg-gradient-to-br from-white via-violet-50/40 to-white p-10 shadow-xl">
-
+<div className="rounded-[40px] border border-zinc-200 bg-white p-10 shadow-xl">
           <div className="mb-12">
             <h2 className="text-4xl font-black text-gray-900">
               Supervaroņi
@@ -124,7 +123,7 @@ export default function SuperheroesSection() {
       key={item.title}
       className="group flex flex-col overflow-hidden rounded-[30px] border border-violet-100 bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:border-violet-300 hover:shadow-2xl"
     >
-      <div className="relative aspect-[3/4] overflow-hidden bg-violet-50">
+<div className="relative aspect-[3/4] overflow-hidden bg-white">
         <Image
           src={item.image}
           alt={item.title}
@@ -178,7 +177,7 @@ export default function SuperheroesSection() {
             src={item.image}
             alt={item.title}
             fill
-            className="object-cover"
+            className="object-contain p-4"
           />
         </div>
 

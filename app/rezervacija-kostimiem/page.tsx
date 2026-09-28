@@ -98,7 +98,7 @@ function ReservationContent() {
                 src={image || "/kostimi/no-image.jpg"}
                 alt={costume || "Kostīms"}
                 fill
-                className="object-cover"
+className="object-contain p-4"
               />
             </div>
 

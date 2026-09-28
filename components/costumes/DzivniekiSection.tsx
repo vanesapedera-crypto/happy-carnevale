@@ -95,7 +95,7 @@ const animals = [
     size: "XS-XXL",
   },
   {
-    title: "Žirafe",
+    title: "Žirafe (1)",
     image: "/kostimi/dzivnieki/zirafe.jpg",
     price: "20 €",
     size: "S-L",
@@ -106,6 +106,18 @@ const animals = [
     price: "25 € ",
     size: "XS-XL",
   },
+   {
+    title: "Žirafe (2)",
+    image: "/kostimi/dzivnieki/zirafe-2.jpg",
+    price: "25 € ",
+    size: "L",
+  },
+   {
+    title: "Stārķis",
+    image: "/kostimi/dzivnieki/starkis.jpg",
+    price: "25 € ",
+    size: "L",
+  },
 ];
 
 export default function DzivniekiSection() {
@@ -114,8 +126,7 @@ export default function DzivniekiSection() {
       <div className="mx-auto max-w-7xl px-6">
 
         {/* Sadaļas rāmis */}
-        <div className="rounded-[40px] border border-violet-200 bg-gradient-to-br from-white via-violet-50/40 to-white p-10 shadow-xl">
-
+<div className="rounded-[40px] border border-zinc-200 bg-white p-10 shadow-xl">
           {/* Virsraksts */}
           <div className="mb-12">
 
@@ -137,12 +148,12 @@ export default function DzivniekiSection() {
     className="group flex flex-col overflow-hidden rounded-[30px] border border-violet-100 bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:border-violet-300 hover:shadow-2xl"
   >
     {/* Bilde */}
-    <div className="relative aspect-[3/4] overflow-hidden bg-violet-50">
+<div className="relative aspect-[3/4] overflow-hidden bg-white">
       <Image
         src={item.image}
         alt={item.title}
         fill
-        className="object-cover transition-all duration-500 group-hover:scale-105 group-hover:brightness-105"
+className="object-contain p-4 transition-all duration-500 group-hover:scale-105"
       />
     </div>
 
@@ -197,7 +208,7 @@ export default function DzivniekiSection() {
             src={item.image}
             alt={item.title}
             fill
-            className="object-cover"
+           className="object-contain p-4"
           />
         </div>
 

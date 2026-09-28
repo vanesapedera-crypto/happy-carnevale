@@ -16,7 +16,7 @@ const cartoons = [
     price: "25 €",
     size: "XS-L",
   },
-   {
+  {
     title: "Malificienta",
     image: "/kostimi/multfilmu/malificienta.jpg",
     price: "25 €",
@@ -142,7 +142,7 @@ const cartoons = [
     price: "20 €",
     size: "XS-L",
   },
-    {
+  {
     title: "Karlsons",
     image: "/kostimi/multfilmu/karlsons.jpg",
     price: "20 €",
@@ -232,7 +232,7 @@ const cartoons = [
     price: "25 €",
     size: "S-XL",
   },
-   {
+  {
     title: "Avatars",
     image: "/kostimi/multfilmu/avatars.jpg",
     price: "25 €",
@@ -270,7 +270,7 @@ const cartoons = [
   },
   {
     title: "Ragana",
-    image: "/kostimi/multfilmu/Ragana.jpg",
+    image: "/kostimi/multfilmu/ragana.jpg",
     price: "25 €",
     size: "S-L",
   },
@@ -370,7 +370,7 @@ const cartoons = [
     price: "25 €",
     size: "S-L",
   },
-   {
+  {
     title: "Eglīte",
     image: "/kostimi/ziemassvetki/egle.jpg",
     price: "25 €",
@@ -403,116 +403,123 @@ const cartoons = [
   {
     title: "Lego Ninjago",
     image: "/kostimi/mascotas/lego-ninjago.jpg",
-    price: "25 €  ",
+    price: "25 €",
     size: "XS-L",
   },
 ];
 
 export default function MultfilmuSection() {
   return (
-    <section className="py-20 bg-white">
+    <section className="bg-white py-20">
       <div className="mx-auto max-w-7xl px-6">
-
-        <div className="rounded-[40px] border border-violet-200 bg-gradient-to-br from-white via-violet-50/40 to-white p-10 shadow-xl">
-
+        <div className="rounded-[40px] border border-zinc-200 bg-white p-10 shadow-xl">
           <div className="mb-12">
             <h2 className="text-4xl font-black text-gray-900">
               Kino tēli un citi interesanti kostīmi
             </h2>
-
-            <div className="mt-3 h-1 w-24 rounded-full bg-violet-500"></div>
+            <div className="mt-3 h-1 w-24 rounded-full bg-violet-500" />
           </div>
 
-        {/* ================= DESKTOP ================= */}
-<div className="hidden lg:grid gap-8 lg:grid-cols-4">
-  {cartoons.map((item, index) => (
-    <div
-      key={`${item.title}-${index}`}
-      className="group flex flex-col overflow-hidden rounded-[30px] border border-violet-100 bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:border-violet-300 hover:shadow-2xl"
-    >
-      <div className="relative aspect-[3/4] overflow-hidden bg-violet-50">
-        <Image
-          src={item.image}
-          alt={item.title}
-          fill
-          className="object-cover transition duration-500 group-hover:scale-105"
-        />
-      </div>
+          {/* DESKTOP */}
+          <div className="hidden gap-8 lg:grid lg:grid-cols-4">
+            {cartoons.map((item, index) => (
+              <div
+                key={`${item.title}-${index}`}
+                className="group flex flex-col overflow-hidden rounded-[30px] border border-zinc-200 bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:border-zinc-300 hover:shadow-2xl"
+              >
+                <div className="relative aspect-[3/4] overflow-hidden bg-white">
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    className="object-contain p-4 transition duration-500 group-hover:scale-105"
+                  />
+                </div>
 
-      <div className="flex flex-1 flex-col p-6">
-        <h3 className="min-h-[64px] text-2xl font-bold tracking-tight text-gray-900">
-          {item.title}
-        </h3>
+                <div className="flex flex-1 flex-col p-6">
+                  <h3 className="min-h-[64px] text-2xl font-bold tracking-tight text-gray-900">
+                    {item.title}
+                  </h3>
 
-        <div className="mt-5 flex items-center gap-2 text-pink-600">
-          <FiTag className="h-5 w-5" />
-          <span className="font-semibold">{item.price}</span>
-        </div>
+                  <div className="mt-5 flex items-center gap-2 text-pink-600">
+                    <FiTag className="h-5 w-5" />
+                    <span className="font-semibold">{item.price}</span>
+                  </div>
 
-        <div className="mt-2 flex items-center gap-2 text-gray-600">
-          <TbRulerMeasure className="h-5 w-5" />
-          <span>{item.size}</span>
-        </div>
+                  <div className="mt-2 flex items-center gap-2 text-gray-600">
+                    <TbRulerMeasure className="h-5 w-5" />
+                    <span>{item.size}</span>
+                  </div>
 
-        <Link
-          href={`/rezervacija-kostimiem?kostims=${encodeURIComponent(item.title)}&image=${encodeURIComponent(item.image)}&price=${encodeURIComponent(item.price)}&size=${encodeURIComponent(item.size)}`}
-          className="mt-auto flex w-full items-center justify-center rounded-full bg-gradient-to-r from-violet-500 to-violet-400 py-3.5 font-semibold text-white shadow-md transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
-        >
-          Rezervēt →
-        </Link>
-      </div>
-    </div>
-  ))}
-</div>
-
-{/* ================= MOBILE ================= */}
-<div className="flex flex-col gap-5 lg:hidden">
-  {cartoons.map((item, index) => (
-    <div
-      key={`${item.title}-${index}`}
-      className="overflow-hidden rounded-[26px] bg-white shadow-lg"
-    >
-      <div className="flex">
-        <div className="relative h-44 w-36 shrink-0">
-          <Image
-            src={item.image}
-            alt={item.title}
-            fill
-            className="object-cover"
-          />
-        </div>
-
-        <div className="flex flex-1 flex-col justify-between p-4">
-          <div>
-            <h3 className="text-2xl font-bold text-gray-900">
-              {item.title}
-            </h3>
-
-            <div className="mt-5 flex items-center gap-2 text-pink-600">
-              <FiTag className="h-5 w-5" />
-              <span className="font-semibold">{item.price}</span>
-            </div>
-
-            <div className="mt-2 flex items-center gap-2 text-gray-600">
-              <TbRulerMeasure className="h-5 w-5" />
-              <span>{item.size}</span>
-            </div>
+                  <Link
+                    href={`/rezervacija-kostimiem?kostims=${encodeURIComponent(
+                      item.title
+                    )}&image=${encodeURIComponent(
+                      item.image
+                    )}&price=${encodeURIComponent(
+                      item.price
+                    )}&size=${encodeURIComponent(item.size)}`}
+                    className="mt-auto flex w-full items-center justify-center rounded-full bg-gradient-to-r from-violet-500 to-violet-400 py-3.5 font-semibold text-white shadow-md transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+                  >
+                    Rezervēt →
+                  </Link>
+                </div>
+              </div>
+            ))}
           </div>
 
-          <Link
-            href={`/rezervacija-kostimiem?kostims=${encodeURIComponent(item.title)}&image=${encodeURIComponent(item.image)}&price=${encodeURIComponent(item.price)}&size=${encodeURIComponent(item.size)}`}
-            className="mt-5 flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-fuchsia-500 font-semibold text-white"
-          >
-            Rezervēt →
-          </Link>
-        </div>
-      </div>
-    </div>
-  ))}
-</div>
+          {/* MOBILE */}
+          <div className="flex flex-col gap-5 lg:hidden">
+            {cartoons.map((item, index) => (
+              <div
+                key={`${item.title}-${index}`}
+                className="overflow-hidden rounded-[26px] border border-zinc-200 bg-white shadow-lg"
+              >
+                <div className="flex">
+                  <div className="relative h-44 w-36 shrink-0 bg-white">
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      className="object-contain p-4"
+                    />
+                  </div>
 
-        </div>
+                  <div className="flex flex-1 flex-col justify-between p-4">
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900">
+                        {item.title}
+                      </h3>
 
+                      <div className="mt-4 flex items-center gap-2 text-pink-600">
+                        <FiTag className="h-5 w-5" />
+                        <span className="font-semibold">{item.price}</span>
+                      </div>
+
+                      <div className="mt-2 flex items-center gap-2 text-gray-600">
+                        <TbRulerMeasure className="h-5 w-5" />
+                        <span>{item.size}</span>
+                      </div>
+                    </div>
+
+                    <Link
+                      href={`/rezervacija-kostimiem?kostims=${encodeURIComponent(
+                        item.title
+                      )}&image=${encodeURIComponent(
+                        item.image
+                      )}&price=${encodeURIComponent(
+                        item.price
+                      )}&size=${encodeURIComponent(item.size)}`}
+                      className="mt-5 flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-fuchsia-500 font-semibold text-white"
+                    >
+                      Rezervēt →
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

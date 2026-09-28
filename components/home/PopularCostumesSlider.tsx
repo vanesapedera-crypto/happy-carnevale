@@ -59,7 +59,7 @@ export default function PopularCostumesSlider() {
                 alt={costume.name}
                 fill
                 sizes="256px"
-                className="object-cover"
+                className="object-contain p-4"
               />
             </div>
             <div className="flex flex-col gap-3 px-1 pb-1">
