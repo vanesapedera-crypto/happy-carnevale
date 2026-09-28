@@ -70,6 +70,12 @@ const halloween = [
     price: "25 €",
     size: "M-L",
   },
+    {
+    title: "Ķirbis",
+    image: "/kostimi/helovini/kirbis.jpg",
+    price: "25 €",
+    size: "XS-L",
+  },
   {
     title: "Maska (1)",
     image: "/kostimi/helovini/1.JPG",
