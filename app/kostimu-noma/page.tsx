@@ -21,7 +21,7 @@ const mainCategories = [
     description: "Iemīļoti varoņi bērnu svētkiem.",
   },
   {
-    title: "Smieklīgi tēli, parūkas un maskas",
+    title: "Smieklīgi tēli un parūkas",
     href: "/kostimu-noma/smiekligi-teli",
     image: "/images/hero/citi-teli.png",
     description: "Dažādi kostīmi jebkuram pasākumam.",
@@ -30,7 +30,7 @@ const mainCategories = [
 
 const seasonalCategories = [
   {
-    title: "Helovīna kostīmi",
+    title: "Helovīna kostīmi un maskas",
     href: "/kostimu-noma/helovins",
     image: "/images/hero/helovins.png",
     description: "Baisi forši tēli Helovīnam.",

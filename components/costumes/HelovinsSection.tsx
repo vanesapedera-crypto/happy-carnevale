@@ -118,6 +118,24 @@ const halloween = [
     price: "8 €",
     size: "One size",
   },
+   {
+    title: "Maska (8)",
+    image: "/kostimi/helovini/8.JPG",
+    price: "8 €",
+    size: "One size",
+  },
+   {
+    title: "Maska (9)",
+    image: "/kostimi/helovini/9.JPG",
+    price: "8 €",
+    size: "One size",
+  },
+   {
+    title: "Maska (10)",
+    image: "/kostimi/helovini/10.JPG",
+    price: "8 €",
+    size: "One size",
+  },
 ];
 
 export default function HelovinsSection() {
@@ -127,7 +145,7 @@ export default function HelovinsSection() {
         <div className="rounded-[40px] border border-zinc-200 bg-white p-10 shadow-xl">
           <div className="mb-12">
             <h2 className="text-4xl font-black text-gray-900">
-              Helovīna kostīmi
+              Helovīna kostīmi un maskas
             </h2>
 
             <div className="mt-3 h-1 w-24 rounded-full bg-violet-500" />

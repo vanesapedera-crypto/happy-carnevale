@@ -10,7 +10,7 @@ export default function CitiTeliPage() {
     <main className="scroll-smooth bg-white pb-16">
       <PageHero
         badge="KOSTĪMU NOMA"
-        title="Smieklīgi tēli, parūkas un maskas"
+        title="Smieklīgi tēli un parūkas"
         description="Izvēlies dažādus kostīmus bērnu ballītēm, tematiskajiem pasākumiem un karnevāliem."
         image="/images/hero/citi-teli.png"
       />
