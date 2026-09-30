@@ -9,9 +9,16 @@ type Props = {
   title: string;
   price: string;
   image: string;
+  parcelLocker?: boolean;
 };
 
-export default function ProductPurchase({ slug, title, price, image }: Props) {
+export default function ProductPurchase({
+  slug,
+  title,
+  price,
+  image,
+  parcelLocker,
+}: Props) {
   const { addItem } = useCart();
   const [quantity, setQuantity] = useState(1);
 
@@ -26,6 +33,7 @@ export default function ProductPurchase({ slug, title, price, image }: Props) {
         title,
         price: priceValue,
         image,
+        parcelLocker,
       },
       quantity,
     );

@@ -286,7 +286,7 @@ className="object-contain p-4"
                     type="text"
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
-                    placeholder="Piemēram: TC Alfa Omniva"
+                    placeholder="Piemēram: Omniva TC Alfa vai DPD Rimi Āgenskalns"
                     required
                     className="w-full rounded-xl border border-gray-300 p-4 focus:border-pink-500 focus:outline-none"
                   />

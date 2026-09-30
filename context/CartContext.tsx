@@ -15,6 +15,8 @@ export type CartItem = {
   price: number;
   image: string;
   quantity: number;
+  /** false — preci nevar sūtīt ar pakomātu */
+  parcelLocker?: boolean;
 };
 
 type CartContextValue = {
@@ -24,8 +26,6 @@ type CartContextValue = {
   updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
   subtotal: number;
-  shipping: number;
-  total: number;
 };
 
 const CartContext = createContext<CartContextValue | undefined>(undefined);
@@ -96,13 +96,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
     );
   }, [items]);
 
-  const shipping =
-    subtotal >= 30 || items.length === 0
-      ? 0
-      : 3;
-
-  const total = subtotal + shipping;
-
   return (
     <CartContext.Provider
       value={{
@@ -112,8 +105,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
         updateQuantity,
         clearCart,
         subtotal,
-        shipping,
-        total,
       }}
     >
       {children}

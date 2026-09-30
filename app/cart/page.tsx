@@ -4,10 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import { SHIPPING } from "@/lib/constants";
 
 export default function CartPage() {
-  const { items, subtotal, shipping, total, updateQuantity, removeItem } =
-    useCart();
+  const { items, subtotal, updateQuantity, removeItem } = useCart();
 
   if (items.length === 0) {
     return (
@@ -131,8 +131,8 @@ export default function CartPage() {
 
               <div className="flex items-center justify-between">
                 <span className="text-gray-600">Piegāde</span>
-                <span className="font-semibold">
-                  {shipping === 0 ? "Bezmaksas" : `${shipping.toFixed(2)} €`}
+                <span className="text-right text-base text-gray-500">
+                  Izvēlēsies noformējot
                 </span>
               </div>
 
@@ -140,7 +140,7 @@ export default function CartPage() {
 
               <div className="flex items-center justify-between text-2xl font-black text-gray-900">
                 <span>Kopā</span>
-                <span>{total.toFixed(2)} €</span>
+                <span>{subtotal.toFixed(2)} €</span>
               </div>
             </div>
 
@@ -159,7 +159,10 @@ export default function CartPage() {
             </Link>
 
             <p className="mt-8 text-sm leading-7 text-gray-500">
-              Piegāde ir bez maksas pasūtījumiem virs 30 €.
+              Saņemšana klātienē — bez maksas. Pakomāts —{" "}
+              {SHIPPING.parcelLocker.toFixed(2)} € (virs {SHIPPING.freeFrom} € —
+              bez maksas). Kurjera cena atkarīga no adreses, to saskaņosim
+              telefoniski.
             </p>
           </aside>
         </div>

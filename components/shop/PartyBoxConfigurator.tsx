@@ -69,26 +69,19 @@ export default function PartyBoxConfigurator() {
 
   const allSelected = selectedSticks.every(Boolean);
 const addPartyBoxToCart = () => {
-  alert("1");
+    if (!allSelected) return;
 
-  alert(`allSelected = ${allSelected}`);
+    const stickTitles = selectedSticks.map(
+      (id) => sticks.find((stick) => stick.id === id)?.title ?? id
+    );
 
-  if (!allSelected) {
-    alert("2");
-    return;
-  }
-
-  alert("3");
-
-  addItem({
-    id: "test-party-box",
-    title: "Party Box",
-    image: "/images/shop/party-box.png",
-    price: 20,
-  });
-
-  alert("4");
-};
+    addItem({
+      id: `party-box-${selectedBox.id}-${selectedSticks.join("-")}`,
+      title: `Party Box — ${selectedBox.title} (${stickTitles.join(", ")})`,
+      image: "/images/shop/party-box.png",
+      price: selectedBox.price,
+    });
+  };
   return (
    <section className="py-20">
   <div className="mx-auto max-w-7xl px-6">

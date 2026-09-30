@@ -13,8 +13,9 @@ import {
   Truck,
 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import { SHIPPING } from "@/lib/constants";
 
-type DeliveryMode = "pickup" | "omniva" | "address";
+type DeliveryMode = "pickup" | "pakomats" | "address";
 
 const DELIVERY_OPTIONS: {
   value: DeliveryMode;
@@ -29,15 +30,15 @@ const DELIVERY_OPTIONS: {
     icon: Store,
   },
   {
-    value: "omniva",
-    title: "Omniva pakomāts",
-    description: "Visā Latvijā",
+    value: "pakomats",
+    title: "Pakomāts",
+    description: `Omniva, DPD, Smartpost u.c. — ${SHIPPING.parcelLocker.toFixed(2)} €`,
     icon: Package,
   },
   {
     value: "address",
     title: "Piegāde uz adresi",
-    description: "Kurjers līdz durvīm",
+    description: "Cena atkarīga no adreses — saskaņosim telefoniski",
     icon: Truck,
   },
 ];
@@ -47,7 +48,7 @@ const inputClass =
 const labelClass = "mb-2 block font-semibold text-gray-900";
 
 export default function CheckoutPage() {
-  const { items, subtotal, shipping: cartShipping, clearCart } = useCart();
+  const { items, subtotal, clearCart } = useCart();
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -60,7 +61,14 @@ export default function CheckoutPage() {
   const [error, setError] = useState("");
   const [orderNumber, setOrderNumber] = useState<string | null>(null);
 
-  const shipping = delivery === "pickup" ? 0 : cartShipping;
+  const parcelLockerBlocked = items.some((item) => item.parcelLocker === false);
+
+  // Kurjera cenu saskaņo telefoniski, tāpēc kopsummā to neieskaita
+  const courier = delivery === "address";
+  const shipping =
+    delivery === "pakomats" && subtotal < SHIPPING.freeFrom
+      ? SHIPPING.parcelLocker
+      : 0;
   const total = subtotal + shipping;
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -243,14 +251,17 @@ export default function CheckoutPage() {
               <div className="mt-6 grid gap-4 md:grid-cols-3">
                 {DELIVERY_OPTIONS.map(({ value, title, description, icon: Icon }) => {
                   const active = delivery === value;
+                  const disabled = value === "pakomats" && parcelLockerBlocked;
 
                   return (
                     <label
                       key={value}
-                      className={`flex cursor-pointer flex-col gap-3 rounded-2xl border-2 p-5 transition ${
-                        active
-                          ? "border-pink-500 bg-pink-50"
-                          : "border-gray-200 hover:border-pink-200"
+                      className={`flex flex-col gap-3 rounded-2xl border-2 p-5 transition ${
+                        disabled
+                          ? "cursor-not-allowed border-gray-100 bg-gray-50 opacity-60"
+                          : active
+                            ? "cursor-pointer border-pink-500 bg-pink-50"
+                            : "cursor-pointer border-gray-200 hover:border-pink-200"
                       }`}
                     >
                       <input
@@ -258,6 +269,7 @@ export default function CheckoutPage() {
                         name="delivery"
                         value={value}
                         checked={active}
+                        disabled={disabled}
                         onChange={() => setDelivery(value)}
                         className="sr-only"
                       />
@@ -265,7 +277,11 @@ export default function CheckoutPage() {
                         className={`h-7 w-7 ${active ? "text-pink-500" : "text-gray-400"}`}
                       />
                       <span className="font-bold text-gray-900">{title}</span>
-                      <span className="text-sm text-gray-500">{description}</span>
+                      <span className="text-sm text-gray-500">
+                        {disabled
+                          ? "Nav pieejams — grozā ir prece, ko nevar sūtīt ar pakomātu"
+                          : description}
+                      </span>
                     </label>
                   );
                 })}
@@ -274,8 +290,8 @@ export default function CheckoutPage() {
               {delivery !== "pickup" && (
                 <div className="mt-6">
                   <label htmlFor="address" className={labelClass}>
-                    {delivery === "omniva"
-                      ? "Omniva pakomāts (pilsēta, pakomāta nosaukums) *"
+                    {delivery === "pakomats"
+                      ? "Pakomāts (Omniva, DPD, Smartpost u.c. — pilsēta un nosaukums) *"
                       : "Piegādes adrese *"}
                   </label>
                   <input
@@ -283,8 +299,8 @@ export default function CheckoutPage() {
                     required
                     autoComplete={delivery === "address" ? "street-address" : "off"}
                     placeholder={
-                      delivery === "omniva"
-                        ? "Piem., Rīga, Origo pakomāts"
+                      delivery === "pakomats"
+                        ? "Piem., Omniva, Rīga, Origo"
                         : "Iela, māja, dzīvoklis, pilsēta, pasta indekss"
                     }
                     value={address}
@@ -360,12 +376,16 @@ export default function CheckoutPage() {
               <div className="flex items-center justify-between">
                 <span className="text-gray-600">Piegāde</span>
                 <span className="font-semibold">
-                  {shipping === 0 ? "Bezmaksas" : `${shipping.toFixed(2)} €`}
+                  {courier
+                    ? "Pēc vienošanās"
+                    : shipping === 0
+                      ? "Bezmaksas"
+                      : `${shipping.toFixed(2)} €`}
                 </span>
               </div>
 
               <div className="flex items-center justify-between border-t border-gray-200 pt-4 text-2xl font-black text-gray-900">
-                <span>Kopā</span>
+                <span>{courier ? "Kopā (bez piegādes)" : "Kopā"}</span>
                 <span>{total.toFixed(2)} €</span>
               </div>
             </div>
@@ -405,8 +425,9 @@ export default function CheckoutPage() {
             </Link>
 
             <p className="mt-6 text-sm leading-7 text-gray-500">
-              Piegāde ar Omniva vai kurjeru ir bez maksas pasūtījumiem virs
-              30 €. Apmaksu saskaņosim pēc pasūtījuma apstiprināšanas.
+              Pakomāta piegāde bez maksas pasūtījumiem virs {SHIPPING.freeFrom}{" "}
+              €. Kurjera cenu un apmaksu saskaņosim pēc pasūtījuma
+              apstiprināšanas.
             </p>
           </aside>
         </form>

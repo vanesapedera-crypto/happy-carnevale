@@ -33,3 +33,10 @@ export const SOCIAL_LINKS = [
     href: "https://www.tiktok.com/@burbulitesburbuli",
   },
 ] as const;
+
+export const SHIPPING = {
+  /** Pakomāts (Omniva, DPD, Smartpost u.c.) */
+  parcelLocker: 3.5,
+  /** No šīs summas pakomāta piegāde bez maksas. Kurjera cenu saskaņo telefoniski. */
+  freeFrom: 30,
+} as const;

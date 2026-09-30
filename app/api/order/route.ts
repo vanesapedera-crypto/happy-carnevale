@@ -1,10 +1,10 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
-import { SITE } from "@/lib/constants";
+import { SHIPPING, SITE } from "@/lib/constants";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-type DeliveryMode = "pickup" | "omniva" | "address";
+type DeliveryMode = "pickup" | "pakomats" | "address";
 
 type OrderItem = {
   id: string;
@@ -16,12 +16,9 @@ type OrderItem = {
 
 const DELIVERY_LABELS: Record<DeliveryMode, string> = {
   pickup: "Saņemšana klātienē (Stabu iela 90, Rīga)",
-  omniva: "Omniva pakomāts",
+  pakomats: "Pakomāts",
   address: "Piegāde uz adresi",
 };
-
-const FREE_SHIPPING_FROM = 30;
-const SHIPPING_PRICE = 3;
 
 function escapeHtml(value: unknown) {
   return String(value ?? "")
@@ -129,25 +126,27 @@ export async function POST(req: Request) {
       (sum, item) => sum + item.price * item.quantity,
       0
     );
+    // Kurjera cenu saskaņo telefoniski, tāpēc kopsummā to neieskaita
+    const courier = delivery === "address";
     const shipping =
-      delivery === "pickup" || subtotal >= FREE_SHIPPING_FROM
-        ? 0
-        : SHIPPING_PRICE;
+      delivery === "pakomats" && subtotal < SHIPPING.freeFrom
+        ? SHIPPING.parcelLocker
+        : 0;
     const total = subtotal + shipping;
     const orderNumber = createOrderNumber();
 
     const totals = `
       <div style="margin-top:20px;font-size:15px;">
         <p style="display:flex;justify-content:space-between;margin:6px 0;"><span>Preces:</span> <strong>${money(subtotal)}</strong></p>
-        <p style="display:flex;justify-content:space-between;margin:6px 0;"><span>Piegāde:</span> <strong>${shipping === 0 ? "Bezmaksas" : money(shipping)}</strong></p>
-        <p style="display:flex;justify-content:space-between;margin:12px 0 0;font-size:20px;color:#ec4899;"><span>Kopā:</span> <strong>${money(total)}</strong></p>
+        <p style="display:flex;justify-content:space-between;margin:6px 0;"><span>Piegāde:</span> <strong>${courier ? "Pēc vienošanās (saskaņosim telefoniski)" : shipping === 0 ? "Bezmaksas" : money(shipping)}</strong></p>
+        <p style="display:flex;justify-content:space-between;margin:12px 0 0;font-size:20px;color:#ec4899;"><span>${courier ? "Kopā (bez piegādes)" : "Kopā"}:</span> <strong>${money(total)}</strong></p>
       </div>`;
 
     const deliveryInfo = `
       <p><strong>Saņemšanas veids:</strong> ${DELIVERY_LABELS[delivery]}</p>
       ${
         delivery !== "pickup"
-          ? `<p><strong>${delivery === "omniva" ? "Pakomāts" : "Adrese"}:</strong> ${escapeHtml(address)}</p>`
+          ? `<p><strong>${delivery === "pakomats" ? "Pakomāts" : "Adrese"}:</strong> ${escapeHtml(address)}</p>`
           : ""
       }`;
 

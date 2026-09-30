@@ -134,6 +134,7 @@ export default async function ProductPage({
               title={product.title}
               price={product.price}
               image={product.image}
+              parcelLocker={product.parcelLocker}
             />
             {product.parcelLocker === false && (
   <div className="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-5">
