@@ -46,11 +46,11 @@ export const SHIPPING = {
  * tiek sūtīts parasts pasūtījuma apstiprinājums.
  */
 export const INVOICE = {
-  companyName: "", // piem., SIA "Happy Carnevale" vai vārds, uzvārds
+  companyName: "Anita Zarecka", // piem., SIA "Happy Carnevale" vai vārds, uzvārds
   regNumber: "", // reģistrācijas nr. vai personas kods (saimnieciskās darbības veicējam)
   vatNumber: "", // PVN nr. — atstāj tukšu, ja neesi PVN maksātājs
-  address: "", // juridiskā adrese
-  bankName: "", // piem., Swedbank
-  iban: "", // piem., LV00HABA0000000000000
+  address: "Darba iela 9-15, Talsi, LV-3201", // juridiskā adrese
+  bankName: "SEB banka", // piem., Swedbank
+  iban: "LV85UNLA0050012331901", // piem., LV00HABA0000000000000
   paymentDays: 3, // apmaksas termiņš dienās
 } as const;
