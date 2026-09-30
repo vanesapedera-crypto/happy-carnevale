@@ -10,12 +10,44 @@ import SurpriseCharacterSection from "./SupriseCharacterSection";
 import AnimatorSelectorModal from "./AnimatorSelectorModal";
 import MascotSelectorModal from "./MascotSelectorModal";
 import SubmitSection from "./SubmitSection";
+import ReservationSuccess from "./ReservationSuccess";
 import {
   PartyPopper,
   Palette,
   Sparkles,
   CheckCircle2,
 } from "lucide-react";
+
+const INITIAL_FORM = {
+  pakalpojums: "",
+
+  vards: "",
+  telefons: "",
+  epasts: "",
+
+  datums: "",
+  laiks: "",
+  adrese: "",
+
+  berni: "",
+  vecums: "",
+
+  tels: "",
+  telsImage: "",
+  ilgums: "",
+
+  jubilars: "",
+  jubilaraVecums: "",
+
+  eksperimenti: false,
+  slaims: false,
+  burbuli: false,
+  darbnica: false,
+  led: false,
+  folija: false,
+
+  komentars: "",
+};
 
 export default function ReservationForm() {
   const [loading, setLoading] = useState(false);
@@ -24,36 +56,8 @@ export default function ReservationForm() {
   const [openAnimatorSelector, setOpenAnimatorSelector] = useState(false);
   const [openMascotSelector, setOpenMascotSelector] = useState(false);
 
-  const [form, setForm] = useState({
-    pakalpojums: "",
-
-    vards: "",
-    telefons: "",
-    epasts: "",
-
-    datums: "",
-    laiks: "",
-    adrese: "",
-
-    berni: "",
-    vecums: "",
-
-   tels: "",
-telsImage: "",
-ilgums: "",
-
-    jubilars: "",
-    jubilaraVecums: "",
-
-   eksperimenti: false,
-slaims: false,
-burbuli: false,
-darbnica: false,
-led: false,
-folija: false,
-
-    komentars: "",
-  });
+  const [form, setForm] = useState(INITIAL_FORM);
+  const [error, setError] = useState("");
 
   function handleChange(
     e: React.ChangeEvent<
@@ -89,31 +93,55 @@ folija: false,
   }
 
   async function handleSubmit(e: React.FormEvent) {
-  e.preventDefault();
+    e.preventDefault();
+    setError("");
 
-  setLoading(true);
-
-  try {
-    const response = await fetch("/api/events", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(form),
-    });
-
-    if (!response.ok) {
-      throw new Error("Neizdevās nosūtīt rezervāciju");
+    if (!form.pakalpojums) {
+      setError("Lūdzu, izvēlies pakalpojumu (1. solis).");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
     }
 
-    setSuccess(true);
-  } catch (error) {
-    console.error(error);
-    alert("Kļūda! Rezervāciju neizdevās nosūtīt.");
-  } finally {
-    setLoading(false);
+    setLoading(true);
+
+    try {
+      const response = await fetch("/api/events", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+
+      if (!response.ok) {
+        throw new Error("Neizdevās nosūtīt rezervāciju");
+      }
+
+      setSuccess(true);
+    } catch (error) {
+      console.error(error);
+      setError(
+        "Rezervāciju neizdevās nosūtīt. Lūdzu, mēģini vēlreiz vai sazinies ar mums pa tālruni."
+      );
+    } finally {
+      setLoading(false);
+    }
   }
-}
+
+  function resetForm() {
+    setForm(INITIAL_FORM);
+    setSuccess(false);
+    setError("");
+  }
+
+  if (success) {
+    return (
+      <div className="px-6 py-20">
+        <ReservationSuccess onReset={resetForm} />
+      </div>
+    );
+  }
+
     return (
     <>
       <form
@@ -315,10 +343,7 @@ folija: false,
           />
         )}
 
-        <SubmitSection
-          loading={loading}
-          success={success}
-        />
+        <SubmitSection loading={loading} error={error} />
       </form>
            <AnimatorSelectorModal
   open={openAnimatorSelector}

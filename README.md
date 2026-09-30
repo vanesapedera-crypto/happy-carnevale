@@ -23,36 +23,34 @@ Atver [http://localhost:3000](http://localhost:3000).
 
 ```
 app/
-  layout.tsx          — fonts (Poppins), globālā metadata, Header/Footer
-  page.tsx             — sākumlapa (visas sekcijas apkopotas)
+  layout.tsx, page.tsx      — globālais izkārtojums un sākumlapa
   sitemap.ts, robots.ts
-  kostimu-noma/        — placeholder lapa (detalizēts katalogs vēl top)
-  pasakumu-organizesana/
-  veikals/
-  par-mums/
+  kostimu-noma/             — kostīmu kategoriju lapas
+  pasakumu-organizesana/    — animatori, sejas apgleznošana, pārsteiguma tēls, darbnīcas
+  veikals/                  — veikals, produkta lapa, Party Box
+  cart/                     — grozs
+  rezervacija-kostimiem/, rezervacija-pasakumiem/
   kontakti/
+  api/                      — rezervāciju un pasākumu e-pastu sūtīšana (Resend)
 
 components/
-  layout/   — Header (sticky nav), Footer
-  home/     — Hero, CategoryStrip, BentoServices, PopularCostumesSlider,
-              WhyUs, AboutTeaser, ContactSection
-  ui/       — Button, Container, SectionHeading, Logo, PagePlaceholder
+  layout/        — Header, Footer
+  hero/          — sākumlapas Hero
+  costumes/      — kostīmu kategoriju sekcijas
+  events/        — pasākumu lapu sekcijas un galerijas
+  facepainting/  — sejas apgleznošanas sekcijas
+  reservation/   — rezervācijas formas daļas
+  shop/          — veikala komponentes
+  common/        — PageHero, MixedGallery
 
-lib/
-  constants.ts  — navigācija, kontaktinformācija, sociālie tīkli
-  data.ts       — kategorijas, bento pakalpojumi, populārie kostīmi, ieguvumi
+context/CartContext.tsx  — groza stāvoklis
+data/                    — animatoru, mascotu un gaisa kostīmu tēli
+lib/constants.ts         — kontaktinformācija, navigācija, sociālie tīkli
 ```
 
 ## Attēli
 
-Šobrīd izmantoti kvalitatīvi Unsplash foto kā vietturi (`images.unsplash.com`,
-atļauts `next.config.mjs`). Nomainot pret reālām fotogrāfijām:
-
-1. Ievieto attēlus `/public/images/` mapē.
-2. `lib/data.ts` un attiecīgajās komponentēs nomaini `image` URL uz
-   `/images/faila-nosaukums.jpg`.
-3. Ja izmanto ārējus attēlu resursus, pievieno domēnu
-   `next.config.mjs` → `images.remotePatterns`.
+Visi attēli atrodas `public/` mapē (`/images/...`, `/kostimi/...`, `/videos/...`).
 
 ## Krāsu un fontu tokeni
 

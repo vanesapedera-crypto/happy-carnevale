@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useState, type FormEvent } from "react";
+import ReservationSuccess from "@/components/reservation/ReservationSuccess";
+import DateInput from "@/components/common/DateInput";
 
 type DeliveryMode = "pickup" | "address" | "omniva";
 
@@ -26,37 +28,47 @@ function ReservationContent() {
   const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     setLoading(true);
     setSuccess(false);
+    setError("");
 
-    const response = await fetch("/api/reservation", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        costume,
-        image,
-        price,
-        size,
-        name,
-        phone,
-        email,
-        date: eventDate,
-        pickupDate,
-        delivery,
-        address,
-        message: comment,
-      }),
-    });
+    let ok = false;
+
+    try {
+      const response = await fetch("/api/reservation", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          costume,
+          image,
+          price,
+          size,
+          name,
+          phone,
+          email,
+          date: eventDate,
+          pickupDate,
+          delivery,
+          address,
+          message: comment,
+        }),
+      });
+
+      ok = response.ok;
+    } catch (err) {
+      console.error(err);
+    }
 
     setLoading(false);
 
-    if (response.ok) {
+    if (ok) {
       setSuccess(true);
       setName("");
       setPhone("");
@@ -67,16 +79,25 @@ function ReservationContent() {
       setComment("");
       setDelivery("pickup");
     } else {
-      alert("Kļūda! Rezervāciju neizdevās nosūtīt.");
+      setError(
+        "Rezervāciju neizdevās nosūtīt. Lūdzu, mēģini vēlreiz vai sazinies ar mums pa tālruni."
+      );
     }
   }
 
-  const deliveryTitle =
-    delivery === "omniva"
-      ? "Omniva pakomāts"
-      : delivery === "address"
-        ? "Vēlamā piegādes adrese"
-        : "Saņemšana klātienē";
+  if (success) {
+    return (
+      <main className="bg-pink-50 px-6 py-24">
+        <ReservationSuccess
+          text={`Esam saņēmuši tavu rezervāciju${
+            costume ? ` kostīmam „${costume}”` : ""
+          }. Drīzumā sazināsimies, lai apstiprinātu kostīma pieejamību un saņemšanas detaļas.`}
+          onReset={() => setSuccess(false)}
+          resetLabel="Rezervēt vēlreiz"
+        />
+      </main>
+    );
+  }
 
   return (
     <main className="bg-pink-50 py-24">
@@ -160,12 +181,15 @@ className="object-contain p-4"
                 <p className="mb-2 text-sm text-gray-500">
                   Datums, kad kostīmu izmantosiet.
                 </p>
-                <input
-                  type="date"
+                <DateInput
                   value={eventDate}
-                  onChange={(e) => setEventDate(e.target.value)}
+                  onChange={(value) => {
+                    setEventDate(value);
+                    if (pickupDate && pickupDate > value) setPickupDate("");
+                  }}
                   required
-                  className="w-full rounded-xl border border-gray-300 p-4 focus:border-pink-500 focus:outline-none"
+                  ariaLabel="Pasākuma datums"
+                  className="w-full rounded-xl border border-gray-300 bg-white p-4 focus:border-pink-500 focus:outline-none"
                 />
               </div>
 
@@ -176,12 +200,13 @@ className="object-contain p-4"
                 <p className="mb-2 text-sm text-gray-500">
                   Datums, kad kostīmu vēlaties saņemt.
                 </p>
-                <input
-                  type="date"
+                <DateInput
                   value={pickupDate}
-                  onChange={(e) => setPickupDate(e.target.value)}
+                  onChange={setPickupDate}
+                  max={eventDate || undefined}
                   required
-                  className="w-full rounded-xl border border-gray-300 p-4 focus:border-pink-500 focus:outline-none"
+                  ariaLabel="Saņemšanas datums"
+                  className="w-full rounded-xl border border-gray-300 bg-white p-4 focus:border-pink-500 focus:outline-none"
                 />
               </div>
 
@@ -292,9 +317,9 @@ className="object-contain p-4"
                 {loading ? "Nosūta..." : "Apstiprināt rezervāciju"}
               </button>
 
-              {success && (
-                <p className="rounded-xl bg-green-50 p-4 text-green-700">
-                  Rezervācija nosūtīta veiksmīgi.
+              {error && (
+                <p className="rounded-xl bg-red-50 p-4 font-semibold text-red-600">
+                  {error}
                 </p>
               )}
             </form>

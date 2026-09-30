@@ -8,7 +8,6 @@ import { useCart } from "@/context/CartContext";
 export default function CartPage() {
   const { items, subtotal, shipping, total, updateQuantity, removeItem } =
     useCart();
-    console.log("CART ITEMS", items);
 
   if (items.length === 0) {
     return (
@@ -145,9 +144,12 @@ export default function CartPage() {
               </div>
             </div>
 
-            <button className="mt-8 w-full rounded-full bg-pink-500 py-4 text-lg font-bold text-white transition hover:bg-pink-600">
+            <Link
+              href="/noformesana"
+              className="mt-8 block w-full rounded-full bg-pink-500 py-4 text-center text-lg font-bold text-white transition hover:bg-pink-600"
+            >
               Noformēt pasūtījumu
-            </button>
+            </Link>
 
             <Link
               href="/veikals"

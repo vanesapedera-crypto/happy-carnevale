@@ -14,7 +14,7 @@ export const SITE = {
 export const NAV_LINKS = [
   { label: "Sākums", href: "/" },
   { label: "Kostīmu noma", href: "/kostimu-noma" },
-  { label: "Pasākumu organizēšana", href: "/bernu-pasakumi" },
+  { label: "Pasākumu organizēšana", href: "/pasakumu-organizesana" },
   { label: "Burbulītes burbuļi", href: "/veikals" },
   { label: "Kontakti", href: "/kontakti" },
 ] as const;
@@ -26,7 +26,7 @@ export const SOCIAL_LINKS = [
   },
   {
     label: "Instagram",
-                href: "https://www.instagram.com/happycarnevale/"
+    href: "https://www.instagram.com/happycarnevale/",
   },
   {
     label: "TikTok",

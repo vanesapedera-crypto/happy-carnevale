@@ -8,6 +8,7 @@ import {
   Smile,
   ClipboardList,
 } from "lucide-react";
+import DateInput from "@/components/common/DateInput";
 
 interface EventSectionProps {
   form: {
@@ -19,14 +20,35 @@ interface EventSectionProps {
     comment: string;
   };
   handleChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
   ) => void;
 }
+
+// 24h formāts neatkarīgi no pārlūka valodas (input type="time" rāda AM/PM angliskos pārlūkos)
+const HOURS = Array.from({ length: 16 }, (_, i) =>
+  String(i + 7).padStart(2, "0")
+); // 07–22
+const MINUTES = ["00", "15", "30", "45"];
+
+const selectClass =
+  "h-14 w-full appearance-none rounded-2xl border border-gray-200 bg-white px-5 text-lg outline-none transition focus:border-pink-500 focus:ring-4 focus:ring-pink-100";
 
 export default function EventSection({
   form,
   handleChange,
 }: EventSectionProps) {
+  const [hour = "", minute = ""] = form.eventTime.split(":");
+
+  function setTime(nextHour: string, nextMinute: string) {
+    const value = nextHour ? `${nextHour}:${nextMinute || "00"}` : "";
+
+    handleChange({
+      target: { name: "eventTime", value, type: "text" },
+    } as React.ChangeEvent<HTMLInputElement>);
+  }
+
   return (
     <section className="space-y-6">
 
@@ -61,13 +83,16 @@ export default function EventSection({
               <span className="text-pink-500">*</span>
             </label>
 
-            <input
-              type="date"
-              name="eventDate"
+            <DateInput
               value={form.eventDate}
-              onChange={handleChange}
+              onChange={(value) =>
+                handleChange({
+                  target: { name: "eventDate", value, type: "text" },
+                } as React.ChangeEvent<HTMLInputElement>)
+              }
               required
-              className="h-14 w-full rounded-2xl border border-gray-200 px-5 text-lg outline-none transition focus:border-pink-500 focus:ring-4 focus:ring-pink-100"
+              ariaLabel="Pasākuma datums"
+              className="h-14 w-full rounded-2xl border border-gray-200 bg-white px-5 text-lg outline-none transition focus:border-pink-500 focus:ring-4 focus:ring-pink-100"
             />
           </div>
 
@@ -84,14 +109,43 @@ export default function EventSection({
               <span className="text-pink-500">*</span>
             </label>
 
-            <input
-              type="time"
-              name="eventTime"
-              value={form.eventTime}
-              onChange={handleChange}
-              required
-              className="h-14 w-full rounded-2xl border border-gray-200 px-5 text-lg outline-none transition focus:border-pink-500 focus:ring-4 focus:ring-pink-100"
-            />
+            <div className="flex items-center gap-2">
+              <select
+                aria-label="Stunda"
+                value={hour}
+                onChange={(e) => setTime(e.target.value, minute)}
+                required
+                className={selectClass}
+              >
+                <option value="" disabled>
+                  hh
+                </option>
+                {HOURS.map((h) => (
+                  <option key={h} value={h}>
+                    {h}
+                  </option>
+                ))}
+              </select>
+
+              <span className="text-2xl font-bold text-gray-400">:</span>
+
+              <select
+                aria-label="Minūtes"
+                value={hour ? minute || "00" : ""}
+                onChange={(e) => setTime(hour, e.target.value)}
+                disabled={!hour}
+                className={`${selectClass} disabled:bg-gray-50 disabled:text-gray-400`}
+              >
+                <option value="" disabled>
+                  mm
+                </option>
+                {MINUTES.map((m) => (
+                  <option key={m} value={m}>
+                    {m}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
 
           {/* Adrese */}

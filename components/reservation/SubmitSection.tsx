@@ -1,11 +1,11 @@
 type SubmitSectionProps = {
   loading: boolean;
-  success: boolean;
+  error?: string;
 };
 
 export default function SubmitSection({
   loading,
-  success,
+  error,
 }: SubmitSectionProps) {
   return (
     <div className="space-y-6">
@@ -19,17 +19,10 @@ export default function SubmitSection({
           : "Nosūtīt rezervācijas pieprasījumu"}
       </button>
 
-      {success && (
-        <div className="rounded-2xl border border-green-200 bg-green-50 p-5 text-center">
-          <p className="font-semibold text-green-700">
-            ✅ Rezervācijas pieprasījums veiksmīgi nosūtīts!
-          </p>
-
-          <p className="mt-2 text-sm text-gray-600">
-            Mēs ar Jums sazināsimies tuvākajā laikā, lai precizētu informāciju un
-            apstiprinātu rezervāciju.
-          </p>
-        </div>
+      {error && (
+        <p className="rounded-2xl border border-red-200 bg-red-50 p-5 text-center font-semibold text-red-600">
+          {error}
+        </p>
       )}
 
       <p className="text-center text-sm text-gray-500">

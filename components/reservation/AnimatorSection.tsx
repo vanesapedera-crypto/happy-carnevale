@@ -6,7 +6,6 @@ import {
   Clock3,
   WandSparkles,
   Sparkles,
-  CheckCircle2,
 } from "lucide-react";
 
 interface AnimatorSectionProps {

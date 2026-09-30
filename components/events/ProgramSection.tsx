@@ -5,7 +5,6 @@ import {
   Sparkles,
   Gift,
   Heart,
-  ChevronRight,
 } from "lucide-react";
 
 const features = [

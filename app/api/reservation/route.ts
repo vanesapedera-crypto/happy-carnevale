@@ -1,5 +1,6 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
+import { formatDateLv } from "@/lib/date";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -66,10 +67,10 @@ export async function POST(req: Request) {
 
           <h3>📅 Rezervācijas informācija</h3>
 
-          <p><strong>Pasākuma datums:</strong> ${body.date || "-"}</p>
+          <p><strong>Pasākuma datums:</strong> ${formatDateLv(body.date) || "-"}</p>
 
           <p><strong>Saņemšanas datums:</strong> ${
-            body.pickupDate || "-"
+            formatDateLv(body.pickupDate) || "-"
           }</p>
 
           <p>

@@ -1,6 +1,5 @@
 import type { MetadataRoute } from "next";
-import { SITE } from "@/lib/constants";
-import { NAV_LINKS } from "@/lib/constants";
+import { SITE, NAV_LINKS } from "@/lib/constants";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return NAV_LINKS.map((link) => ({

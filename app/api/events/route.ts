@@ -1,5 +1,6 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
+import { formatDateLv } from "@/lib/date";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -7,7 +8,7 @@ export async function POST(req: Request) {
   const body = await req.json();
 
   try {
-    await resend.emails.send({
+    const { error } = await resend.emails.send({
 from: "Happy Carnevale <noreply@happycarnevale.lv>",
       to: "carnevalehappy@gmail.com",
 
@@ -43,7 +44,7 @@ ${body.pakalpojums}
 
 <h3>📅 Pasākuma informācija</h3>
 
-<p><strong>Datums:</strong> ${body.datums}</p>
+<p><strong>Datums:</strong> ${formatDateLv(body.datums)}</p>
 
 <p><strong>Laiks:</strong> ${body.laiks || "-"}</p>
 
@@ -113,6 +114,19 @@ ${body.komentars || "-"}
 </div>
       `,
     });
+
+    if (error) {
+      console.error(error);
+
+      return NextResponse.json(
+        {
+          success: false,
+        },
+        {
+          status: 500,
+        }
+      );
+    }
 
     return NextResponse.json({
       success: true,

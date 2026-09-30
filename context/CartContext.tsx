@@ -54,9 +54,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
     item: Omit<CartItem, "quantity">,
     quantity = 1
   ) => {
-    console.log("ADD ITEM");
-    console.log(item);
-
     setItems((current) => {
       const existing = current.find((x) => x.id === item.id);
 
