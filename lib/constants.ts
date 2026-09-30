@@ -37,6 +37,6 @@ export const SOCIAL_LINKS = [
 export const SHIPPING = {
   /** Pakomāts (Omniva, DPD, Smartpost u.c.) */
   parcelLocker: 3.5,
-  /** No šīs summas pakomāta piegāde bez maksas. Kurjera cenu saskaņo telefoniski. */
+  /** No šīs summas pakomāta piegāde bez maksas. */
   freeFrom: 30,
 } as const;

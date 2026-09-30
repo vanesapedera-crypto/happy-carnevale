@@ -10,12 +10,11 @@ import {
   Package,
   ShoppingBag,
   Store,
-  Truck,
 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { SHIPPING } from "@/lib/constants";
 
-type DeliveryMode = "pickup" | "pakomats" | "address";
+type DeliveryMode = "pickup" | "pakomats";
 
 const DELIVERY_OPTIONS: {
   value: DeliveryMode;
@@ -34,12 +33,6 @@ const DELIVERY_OPTIONS: {
     title: "Pakomāts",
     description: `Omniva, DPD, Smartpost u.c. — ${SHIPPING.parcelLocker.toFixed(2)} €`,
     icon: Package,
-  },
-  {
-    value: "address",
-    title: "Piegāde uz adresi",
-    description: "Cena atkarīga no adreses — saskaņosim telefoniski",
-    icon: Truck,
   },
 ];
 
@@ -63,8 +56,6 @@ export default function CheckoutPage() {
 
   const parcelLockerBlocked = items.some((item) => item.parcelLocker === false);
 
-  // Kurjera cenu saskaņo telefoniski, tāpēc kopsummā to neieskaita
-  const courier = delivery === "address";
   const shipping =
     delivery === "pakomats" && subtotal < SHIPPING.freeFrom
       ? SHIPPING.parcelLocker
@@ -248,7 +239,7 @@ export default function CheckoutPage() {
                 2. Saņemšanas veids
               </h2>
 
-              <div className="mt-6 grid gap-4 md:grid-cols-3">
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
                 {DELIVERY_OPTIONS.map(({ value, title, description, icon: Icon }) => {
                   const active = delivery === value;
                   const disabled = value === "pakomats" && parcelLockerBlocked;
@@ -290,19 +281,13 @@ export default function CheckoutPage() {
               {delivery !== "pickup" && (
                 <div className="mt-6">
                   <label htmlFor="address" className={labelClass}>
-                    {delivery === "pakomats"
-                      ? "Pakomāts (Omniva, DPD, Smartpost u.c. — pilsēta un nosaukums) *"
-                      : "Piegādes adrese *"}
+                    Pakomāts (Omniva, DPD, Smartpost u.c. — pilsēta un nosaukums) *
                   </label>
                   <input
                     id="address"
                     required
-                    autoComplete={delivery === "address" ? "street-address" : "off"}
-                    placeholder={
-                      delivery === "pakomats"
-                        ? "Piem., Omniva, Rīga, Origo"
-                        : "Iela, māja, dzīvoklis, pilsēta, pasta indekss"
-                    }
+                    autoComplete="off"
+                    placeholder="Piem., Omniva, Rīga, Origo"
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
                     className={inputClass}
@@ -376,16 +361,14 @@ export default function CheckoutPage() {
               <div className="flex items-center justify-between">
                 <span className="text-gray-600">Piegāde</span>
                 <span className="font-semibold">
-                  {courier
-                    ? "Pēc vienošanās"
-                    : shipping === 0
+                  {shipping === 0
                       ? "Bezmaksas"
                       : `${shipping.toFixed(2)} €`}
                 </span>
               </div>
 
               <div className="flex items-center justify-between border-t border-gray-200 pt-4 text-2xl font-black text-gray-900">
-                <span>{courier ? "Kopā (bez piegādes)" : "Kopā"}</span>
+                <span>Kopā</span>
                 <span>{total.toFixed(2)} €</span>
               </div>
             </div>
@@ -426,8 +409,7 @@ export default function CheckoutPage() {
 
             <p className="mt-6 text-sm leading-7 text-gray-500">
               Pakomāta piegāde bez maksas pasūtījumiem virs {SHIPPING.freeFrom}{" "}
-              €. Kurjera cenu un apmaksu saskaņosim pēc pasūtījuma
-              apstiprināšanas.
+              €. Apmaksu saskaņosim pēc pasūtījuma apstiprināšanas.
             </p>
           </aside>
         </form>

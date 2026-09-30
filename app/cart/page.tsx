@@ -161,8 +161,7 @@ export default function CartPage() {
             <p className="mt-8 text-sm leading-7 text-gray-500">
               Saņemšana klātienē — bez maksas. Pakomāts —{" "}
               {SHIPPING.parcelLocker.toFixed(2)} € (virs {SHIPPING.freeFrom} € —
-              bez maksas). Kurjera cena atkarīga no adreses, to saskaņosim
-              telefoniski.
+              bez maksas).
             </p>
           </aside>
         </div>

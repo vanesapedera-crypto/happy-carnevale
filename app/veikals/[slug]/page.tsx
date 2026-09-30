@@ -148,7 +148,7 @@ export default async function ProductPage({
 
         <p className="mt-1 text-sm leading-6 text-amber-800">
           Šī produkta izmēra dēļ to nevar nosūtīt ar pakomātu.
-          Lūdzu, izvēlieties piegādi ar kurjeru vai saņemšanu uz vietas.
+          Lūdzu, izvēlieties saņemšanu uz vietas (Stabu iela 90, Rīga).
         </p>
       </div>
     </div>
