@@ -53,6 +53,7 @@ export default function CheckoutPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [orderNumber, setOrderNumber] = useState<string | null>(null);
+  const [invoiceSent, setInvoiceSent] = useState(false);
 
   const parcelLockerBlocked = items.some((item) => item.parcelLocker === false);
 
@@ -90,6 +91,7 @@ export default function CheckoutPage() {
       }
 
       setOrderNumber(result.orderNumber);
+      setInvoiceSent(Boolean(result.invoice));
       clearCart();
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch {
@@ -116,8 +118,9 @@ export default function CheckoutPage() {
           </p>
 
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-gray-600">
-            Apstiprinājumu nosūtījām uz tavu e-pastu. Drīzumā sazināsimies, lai
-            apstiprinātu pasūtījumu un vienotos par apmaksu.
+            {invoiceSent
+              ? "Rēķinu apmaksai nosūtījām uz tavu e-pastu. Pēc apmaksas saņemšanas sagatavosim pasūtījumu."
+              : "Apstiprinājumu nosūtījām uz tavu e-pastu. Drīzumā sazināsimies, lai apstiprinātu pasūtījumu un vienotos par apmaksu."}
           </p>
 
           <Link
@@ -409,7 +412,8 @@ export default function CheckoutPage() {
 
             <p className="mt-6 text-sm leading-7 text-gray-500">
               Pakomāta piegāde bez maksas pasūtījumiem virs {SHIPPING.freeFrom}{" "}
-              €. Apmaksu saskaņosim pēc pasūtījuma apstiprināšanas.
+              €. Pēc pasūtījuma apstiprināšanas rēķins tiks nosūtīts uz tavu
+              e-pastu.
             </p>
           </aside>
         </form>

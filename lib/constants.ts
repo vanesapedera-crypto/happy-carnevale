@@ -40,3 +40,17 @@ export const SHIPPING = {
   /** No šīs summas pakomāta piegāde bez maksas. */
   freeFrom: 30,
 } as const;
+
+/**
+ * Rēķina rekvizīti. Kamēr `iban` ir tukšs, klientam rēķins netiek sūtīts —
+ * tiek sūtīts parasts pasūtījuma apstiprinājums.
+ */
+export const INVOICE = {
+  companyName: "", // piem., SIA "Happy Carnevale" vai vārds, uzvārds
+  regNumber: "", // reģistrācijas nr. vai personas kods (saimnieciskās darbības veicējam)
+  vatNumber: "", // PVN nr. — atstāj tukšu, ja neesi PVN maksātājs
+  address: "", // juridiskā adrese
+  bankName: "", // piem., Swedbank
+  iban: "", // piem., LV00HABA0000000000000
+  paymentDays: 3, // apmaksas termiņš dienās
+} as const;

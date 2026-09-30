@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 import { SHIPPING, SITE } from "@/lib/constants";
+import { escapeHtml, invoiceEnabled, invoiceHtml } from "@/lib/invoice";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -18,15 +19,6 @@ const DELIVERY_LABELS: Record<DeliveryMode, string> = {
   pickup: "Saņemšana klātienē (Stabu iela 90, Rīga)",
   pakomats: "Pakomāts",
 };
-
-function escapeHtml(value: unknown) {
-  return String(value ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
 
 function money(value: number) {
   return `${value.toFixed(2)} €`;
@@ -181,15 +173,32 @@ export async function POST(req: Request) {
       );
     }
 
-    // Apstiprinājums klientam. Ja tas neizdodas, pasūtījums tik un tā ir saņemts.
+    // Klientam: rēķins (ja rekvizīti aizpildīti lib/constants.ts) vai parasts apstiprinājums.
+    // Ja tas neizdodas, pasūtījums tik un tā ir saņemts.
+    const sendInvoice = invoiceEnabled();
+
     const { error: confirmationError } = await resend.emails.send({
       from: "Happy Carnevale <noreply@happycarnevale.lv>",
       to: email,
+      ...(sendInvoice ? { bcc: SITE.email } : {}),
       replyTo: SITE.email,
-      subject: `Paldies par pasūtījumu! (${orderNumber})`,
-      html: emailLayout(
-        "Paldies par pasūtījumu!",
-        `
+      subject: sendInvoice
+        ? `Rēķins Nr. ${orderNumber} — Happy Carnevale`
+        : `Paldies par pasūtījumu! (${orderNumber})`,
+      html: sendInvoice
+        ? invoiceHtml({
+            number: orderNumber,
+            buyerName: name,
+            buyerEmail: email,
+            buyerPhone: phone,
+            items,
+            shipping,
+            total,
+            deliveryText: deliveryInfo,
+          })
+        : emailLayout(
+            "Paldies par pasūtījumu!",
+            `
         <p>Sveiki, ${escapeHtml(name)}!</p>
         <p>Esam saņēmuši tavu pasūtījumu <strong>${orderNumber}</strong>. Drīzumā sazināsimies, lai to apstiprinātu un vienotos par apmaksu.</p>
         <hr style="margin:25px 0;">
@@ -199,14 +208,14 @@ export async function POST(req: Request) {
         ${deliveryInfo}
         <p style="margin-top:30px;color:#888;font-size:14px;">Jautājumi? Zvani ${SITE.phone} vai raksti ${SITE.email}.</p>
         `
-      ),
+          ),
     });
 
     if (confirmationError) {
       console.error(confirmationError);
     }
 
-    return NextResponse.json({ ok: true, orderNumber });
+    return NextResponse.json({ ok: true, orderNumber, invoice: sendInvoice });
   } catch (error) {
     console.error(error);
     return NextResponse.json(
