@@ -96,14 +96,6 @@ className="pointer-events-none hidden lg:block absolute left-[-26px] top-80 z-0 
   className="pointer-events-none hidden lg:block absolute left-[24%] top-40 z-15 h-auto w-8"
 />
 
-       <Image
-  src="/group-5.svg"
-  alt=""
-  width={220}
-  height={140}
-  className="pointer-events-none hidden lg:block absolute left-7 top-24 z-0 h-auto w-32"
-/>
-
 <div className="relative z-10 mx-auto max-w-7xl px-5 lg:px-6">
                   <div className="mb-8 flex items-center justify-center gap-6">
 <div className="hidden h-px w-28 bg-pink-200 lg:block" />
