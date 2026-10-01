@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import PageHero from "@/components/common/PageHero";
 import HelovinsEventSection from "@/components/events/HelovinsEventSection";
 
 export const metadata: Metadata = {
@@ -10,15 +9,6 @@ export const metadata: Metadata = {
 
 export default function HelovinsPasakumsPage() {
   return (
-    <>
-      <PageHero
-        badge="PASĀKUMU ORGANIZĒŠANA"
-        title="Helovīns"
-        description="Vēlies ballīti Helovīna noskaņās? Mēs to varam realizēt!"
-        image="/images/hero/helovins.png"
-      />
-
-      <HelovinsEventSection />
-    </>
+    <HelovinsEventSection />
   );
 }
