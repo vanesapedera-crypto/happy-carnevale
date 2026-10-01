@@ -115,11 +115,11 @@ export default function Hero() {
             </span>
 
             <h1 className="mt-2 text-[29px] font-semibold leading-[1.08] text-[#3B0764]">
-              Kostīmu noma un bērnu svētki
+              Priecājos Tevi redzēt!
             </h1>
 
             <p className="mt-1.5 text-[15px] text-gray-600">
-              Rīgā un visā Latvijā
+              Izvēlies, ar ko sāksim svinēt!
             </p>
           </div>
         </div>
