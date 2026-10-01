@@ -1,5 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Kostīmu noma – mascota tēli, karnevāla un svētku kostīmi | Happy Carnevale",
+  description:
+    "Kostīmu noma Rīgā un visā Latvijā: mascota tēli, gaisa plūsmas kostīmi, kino tēli, smieklīgi tēli un parūkas, Helovīna, Ziemassvētku un Lieldienu kostīmi.",
+};
 
 const mainCategories = [
   {
@@ -86,21 +93,7 @@ export default function KostimuNomaPage() {
   className="pointer-events-none hidden lg:block absolute left-[24%] top-40 z-15 h-auto w-8"
 />
 
-<Image
-  src="/group-8.svg"
-  alt=""
-  width={220}
-  height={140}
-  className="pointer-events-none hidden lg:block absolute left-7 top-30 z-0 h-auto w-32"
-/>
 
-<Image
-  src="/group-9.svg"
-  alt=""
-  width={280}
-  height={180}
-  className="pointer-events-none hidden lg:block absolute right-0 top-17 z-3 h-auto w-49"
-/>
 
 <Image
   src="/star-2.svg"
@@ -154,6 +147,9 @@ export default function KostimuNomaPage() {
               <div className="mb-8 flex items-center justify-center gap-6">
   <div className="hidden h-px w-28 bg-pink-200 lg:block" />
 
+  <h1 className="text-center text-lg font-black uppercase tracking-[0.2em] text-pink-400 sm:text-xl lg:text-2xl lg:tracking-[0.45em]">
+    Kostīmu noma
+  </h1>
 
   <div className="hidden h-px w-28 bg-pink-200 lg:block" />
 </div>
