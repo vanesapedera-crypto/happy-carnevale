@@ -5,11 +5,13 @@ import {
   PartyPopper,
   Crown,
   Sparkles,
+  Phone,
+  MessageCircle,
 } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-clip">
 
       {/* ================= DESKTOP ================= */}
 
@@ -98,124 +100,105 @@ export default function Hero() {
         </div>
 
       </div>
-            {/* ================= MOBILE ================= */}
+      {/* ================= MOBILE ================= */}
 
-      <div className="relative isolate overflow-hidden lg:hidden">
+      <div className="relative bg-[#FFF7FB] lg:hidden">
 
-        {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white via-[#FFF8FC] to-[#FFF8FC]" />
-
-        <div className="absolute left-1/2 top-0 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-pink-300/20 blur-[140px]" />
-
-        {/* Hero image */}
-        <div className="relative z-10 flex justify-center pt-4">
-
+        {/* Burbulīte – pirmā lieta zem logo */}
+        <div className="relative h-[470px] w-full overflow-hidden bg-pink-100">
           <Image
             src="/images/hero/hero-right.png"
-            alt="Burbulīte"
-            width={900}
-            height={1100}
+            alt="Burbulīte – Happy Carnevale"
+            fill
             priority
-            className="w-[120%] max-w-[520px] object-contain"
+            sizes="100vw"
+            className="object-cover object-[50%_30%] select-none"
           />
 
-          <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-b from-transparent to-[#FFF8FC]" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent from-40% via-[#FFF7FB]/85 via-[72%] to-[#FFF7FB]" />
 
+          <div className="absolute inset-x-5 bottom-4 z-10 text-center">
+            <span className="inline-block rounded-full bg-white px-3 py-1 text-xs font-bold text-pink-700 shadow-sm">
+              Sveiki! Es esmu Burbulīte
+            </span>
+
+            <h1 className="mt-2 text-[29px] font-semibold leading-[1.08] text-[#3B0764]">
+              Kostīmu noma un bērnu svētki
+            </h1>
+
+            <p className="mt-1.5 text-[15px] text-gray-600">
+              Rīgā un visā Latvijā
+            </p>
+          </div>
         </div>
 
-        {/* Content */}
-        <div className="relative z-20 -mt-8 px-5 pb-12">
+        {/* Pogas */}
+        <div className="mt-1 flex gap-2.5 px-5">
+          <Link
+            href="/kostimu-noma"
+            className="flex-1 whitespace-nowrap rounded-2xl bg-pink-500 px-2 py-3.5 text-center text-sm font-bold text-white shadow-lg shadow-pink-500/30"
+          >
+            Skatīt kostīmus
+          </Link>
 
-          {/* Welcome Card */}
-          <div className="rounded-[32px] bg-white px-6 py-8 shadow-xl">
+          <Link
+            href="/pasakumu-organizesana/animatori"
+            className="flex-1 whitespace-nowrap rounded-2xl bg-white px-2 py-3.5 text-center text-sm font-bold text-pink-700 shadow-md"
+          >
+            Animatori
+          </Link>
+        </div>
 
-            <Image
-  src="/images/hero/group-10.png"
-  alt="Sveiki! Es esmu Burbulīte"
-  width={900}
-  height={420}
-  priority
-className="mx-auto w-full"/>
+        {/* Pakalpojumi */}
+        <h2 className="mx-5 mb-3 mt-7 text-[21px] font-semibold text-gray-900">
+          Ko mēs piedāvājam
+        </h2>
 
-            <p className="mt-5 text-center text-sm font-semibold text-[#17223b]">
-  Kas Tevi šeit sagaida?
-</p>
-
-<div className="mt-4 space-y-2 text-center text-sm leading-6 text-gray-600">
-  <p>✓ Košu kostīmu noma</p>
-  <p>✓ Profesionāli animatori</p>
-  <p>✓ Pārsteiguma tēli</p>
-  <p>✓ Milzu ziepju burbuļi</p>
-</div>
-
-          </div>
-
-          {/* Pakalpojumi */}
-          <div className="mt-8 grid grid-cols-2 gap-4">
-
+        <div className="scrollbar-hide flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-2">
+          {[
+            { href: "/kostimu-noma", title: "Kostīmu noma", text: "Bērniem un pieaugušajiem", Icon: Shirt, bg: "bg-pink-500" },
+            { href: "/pasakumu-organizesana/animatori", title: "Animatori", text: "Dzimšanas dienām un pasākumiem", Icon: PartyPopper, bg: "bg-violet-500" },
+            { href: "/pasakumu-organizesana/parsteiguma-tels", title: "Pārsteiguma tēli", text: "Apsveikumi mājās vai birojā", Icon: Crown, bg: "bg-amber-500" },
+            { href: "/veikals", title: "Ziepju burbuļi", text: "Šovs un produkti veikalā", Icon: Sparkles, bg: "bg-cyan-500" },
+          ].map(({ href, title, text, Icon, bg }) => (
             <Link
-              href="/kostimu-noma"
-              className="rounded-2xl bg-white p-5 shadow-md transition hover:-translate-y-1 hover:shadow-xl"
+              key={href + title}
+              href={href}
+              className="w-[150px] shrink-0 snap-start rounded-[20px] bg-white p-4 shadow-md shadow-pink-900/5"
             >
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-pink-50">
-                <Shirt className="h-7 w-7 text-pink-500" />
-              </div>
-
-              <p className="mt-4 text-center text-sm font-bold text-[#17223b]">
-                Kostīmu noma
-              </p>
-
+              <span className={`mb-2.5 flex h-11 w-11 items-center justify-center rounded-[14px] text-white ${bg}`}>
+                <Icon className="h-5 w-5" />
+              </span>
+              <span className="block text-[15px] font-bold text-gray-900">{title}</span>
+              <span className="mt-1 block text-[12.5px] leading-snug text-gray-500">{text}</span>
             </Link>
+          ))}
+        </div>
 
-            <Link
-              href="/pasakumu-organizesana/animatori"
-              className="rounded-2xl bg-white p-5 shadow-md transition hover:-translate-y-1 hover:shadow-xl"
-            >
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-pink-50">
-                <PartyPopper className="h-7 w-7 text-pink-500" />
-              </div>
+        <div className="h-6" />
 
-              <p className="mt-4 text-center text-sm font-bold text-[#17223b]">
-                Animatori
-              </p>
+        {/* Zvanīt / WhatsApp josla */}
+        <div className="sticky bottom-0 z-30 flex gap-2 border-t border-pink-100 bg-white px-3.5 pb-3.5 pt-2.5">
+          <a
+            href="tel:+37126126313"
+            className="flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-pink-500 py-3 text-sm font-bold text-white"
+          >
+            <Phone className="h-5 w-5" />
+            Zvanīt
+          </a>
 
-            </Link>
-
-            <Link
-              href="/pasakumu-organizesana/parsteiguma-tels"
-              className="rounded-2xl bg-white p-5 shadow-md transition hover:-translate-y-1 hover:shadow-xl"
-            >
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-pink-50">
-                <Crown className="h-7 w-7 text-pink-500" />
-              </div>
-
-              <p className="mt-4 text-center text-sm font-bold text-[#17223b]">
-                Pārsteiguma tēli
-              </p>
-
-            </Link>
-
-            <Link
-              href="/veikals"
-              className="rounded-2xl bg-white p-5 shadow-md transition hover:-translate-y-1 hover:shadow-xl"
-            >
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-pink-50">
-                <Sparkles className="h-7 w-7 text-pink-500" />
-              </div>
-
-              <p className="mt-4 text-center text-sm font-bold text-[#17223b]">
-                Milzu ziepju
-                <br />
-                burbuļi
-              </p>
-
-            </Link>
-
-          </div>
-
+          <a
+            href="https://wa.me/37126126313"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-green-100 py-3 text-sm font-bold text-green-800"
+          >
+            <MessageCircle className="h-5 w-5" />
+            WhatsApp
+          </a>
         </div>
 
       </div>
-          </section>
+    </section>
   );
 }

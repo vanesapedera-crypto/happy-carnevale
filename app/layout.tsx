@@ -1,10 +1,18 @@
 import type { Metadata } from "next";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 
 import { CartProvider } from "@/context/CartContext";
 
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+
+const poppins = Poppins({
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-poppins",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Happy Carneval",
@@ -17,8 +25,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="lv">
-      <body>
+    <html lang="lv" className={poppins.variable}>
+      <body className="font-sans">
         <CartProvider>
           <Header />
 
