@@ -134,7 +134,7 @@ export default function Hero() {
             { href: "/kostimu-noma", title: "Kostīmu noma", text: "Bērniem un pieaugušajiem", image: "/images/hero/mascota.png" },
             { href: "/pasakumu-organizesana/animatori", title: "Animatori", text: "Dzimšanas dienām un pasākumiem", image: "/images/hero/animatori.png" },
             { href: "/pasakumu-organizesana/parsteiguma-tels", title: "Pārsteiguma tēli", text: "Apsveikumi mājās vai birojā", image: "/images/hero/parsteiguma-tels.png" },
-            { href: "/veikals", title: "Ziepju burbuļi", text: "Šovs un produkti veikalā", image: "/images/shop/hero.jpg" },
+            { href: "/veikals", title: "Ziepju burbuļi", text: "Produkti mūsu veikalā", image: "/images/shop/hero.jpg" },
           ].map(({ href, title, text, image }) => (
             <Link
               key={href + title}
