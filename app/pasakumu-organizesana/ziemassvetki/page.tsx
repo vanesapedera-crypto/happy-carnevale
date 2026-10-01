@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import PageHero from "@/components/common/PageHero";
 import ZiemassvetkiEventSection from "@/components/events/ZiemassvetkiEventSection";
 
 export const metadata: Metadata = {
@@ -10,15 +9,6 @@ export const metadata: Metadata = {
 
 export default function ZiemassvetkiPasakumsPage() {
   return (
-    <>
-      <PageHero
-        badge="PASĀKUMU ORGANIZĒŠANA"
-        title="Ziemassvētki"
-        description="Burvīgs Ziemassvētku piedzīvojums bērniem!"
-        image="/images/hero/ziemassvetki.png"
-      />
-
-      <ZiemassvetkiEventSection />
-    </>
+    <ZiemassvetkiEventSection />
   );
 }

@@ -50,12 +50,6 @@ const seasonalCategories = [
     image: "/images/hero/helovins.png",
     description: "Baisi jautras aktivitātes un tematiskas darbnīcas Helovīnam.",
   },
-  {
-    title: "Lieldienas",
-    href: "/pasakumu-organizesana/lieldienas",
-    image: "/images/hero/lieldienas.png",
-    description: "Lieldienu tematika, radošas aktivitātes un svētku noskaņa.",
-  },
 ];
 
 export default function PasakumuOrganizesanaPage() {
@@ -203,7 +197,7 @@ className="pointer-events-none hidden lg:block absolute left-[-26px] top-80 z-0 
 <div className="hidden h-px w-28 bg-pink-200 lg:block" />  
       </div>
 
-        <div className="relative z-10 grid gap-8 lg:grid-cols-3">
+        <div className="relative z-10 mx-auto grid max-w-4xl gap-8 lg:grid-cols-2">
           {seasonalCategories.map((item) => (
             <Link
               key={item.title}

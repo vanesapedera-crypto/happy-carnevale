@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const program = [
@@ -9,71 +10,95 @@ const program = [
 
 export default function ZiemassvetkiEventSection() {
   return (
-    <section className="py-20">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="rounded-[40px] border border-emerald-200 bg-white p-6 shadow-xl sm:p-10">
-          <div className="max-w-4xl space-y-4 text-lg leading-8 text-gray-600">
-            <p>
-              Ar prieku noorganizēsim atraktīvu un bērnu vecumam piemērotu
-              Ziemassvētku izklaides programmu!
-            </p>
-            <p>
-              Iespēja uzaicināt mūs ciemos uz bērnudārzu, skolu vai jebkuru
-              Jūsu pasākuma vietu.
-            </p>
-          </div>
+    <div className="bg-[#0E2A1F] text-white">
+      {/* Sākums ar lielu bildi */}
+      <section className="relative flex min-h-[460px] items-end lg:min-h-[560px]">
+        <Image
+          src="/images/hero/ziemassvetki.png"
+          alt="Ziemassvētku programma bērniem"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-[50%_35%]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0E2A1F]/5 via-[#0E2A1F]/50 via-55% to-[#0E2A1F]" />
 
-          <h2 className="mt-12 text-3xl font-black text-gray-900 lg:text-4xl">
-            Kas sagaida mazos svētku dalībniekus?
-          </h2>
+        <div className="relative w-full px-6 pb-10 text-center lg:pb-14">
+          <span className="inline-flex rounded-full bg-white/15 px-4 py-2 text-xs font-bold uppercase tracking-[0.25em] text-red-300 lg:px-5 lg:text-sm">
+            Pasākumu organizēšana
+          </span>
 
-          <div className="mt-3 h-1 w-24 rounded-full bg-emerald-500" />
+          <h1 className="mt-5 text-5xl font-bold tracking-tight lg:text-7xl">
+            Ziemassvētki
+          </h1>
 
-          <p className="mt-6 text-lg font-semibold text-gray-900">
-            Svētku programmā:
+          <p className="mx-auto mt-4 max-w-2xl text-lg text-white/90 lg:text-xl">
+            Burvīgs Ziemassvētku piedzīvojums bērniem!
+          </p>
+        </div>
+      </section>
+
+      {/* Saturs */}
+      <section className="mx-auto max-w-5xl px-6 pb-20 pt-8 text-center lg:pb-24 lg:pt-10">
+        <div className="mx-auto max-w-3xl space-y-3 text-base leading-7 text-white/85 lg:text-lg lg:leading-8">
+          <p>
+            Ar prieku noorganizēsim atraktīvu un bērnu vecumam piemērotu
+            Ziemassvētku izklaides programmu!
+          </p>
+          <p>
+            Iespēja uzaicināt mūs ciemos uz bērnudārzu, skolu vai jebkuru
+            Jūsu pasākuma vietu.
+          </p>
+        </div>
+
+        <h2 className="mt-14 text-3xl font-bold text-red-300 lg:text-4xl">
+          Kas sagaida mazos svētku dalībniekus?
+        </h2>
+
+        <p className="mt-3 font-semibold text-white/85">Svētku programmā:</p>
+
+        <div className="mt-8 grid gap-4 text-left lg:grid-cols-2">
+          {program.map((item, i) => (
+            <div
+              key={item}
+              className="flex items-start gap-4 rounded-3xl border border-red-300/30 bg-white/[0.06] px-5 py-5 lg:px-6"
+            >
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-red-600 font-bold">
+                {i + 1}
+              </span>
+              <span className="text-[15px] font-semibold leading-relaxed lg:text-base">
+                {item}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-14">
+          <h3 className="text-2xl font-bold lg:text-3xl">
+            Bez steigas un piespiedu dzejolīšiem!
+          </h3>
+          <p className="mt-2 text-base text-white/85 lg:text-lg">
+            Mūsu mērķis ir, lai bērni jūtas brīvi, iesaistās un patiesi
+            izbauda svētkus!
+          </p>
+        </div>
+
+        <div className="mx-auto mt-12 max-w-3xl rounded-[32px] bg-gradient-to-br from-red-900 to-red-600 p-8 lg:p-10">
+          <p className="text-base leading-7 lg:text-lg lg:leading-8">
+            Ziemassvētku programmas izmaksas atkarīgas no Jūsu vēlamā datuma,
+            vietas, bērnu skaita, tādēļ aicinām uzrakstīt mums, pastāstīt savas
+            vēlmes un mēs noteikti atradīsim labāko svētku programmu tieši Jums!
+            :)
           </p>
 
-          <div className="mt-5 grid gap-5 sm:grid-cols-2">
-            {program.map((item, i) => (
-              <div
-                key={item}
-                className="flex items-start gap-4 rounded-[28px] border border-emerald-100 bg-emerald-50 px-6 py-5 text-lg font-semibold leading-7 text-gray-900 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
-              >
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-500 text-base font-black text-white">
-                  {i + 1}
-                </span>
-                {item}
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-10 rounded-[32px] border-2 border-dashed border-red-200 bg-red-50 p-8">
-            <h3 className="text-2xl font-black text-red-600">
-              Bez steigas un piespiedu dzejolīšiem!
-            </h3>
-            <p className="mt-3 max-w-3xl text-lg leading-8 text-gray-700">
-              Mūsu mērķis ir, lai bērni jūtas brīvi, iesaistās un patiesi
-              izbauda svētkus!
-            </p>
-          </div>
-
-          <div className="mt-8 rounded-[32px] bg-gradient-to-r from-emerald-600 to-emerald-500 p-8 text-white">
-            <p className="max-w-3xl text-lg leading-8 text-white/95">
-              Ziemassvētku programmas izmaksas atkarīgas no Jūsu vēlamā
-              datuma, vietas, bērnu skaita, tādēļ aicinām uzrakstīt mums,
-              pastāstīt savas vēlmes un mēs noteikti atradīsim labāko svētku
-              programmu tieši Jums! :)
-            </p>
-
-            <Link
-              href="/kontakti"
-              className="mt-6 inline-flex rounded-full bg-white px-6 py-3 font-semibold text-emerald-700 transition hover:bg-emerald-50"
-            >
-              Sazināties
-            </Link>
-          </div>
+          <Link
+            href="/kontakti"
+            className="mt-6 inline-flex rounded-2xl bg-white px-7 py-3.5 font-bold text-red-700 transition hover:bg-red-50"
+          >
+            Sazināties
+          </Link>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }
