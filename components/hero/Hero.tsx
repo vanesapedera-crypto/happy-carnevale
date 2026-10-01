@@ -1,13 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-  Shirt,
-  PartyPopper,
-  Crown,
-  Sparkles,
-  Phone,
-  MessageCircle,
-} from "lucide-react";
 
 export default function Hero() {
   return (
@@ -132,58 +124,53 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Pogas */}
-        <div className="mt-1 flex gap-2.5 px-5">
-          <Link
-            href="/kostimu-noma"
-            className="flex-1 whitespace-nowrap rounded-2xl bg-pink-500 px-2 py-3.5 text-center text-sm font-bold text-white shadow-lg shadow-pink-500/30"
-          >
-            Skatīt kostīmus
-          </Link>
-
-          <Link
-            href="/pasakumu-organizesana/animatori"
-            className="flex-1 whitespace-nowrap rounded-2xl bg-white px-2 py-3.5 text-center text-sm font-bold text-pink-700 shadow-md"
-          >
-            Animatori
-          </Link>
-        </div>
-
         {/* Pakalpojumi */}
-        <h2 className="mx-5 mb-3 mt-7 text-[21px] font-semibold text-gray-900">
+        <h2 className="mx-5 mb-3 mt-1.5 text-[21px] font-semibold text-gray-900">
           Ko mēs piedāvājam
         </h2>
 
-        <div className="scrollbar-hide flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-2">
+        <div className="flex flex-col gap-2.5 px-5">
           {[
-            { href: "/kostimu-noma", title: "Kostīmu noma", text: "Bērniem un pieaugušajiem", Icon: Shirt, bg: "bg-pink-500" },
-            { href: "/pasakumu-organizesana/animatori", title: "Animatori", text: "Dzimšanas dienām un pasākumiem", Icon: PartyPopper, bg: "bg-violet-500" },
-            { href: "/pasakumu-organizesana/parsteiguma-tels", title: "Pārsteiguma tēli", text: "Apsveikumi mājās vai birojā", Icon: Crown, bg: "bg-amber-500" },
-            { href: "/veikals", title: "Ziepju burbuļi", text: "Šovs un produkti veikalā", Icon: Sparkles, bg: "bg-cyan-500" },
-          ].map(({ href, title, text, Icon, bg }) => (
+            { href: "/kostimu-noma", title: "Kostīmu noma", text: "Bērniem un pieaugušajiem", image: "/images/hero/mascota.png" },
+            { href: "/pasakumu-organizesana/animatori", title: "Animatori", text: "Dzimšanas dienām un pasākumiem", image: "/images/hero/animatori.png" },
+            { href: "/pasakumu-organizesana/parsteiguma-tels", title: "Pārsteiguma tēli", text: "Apsveikumi mājās vai birojā", image: "/images/hero/parsteiguma-tels.png" },
+            { href: "/veikals", title: "Ziepju burbuļi", text: "Šovs un produkti veikalā", image: "/images/shop/hero.jpg" },
+          ].map(({ href, title, text, image }) => (
             <Link
               key={href + title}
               href={href}
-              className="w-[150px] shrink-0 snap-start rounded-[20px] bg-white p-4 shadow-md shadow-pink-900/5"
+              className="flex items-center gap-3.5 rounded-[20px] bg-white p-2 shadow-md shadow-pink-900/5"
             >
-              <span className={`mb-2.5 flex h-11 w-11 items-center justify-center rounded-[14px] text-white ${bg}`}>
-                <Icon className="h-5 w-5" />
+              <span className="relative h-[84px] w-[84px] shrink-0 overflow-hidden rounded-2xl bg-pink-50">
+                <Image
+                  src={image}
+                  alt={title}
+                  fill
+                  sizes="84px"
+                  className="object-cover"
+                />
               </span>
-              <span className="block text-[15px] font-bold text-gray-900">{title}</span>
-              <span className="mt-1 block text-[12.5px] leading-snug text-gray-500">{text}</span>
+
+              <span className="flex-1">
+                <span className="block text-base font-bold text-gray-900">{title}</span>
+                <span className="mt-0.5 block text-[12.5px] leading-snug text-gray-500">{text}</span>
+              </span>
+
+              <span className="mr-2.5 text-lg font-bold text-pink-500" aria-hidden="true">
+                →
+              </span>
             </Link>
           ))}
         </div>
 
-        <div className="h-6" />
+        <div className="h-8" />
 
         {/* Zvanīt / WhatsApp josla */}
         <div className="sticky bottom-0 z-30 flex gap-2 border-t border-pink-100 bg-white px-3.5 pb-3.5 pt-2.5">
           <a
             href="tel:+37126126313"
-            className="flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-pink-500 py-3 text-sm font-bold text-white"
+            className="flex-1 rounded-xl bg-pink-500 py-3 text-center text-[15px] font-bold text-white"
           >
-            <Phone className="h-5 w-5" />
             Zvanīt
           </a>
 
@@ -191,9 +178,8 @@ export default function Hero() {
             href="https://wa.me/37126126313"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-green-100 py-3 text-sm font-bold text-green-800"
+            className="flex-1 rounded-xl bg-green-100 py-3 text-center text-[15px] font-bold text-green-800"
           >
-            <MessageCircle className="h-5 w-5" />
             WhatsApp
           </a>
         </div>
