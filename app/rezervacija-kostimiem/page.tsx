@@ -114,12 +114,12 @@ function ReservationContent() {
         <div className="mt-12 grid gap-12 lg:grid-cols-2">
           {/* Kreisā puse */}
           <div>
-            <div className="relative aspect-[3/4] overflow-hidden rounded-3xl bg-pink-100">
+            <div className="relative aspect-[3/4] overflow-hidden rounded-3xl border border-gray-100 bg-white">
               <Image
                 src={image || "/kostimi/no-image.jpg"}
                 alt={costume || "Kostīms"}
                 fill
-className="object-contain p-4"
+                className="object-contain p-4"
               />
             </div>
 
