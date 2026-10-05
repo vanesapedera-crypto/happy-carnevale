@@ -28,7 +28,7 @@ components/
     SectionPicker.tsx       sadaļas izvēle pēc sectionKey
     ImageUploader.tsx       viens vai vairāki attēli, statuss katram
     ItemList.tsx            sadaļas attēlu režģis
-    ItemCard.tsx            title, description, cena, izmērs, active, sortOrder, dzēšana
+    ItemCard.tsx            nosaukums, cena, izmērs, rādīt lapā, dzēšana
   layout/SiteShell.tsx      /admin lapās nerāda mājaslapas galveni un kājeni
   costumes/*Section.tsx     14 kostīmu sadaļas, visas lasa no datubāzes
 

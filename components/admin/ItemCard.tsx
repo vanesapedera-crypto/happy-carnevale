@@ -18,41 +18,29 @@ interface ItemCardProps {
 
 type Notice = { kind: "success" | "error"; text: string } | null;
 
-/** Viens attēls ar labojamiem laukiem: nosaukums, apraksts, aktīvs, secība. */
+/** Viens attēls ar labojamiem laukiem: nosaukums, cena, izmērs, rādīt lapā. */
 export default function ItemCard({ item, showPriceAndSize }: ItemCardProps) {
   const router = useRouter();
   const [title, setTitle] = useState(item.title);
-  const [description, setDescription] = useState(item.description);
   const [price, setPrice] = useState(item.price);
   const [size, setSize] = useState(item.size);
   const [active, setActive] = useState(item.active);
-  const [sortOrder, setSortOrder] = useState(String(item.sortOrder));
   const [pending, setPending] = useState(false);
   const [notice, setNotice] = useState<Notice>(null);
 
   const dirty =
     title !== item.title ||
-    description !== item.description ||
     price !== item.price ||
     size !== item.size ||
-    active !== item.active ||
-    sortOrder !== String(item.sortOrder);
+    active !== item.active;
 
   async function handleSave() {
-    const order = Number(sortOrder);
-    if (sortOrder.trim() === "" || !Number.isInteger(order)) {
-      setNotice({ kind: "error", text: "Secībai jābūt veselam skaitlim." });
-      return;
-    }
-
     setPending(true);
     setNotice(null);
     try {
       const result = await updateItemAction(item.id, {
         title,
-        description,
         active,
-        sortOrder: order,
         ...(showPriceAndSize ? { price, size } : {}),
       });
       if (result.ok) {
@@ -124,20 +112,6 @@ export default function ItemCard({ item, showPriceAndSize }: ItemCardProps) {
           />
         </div>
 
-        <div>
-          <label htmlFor={fieldId("description")} className={LABEL_CLASS}>
-            Apraksts
-          </label>
-          <textarea
-            id={fieldId("description")}
-            value={description}
-            maxLength={LIMITS.description}
-            rows={2}
-            onChange={(event) => setDescription(event.target.value)}
-            className={INPUT_CLASS}
-          />
-        </div>
-
         {showPriceAndSize && (
           <div className="grid grid-cols-2 gap-3">
             <div>
@@ -169,31 +143,15 @@ export default function ItemCard({ item, showPriceAndSize }: ItemCardProps) {
           </div>
         )}
 
-        <div className="grid grid-cols-2 items-end gap-3">
-          <div>
-            <label htmlFor={fieldId("order")} className={LABEL_CLASS}>
-              Secība
-            </label>
-            <input
-              id={fieldId("order")}
-              type="number"
-              step={1}
-              value={sortOrder}
-              onChange={(event) => setSortOrder(event.target.value)}
-              className={INPUT_CLASS}
-            />
-          </div>
-
-          <label className="flex cursor-pointer items-center gap-2.5 rounded-lg border border-slate-300 px-3 py-2 text-sm font-semibold text-slate-700">
-            <input
-              type="checkbox"
-              checked={active}
-              onChange={(event) => setActive(event.target.checked)}
-              className="h-4 w-4 accent-pink-500"
-            />
-            Rādīt lapā
-          </label>
-        </div>
+        <label className="flex cursor-pointer items-center gap-2.5 rounded-lg border border-slate-300 px-3 py-2 text-sm font-semibold text-slate-700">
+          <input
+            type="checkbox"
+            checked={active}
+            onChange={(event) => setActive(event.target.checked)}
+            className="h-4 w-4 accent-pink-500"
+          />
+          Rādīt lapā
+        </label>
 
         <div className="mt-auto flex items-center justify-between gap-3 pt-2">
           <button
