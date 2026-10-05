@@ -115,23 +115,20 @@ export default function Hero() {
             </span>
 
             <h1 className="mt-2 text-[29px] font-semibold leading-[1.08] text-[#3B0764]">
-              Priecājos Tevi redzēt!
+              Priecājos, Tevi šeit redzēt!
             </h1>
 
-            <p className="mt-1.5 text-[15px] text-gray-600">
-              Izvēlies, ar ko sāksim svinēt!
-            </p>
           </div>
         </div>
 
         {/* Pakalpojumi */}
         <h2 className="mx-5 mb-3 mt-1.5 text-[21px] font-semibold text-gray-900">
-          Ko mēs piedāvājam
+Piedāvājumā:
         </h2>
 
         <div className="flex flex-col gap-2.5 px-5">
           {[
-            { href: "/kostimu-noma", title: "Kostīmu noma", text: "Bērniem un pieaugušajiem", image: "/images/hero/mascota.png" },
+            { href: "/kostimu-noma", title: "Kostīmu noma", text: "Pieaugušajiem", image: "/images/hero/mascota.png" },
             { href: "/pasakumu-organizesana/animatori", title: "Animatori", text: "Dzimšanas dienām un pasākumiem", image: "/images/hero/animatori.png" },
             { href: "/pasakumu-organizesana/parsteiguma-tels", title: "Pārsteiguma tēli", text: "Apsveikumi mājās vai birojā", image: "/images/hero/parsteiguma-tels.png" },
             { href: "/veikals", title: "Ziepju burbuļi", text: "Produkti mūsu veikalā", image: "/images/shop/hero.jpg" },

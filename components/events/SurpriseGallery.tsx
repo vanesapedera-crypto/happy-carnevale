@@ -12,6 +12,9 @@ const images = [
   "/images/surprise/5.jpg",
   "/images/surprise/6.jpg",
   "/images/surprise/7.jpg",
+  "/images/surprise/8.jpg",
+  "/images/surprise/9.jpg",
+  "/images/surprise/10.jpg",
 ];
 
 export default function SurpriseGallery() {

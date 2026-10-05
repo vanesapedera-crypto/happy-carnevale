@@ -136,6 +136,48 @@ const halloween = [
     price: "8 €",
     size: "One size",
   },
+   {
+    title: "Maska (11)",
+    image: "/kostimi/helovini/11.jpg",
+    price: "8 €",
+    size: "One size",
+  },
+   {
+    title: "Maska (12)",
+    image: "/kostimi/helovini/12.jpg",
+    price: "8 €",
+    size: "One size",
+  },
+   {
+    title: "Maska (13)",
+    image: "/kostimi/helovini/13.jpg",
+    price: "8 €",
+    size: "One size",
+  },
+   {
+    title: "Maska (14)",
+    image: "/kostimi/helovini/14.jpg",
+    price: "8 €",
+    size: "One size",
+  },
+  {
+    title: "Maska (15)",
+    image: "/kostimi/helovini/15.jpg",
+    price: "8 €",
+    size: "One size",
+  },
+   {
+    title: "Raganas rokas",
+    image: "/kostimi/helovini/16.jpg",
+    price: "8 €",
+    size: "One size",
+  },
+  {
+    title: "Šausmu zombija iekšas",
+    image: "/kostimi/helovini/17.jpg",
+    price: "10 €",
+    size: "One size",
+  },
 ];
 
 export default function HelovinsSection() {

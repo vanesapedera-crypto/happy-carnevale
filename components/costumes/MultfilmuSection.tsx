@@ -29,12 +29,6 @@ const cartoons = [
     size: "S-L",
   },
   {
-    title: "Čeizs",
-    image: "/kostimi/multfilmu/ceizs.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
     title: "Creeper no Minecraft",
     image: "/kostimi/multfilmu/creeper-no-minecraft.jpg",
     price: "25 €",
@@ -69,12 +63,6 @@ const cartoons = [
     image: "/kostimi/multfilmu/dzokers-2.jpg",
     price: "25 €",
     size: "S-L",
-  },
-  {
-    title: "Everesta",
-    image: "/kostimi/multfilmu/everesta.jpg",
-    price: "25 €",
-    size: "XS-M",
   },
   {
     title: "Fins",
@@ -292,6 +280,18 @@ const cartoons = [
     price: "25 €",
     size: "S-M",
   },
+   {
+    title: "Everesta",
+    image: "/kostimi/multfilmu/everesta.jpg",
+    price: "25 €",
+    size: "XS-M",
+  },
+  {
+    title: "Čeizs",
+    image: "/kostimi/multfilmu/ceizs.jpg",
+    price: "25 €",
+    size: "S-L",
+  },
   {
     title: "Smurfete",
     image: "/kostimi/multfilmu/smurfete.jpg",
@@ -327,6 +327,12 @@ const cartoons = [
     image: "/kostimi/multfilmu/suklis-bobs-2.jpg",
     price: "25 €",
     size: "S-L",
+  },
+   {
+    title: "Patriks Jūras Zvaigzne",
+    image: "/kostimi/multfilmu/patriks-juras-zvaigzne.jpg",
+    price: "25 €",
+    size: "L-XL",
   },
   {
     title: "Super Mario",

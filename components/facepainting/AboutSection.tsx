@@ -36,7 +36,7 @@ radīs skaistus, orģinālus gleznojumus.
 
             <p className="mt-4 text-base leading-7 text-gray-600 lg:text-lg lg:leading-8">
               Princeses, supervaroņi, vienradži, dzīvnieki, tauriņi,
-              dinozauri - Jūs izvēlsties - mēs radām!
+              dinozauri - Jūs izvēlaties - mēs radām!
             </p>
 
             <p className="mt-4 text-base leading-7 text-gray-600 lg:text-lg lg:leading-8">

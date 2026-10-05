@@ -100,6 +100,18 @@ const superheroes = [
     price: "25 €",
     size: "XS-S",
   },
+  {
+    title: "Deadpool",
+    image: "/kostimi/supervaroni/deadpool.jpg",
+    price: "25 €",
+    size: "M-L",
+  },
+    {
+    title: "Wonder Woman",
+    image: "/kostimi/supervaroni/wonder-woman.jpg",
+    price: "25 €",
+    size: "M",
+  },
 ];
 
 export default function SuperheroesSection() {

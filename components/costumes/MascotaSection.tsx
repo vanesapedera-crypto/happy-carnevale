@@ -118,6 +118,12 @@ const mascots = [
     price: "25 €",
     size: "XS-L",
   },
+    {
+    title: "Kaķis",
+    image: "/kostimi/mascotas/kakis.jpg",
+    price: "35 €",
+    size: "XS-M",
+  },
   {
     title: "Zelta glittera lācis",
     image: "/kostimi/mascotas/zelta-glittera-lacis.jpg",
@@ -144,7 +150,7 @@ export default function MascotasSection() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="rounded-[40px] border border-zinc-200 bg-white p-10 shadow-xl">
           <div className="mb-12">
-            <h2 className="text-4xl font-black text-gray-900">Maskotas</h2>
+            <h2 className="text-4xl font-black text-gray-900">Maskoti</h2>
             <div className="mt-3 h-1 w-24 rounded-full bg-violet-500" />
           </div>
 
