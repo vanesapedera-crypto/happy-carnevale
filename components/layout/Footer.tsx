@@ -108,6 +108,13 @@ export default function Footer() {
           <p className="text-center text-sm text-gray-500">
             © {new Date().getFullYear()} Happy Carnevale. Visas tiesības aizsargātas.
           </p>
+
+          <p className="mt-2 text-center text-xs text-gray-400">
+            Mājaslapu izstrādāja: Vanesa Pabērza ·{" "}
+            <a href="tel:+37128193386" className="hover:text-pink-500">
+              +371 28 193 386
+            </a>
+          </p>
         </div>
 
       </div>
