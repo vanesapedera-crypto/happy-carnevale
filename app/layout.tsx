@@ -6,6 +6,7 @@ import { CartProvider } from "@/context/CartContext";
 
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import SiteShell from "@/components/layout/SiteShell";
 
 const poppins = Poppins({
   subsets: ["latin", "latin-ext"],
@@ -28,13 +29,9 @@ export default function RootLayout({
     <html lang="lv" className={poppins.variable}>
       <body className="font-sans">
         <CartProvider>
-          <Header />
-
-          <main className="pt-16 lg:pt-24 min-h-screen">
+          <SiteShell header={<Header />} footer={<Footer />}>
             {children}
-          </main>
-
-          <Footer />
+          </SiteShell>
         </CartProvider>
       </body>
     </html>
