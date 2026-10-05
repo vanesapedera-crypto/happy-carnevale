@@ -47,12 +47,18 @@ async function uploadOne(sectionKey: string, original: File): Promise<string | n
   body.append("sectionKey", sectionKey);
   body.append("file", file, file.name);
 
+  let response: Response;
   try {
-    const response = await fetch("/api/admin/upload", { method: "POST", body });
+    response = await fetch("/api/admin/upload", { method: "POST", body });
+  } catch {
+    return "Neizdevās augšupielādēt. Pārbaudi interneta savienojumu.";
+  }
+
+  try {
     const result = (await response.json()) as ActionResult<SectionItem>;
     return result.ok ? null : result.error;
   } catch {
-    return "Neizdevās augšupielādēt. Pārbaudi interneta savienojumu.";
+    return `Servera kļūda (HTTP ${response.status}).`;
   }
 }
 
@@ -148,7 +154,7 @@ export default function ImageUploader({ sectionKey }: ImageUploaderProps) {
           {queue.map((entry) => (
             <li key={entry.id} className="flex items-start justify-between gap-4 px-4 py-2.5">
               <span className="min-w-0 truncate text-slate-700">{entry.name}</span>
-              <span className={`shrink-0 text-right font-semibold ${STATUS_CLASS[entry.status]}`}>
+              <span className={`max-w-[70%] text-right font-semibold ${STATUS_CLASS[entry.status]}`}>
                 {entry.message ?? STATUS_LABEL[entry.status]}
               </span>
             </li>

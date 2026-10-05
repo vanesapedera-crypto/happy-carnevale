@@ -20,6 +20,26 @@ export class SupabaseError extends Error {
   }
 }
 
+/**
+ * Īss kļūdas skaidrojums ielogotam administratoram (ne apmeklētājiem).
+ * Supabase kļūdu teksti nesatur atslēgas.
+ */
+export function describeSupabaseError(error: unknown): string {
+  if (error instanceof SupabaseError) {
+    const hint =
+      error.status === 401 || error.status === 403
+        ? " Visticamāk Vercel iestatījumos ir nepareiza SUPABASE_SERVICE_ROLE_KEY vērtība."
+        : error.status === 404
+          ? " Pārbaudi, vai Supabase ir palaists fails supabase/schema.sql."
+          : "";
+    return `Supabase atbilde: ${error.status} ${error.message.slice(0, 200)}.${hint}`;
+  }
+  if (error instanceof Error && error.name === "TimeoutError") {
+    return "Supabase neatbildēja laikā.";
+  }
+  return "Supabase nav sasniedzams. Pārbaudi SUPABASE_URL.";
+}
+
 function authHeaders(key: string): Record<string, string> {
   return { apikey: key, Authorization: `Bearer ${key}` };
 }

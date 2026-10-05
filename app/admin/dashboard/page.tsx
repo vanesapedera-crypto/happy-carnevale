@@ -4,6 +4,7 @@ import ItemList from "@/components/admin/ItemList";
 import SectionPicker from "@/components/admin/SectionPicker";
 import { getAdminConfig } from "@/lib/admin/config";
 import { listItems } from "@/lib/admin/items";
+import { describeSupabaseError } from "@/lib/admin/supabase";
 import { SECTIONS, getSection } from "@/lib/admin/sections";
 import { requireSession } from "@/lib/admin/session";
 import type { SectionItem } from "@/lib/admin/types";
@@ -21,13 +22,13 @@ export default async function AdminDashboardPage({ searchParams }: DashboardPage
   const section = getSection(requested) ?? SECTIONS[0];
 
   let items: SectionItem[] = [];
-  let loadError = false;
+  let loadError: string | null = null;
   if (config) {
     try {
       items = await listItems(config, section.key);
     } catch (error) {
       console.error("[admin] listItems failed", error);
-      loadError = true;
+      loadError = describeSupabaseError(error);
     }
   }
 
@@ -54,8 +55,7 @@ export default async function AdminDashboardPage({ searchParams }: DashboardPage
 
         {loadError ? (
           <p role="alert" className="rounded-2xl bg-red-50 px-6 py-5 text-sm font-medium text-red-700">
-            Neizdevās ielādēt attēlus no datubāzes. Pārlādē lapu. Ja kļūda atkārtojas,
-            pārbaudi, vai Supabase ir palaists fails supabase/schema.sql.
+            Neizdevās ielādēt attēlus no datubāzes. {loadError}
           </p>
         ) : (
           <ItemList items={items} showPriceAndSize={section.hasPriceAndSize} />

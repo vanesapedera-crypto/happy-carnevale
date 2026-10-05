@@ -5,7 +5,12 @@ import { insertItem, nextSortOrder } from "@/lib/admin/items";
 import { revalidateSection } from "@/lib/admin/revalidate";
 import { getSection } from "@/lib/admin/sections";
 import { getSession } from "@/lib/admin/session";
-import { storagePublicUrl, storageRemove, storageUpload } from "@/lib/admin/supabase";
+import {
+  describeSupabaseError,
+  storagePublicUrl,
+  storageRemove,
+  storageUpload,
+} from "@/lib/admin/supabase";
 import type { ActionResult, SectionItem } from "@/lib/admin/types";
 import {
   LIMITS,
@@ -100,7 +105,10 @@ export async function POST(request: NextRequest) {
     );
   } catch (error) {
     console.error("[admin] storage upload failed", error);
-    return respond({ ok: false, error: "Neizdevās augšupielādēt attēlu." }, 502);
+    return respond(
+      { ok: false, error: `Neizdevās augšupielādēt attēlu. ${describeSupabaseError(error)}` },
+      502
+    );
   }
 
   try {
@@ -117,6 +125,9 @@ export async function POST(request: NextRequest) {
     console.error("[admin] insert failed", error);
     // Lai krātuvē nepaliek fails bez ieraksta.
     await storageRemove(config, config.serviceKey, STORAGE_BUCKET, [path]).catch(() => {});
-    return respond({ ok: false, error: "Neizdevās saglabāt ierakstu." }, 502);
+    return respond(
+      { ok: false, error: `Neizdevās saglabāt ierakstu. ${describeSupabaseError(error)}` },
+      502
+    );
   }
 }
