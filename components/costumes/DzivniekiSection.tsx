@@ -16,6 +16,12 @@ const animals = [
     price: "25 €",
     size: "Derēs līdz 195cm",
   },
+  {
+    title: "Bizbizmārīte",
+    image: "/kostimi/dzivnieki/bizbizmarite.jpg",
+    price: "25 €",
+    size: "S-L",
+  },
     {
     title: "Bitīte",
     image: "/kostimi/dzivnieki/bitite.jpg",
