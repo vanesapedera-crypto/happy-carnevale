@@ -11,6 +11,8 @@ interface SectionPickerProps {
 /** Sadaļas izvēle pēc sectionKey. Izvēle glabājas adresē (?section=...). */
 export default function SectionPicker({ sections, current }: SectionPickerProps) {
   const router = useRouter();
+  // Sadaļas izvēlnē sagrupētas pa mājaslapas lapām, tādā secībā kā sarakstā.
+  const groups = Array.from(new Set(sections.map((section) => section.group)));
 
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
@@ -26,10 +28,16 @@ export default function SectionPicker({ sections, current }: SectionPickerProps)
           }
           className="mt-1.5 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-base font-medium text-slate-900 outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-200"
         >
-          {sections.map((section) => (
-            <option key={section.key} value={section.key}>
-              {section.label}
-            </option>
+          {groups.map((group) => (
+            <optgroup key={group} label={group}>
+              {sections
+                .filter((section) => section.group === group)
+                .map((section) => (
+                  <option key={section.key} value={section.key}>
+                    {section.label}
+                  </option>
+                ))}
+            </optgroup>
           ))}
         </select>
       </div>

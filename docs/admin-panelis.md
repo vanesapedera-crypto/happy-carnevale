@@ -30,10 +30,11 @@ components/
     ItemList.tsx            sadaļas attēlu režģis
     ItemCard.tsx            title, description, cena, izmērs, active, sortOrder, dzēšana
   layout/SiteShell.tsx      /admin lapās nerāda mājaslapas galveni un kājeni
-  costumes/HelovinsSection.tsx   PIEMĒRS: sadaļa, kas lasa no datubāzes
+  costumes/*Section.tsx     14 kostīmu sadaļas, visas lasa no datubāzes
 
 lib/
   sections.ts               getSectionItems(key): publiskajām lapām
+  costumes.ts               loadCostumes(key, iebūvētaisSaraksts): kostīmu sadaļām
   admin/
     sections.ts             pārvaldāmo sadaļu saraksts (sectionKey, nosaukums, lapa)
     types.ts                SectionItem, ActionResult
@@ -50,7 +51,20 @@ lib/
 supabase/
   schema.sql                tabula, piekļuves noteikumi, attēlu krātuve
   seed-helovina-kostimi.sql esošie 29 Helovīna kostīmi un maskas
+  seed-kostimi.sql          pārējo 13 kostīmu sadaļu esošie 265 ieraksti
 ```
+
+## Pārvaldāmās sadaļas
+
+Visas kostīmu nomas sadaļas (saraksts ir `lib/admin/sections.ts`):
+
+| Lapa | Sadaļas (`section_key`) |
+| --- | --- |
+| Mascota tēli | `mascota-teli` |
+| Gaisa plūsmas kostīmi | `gaisa-plusmas-kostimi` |
+| Kino tēli un citi interesanti kostīmi | `princeses-un-fejas`, `supervaroni`, `kino-teli`, `profesijas`, `dzivnieku-teli` |
+| Smieklīgi tēli un parūkas | `smiekligi-teli`, `retro-kostimi`, `uzvalki`, `parukas` |
+| Sezonālās kolekcijas | `helovina-kostimi`, `ziemassvetku-kostimi`, `lieldienu-kostimi` |
 
 ## Datu modelis
 
@@ -78,9 +92,10 @@ Supabase izvēlņu nosaukumi laika gaitā nedaudz mainās; meklē līdzīgu.
 
 1. **Supabase projekts.** Izveido bezmaksas projektu vietnē supabase.com.
 2. **Datubāze.** SQL Editor -> New query -> ielīmē `supabase/schema.sql` saturu -> Run.
-3. **Esošie kostīmi (ieteicams).** Tāpat palaid `supabase/seed-helovina-kostimi.sql`.
-   Tad visi 29 pašreizējie Helovīna kostīmi parādās admin panelī un klients tos var labot.
-   Ja to nepalaidīsi, sadaļā pēc pirmās augšupielādes būs redzams tikai jaunais attēls.
+3. **Esošie kostīmi (ieteicams).** Tāpat palaid `supabase/seed-helovina-kostimi.sql`
+   un `supabase/seed-kostimi.sql`. Tad visi pašreizējie kostīmi parādās admin panelī
+   un klients tos var labot. Sadaļā, kurai seed nav palaists, pēc pirmās augšupielādes
+   būs redzams tikai jaunais attēls.
 4. **Klienta lietotājs.** Authentication -> Users -> Add user: klienta e-pasts un parole,
    atzīmē "Auto Confirm User".
 5. **Aizliedz reģistrāciju.** Authentication -> Sign In / Providers -> izslēdz
@@ -101,11 +116,11 @@ Supabase izvēlņu nosaukumi laika gaitā nedaudz mainās; meklē līdzīgu.
 2. Sadaļas komponentē nolasi datus tāpat kā `components/costumes/HelovinsSection.tsx`:
 
    ```tsx
-   const managed = await getSectionItems("mana-sadala");
-   const items = managed && managed.length > 0 ? managed.map(...) : iebuvetaisSaraksts;
+   const cards = await loadCostumes("mana-sadala", iebuvetaisSaraksts);
    ```
 
-   Komponentei jābūt `async` servera komponentei.
+   Komponentei jābūt `async` servera komponentei. Sadaļām ar citādu kartīšu uzbūvi
+   izmanto `getSectionItems("mana-sadala")` no `lib/sections.ts`.
 3. Ja gribi pārcelt esošos attēlus, uztaisi seed failu pēc Helovīna parauga.
 
 ## Drošība

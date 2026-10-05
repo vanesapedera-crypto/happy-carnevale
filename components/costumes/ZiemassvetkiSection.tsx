@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FiTag } from "react-icons/fi";
 import { TbRulerMeasure } from "react-icons/tb";
+import { loadCostumes } from "@/lib/costumes";
 
 const christmas = [
   {
@@ -60,7 +61,10 @@ const christmas = [
   },
 ];
 
-export default function ZiemassvetkiSection() {
+export default async function ZiemassvetkiSection() {
+  // Kostīmi nāk no admin paneļa; ja tur nekā nav, rāda augstāk iebūvēto sarakstu.
+  const cards = await loadCostumes("ziemassvetku-kostimi", christmas);
+
   return (
     <section className="bg-white pt-32 pb-20">
       <div className="mx-auto max-w-7xl px-6">
@@ -74,7 +78,7 @@ export default function ZiemassvetkiSection() {
 
           {/* DESKTOP */}
           <div className="hidden gap-8 lg:grid lg:grid-cols-4">
-            {christmas.map((item) => (
+            {cards.map((item) => (
               <div
                 key={item.title}
                 className="group flex flex-col overflow-hidden rounded-[30px] border border-zinc-200 bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:border-zinc-300 hover:shadow-2xl"
@@ -93,15 +97,25 @@ export default function ZiemassvetkiSection() {
                     {item.title}
                   </h3>
 
-                  <div className="mt-5 flex items-center gap-2 text-pink-600">
-                    <FiTag className="h-5 w-5" />
-                    <span className="font-semibold">{item.price}</span>
-                  </div>
+                  {item.description && (
+                    <p className="mt-2 text-sm leading-6 text-gray-600">
+                      {item.description}
+                    </p>
+                  )}
 
-                  <div className="mt-2 flex items-center gap-2 text-gray-600">
-                    <TbRulerMeasure className="h-5 w-5" />
-                    <span>{item.size}</span>
-                  </div>
+                  {item.price && (
+                    <div className="mt-5 flex items-center gap-2 text-pink-600">
+                      <FiTag className="h-5 w-5" />
+                      <span className="font-semibold">{item.price}</span>
+                    </div>
+                  )}
+
+                  {item.size && (
+                    <div className="mt-2 flex items-center gap-2 text-gray-600">
+                      <TbRulerMeasure className="h-5 w-5" />
+                      <span>{item.size}</span>
+                    </div>
+                  )}
 
                   <Link
                     href={`/rezervacija-kostimiem?kostims=${encodeURIComponent(
@@ -122,7 +136,7 @@ export default function ZiemassvetkiSection() {
 
           {/* MOBILE */}
           <div className="flex flex-col gap-5 lg:hidden">
-            {christmas.map((item) => (
+            {cards.map((item) => (
               <div
                 key={item.title}
                 className="overflow-hidden rounded-[26px] border border-zinc-200 bg-white shadow-lg"
@@ -143,15 +157,25 @@ export default function ZiemassvetkiSection() {
                         {item.title}
                       </h3>
 
-                      <div className="mt-4 flex items-center gap-2 text-pink-600">
-                        <FiTag className="h-5 w-5" />
-                        <span className="font-semibold">{item.price}</span>
-                      </div>
+                      {item.description && (
+                        <p className="mt-2 text-sm leading-6 text-gray-600">
+                          {item.description}
+                        </p>
+                      )}
 
-                      <div className="mt-2 flex items-center gap-2 text-gray-600">
-                        <TbRulerMeasure className="h-5 w-5" />
-                        <span>{item.size}</span>
-                      </div>
+                      {item.price && (
+                        <div className="mt-4 flex items-center gap-2 text-pink-600">
+                          <FiTag className="h-5 w-5" />
+                          <span className="font-semibold">{item.price}</span>
+                        </div>
+                      )}
+
+                      {item.size && (
+                        <div className="mt-2 flex items-center gap-2 text-gray-600">
+                          <TbRulerMeasure className="h-5 w-5" />
+                          <span>{item.size}</span>
+                        </div>
+                      )}
                     </div>
 
                     <Link

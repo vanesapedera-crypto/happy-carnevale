@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FiTag } from "react-icons/fi";
 import { TbRulerMeasure } from "react-icons/tb";
-import { getSectionItems } from "@/lib/sections";
+import { loadCostumes } from "@/lib/costumes";
 
 const halloween = [
   {
@@ -181,34 +181,9 @@ const halloween = [
   },
 ];
 
-interface CostumeCard {
-  title: string;
-  description?: string;
-  image: string;
-  price: string;
-  size: string;
-}
-
-/**
- * Kostīmi nāk no admin paneļa (sadaļa "helovina-kostimi").
- * Ja datubāze nav iestatīta, nav sasniedzama vai sadaļa ir tukša,
- * tiek rādīts augstāk iebūvētais saraksts.
- */
-async function loadCostumes(): Promise<CostumeCard[]> {
-  const managed = await getSectionItems("helovina-kostimi");
-  if (!managed || managed.length === 0) return halloween;
-
-  return managed.map((item) => ({
-    title: item.title,
-    description: item.description,
-    image: item.imageUrl,
-    price: item.price,
-    size: item.size,
-  }));
-}
-
 export default async function HelovinsSection() {
-  const costumes = await loadCostumes();
+  // Kostīmi nāk no admin paneļa; ja tur nekā nav, rāda augstāk iebūvēto sarakstu.
+  const costumes = await loadCostumes("helovina-kostimi", halloween);
 
   return (
     <section className="bg-white py-20">

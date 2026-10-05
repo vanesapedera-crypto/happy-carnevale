@@ -1,26 +1,63 @@
 /**
  * Mājaslapas sadaļas, kuru attēlus var pārvaldīt admin panelī.
  * Jaunu sadaļu pievieno šeit un pēc tam publiskajā komponentē
- * nolasa ar getSectionItems("<key>") (skat. lib/sections.ts).
+ * nolasa ar loadCostumes("<key>", iebuvetaisSaraksts) (skat. lib/costumes.ts).
  */
 export interface SectionDefinition {
   /** Unikāla atslēga datubāzē (section_key). Tikai mazie burti, cipari un domuzīmes. */
   key: string;
   /** Nosaukums, ko redz klients admin panelī. */
   label: string;
-  /** Publiskās lapas adrese, ko atjaunot pēc izmaiņām. */
+  /** Grupa izvēlnē: mājaslapas lapa, kurā sadaļa atrodas. */
+  group: string;
+  /** Publiskās lapas adrese (saite "Skatīt sadaļu mājaslapā"). */
   path: string;
   /** Vai šīs sadaļas kartītēs rāda cenu un izmēru. */
   hasPriceAndSize: boolean;
 }
 
+const MASCOTA = "Mascota tēli";
+const GAISA = "Gaisa plūsmas kostīmi";
+const KINO = "Kino tēli un citi interesanti kostīmi";
+const SMIEKLIGI = "Smieklīgi tēli un parūkas";
+const SEZONA = "Sezonālās kolekcijas";
+
+const KINO_PATH = "/kostimu-noma/filmu-un-pasaku-teli";
+const SMIEKLIGI_PATH = "/kostimu-noma/smiekligi-teli";
+
+function costumes(key: string, label: string, group: string, path: string): SectionDefinition {
+  return { key, label, group, path, hasPriceAndSize: true };
+}
+
 export const SECTIONS: readonly SectionDefinition[] = [
-  {
-    key: "helovina-kostimi",
-    label: "Helovīna kostīmi un maskas",
-    path: "/kostimu-noma/helovins",
-    hasPriceAndSize: true,
-  },
+  costumes("mascota-teli", "Maskoti", MASCOTA, "/kostimu-noma/mascota-teli"),
+  costumes(
+    "gaisa-plusmas-kostimi",
+    "Gaisa piepūšamie kostīmi",
+    GAISA,
+    "/kostimu-noma/gaisa-plusmas-kostimi"
+  ),
+
+  costumes("princeses-un-fejas", "Princeses un fejas", KINO, KINO_PATH),
+  costumes("supervaroni", "Supervaroņi", KINO, KINO_PATH),
+  costumes("kino-teli", "Kino tēli un citi interesanti kostīmi", KINO, KINO_PATH),
+  costumes("profesijas", "Profesijas", KINO, KINO_PATH),
+  costumes("dzivnieku-teli", "Dzīvnieku tēli", KINO, KINO_PATH),
+
+  costumes("smiekligi-teli", "Smieklīgi tēli", SMIEKLIGI, SMIEKLIGI_PATH),
+  costumes("retro-kostimi", "Retro kostīmi", SMIEKLIGI, SMIEKLIGI_PATH),
+  costumes("uzvalki", "Uzvalki", SMIEKLIGI, SMIEKLIGI_PATH),
+  // Parūkas rāda divās lapās: /kostimu-noma/parukas un /kostimu-noma/smiekligi-teli.
+  costumes("parukas", "Parūkas", SMIEKLIGI, "/kostimu-noma/parukas"),
+
+  costumes(
+    "helovina-kostimi",
+    "Helovīna kostīmi un maskas",
+    SEZONA,
+    "/kostimu-noma/helovins"
+  ),
+  costumes("ziemassvetku-kostimi", "Ziemassvētku tēli", SEZONA, "/kostimu-noma/ziemassvetki"),
+  costumes("lieldienu-kostimi", "Lieldienu kostīmi", SEZONA, "/kostimu-noma/lieldienas"),
 ];
 
 export function getSection(key: string | null | undefined): SectionDefinition | null {
@@ -28,7 +65,7 @@ export function getSection(key: string | null | undefined): SectionDefinition | 
   return SECTIONS.find((section) => section.key === key) ?? null;
 }
 
-/** Kešatmiņas birka, ar kuru publiskā lapa tiek atjaunota uzreiz pēc izmaiņām. */
+/** Kešatmiņas birka, ar kuru publiskās lapas tiek atjaunotas uzreiz pēc izmaiņām. */
 export function sectionTag(key: string): string {
   return `section:${key}`;
 }
