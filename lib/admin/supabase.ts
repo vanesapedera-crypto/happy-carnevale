@@ -53,9 +53,30 @@ async function ensureOk(response: Response): Promise<Response> {
 
 /* ============================== Auth ============================== */
 
+export type LoginFailure =
+  | "invalid" // nepareizs e-pasts vai parole
+  | "unconfirmed" // lietotājs Supabase nav apstiprināts
+  | "provider_disabled" // Supabase izslēgta ielogošanās ar e-pastu
+  | "config" // Supabase noraidīja atslēgu vai adresi
+  | "rate_limited"
+  | "error";
+
 export type LoginResult =
   | { ok: true; email: string }
-  | { ok: false; reason: "invalid" | "rate_limited" | "error" };
+  | { ok: false; reason: LoginFailure };
+
+/** Pārvērš Supabase Auth kļūdu par iemeslu, ko var parādīt saprotami. */
+function classifyLoginFailure(status: number, code: string): LoginFailure {
+  if (status === 429) return "rate_limited";
+  if (code === "email_not_confirmed") return "unconfirmed";
+  if (code === "email_provider_disabled" || code === "provider_disabled") {
+    return "provider_disabled";
+  }
+  // 401/403: nederīga API atslēga. 404: adrese nav Supabase projekts.
+  if (status === 401 || status === 403 || status === 404) return "config";
+  if (status === 400 || status === 422) return "invalid";
+  return "error";
+}
 
 /** Pārbauda e-pastu un paroli pret Supabase Auth. */
 export async function passwordLogin(
@@ -71,15 +92,25 @@ export async function passwordLogin(
       headers: { ...authHeaders(anonKey), "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
     });
-  } catch {
+  } catch (error) {
+    console.error("[admin] login: Supabase nav sasniedzams", error);
     return { ok: false, reason: "error" };
   }
 
-  if (response.status === 429) return { ok: false, reason: "rate_limited" };
-  if (response.status === 400 || response.status === 401 || response.status === 422) {
-    return { ok: false, reason: "invalid" };
+  if (!response.ok) {
+    let code = "";
+    try {
+      const data = (await response.json()) as Record<string, unknown>;
+      const rawCode = data.error_code ?? data.error ?? "";
+      code = typeof rawCode === "string" ? rawCode : "";
+    } catch {
+      // Atbilde nav JSON.
+    }
+    const reason = classifyLoginFailure(response.status, code);
+    // Žurnālā tikai statuss un kļūdas kods: ne e-pasts, ne parole.
+    console.warn("[admin] login failed", { status: response.status, code, reason });
+    return { ok: false, reason };
   }
-  if (!response.ok) return { ok: false, reason: "error" };
 
   try {
     const data = (await response.json()) as { user?: { email?: unknown } };

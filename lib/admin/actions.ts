@@ -31,18 +31,26 @@ export async function loginAction(formData: FormData): Promise<ActionResult> {
   // Ielogoties drīkst tikai ADMIN_EMAILS sarakstā esošie e-pasti,
   // pat ja Supabase projektā ir citi lietotāji.
   if (!config.adminEmails.includes(email)) {
+    console.warn("[admin] login blocked: e-pasts nav ADMIN_EMAILS sarakstā");
     return { ok: false, error: LOGIN_FAILED };
   }
 
   const result = await passwordLogin(config, config.anonKey, email, password);
   if (!result.ok) {
-    if (result.reason === "rate_limited") {
-      return { ok: false, error: "Pārāk daudz mēģinājumu. Pamēģini pēc brīža." };
-    }
-    if (result.reason === "error") {
-      return { ok: false, error: "Neizdevās pieslēgties. Lūdzu, mēģini vēlreiz." };
-    }
-    return { ok: false, error: LOGIN_FAILED };
+    // Iestatīšanas kļūdas rādām skaidri: tās nav atkarīgas no paroles
+    // un pareizi iestatītā projektā nekad neparādās.
+    const messages: Record<typeof result.reason, string> = {
+      invalid: LOGIN_FAILED,
+      unconfirmed:
+        "Šis lietotājs Supabase nav apstiprināts. Izveido to no jauna ar atzīmi Auto Confirm User.",
+      provider_disabled:
+        "Supabase ir izslēgta ielogošanās ar e-pastu. Ieslēdz Email sadaļā Authentication, Sign In / Providers.",
+      config:
+        "Supabase noraidīja atslēgu vai adresi. Pārbaudi SUPABASE_URL un SUPABASE_ANON_KEY Vercel iestatījumos.",
+      rate_limited: "Pārāk daudz mēģinājumu. Pamēģini pēc brīža.",
+      error: "Neizdevās pieslēgties. Lūdzu, mēģini vēlreiz.",
+    };
+    return { ok: false, error: messages[result.reason] };
   }
   if (result.email !== email) {
     return { ok: false, error: LOGIN_FAILED };
