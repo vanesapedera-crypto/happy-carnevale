@@ -16,9 +16,9 @@ export default function ContactSection() {
             KONTAKTI
           </p>
 
-          <h2 className="mt-4 text-4xl font-black text-[#17223b] md:text-5xl">
+          <h1 className="mt-4 text-4xl font-black text-[#17223b] md:text-5xl">
             Sazinies ar mums
-          </h2>
+          </h1>
 
           <p className="mt-5 text-lg leading-8 text-gray-600">
             Ja Tev radušies jautājumi par kostīmu nomu, animatoriem,

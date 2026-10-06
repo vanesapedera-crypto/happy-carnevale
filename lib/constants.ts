@@ -2,7 +2,7 @@ export const SITE = {
   name: "Happy Carnevale",
   description:
     "Kostīmu noma pieaugušajiem, mascoti, animatori un radošās darbnīcas visā Latvijā.",
-  url: "https://happycarnevale.lv",
+  url: "https://www.happycarnevale.lv",
   phone: "+371 26 126 313",
   phoneHref: "tel:+37126126313",
   email: "carnevalehappy@gmail.com",

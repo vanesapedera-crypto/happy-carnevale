@@ -114,8 +114,11 @@ export default function Hero() {
               Sveiki! Es esmu Burbulīte
             </span>
 
-            <h1 className="mt-2 text-[29px] font-semibold leading-[1.08] text-[#3B0764]">
-              Priecājos, Tevi šeit redzēt!
+            <h1 className="mt-2 text-[27px] font-semibold leading-[1.1] text-[#3B0764]">
+              Kostīmu noma un bērnu svētki
+              <span className="mt-1 block text-[17px] font-medium">
+                Rīgā un visā Latvijā
+              </span>
             </h1>
 
           </div>

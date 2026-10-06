@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
 import PageHero from "@/components/common/PageHero";
 import SmiekligiTeliSection from "@/components/costumes/SmiekligiTeliSection";
 import RetroSection from "@/components/costumes/RetroSection";
 import UzvalkiSection from "@/components/costumes/UzvalkiSection";
 import ParukasSection from "@/components/costumes/ParukasSection";
+
+export const metadata: Metadata = {
+  title: "Smieklīgu kostīmu, retro tērpu un parūku noma | Happy Carnevale",
+  description:
+    "Smieklīgu kostīmu, retro un disko tērpu, košu uzvalku un parūku noma ballītēm un tematiskajiem pasākumiem. Rīgā un visā Latvijā.",
+};
 
 
 export default function CitiTeliPage() {
@@ -10,7 +17,7 @@ export default function CitiTeliPage() {
     <main className="scroll-smooth bg-white pb-16">
       <PageHero
         badge="KOSTĪMU NOMA"
-        title="Smieklīgi tēli un parūkas"
+        title="Smieklīgu tēlu un parūku noma"
         description="Izvēlies dažādus kostīmus bērnu ballītēm, tematiskajiem pasākumiem un karnevāliem."
         image="/images/hero/citi-teli.png"
       />

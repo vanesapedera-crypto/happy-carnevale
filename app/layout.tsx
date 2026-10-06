@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 
 import { CartProvider } from "@/context/CartContext";
+import { SITE } from "@/lib/constants";
 
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -16,8 +17,12 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Happy Carneval",
-  description: "Kostīmu noma, pasākumi un burbuļu produkti",
+  metadataBase: new URL(SITE.url),
+  title: "Happy Carnevale – kostīmu noma, animatori un ziepju burbuļi",
+  description:
+    "Kostīmu noma, animatori bērnu svētkiem, pārsteiguma tēli un ziepju burbuļu veikals. Rīgā un visā Latvijā.",
+  // Katrai lapai viena galvenā adrese (ar www), lai Google neredz dublikātus
+  alternates: { canonical: "./" },
 };
 
 export default function RootLayout({

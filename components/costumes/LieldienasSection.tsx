@@ -94,9 +94,9 @@ export default async function LieldienasSection() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="rounded-[40px] border border-zinc-200 bg-white p-10 shadow-xl">
           <div className="mb-12">
-            <h2 className="text-4xl font-black text-gray-900">
-              Lieldienu kostīmi
-            </h2>
+            <h1 className="text-4xl font-black text-gray-900">
+              Lieldienu kostīmu noma
+            </h1>
             <div className="mt-3 h-1 w-24 rounded-full bg-violet-500" />
           </div>
 

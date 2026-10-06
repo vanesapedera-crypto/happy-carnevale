@@ -84,9 +84,9 @@ export default function ProductsSection() {
             VEIKALS
           </p>
 
-          <h2 className="mt-3 text-5xl font-black text-gray-900">
+          <h1 className="mt-3 text-5xl font-black text-gray-900">
             Milzu burbuļu produkti
-          </h2>
+          </h1>
 
           <p className="mt-6 text-lg leading-8 text-gray-600">
             Viss nepieciešamais burbuļu maģijai – burbuļu koncentrāts un
