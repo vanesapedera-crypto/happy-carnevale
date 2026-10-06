@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type DragEvent } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { deleteItemAction, updateItemAction } from "@/lib/admin/actions";
@@ -11,15 +11,22 @@ const INPUT_CLASS =
   "mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-pink-500 focus:ring-2 focus:ring-pink-200";
 const LABEL_CLASS = "text-xs font-semibold uppercase tracking-wide text-slate-500";
 
+/** Attēls kalpo par rokturi, aiz kura kartīti pārvelk citā vietā. */
+export interface DragHandle {
+  onDragStart: (event: DragEvent<HTMLDivElement>) => void;
+  onDragEnd: () => void;
+}
+
 interface ItemCardProps {
   item: SectionItem;
   showPriceAndSize: boolean;
+  dragHandle?: DragHandle;
 }
 
 type Notice = { kind: "success" | "error"; text: string } | null;
 
 /** Viens attēls ar labojamiem laukiem: nosaukums, cena, izmērs, rādīt lapā. */
-export default function ItemCard({ item, showPriceAndSize }: ItemCardProps) {
+export default function ItemCard({ item, showPriceAndSize, dragHandle }: ItemCardProps) {
   const router = useRouter();
   const [title, setTitle] = useState(item.title);
   const [price, setPrice] = useState(item.price);
@@ -78,18 +85,29 @@ export default function ItemCard({ item, showPriceAndSize }: ItemCardProps) {
 
   return (
     <article
-      className={`flex flex-col overflow-hidden rounded-2xl border bg-white shadow-sm ${
+      className={`flex h-full w-full flex-col overflow-hidden rounded-2xl border bg-white shadow-sm ${
         active ? "border-slate-200" : "border-slate-200 opacity-75"
       }`}
     >
-      <div className="relative aspect-[4/3] bg-slate-100">
+      <div
+        className={`relative aspect-[4/3] bg-slate-100 ${
+          dragHandle ? "cursor-grab active:cursor-grabbing" : ""
+        }`}
+        draggable={dragHandle ? true : undefined}
+        onDragStart={dragHandle?.onDragStart}
+        onDragEnd={dragHandle?.onDragEnd}
+        title={dragHandle ? "Satver un pārvelc, lai mainītu secību" : undefined}
+      >
         <Image
           src={item.imageUrl}
           alt={item.title}
           fill
-          unoptimized
+          // Mājaslapas pašas attēli mēdz būt vairākus MB lieli: tiem rāda samazinātu
+          // versiju. Augšupielādētie jau ir samazināti un tiek rādīti tieši.
+          unoptimized={!item.imageUrl.startsWith("/")}
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-          className="object-contain"
+          draggable={false}
+          className="pointer-events-none select-none object-contain"
         />
         {!active && (
           <span className="absolute left-3 top-3 rounded-full bg-slate-900/80 px-3 py-1 text-xs font-semibold text-white">

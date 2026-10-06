@@ -27,7 +27,7 @@ components/
     NotConfigured.tsx       paziņojums, ja trūkst vides mainīgo
     SectionPicker.tsx       sadaļas izvēle pēc sectionKey
     ImageUploader.tsx       viens vai vairāki attēli, statuss katram
-    ItemList.tsx            sadaļas attēlu režģis
+    ItemList.tsx            sadaļas attēlu režģis, secības maiņa pārvelkot
     ItemCard.tsx            nosaukums, cena, izmērs, rādīt lapā, dzēšana
   layout/SiteShell.tsx      /admin lapās nerāda mājaslapas galveni un kājeni
   costumes/*Section.tsx     14 kostīmu sadaļas, visas lasa no datubāzes
@@ -45,7 +45,8 @@ lib/
     supabase.ts             Auth / REST / Storage izsaukumi
     items.ts                ierakstu lasīšana, izveide, labošana, dzēšana
     validation.ts           ievades pārbaude, attēla veida noteikšana
-    actions.ts              server actions: login, logout, update, delete
+    actions.ts              server actions: login, logout, update, delete, reorder
+    reorder.ts              secības aprēķins (moveId, planReorder)
     revalidate.ts           publiskās lapas atjaunošana pēc izmaiņām
     prepareImage.ts         attēla samazināšana pārlūkā pirms augšupielādes
 
@@ -119,6 +120,13 @@ Supabase izvēlņu nosaukumi laika gaitā nedaudz mainās; meklē līdzīgu.
    `ADMIN_SESSION_SECRET`.
 8. **Publicē no jauna** (Vercel -> Deployments -> Redeploy), lai mainīgie stātos spēkā.
 9. Atver `/admin`, ielogojies, augšupielādē vienu testa attēlu un pārbaudi Helovīna lapu.
+
+## Secības maiņa
+
+Admin panelī kartīti satver aiz attēla un pārvelk vajadzīgajā vietā; rozā līnija rāda,
+kur tā nonāks. Secība tiek saglabāta uzreiz (`reorderItemsAction`), un publiskā lapa
+tiek atjaunota. Serveris maina `sort_order` tikai pārvietotajam ierakstam (skaitlis
+starp kaimiņiem); ja starp kaimiņiem vairs nav brīvu skaitļu, pārnumurē visu sadaļu.
 
 ## Kā pievienot vēl vienu sadaļu
 

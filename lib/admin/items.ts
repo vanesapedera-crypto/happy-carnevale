@@ -127,3 +127,22 @@ export async function deleteItem(
   );
   return row ? rowToItem(row) : null;
 }
+
+/**
+ * Maina tikai ieraksta vietu sarakstā. updated_at paliek neskarts, lai admin
+ * panelī atvērtās kartītes nezaudē vēl nesaglabātus labojumus.
+ */
+export async function setSortOrder(
+  config: AdminConfig,
+  sectionKey: string,
+  id: string,
+  sortOrder: number
+): Promise<void> {
+  await restUpdate<SectionItemRow>(
+    config,
+    config.serviceKey,
+    ITEMS_TABLE,
+    `id=eq.${encodeURIComponent(id)}&section_key=eq.${encodeURIComponent(sectionKey)}`,
+    { sort_order: sortOrder }
+  );
+}

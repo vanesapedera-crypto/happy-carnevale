@@ -58,7 +58,11 @@ export default async function AdminDashboardPage({ searchParams }: DashboardPage
             Neizdevās ielādēt attēlus no datubāzes. {loadError}
           </p>
         ) : (
-          <ItemList items={items} showPriceAndSize={section.hasPriceAndSize} />
+          <ItemList
+            sectionKey={section.key}
+            items={items}
+            showPriceAndSize={section.hasPriceAndSize}
+          />
         )}
       </section>
     </AdminShell>
