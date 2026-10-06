@@ -2,122 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { FiTag } from "react-icons/fi";
 import { TbRulerMeasure } from "react-icons/tb";
-import { loadCostumes } from "@/lib/costumes";
-
-const superheroes = [
-  {
-    title: "Betmens",
-    image: "/kostimi/supervaroni/betmens.jpg",
-    price: "25 €",
-    size: "M-XL",
-  },
-  {
-    title: "Tors",
-    image: "/kostimi/supervaroni/thors.jpg",
-    price: "25 €",
-    size: "L-XL",
-  },
-  {
-    title: "Iron Man",
-    image: "/kostimi/supervaroni/iron-man.jpg",
-    price: "25 €",
-    size: "S-M",
-  },
-  {
-    title: "Kapteinis Amerika",
-    image: "/kostimi/supervaroni/kapteinis-amerika.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Lady Bug",
-    image: "/kostimi/supervaroni/lady-bug.jpg",
-    price: "20 €",
-    size: "XS-S",
-  },
-  {
-    title: "Melnā Pantera",
-    image: "/kostimi/supervaroni/melna-pantera.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Spiderman",
-    image: "/kostimi/supervaroni/spiderman.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Supermeitene",
-    image: "/kostimi/supervaroni/super-meitene.jpg",
-    price: "25 €",
-    size: "S-M",
-  },
-   {
-    title: "Ninja Bruņurupucis",
-    image: "/kostimi/multfilmu/turtles-ninja.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Supermens",
-    image: "/kostimi/supervaroni/supermens.jpg",
-    price: "25 €",
-    size: "M-XL",
-  },
-  {
-    title: "Wolverine",
-    image: "/kostimi/supervaroni/wolverine.jpg",
-    price: "15 €",
-    size: "S-L",
-  },
-  {
-    title: "Zibsnis (1)",
-    image: "/kostimi/supervaroni/zibsnis-1.jpg",
-    price: "20 €",
-    size: "M-L",
-  },
-  {
-    title: "Zibsnis (2)",
-    image: "/kostimi/supervaroni/zibsnis-2.jpg",
-    price: "25 €",
-    size: "M-L",
-  },
-  {
-    title: "Batgirl",
-    image: "/kostimi/supervaroni/batgirl.jpg",
-    price: "25 €",
-    size: "M-L",
-  },
-  {
-    title: "Halks",
-    image: "/kostimi/supervaroni/halks.jpg",
-    price: "25 €",
-    size: "M-L",
-  },
-  {
-    title: "Kaķsieviete",
-    image: "/kostimi/supervaroni/kaksieviete.jpg",
-    price: "25 €",
-    size: "XS-S",
-  },
-  {
-    title: "Deadpool",
-    image: "/kostimi/supervaroni/deadpool.jpg",
-    price: "25 €",
-    size: "M-L",
-  },
-    {
-    title: "Wonder Woman",
-    image: "/kostimi/supervaroni/wonder-women.jpg",
-    price: "25 €",
-    size: "M",
-  },
-];
+import { loadSectionCards } from "@/lib/costumeCatalog";
 
 export default async function SuperheroesSection() {
-  // Kostīmi nāk no admin paneļa; ja tur nekā nav, rāda augstāk iebūvēto sarakstu.
-  const cards = await loadCostumes("supervaroni", superheroes);
+  // Kostīmi nāk no admin paneļa; ja tur nekā nav, rāda iebūvēto sarakstu no data/costumes.
+  const cards = await loadSectionCards("supervaroni");
 
   return (
     <section className="py-20 bg-white">
@@ -139,18 +28,20 @@ export default async function SuperheroesSection() {
       key={item.title}
       className="group flex flex-col overflow-hidden rounded-[30px] border border-violet-100 bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:border-violet-300 hover:shadow-2xl"
     >
-<div className="relative aspect-[3/4] overflow-hidden bg-white">
+<Link href={item.href} className="block relative aspect-[3/4] overflow-hidden bg-white">
         <Image
           src={item.image}
           alt={`${item.title} – kostīmu noma`}
           fill
           className="object-cover transition duration-500 group-hover:scale-105"
         />
-      </div>
+      </Link>
 
       <div className="flex flex-1 flex-col p-6">
         <h3 className="min-h-[64px] text-2xl font-bold tracking-tight text-gray-900">
-          {item.title}
+          <Link href={item.href} className="transition hover:text-pink-600">
+            {item.title}
+          </Link>
         </h3>
 
         {item.description && (
@@ -198,19 +89,21 @@ export default async function SuperheroesSection() {
       className="overflow-hidden rounded-[26px] bg-white shadow-lg"
     >
       <div className="flex">
-        <div className="relative h-44 w-36 shrink-0">
+        <Link href={item.href} className="block relative h-44 w-36 shrink-0">
           <Image
             src={item.image}
             alt={`${item.title} – kostīmu noma`}
             fill
             className="object-contain p-4"
           />
-        </div>
+        </Link>
 
         <div className="flex flex-1 flex-col justify-between p-4">
           <div>
             <h3 className="text-2xl font-bold text-gray-900">
-              {item.title}
+              <Link href={item.href} className="transition hover:text-pink-600">
+                {item.title}
+              </Link>
             </h3>
 
             {item.description && (

@@ -2,188 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { FiTag } from "react-icons/fi";
 import { TbRulerMeasure } from "react-icons/tb";
-import { loadCostumes } from "@/lib/costumes";
-
-const halloween = [
-  {
-    title: "Wednesday",
-    image: "/kostimi/multfilmu/wednesday.jpg",
-    price: "25 €",
-    size: "XS-L",
-  },
-   {
-    title: "Ragana",
-    image: "/kostimi/multfilmu/ragana.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Pennywise",
-    image: "/kostimi/multfilmu/pennywise.jpg",
-    price: "25 €",
-    size: "M-XL",
-  },
-  {
-    title: "Drakula",
-    image: "/kostimi/multfilmu/drakula.jpg",
-    price: "25 €",
-    size: "M-XL",
-  },
-  {
-    title: "Spociņš",
-    image: "/kostimi/multfilmu/spocins.jpg",
-    price: "20 €",
-    size: "XS-L",
-  },
-  {
-    title: "Džokers (1)",
-    image: "/kostimi/multfilmu/dzokers-1.jpg",
-    price: "25 €",
-    size: "M-L",
-  },
-  {
-    title: "Malificienta",
-    image: "/kostimi/multfilmu/malificienta.jpg",
-    price: "25 €",
-    size: "XS-L",
-  },
-  {
-    title: "Džokers (2)",
-    image: "/kostimi/multfilmu/dzokers-2.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Bailīgā mūķene",
-    image: "/kostimi/multfilmu/bailiga-mukene.jpg",
-    price: "25 €",
-    size: "XS-L",
-  },
-  {
-    title: "Līgava",
-    image: "/kostimi/helovini-v2/ligava.jpg",
-    price: "25 €",
-    size: "M-L",
-  },
-  {
-    title: "Skelets (spīd tumsā)",
-    image: "/kostimi/helovini-v2/skelets.jpg",
-    price: "25 €",
-    size: "M-L",
-  },
-    {
-    title: "Ķirbis",
-    image: "/kostimi/helovini-v2/kirbis.jpg",
-    price: "25 €",
-    size: "XS-L",
-  },
-  {
-    title: "Maska (1)",
-    image: "/kostimi/helovini-v2/1.jpg",
-    price: "8 €",
-    size: "One size",
-  },
-  {
-    title: "Maska (2)",
-    image: "/kostimi/helovini-v2/2.jpg",
-    price: "8 €",
-    size: "One size",
-  },
-  {
-    title: "Maska (3)",
-    image: "/kostimi/helovini-v2/3.jpg",
-    price: "8 €",
-    size: "One size",
-  },
-  {
-    title: "Maska (4)",
-    image: "/kostimi/helovini-v2/4.jpg",
-    price: "8 €",
-    size: "One size",
-  },
-  {
-    title: "Maska (5)",
-    image: "/kostimi/helovini-v2/5.jpg",
-    price: "8 €",
-    size: "One size",
-  },
-  {
-    title: "Maska (6)",
-    image: "/kostimi/helovini-v2/6.jpg",
-    price: "8 €",
-    size: "One size",
-  },
-  {
-    title: "Maska (7)",
-    image: "/kostimi/helovini-v2/7.jpg",
-    price: "8 €",
-    size: "One size",
-  },
-   {
-    title: "Maska (8)",
-    image: "/kostimi/helovini-v2/8.jpg",
-    price: "8 €",
-    size: "One size",
-  },
-   {
-    title: "Maska (9)",
-    image: "/kostimi/helovini-v2/9.jpg",
-    price: "8 €",
-    size: "One size",
-  },
-   {
-    title: "Maska (10)",
-    image: "/kostimi/helovini-v2/10.jpg",
-    price: "8 €",
-    size: "One size",
-  },
-   {
-    title: "Maska (11)",
-    image: "/kostimi/helovini-v2/11.jpg",
-    price: "8 €",
-    size: "One size",
-  },
-   {
-    title: "Maska (12)",
-    image: "/kostimi/helovini-v2/12.jpg",
-    price: "8 €",
-    size: "One size",
-  },
-   {
-    title: "Maska (13)",
-    image: "/kostimi/helovini-v2/13.jpg",
-    price: "8 €",
-    size: "One size",
-  },
-   {
-    title: "Maska (14)",
-    image: "/kostimi/helovini-v2/14.jpg",
-    price: "8 €",
-    size: "One size",
-  },
-  {
-    title: "Maska (15)",
-    image: "/kostimi/helovini-v2/15.jpg",
-    price: "8 €",
-    size: "One size",
-  },
-   {
-    title: "Raganas rokas",
-    image: "/kostimi/helovini-v2/16.jpg",
-    price: "8 €",
-    size: "One size",
-  },
-  {
-    title: "Šausmu zombija iekšas",
-    image: "/kostimi/helovini-v2/17.jpg",
-    price: "10 €",
-    size: "One size",
-  },
-];
+import { loadSectionCards } from "@/lib/costumeCatalog";
 
 export default async function HelovinsSection() {
-  // Kostīmi nāk no admin paneļa; ja tur nekā nav, rāda augstāk iebūvēto sarakstu.
-  const costumes = await loadCostumes("helovina-kostimi", halloween);
+  // Kostīmi nāk no admin paneļa; ja tur nekā nav, rāda iebūvēto sarakstu no data/costumes.
+  const costumes = await loadSectionCards("helovina-kostimi");
 
   return (
     <section className="bg-white py-20">
@@ -204,18 +27,20 @@ export default async function HelovinsSection() {
                 key={`${item.title}-${index}`}
                 className="group flex flex-col overflow-hidden rounded-[30px] border border-zinc-200 bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:border-zinc-300 hover:shadow-2xl"
               >
-                <div className="relative aspect-[3/4] overflow-hidden bg-white">
+                <Link href={item.href} className="block relative aspect-[3/4] overflow-hidden bg-white">
                   <Image
                     src={item.image}
                     alt={`${item.title} – Helovīna kostīmu noma`}
                     fill
                     className="object-contain p-4 transition duration-500 group-hover:scale-105"
                   />
-                </div>
+                </Link>
 
                 <div className="flex flex-1 flex-col p-6">
                   <h3 className="min-h-[64px] text-2xl font-bold tracking-tight text-gray-900">
-                    {item.title}
+                    <Link href={item.href} className="transition hover:text-pink-600">
+                      {item.title}
+                    </Link>
                   </h3>
 
                   {item.description && (
@@ -263,19 +88,21 @@ export default async function HelovinsSection() {
                 className="overflow-hidden rounded-[26px] border border-zinc-200 bg-white shadow-lg"
               >
                 <div className="flex">
-                  <div className="relative h-44 w-36 shrink-0 bg-white">
+                  <Link href={item.href} className="block relative h-44 w-36 shrink-0 bg-white">
                     <Image
                       src={item.image}
                       alt={`${item.title} – Helovīna kostīmu noma`}
                       fill
                       className="object-contain p-4"
                     />
-                  </div>
+                  </Link>
 
                   <div className="flex flex-1 flex-col justify-between p-4">
                     <div>
                       <h3 className="text-xl font-bold text-gray-900">
-                        {item.title}
+                        <Link href={item.href} className="transition hover:text-pink-600">
+                          {item.title}
+                        </Link>
                       </h3>
 
                       {item.description && (

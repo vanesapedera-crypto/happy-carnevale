@@ -2,422 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { FiTag } from "react-icons/fi";
 import { TbRulerMeasure } from "react-icons/tb";
-import { loadCostumes } from "@/lib/costumes";
-
-const cartoons = [
-  {
-    title: "Ash no Pokemoniem",
-    image: "/kostimi/multfilmu/ash-no-pokemoniem.jpg",
-    price: "25 €",
-    size: "S-M",
-  },
-  {
-    title: "Bailīgā mūķene",
-    image: "/kostimi/multfilmu/bailiga-mukene.jpg",
-    price: "25 €",
-    size: "XS-L",
-  },
-  {
-    title: "Malificienta",
-    image: "/kostimi/multfilmu/malificienta.jpg",
-    price: "25 €",
-    size: "XS-L",
-  },
-  {
-    title: "Bings",
-    image: "/kostimi/multfilmu/bings.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Creeper no Minecraft",
-    image: "/kostimi/multfilmu/creeper-no-minecraft.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Cruella",
-    image: "/kostimi/multfilmu/cruella.jpg",
-    price: "20 €",
-    size: "XS-L",
-  },
-  {
-    title: "Dino mazulis",
-    image: "/kostimi/multfilmu/Dino mazulis.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Drakula",
-    image: "/kostimi/multfilmu/drakula.jpg",
-    price: "25 €",
-    size: "XS-L",
-  },
-  {
-    title: "Džokers (1)",
-    image: "/kostimi/multfilmu/dzokers-1.jpg",
-    price: "25 €",
-    size: "M-L",
-  },
-  {
-    title: "Džokers (2)",
-    image: "/kostimi/multfilmu/dzokers-2.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Fins",
-    image: "/kostimi/multfilmu/fins.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Gabby's Dollhouse",
-    image: "/kostimi/multfilmu/gabbu-dollhouse.jpg",
-    price: "25 €",
-    size: "XS-M",
-  },
-  {
-    title: "Harijs Poters",
-    image: "/kostimi/multfilmu/Harijs potters.jpg",
-    price: "25 €",
-    size: "M-L",
-  },
-  {
-    title: "Hārlija",
-    image: "/kostimi/multfilmu/harlija.jpg",
-    price: "25 €",
-    size: "XS-M",
-  },
-  {
-    title: "Hello Kitty",
-    image: "/kostimi/multfilmu/hello-kitty.jpg",
-    price: "25 €",
-    size: "XS-M",
-  },
-  {
-    title: "Hermione",
-    image: "/kostimi/multfilmu/Hermione.jpg",
-    price: "25 €",
-    size: "XS-M",
-  },
-  {
-    title: "Joy",
-    image: "/kostimi/multfilmu/joy.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Klauns",
-    image: "/kostimi/multfilmu/klauns.jpg",
-    price: "20 €",
-    size: "S-L",
-  },
-  {
-    title: "Labubu (Lillā)",
-    image: "/kostimi/multfilmu/labubu-lilla.jpg",
-    price: "25 €",
-    size: "XS-L",
-  },
-  {
-    title: "Labubu (Rozā)",
-    image: "/kostimi/multfilmu/labubu-roza.jpg",
-    price: "25 €",
-    size: "XS-L",
-  },
-  {
-    title: "Spociņš",
-    image: "/kostimi/multfilmu/spocins.jpg",
-    price: "20 €",
-    size: "XS-L",
-  },
-  {
-    title: "Karlsons",
-    image: "/kostimi/multfilmu/karlsons.jpg",
-    price: "20 €",
-    size: "S-XL",
-  },
-  {
-    title: "LEGO Ninjago",
-    image: "/kostimi/multfilmu/lego-ninjago.jpg",
-    price: "25 €",
-    size: "XS-L",
-  },
-  {
-    title: "LOL Balerīna",
-    image: "/kostimi/multfilmu/lol-balerina.jpg",
-    price: "25 €",
-    size: "XS-M",
-  },
-  {
-    title: "LOL Queen Bee",
-    image: "/kostimi/multfilmu/lol-queen-bee.jpg",
-    price: "25 €",
-    size: "S-M",
-  },
-  {
-    title: "Luigi",
-    image: "/kostimi/multfilmu/luigi.jpg",
-    price: "20 €",
-    size: "S-L",
-  },
-  {
-    title: "Māršals",
-    image: "/kostimi/multfilmu/marsels.jpg",
-    price: "25 €",
-    size: "XS-L",
-  },
-  {
-    title: "Maša",
-    image: "/kostimi/multfilmu/Masa-un-lacis.jpg",
-    price: "25 €",
-    size: "XS-L",
-  },
-  {
-    title: "Minioni",
-    image: "/kostimi/multfilmu/minioni.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Minnija",
-    image: "/kostimi/multfilmu/minnija.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "SQUID GAME",
-    image: "/kostimi/multfilmu/money-heist-1.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Money Heist",
-    image: "/kostimi/multfilmu/money-heist-2.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Pennywise",
-    image: "/kostimi/multfilmu/pennywise.jpg",
-    price: "20 €",
-    size: "M-XL",
-  },
-  {
-    title: "Pepija Garzeķe",
-    image: "/kostimi/multfilmu/pepija-garzeke.jpg",
-    price: "25 €",
-    size: "XS-M",
-  },
-  {
-    title: "Peppa",
-    image: "/kostimi/multfilmu/peppa.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Pikaču",
-    image: "/kostimi/multfilmu/pikacu.jpg",
-    price: "25 €",
-    size: "S-XL",
-  },
-  {
-    title: "Avatars",
-    image: "/kostimi/multfilmu/avatars.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Pirātu meitene",
-    image: "/kostimi/multfilmu/pirata-meitene.jpg",
-    price: "25 €",
-    size: "S-M",
-  },
-  {
-    title: "Pirāts (1)",
-    image: "/kostimi/multfilmu/pirata-zens-1.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Pirāts (2)",
-    image: "/kostimi/multfilmu/pirata-zens-2.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Pomnija",
-    image: "/kostimi/multfilmu/pomnija.jpg",
-    price: "30 €",
-    size: "S-M",
-  },
-  {
-    title: "Poppija",
-    image: "/kostimi/multfilmu/poppija.jpg",
-    price: "25 €",
-    size: "S-M",
-  },
-  {
-    title: "Ragana",
-    image: "/kostimi/multfilmu/ragana.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Selestija Vienradzis",
-    image: "/kostimi/multfilmu/selestija-vienradzis.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Simka",
-    image: "/kostimi/multfilmu/simka-no-fiksiki.jpg",
-    price: "20 €",
-    size: "XS-M",
-  },
-  {
-    title: "Skaja",
-    image: "/kostimi/multfilmu/skaja.jpg",
-    price: "25 €",
-    size: "S-M",
-  },
-   {
-    title: "Everesta",
-    image: "/kostimi/multfilmu/everesta.jpg",
-    price: "25 €",
-    size: "XS-M",
-  },
-  {
-    title: "Čeizs",
-    image: "/kostimi/multfilmu/ceizs.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Smurfete",
-    image: "/kostimi/multfilmu/smurfete.jpg",
-    price: "20 €",
-    size: "XS-M",
-  },
-  {
-    title: "Soniks",
-    image: "/kostimi/multfilmu/soniks.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Šreks",
-    image: "/kostimi/multfilmu/sreks.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Stičs",
-    image: "/kostimi/multfilmu/stich.jpg",
-    price: "25 €",
-    size: "XS-M",
-  },
-  {
-    title: "Sūklis Bobs (1)",
-    image: "/kostimi/multfilmu/suklis-bobs-1.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Sūklis Bobs (2)",
-    image: "/kostimi/multfilmu/suklis-bobs-2.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-   {
-    title: "Patriks Jūras Zvaigzne",
-    image: "/kostimi/multfilmu/patriks-juras-zvaigzne.jpg",
-    price: "25 €",
-    size: "L-XL",
-  },
-  {
-    title: "Super Mario",
-    image: "/kostimi/multfilmu/supermario.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Transformeris",
-    image: "/kostimi/multfilmu/transformer.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Twilight Sparkle",
-    image: "/kostimi/multfilmu/twilight-sparkle-unicorn.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Vienradzis",
-    image: "/kostimi/multfilmu/vienradzis.jpg",
-    price: "15 €",
-    size: "S-L",
-  },
-  {
-    title: "Vinnijs Pūks",
-    image: "/kostimi/multfilmu/vinnijs.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Wednesday",
-    image: "/kostimi/multfilmu/wednesday.jpg",
-    price: "25 €",
-    size: "XS-L",
-  },
-  {
-    title: "Zars",
-    image: "/kostimi/multfilmu/zars.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Eglīte",
-    image: "/kostimi/ziemassvetki/egle.jpg",
-    price: "25 €",
-    size: "XS-M",
-  },
-  {
-    title: "Rūķis",
-    image: "/kostimi/ziemassvetki/rukis-smaidulis.jpg",
-    price: "30 €",
-    size: "XS-XL",
-  },
-  {
-    title: "Sniegbaltīte",
-    image: "/kostimi/ziemassvetki/sniegbaltite.jpg",
-    price: "25 €",
-    size: "S-M",
-  },
-  {
-    title: "Ziemassvētku vecītis",
-    image: "/kostimi/ziemassvetki/ziemassvetku-vecitis.jpg",
-    price: "50 €",
-    size: "S-XL",
-  },
-  {
-    title: "Grinčš",
-    image: "/kostimi/ziemassvetki/grincs.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Lego Ninjago",
-    image: "/kostimi/mascotas/lego-ninjago.jpg",
-    price: "25 €",
-    size: "XS-L",
-  },
-];
+import { loadSectionCards } from "@/lib/costumeCatalog";
 
 export default async function MultfilmuSection() {
-  // Kostīmi nāk no admin paneļa; ja tur nekā nav, rāda augstāk iebūvēto sarakstu.
-  const cards = await loadCostumes("kino-teli", cartoons);
+  // Kostīmi nāk no admin paneļa; ja tur nekā nav, rāda iebūvēto sarakstu no data/costumes.
+  const cards = await loadSectionCards("kino-teli");
 
   return (
     <section className="bg-white py-20">
@@ -437,18 +26,20 @@ export default async function MultfilmuSection() {
                 key={`${item.title}-${index}`}
                 className="group flex flex-col overflow-hidden rounded-[30px] border border-zinc-200 bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:border-zinc-300 hover:shadow-2xl"
               >
-                <div className="relative aspect-[3/4] overflow-hidden bg-white">
+                <Link href={item.href} className="block relative aspect-[3/4] overflow-hidden bg-white">
                   <Image
                     src={item.image}
                     alt={`${item.title} – kostīmu noma`}
                     fill
                     className="object-contain p-4 transition duration-500 group-hover:scale-105"
                   />
-                </div>
+                </Link>
 
                 <div className="flex flex-1 flex-col p-6">
                   <h3 className="min-h-[64px] text-2xl font-bold tracking-tight text-gray-900">
-                    {item.title}
+                    <Link href={item.href} className="transition hover:text-pink-600">
+                      {item.title}
+                    </Link>
                   </h3>
 
                   {item.description && (
@@ -496,19 +87,21 @@ export default async function MultfilmuSection() {
                 className="overflow-hidden rounded-[26px] border border-zinc-200 bg-white shadow-lg"
               >
                 <div className="flex">
-                  <div className="relative h-44 w-36 shrink-0 bg-white">
+                  <Link href={item.href} className="block relative h-44 w-36 shrink-0 bg-white">
                     <Image
                       src={item.image}
                       alt={`${item.title} – kostīmu noma`}
                       fill
                       className="object-contain p-4"
                     />
-                  </div>
+                  </Link>
 
                   <div className="flex flex-1 flex-col justify-between p-4">
                     <div>
                       <h3 className="text-xl font-bold text-gray-900">
-                        {item.title}
+                        <Link href={item.href} className="transition hover:text-pink-600">
+                          {item.title}
+                        </Link>
                       </h3>
 
                       {item.description && (

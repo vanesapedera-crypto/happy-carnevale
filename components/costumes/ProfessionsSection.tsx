@@ -2,122 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { FiTag } from "react-icons/fi";
 import { TbRulerMeasure } from "react-icons/tb";
-import { loadCostumes } from "@/lib/costumes";
-
-const professions = [
-  {
-    title: "Bruņinieks",
-    image: "/kostimi/profesijas/bruninieks.jpg",
-    price: "25 €",
-    size: "M",
-  },
-  {
-    title: "Ceļotājs",
-    image: "/kostimi/profesijas/celotajs.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Ieslodzītais",
-    image: "/kostimi/profesijas/cietumnieks.jpg",
-    price: "25 €",
-    size: "M-L",
-  },
-  {
-    title: "Cowboy meitene",
-    image: "/kostimi/profesijas/cowboy-meitene.jpg",
-    price: "25 €",
-    size: "S-XL",
-  },
-  {
-    title: "Cowboy puisis",
-    image: "/kostimi/profesijas/cowboy-puisis.jpg",
-    price: "25 €",
-    size: "S-XL",
-  },
-  {
-    title: "Dullais profesors",
-    image: "/kostimi/profesijas/dullais-profesors.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Kapteinis",
-    image: "/kostimi/profesijas/Kapteinis.jpg",
-    price: "25 €",
-    size: "M-L",
-  },
-  {
-    title: "Kosmonauts",
-    image: "/kostimi/profesijas/kosmonauts.jpg",
-    price: "25 €",
-    size: "S-M",
-  },
-  {
-    title: "Mācītājs",
-    image: "/kostimi/profesijas/macitajs.jpg",
-    price: "25 €",
-    size: "M-L",
-  },
-  {
-    title: "Medmāsa",
-    image: "/kostimi/profesijas/medmasas-kostims.jpg",
-    price: "20 €",
-    size: "XS-S",
-  },
-  {
-    title: "Pētniece",
-    image: "/kostimi/profesijas/petniece.jpg",
-    price: "25 €",
-    size: "XS-M",
-  },
-  {
-    title: "Policiste",
-    image: "/kostimi/profesijas/Policiste.jpg",
-    price: "20 €",
-    size: "XS-M",
-  },
-  {
-    title: "Policists",
-    image: "/kostimi/profesijas/Policists.jpg",
-    price: "20 €",
-    size: "M-XL",
-  },
-  {
-    title: "Profesore",
-    image: "/kostimi/profesijas/profesore.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Rallija meitene",
-    image: "/kostimi/profesijas/rallij-meitene.jpg",
-    price: "25 €",
-    size: "XS-S",
-  },
-  {
-    title: "Rallija braucējs (1)",
-    image: "/kostimi/profesijas/rallija-braucejs-1.jpg",
-    price: "25 €",
-    size: "S-M",
-  },
-  {
-    title: "Rallija braucējs (2)",
-    image: "/kostimi/profesijas/rallija-braucejs-2.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Stjuarte",
-    image: "/kostimi/profesijas/Stjuarte.jpg",
-    price: "25 €",
-    size: "XS-M",
-  },
-];
+import { loadSectionCards } from "@/lib/costumeCatalog";
 
 export default async function ProfessionsSection() {
-  // Kostīmi nāk no admin paneļa; ja tur nekā nav, rāda augstāk iebūvēto sarakstu.
-  const cards = await loadCostumes("profesijas", professions);
+  // Kostīmi nāk no admin paneļa; ja tur nekā nav, rāda iebūvēto sarakstu no data/costumes.
+  const cards = await loadSectionCards("profesijas");
 
   return (
     <section className="bg-white py-20">
@@ -135,18 +24,20 @@ export default async function ProfessionsSection() {
                 key={`${item.title}-${index}`}
                 className="group flex flex-col overflow-hidden rounded-[30px] border border-zinc-200 bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:border-zinc-300 hover:shadow-2xl"
               >
-                <div className="relative aspect-[3/4] overflow-hidden bg-white">
+                <Link href={item.href} className="block relative aspect-[3/4] overflow-hidden bg-white">
                   <Image
                     src={item.image}
                     alt={`${item.title} – kostīmu noma`}
                     fill
                     className="object-contain p-4 transition duration-500 group-hover:scale-105"
                   />
-                </div>
+                </Link>
 
                 <div className="flex flex-1 flex-col p-6">
                   <h3 className="min-h-[64px] text-2xl font-bold tracking-tight text-gray-900">
-                    {item.title}
+                    <Link href={item.href} className="transition hover:text-pink-600">
+                      {item.title}
+                    </Link>
                   </h3>
 
                   {item.description && (
@@ -194,19 +85,21 @@ export default async function ProfessionsSection() {
                 className="overflow-hidden rounded-[26px] border border-zinc-200 bg-white shadow-lg"
               >
                 <div className="flex">
-                  <div className="relative h-44 w-36 shrink-0 bg-white">
+                  <Link href={item.href} className="block relative h-44 w-36 shrink-0 bg-white">
                     <Image
                       src={item.image}
                       alt={`${item.title} – kostīmu noma`}
                       fill
                       className="object-contain p-4"
                     />
-                  </div>
+                  </Link>
 
                   <div className="flex flex-1 flex-col justify-between p-4">
                     <div>
                       <h3 className="text-2xl font-bold text-gray-900">
-                        {item.title}
+                        <Link href={item.href} className="transition hover:text-pink-600">
+                          {item.title}
+                        </Link>
                       </h3>
 
                       {item.description && (

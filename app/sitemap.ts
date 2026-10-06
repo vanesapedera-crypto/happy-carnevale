@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { SITE } from "@/lib/constants";
 import { products } from "@/lib/products";
+import { COSTUME_CATEGORIES, loadCategoryCostumes } from "@/lib/costumeCatalog";
 
 // Visas publiskās lapas. Pievienojot jaunu lapu, ieraksti to arī šeit.
 const ROUTES: { path: string; priority: number }[] = [
@@ -33,10 +34,20 @@ const ROUTES: { path: string; priority: number }[] = [
   { path: "/kontakti", priority: 0.7 },
 ];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+// Kostīmu saraksts mainās admin panelī, tāpēc sitemap atjaunojas reizi stundā
+export const revalidate = 3600;
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const lastModified = new Date();
 
-  return ROUTES.map(({ path, priority }) => ({
+  const costumeLists = await Promise.all(
+    COSTUME_CATEGORIES.map((category) => loadCategoryCostumes(category.path))
+  );
+  const costumeRoutes = costumeLists
+    .flat()
+    .map((item) => ({ path: item.href, priority: 0.6 }));
+
+  return [...ROUTES, ...costumeRoutes].map(({ path, priority }) => ({
     url: `${SITE.url}${path === "/" ? "" : path}`,
     lastModified,
     changeFrequency: "weekly" as const,

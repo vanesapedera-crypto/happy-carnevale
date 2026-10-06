@@ -2,152 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { FiTag } from "react-icons/fi";
 import { TbRulerMeasure } from "react-icons/tb";
-import { loadCostumes } from "@/lib/costumes";
-
-const mascots = [
-  {
-    title: "Angry Birds",
-    image: "/kostimi/mascotas/angry-birds.jpg",
-    price: "50 €",
-    size: "S-XXL",
-  },
-  {
-    title: "Bings",
-    image: "/kostimi/mascotas/bings.jpg",
-    price: "45 €",
-    size: "S-L",
-  },
-  {
-    title: "Čeizs",
-    image: "/kostimi/mascotas/ceizs.jpg",
-    price: "45 €",
-    size: "S-L",
-  },
-  {
-    title: "Džeiks",
-    image: "/kostimi/mascotas/dzeiks.jpg",
-    price: "25 €",
-    size: "XS-M",
-  },
-  {
-    title: "Lācis balletājs",
-    image: "/kostimi/mascotas/lacis-balletajs.jpg",
-    price: "35 €",
-    size: "160-180 cm",
-  },
-  {
-    title: "Maršals",
-    image: "/kostimi/mascotas/marsels.jpg",
-    price: "45 €",
-    size: "S-L",
-  },
-  {
-    title: "Melnais kaķis",
-    image: "/kostimi/mascotas/melnais-kakis.jpg",
-    price: "50 €",
-    size: "S-XL līdz 185cm",
-  },
-  {
-    title: "Mikijs",
-    image: "/kostimi/mascotas/mikijs.jpg",
-    price: "25 €",
-    size: "160-180 cm",
-  },
-  {
-    title: "Minnija (1)",
-    image: "/kostimi/mascotas/minnija-2.jpg",
-    price: "25 €",
-    size: "160-180 cm",
-  },
-  {
-    title: "Minnija (2)",
-    image: "/kostimi/mascotas/minnija-1.jpg",
-    price: "35 €",
-    size: "S-L",
-  },
-  {
-    title: "Plīša lācis",
-    image: "/kostimi/mascotas/plisa-lacis.jpg",
-    price: "35 €",
-    size: "160-185 cm",
-  },
-  {
-    title: "Rozā pantera",
-    image: "/kostimi/mascotas/roza-pantera.jpg",
-    price: "35 €",
-    size: "XS-M",
-  },
-  {
-    title: "Skaja",
-    image: "/kostimi/mascotas/skaja.jpg",
-    price: "45 €",
-    size: "S-L",
-  },
-  {
-    title: "Stičs",
-    image: "/kostimi/mascotas/stich.jpg",
-    price: "50 €",
-    size: "S-XL",
-  },
-  {
-    title: "Tīģerītis",
-    image: "/kostimi/mascotas/tigeritis.jpg",
-    price: "40 €",
-    size: "165-185 cm",
-  },
-  {
-    title: "Vinnijs Pūks",
-    image: "/kostimi/mascotas/vinijs-puks.jpg",
-    price: "40 €",
-    size: "160-180cm",
-  },
-  {
-    title: "Zaķis Kundziņš",
-    image: "/kostimi/mascotas/zakis-1.jpg",
-    price: "40 €",
-    size: "XS-L",
-  },
-  {
-    title: "Zaķis (1)",
-    image: "/kostimi/mascotas/zakis-2.jpg",
-    price: "40 €",
-    size: "165-185 cm",
-  },
-  {
-    title: "Zaķis (2)",
-    image: "/kostimi/mascotas/zakis-3.jpg",
-    price: "25 €",
-    size: "XS-L",
-  },
-    {
-    title: "Kaķis",
-    image: "/kostimi/mascotas/kakis.jpg",
-    price: "35 €",
-    size: "XS-M",
-  },
-  {
-    title: "Zelta glittera lācis",
-    image: "/kostimi/mascotas/zelta-glittera-lacis.jpg",
-    price: "50 €",
-    size: "175-190 cm",
-  },
-  {
-    title: "Zemeslode",
-    image: "/kostimi/mascotas/zemeslode.jpg",
-    price: "40 €",
-    size: "XS-L",
-  },
-  {
-    title: "Lauva Leo",
-    image: "/kostimi/mascotas/lauva-leo.jpg",
-    price: "45 €",
-    size: "XS-M",
-  },
-];
+import { loadSectionCards } from "@/lib/costumeCatalog";
 
 export default async function MascotasSection() {
-  // Kostīmi nāk no admin paneļa; ja tur nekā nav, rāda augstāk iebūvēto sarakstu.
-  const cards = await loadCostumes("mascota-teli", mascots);
+  // Kostīmi nāk no admin paneļa; ja tur nekā nav, rāda iebūvēto sarakstu no data/costumes.
+  const cards = await loadSectionCards("mascota-teli");
 
   return (
     <section className="bg-white py-20">
@@ -165,18 +24,20 @@ export default async function MascotasSection() {
                 key={`${item.title}-${index}`}
                 className="group overflow-hidden rounded-[30px] border border-zinc-200 bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:border-zinc-300 hover:shadow-2xl"
               >
-                <div className="relative aspect-[3/4] overflow-hidden bg-white">
+                <Link href={item.href} className="block relative aspect-[3/4] overflow-hidden bg-white">
                   <Image
                     src={item.image}
                     alt={`${item.title} – mascota tēla noma`}
                     fill
                     className="object-contain p-4 transition duration-500 group-hover:scale-105"
                   />
-                </div>
+                </Link>
 
                 <div className="flex flex-col p-6">
                   <h3 className="min-h-[64px] text-2xl font-bold leading-tight text-gray-900">
-                    {item.title}
+                    <Link href={item.href} className="transition hover:text-pink-600">
+                      {item.title}
+                    </Link>
                   </h3>
 
                   {item.description && (
@@ -224,19 +85,21 @@ export default async function MascotasSection() {
                 className="overflow-hidden rounded-[26px] border border-zinc-200 bg-white shadow-lg"
               >
                 <div className="flex">
-                  <div className="relative h-44 w-36 shrink-0 bg-white">
+                  <Link href={item.href} className="block relative h-44 w-36 shrink-0 bg-white">
                     <Image
                       src={item.image}
                       alt={`${item.title} – mascota tēla noma`}
                       fill
                       className="object-contain p-4"
                     />
-                  </div>
+                  </Link>
 
                   <div className="flex flex-1 flex-col justify-between p-4">
                     <div>
                       <h3 className="text-xl font-bold text-gray-900">
-                        {item.title}
+                        <Link href={item.href} className="transition hover:text-pink-600">
+                          {item.title}
+                        </Link>
                       </h3>
 
                       {item.description && (

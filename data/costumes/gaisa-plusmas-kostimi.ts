@@ -1,0 +1,173 @@
+import type { CostumeCard } from "@/lib/costumes";
+
+// Iebūvētais saraksts: rāda, ja admin panelī šajā sadaļā nav ierakstu.
+export const costumes: CostumeCard[] = [
+  {
+    title: "Vienradzis (1)",
+    image: "/kostimi/gaisa-plusma/vienradzis-1.jpg",
+    price: "25 €",
+    size: "XS-XL",
+  },
+  {
+    title: "Vienradzis (2)",
+    image: "/kostimi/gaisa-plusma/vienradzis-2.jpg",
+    price: "25 €",
+    size: "XS-XL",
+  },
+  {
+    title: "Kaķis",
+    image: "/kostimi/gaisa-plusma/kakis.jpg",
+    price: "25 €",
+    size: "XS-XL",
+  },
+  {
+    title: "Govs",
+    image: "/kostimi/gaisa-plusma/govs.jpg",
+    price: "25 €",
+    size: "XS-XL",
+  },
+  {
+    title: "Banāns",
+    image: "/kostimi/gaisa-plusma/banans.jpg",
+    price: "25 €",
+    size: "XS-L",
+  },
+  {
+    title: "Kapibara",
+    image: "/kostimi/gaisa-plusma/kapibara.jpg",
+    price: "25 €",
+    size: "XS-XL",
+  },
+  {
+    title: "Rozā zaķītis",
+    image: "/kostimi/gaisa-plusma/roza-zakitis.jpg",
+    price: "30 €",
+    size: "XS-XL",
+  },
+  {
+    title: "Kosmonauts",
+    image: "/kostimi/gaisa-plusma/kosmonauts.jpg",
+    price: "25 €",
+    size: "XS-XL",
+  },
+  {
+    title: "Bite",
+    image: "/kostimi/gaisa-plusma/bite.jpg",
+    price: "50 €",
+    size: "XS-XL",
+  },
+  {
+    title: "Dinozaurs (1)",
+    image: "/kostimi/gaisa-plusma/dinazaurs-1.jpg",
+    price: "25 €",
+    size: "3 pieaugušo kostīmi (165–195 cm) + 1 bērnu kostīms (120–150 cm)",
+  },
+  {
+    title: "Dinozaurs (2)",
+    image: "/kostimi/gaisa-plusma/dinazaurs-2.jpg",
+    price: "25 €",
+    size: "150-195cm",
+  },
+  {
+    title: "Vienradzis (3)",
+    image: "/kostimi/gaisa-plusma/vienradzis-3.jpg",
+    price: "25 €",
+    size: "XS-XL",
+  },
+  {
+    title: "Citplanētietis",
+    image: "/kostimi/gaisa-plusma/ciplanetietis.jpg",
+    price: "25 €",
+    size: "160-190 cm",
+  },
+  {
+    title: "Pingvīns",
+    image: "/kostimi/gaisa-plusma/pingvins.jpg",
+    price: "30 €",
+    size: "160-190 cm",
+  },
+  {
+    title: "Olafs",
+    image: "/kostimi/gaisa-plusma/olafs.jpg",
+    price: "30 €",
+    size: "160-190 cm",
+  },
+  {
+    title: "Sirds",
+    image: "/kostimi/gaisa-plusma/sirds.jpg",
+    price: "25 €",
+    size: "140-190 cm",
+  },
+  {
+    title: "Lācis 3,60m",
+    image: "/kostimi/gaisa-plusma/lacis.jpg",
+    price: "50 €",
+    size: "S-XXL",
+  },
+  {
+    title: "Haizivs",
+    image: "/kostimi/gaisa-plusma/haizivs.jpg",
+    price: "25 €",
+    size: "150-190 cm",
+  },
+  {
+    title: "Zaķis garausis",
+    image: "/kostimi/gaisa-plusma/zakis-garausis.jpg",
+    price: "30 €",
+    size: "S-XL",
+  },
+  {
+    title: "Sumo zils",
+    image: "/kostimi/gaisa-plusma/sumo-zils.jpg",
+    price: "20 €",
+    size: "S-XL",
+  },
+  {
+    title: "Sumo sarkans",
+    image: "/kostimi/gaisa-plusma/sumo-sarkans.jpg",
+    price: "20 €",
+    size: "S-XL",
+  },
+  {
+    title: "Lieldienu zaķis",
+    image: "/kostimi/gaisa-plusma/lieldienu-zakis.jpg",
+    price: "30 €",
+    size: "S-XL",
+  },
+  {
+    title: "Flamingo",
+    image: "/kostimi/gaisa-plusma/flamingo.jpg",
+    price: "25 €",
+    size: "XS-L",
+  },
+  {
+    title: "Dinozaurs ar saimnieku (1)",
+    image: "/kostimi/gaisa-plusma/dinozaurs-ar-saimnieku-1.jpg",
+    price: "25 €",
+    size: "XS-L",
+  },
+  {
+    title: "Dinozaurs ar saimnieku (2)",
+    image: "/kostimi/gaisa-plusma/dinozaurs-ar-saimnieku-2.jpg",
+    price: "25 €",
+    size: "XS-L",
+  },
+  {
+    title: "Gailis",
+    image: "/kostimi/gaisa-plusma/gailis.jpg",
+    price: "25 €",
+    size: "XS-L",
+  },
+  {
+    title: "Pīle",
+    image: "/kostimi/gaisa-plusma/pile.jpg",
+    price: "25 €",
+    size: "XS-L",
+  },
+  {
+    title: "Daudz laimes!",
+    image: "/kostimi/gaisa-plusma/daudz-laimes.jpg",
+    price: "25 €",
+    size: "150-190cm",
+  },
+];

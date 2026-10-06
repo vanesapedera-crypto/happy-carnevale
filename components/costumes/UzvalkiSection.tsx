@@ -2,44 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { FiTag } from "react-icons/fi";
 import { TbRulerMeasure } from "react-icons/tb";
-import { loadCostumes } from "@/lib/costumes";
-
-const suits = [
-  {
-    title: "Disko uzvalks - žakete un bikses",
-    image: "/kostimi/uzvalki/disko-uzvalks.jpg",
-    price: "40 €",
-    size: "L-XL",
-  },
-  {
-    title: "Krāsains komiksu uzvalks",
-    image: "/kostimi/uzvalki/krasains-komiksu-uzvalks.jpg",
-    price: "30 €",
-    size: "M-L",
-  },
-  {
-    title: "Opposuit komiksu uzvalks",
-    image: "/kostimi/uzvalki/opposuit-komiksu-uzvalks.jpg",
-    price: "30 €",
-    size: "L-XL jeb EU 54",
-  },
-  {
-    title: "Ziemassvētku uzvalks - žakete + bikses",
-    image: "/kostimi/uzvalki/opposuit-zakete-bikses.jpg",
-    price: "35 €",
-    size: "M-L jeb EU 52",
-  },
-  {
-    title: "Sarkans uzvalks",
-    image: "/kostimi/uzvalki/sarkans-uzvalks.jpg",
-    price: "30 €",
-    size: "M",
-  },
-];
+import { loadSectionCards } from "@/lib/costumeCatalog";
 
 export default async function UzvalkiSection() {
-  // Kostīmi nāk no admin paneļa; ja tur nekā nav, rāda augstāk iebūvēto sarakstu.
-  const cards = await loadCostumes("uzvalki", suits);
+  // Kostīmi nāk no admin paneļa; ja tur nekā nav, rāda iebūvēto sarakstu no data/costumes.
+  const cards = await loadSectionCards("uzvalki");
 
   return (
     <section className="bg-white py-20">
@@ -57,18 +24,20 @@ export default async function UzvalkiSection() {
                 key={item.title}
                 className="group flex flex-col overflow-hidden rounded-[30px] border border-zinc-200 bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:border-zinc-300 hover:shadow-2xl"
               >
-                <div className="relative aspect-[3/4] overflow-hidden bg-white">
+                <Link href={item.href} className="block relative aspect-[3/4] overflow-hidden bg-white">
                   <Image
                     src={item.image}
                     alt={`${item.title} – kostīmu noma`}
                     fill
                     className="object-contain p-4 transition duration-500 group-hover:scale-105"
                   />
-                </div>
+                </Link>
 
                 <div className="flex flex-1 flex-col p-6">
                   <h3 className="min-h-[64px] text-2xl font-bold tracking-tight text-gray-900">
-                    {item.title}
+                    <Link href={item.href} className="transition hover:text-pink-600">
+                      {item.title}
+                    </Link>
                   </h3>
 
                   {item.description && (
@@ -116,19 +85,21 @@ export default async function UzvalkiSection() {
                 className="overflow-hidden rounded-[26px] border border-zinc-200 bg-white shadow-lg"
               >
                 <div className="flex">
-                  <div className="relative h-44 w-36 shrink-0 bg-white">
+                  <Link href={item.href} className="block relative h-44 w-36 shrink-0 bg-white">
                     <Image
                       src={item.image}
                       alt={`${item.title} – kostīmu noma`}
                       fill
                       className="object-contain p-4"
                     />
-                  </div>
+                  </Link>
 
                   <div className="flex flex-1 flex-col justify-between p-4">
                     <div>
                       <h3 className="text-2xl font-bold text-gray-900">
-                        {item.title}
+                        <Link href={item.href} className="transition hover:text-pink-600">
+                          {item.title}
+                        </Link>
                       </h3>
 
                       {item.description && (

@@ -2,42 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { FiTag } from "react-icons/fi";
 import { TbRulerMeasure } from "react-icons/tb";
-import { loadCostumes } from "@/lib/costumes";
-
-const parukas = [
-  { title: "Parūka 1", image: "/kostimi/parukas/paruka-1.jpg", price: "12 €", size: "One size" },
-  { title: "Parūka 2", image: "/kostimi/parukas/paruka-2.jpg", price: "12 €", size: "One size" },
-  { title: "Parūka 3", image: "/kostimi/parukas/paruka-3.jpg", price: "12 €", size: "One size" },
-  { title: "Parūka 4", image: "/kostimi/parukas/paruka-4.jpg", price: "12 €", size: "One size" },
-  { title: "Parūka 5", image: "/kostimi/parukas/paruka-5.jpg", price: "12 €", size: "One size" },
-  { title: "Parūka 6", image: "/kostimi/parukas/paruka-6.jpg", price: "12 €", size: "One size" },
-  { title: "Parūka 7", image: "/kostimi/parukas/paruka-7.jpg", price: "12 €", size: "One size" },
-  { title: "Parūka 8", image: "/kostimi/parukas/paruka-8.jpg", price: "12 €", size: "One size" },
-  { title: "Parūka 9", image: "/kostimi/parukas/paruka-9.jpg", price: "12 €", size: "One size" },
-  { title: "Parūka 10", image: "/kostimi/parukas/paruka-10.jpg", price: "12 €", size: "One size" },
-  { title: "Parūka 11", image: "/kostimi/parukas/paruka-11.jpg", price: "12 €", size: "One size" },
-  { title: "Parūka 12", image: "/kostimi/parukas/paruka-12.jpg", price: "12 €", size: "One size" },
-  { title: "Parūka 13", image: "/kostimi/parukas/paruka-13.jpg", price: "12 €", size: "One size" },
-  { title: "Parūka 14", image: "/kostimi/parukas/paruka-14.jpg", price: "12 €", size: "One size" },
-  { title: "Parūka 15", image: "/kostimi/parukas/paruka-15.jpg", price: "12 €", size: "One size" },
-  { title: "Parūka 16", image: "/kostimi/parukas/paruka-16.jpg", price: "12 €", size: "One size" },
-  { title: "Parūka 17", image: "/kostimi/parukas/paruka-17.jpg", price: "12 €", size: "One size" },
-  { title: "Parūka 18", image: "/kostimi/parukas/paruka-18.jpg", price: "12 €", size: "One size" },
-  { title: "Parūka 19", image: "/kostimi/parukas/paruka-19.jpg", price: "12 €", size: "One size" },
-  { title: "Parūka 20", image: "/kostimi/parukas/paruka-20.jpg", price: "12 €", size: "One size" },
-  { title: "Parūka 21", image: "/kostimi/parukas/paruka-21.jpg", price: "12 €", size: "One size" },
-  { title: "Parūka 22", image: "/kostimi/parukas/paruka-22.jpg", price: "12 €", size: "One size" },
-  { title: "Parūka 23", image: "/kostimi/parukas/paruka-23.jpg", price: "12 €", size: "One size" },
-  { title: "Parūka 24", image: "/kostimi/parukas/paruka-24.jpg", price: "12 €", size: "One size" },
-  { title: "Parūka 25", image: "/kostimi/parukas/paruka-25.jpg", price: "12 €", size: "One size" },
-  { title: "Parūka 26", image: "/kostimi/parukas/paruka-26.jpg", price: "12 €", size: "One size" },
-  { title: "Parūka 27", image: "/kostimi/parukas/paruka-27.jpg", price: "12 €", size: "One size" },
-  { title: "Parūka 28", image: "/kostimi/parukas/paruka-29.jpg", price: "12 €", size: "One size" },
-];
+import { loadSectionCards } from "@/lib/costumeCatalog";
 
 export default async function ParukasSection() {
-  // Kostīmi nāk no admin paneļa; ja tur nekā nav, rāda augstāk iebūvēto sarakstu.
-  const cards = await loadCostumes("parukas", parukas);
+  // Kostīmi nāk no admin paneļa; ja tur nekā nav, rāda iebūvēto sarakstu no data/costumes.
+  const cards = await loadSectionCards("parukas");
 
   return (
     <section className="bg-white py-20">
@@ -59,18 +28,20 @@ export default async function ParukasSection() {
                 key={item.title}
                 className="group flex flex-col overflow-hidden rounded-[30px] border border-zinc-200 bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:border-zinc-300 hover:shadow-2xl"
               >
-                <div className="relative aspect-[3/4] overflow-hidden bg-white">
+                <Link href={item.href} className="block relative aspect-[3/4] overflow-hidden bg-white">
                   <Image
                     src={item.image}
                     alt={`${item.title} – parūku noma`}
                     fill
                     className="object-contain p-4"
                   />
-                </div>
+                </Link>
 
                 <div className="flex flex-1 flex-col p-6">
                   <h3 className="min-h-[64px] text-2xl font-bold tracking-tight text-gray-900">
-                    {item.title}
+                    <Link href={item.href} className="transition hover:text-pink-600">
+                      {item.title}
+                    </Link>
                   </h3>
 
                   {item.description && (
@@ -118,19 +89,21 @@ export default async function ParukasSection() {
                 className="overflow-hidden rounded-[26px] border border-zinc-200 bg-white shadow-lg"
               >
                 <div className="flex">
-                  <div className="relative h-44 w-36 shrink-0 bg-white">
+                  <Link href={item.href} className="block relative h-44 w-36 shrink-0 bg-white">
                     <Image
                       src={item.image}
                       alt={`${item.title} – parūku noma`}
                       fill
                       className="object-contain p-4"
                     />
-                  </div>
+                  </Link>
 
                   <div className="flex flex-1 flex-col justify-between p-4">
                     <div>
                       <h3 className="text-2xl font-bold text-gray-900">
-                        {item.title}
+                        <Link href={item.href} className="transition hover:text-pink-600">
+                          {item.title}
+                        </Link>
                       </h3>
 
                       {item.description && (

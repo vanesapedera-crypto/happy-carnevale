@@ -1,0 +1,33 @@
+import type { CostumeCard } from "@/lib/costumes";
+
+// Iebūvētais saraksts: rāda, ja admin panelī šajā sadaļā nav ierakstu.
+export const parukas: CostumeCard[] = [
+  { title: "Parūka 1", image: "/kostimi/parukas/paruka-1.jpg", price: "12 €", size: "One size" },
+  { title: "Parūka 2", image: "/kostimi/parukas/paruka-2.jpg", price: "12 €", size: "One size" },
+  { title: "Parūka 3", image: "/kostimi/parukas/paruka-3.jpg", price: "12 €", size: "One size" },
+  { title: "Parūka 4", image: "/kostimi/parukas/paruka-4.jpg", price: "12 €", size: "One size" },
+  { title: "Parūka 5", image: "/kostimi/parukas/paruka-5.jpg", price: "12 €", size: "One size" },
+  { title: "Parūka 6", image: "/kostimi/parukas/paruka-6.jpg", price: "12 €", size: "One size" },
+  { title: "Parūka 7", image: "/kostimi/parukas/paruka-7.jpg", price: "12 €", size: "One size" },
+  { title: "Parūka 8", image: "/kostimi/parukas/paruka-8.jpg", price: "12 €", size: "One size" },
+  { title: "Parūka 9", image: "/kostimi/parukas/paruka-9.jpg", price: "12 €", size: "One size" },
+  { title: "Parūka 10", image: "/kostimi/parukas/paruka-10.jpg", price: "12 €", size: "One size" },
+  { title: "Parūka 11", image: "/kostimi/parukas/paruka-11.jpg", price: "12 €", size: "One size" },
+  { title: "Parūka 12", image: "/kostimi/parukas/paruka-12.jpg", price: "12 €", size: "One size" },
+  { title: "Parūka 13", image: "/kostimi/parukas/paruka-13.jpg", price: "12 €", size: "One size" },
+  { title: "Parūka 14", image: "/kostimi/parukas/paruka-14.jpg", price: "12 €", size: "One size" },
+  { title: "Parūka 15", image: "/kostimi/parukas/paruka-15.jpg", price: "12 €", size: "One size" },
+  { title: "Parūka 16", image: "/kostimi/parukas/paruka-16.jpg", price: "12 €", size: "One size" },
+  { title: "Parūka 17", image: "/kostimi/parukas/paruka-17.jpg", price: "12 €", size: "One size" },
+  { title: "Parūka 18", image: "/kostimi/parukas/paruka-18.jpg", price: "12 €", size: "One size" },
+  { title: "Parūka 19", image: "/kostimi/parukas/paruka-19.jpg", price: "12 €", size: "One size" },
+  { title: "Parūka 20", image: "/kostimi/parukas/paruka-20.jpg", price: "12 €", size: "One size" },
+  { title: "Parūka 21", image: "/kostimi/parukas/paruka-21.jpg", price: "12 €", size: "One size" },
+  { title: "Parūka 22", image: "/kostimi/parukas/paruka-22.jpg", price: "12 €", size: "One size" },
+  { title: "Parūka 23", image: "/kostimi/parukas/paruka-23.jpg", price: "12 €", size: "One size" },
+  { title: "Parūka 24", image: "/kostimi/parukas/paruka-24.jpg", price: "12 €", size: "One size" },
+  { title: "Parūka 25", image: "/kostimi/parukas/paruka-25.jpg", price: "12 €", size: "One size" },
+  { title: "Parūka 26", image: "/kostimi/parukas/paruka-26.jpg", price: "12 €", size: "One size" },
+  { title: "Parūka 27", image: "/kostimi/parukas/paruka-27.jpg", price: "12 €", size: "One size" },
+  { title: "Parūka 28", image: "/kostimi/parukas/paruka-29.jpg", price: "12 €", size: "One size" },
+];

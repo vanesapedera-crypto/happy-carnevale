@@ -2,116 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { FiTag } from "react-icons/fi";
 import { TbRulerMeasure } from "react-icons/tb";
-import { loadCostumes } from "@/lib/costumes";
-
-const retro = [
-  {
-    title: "70's Disco",
-    image: "/kostimi/retro-kostimi/70s-disco.jpg",
-    price: "20 €",
-    size: "M",
-  },
-  {
-    title: "70's meiteņu kostīms",
-    image: "/kostimi/retro-kostimi/70s-meitenu-kostims.jpg",
-    price: "25 €",
-    size: "S-M",
-  },
-  {
-    title: "70's puišu kostīms",
-    image: "/kostimi/retro-kostimi/70s-puisu-kostims.jpg",
-    price: "25 €",
-    size: "S-M",
-  },
-  {
-    title: "Boho Girl",
-    image: "/kostimi/retro-kostimi/boho-girl.jpg",
-    price: "25 €",
-    size: "M",
-  },
-  {
-    title: "Disko meitene (1)",
-    image: "/kostimi/retro-kostimi/disko-meitene-1.jpg",
-    price: "25 €",
-    size: "S-M",
-  },
-  {
-    title: "Disko meitene (2)",
-    image: "/kostimi/retro-kostimi/disko-meitene-2.jpg",
-    price: "25 €",
-    size: "XS-M",
-  },
-  {
-    title: "Disko puisis",
-    image: "/kostimi/retro-kostimi/disko-puisis.jpg",
-    price: "25 €",
-    size: "S-M",
-  },
-  {
-    title: "Great Gatsby",
-    image: "/kostimi/retro-kostimi/great-gatsby.jpg",
-    price: "25 €",
-    size: "XS-M",
-  },
-  {
-    title: "Hippiju meitene",
-    image: "/kostimi/retro-kostimi/hippy-meitene.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Hippiju puisis",
-    image: "/kostimi/retro-kostimi/hippy-puisis.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Mamma Mia 70's",
-    image: "/kostimi/retro-kostimi/mamma-mia-70s-kostims.jpg",
-    price: "25 €",
-    size: "S-M",
-  },
-  {
-    title: "Rozā disko bikškostīms",
-    image: "/kostimi/retro-kostimi/roza-bikskostims.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Sudraba disko tērps",
-    image: "/kostimi/retro-kostimi/sudraba-terps.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "80's treniņtērps (Sudraba)",
-    image: "/kostimi/retro-kostimi/unisex-80s-treninterps-disco.jpg",
-    price: "25 €",
-    size: "M-L",
-  },
-  {
-    title: "80's treniņtērps (zelta)",
-    image: "/kostimi/retro-kostimi/unisex-80s-treninterps.jpg",
-    price: "25 €",
-    size: "M-L",
-  },
-  {
-    title: "Vīrieša disco tērps",
-    image: "/kostimi/retro-kostimi/viriesa-disco-terps.jpg",
-    price: "25 €",
-    size: "S-L",
-  },
-  {
-    title: "Maikls Džeksons",
-    image: "/kostimi/retro-kostimi/maikls-dzeksons.jpg",
-    price: "30 €",
-    size: "M-L",
-  },
-];
+import { loadSectionCards } from "@/lib/costumeCatalog";
 
 export default async function RetroSection() {
-  // Kostīmi nāk no admin paneļa; ja tur nekā nav, rāda augstāk iebūvēto sarakstu.
-  const cards = await loadCostumes("retro-kostimi", retro);
+  // Kostīmi nāk no admin paneļa; ja tur nekā nav, rāda iebūvēto sarakstu no data/costumes.
+  const cards = await loadSectionCards("retro-kostimi");
 
   return (
     <section className="bg-white py-20">
@@ -129,18 +24,20 @@ export default async function RetroSection() {
                 key={item.title}
                 className="group flex flex-col overflow-hidden rounded-[30px] border border-zinc-200 bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:border-zinc-300 hover:shadow-2xl"
               >
-                <div className="relative aspect-[3/4] overflow-hidden bg-white">
+                <Link href={item.href} className="block relative aspect-[3/4] overflow-hidden bg-white">
                   <Image
                     src={item.image}
                     alt={`${item.title} – kostīmu noma`}
                     fill
                     className="object-contain p-4 transition duration-500 group-hover:scale-105"
                   />
-                </div>
+                </Link>
 
                 <div className="flex flex-1 flex-col p-6">
                   <h3 className="min-h-[64px] text-2xl font-bold tracking-tight text-gray-900">
-                    {item.title}
+                    <Link href={item.href} className="transition hover:text-pink-600">
+                      {item.title}
+                    </Link>
                   </h3>
 
                   {item.description && (
@@ -188,19 +85,21 @@ export default async function RetroSection() {
                 className="overflow-hidden rounded-[26px] border border-zinc-200 bg-white shadow-lg"
               >
                 <div className="flex">
-                  <div className="relative h-44 w-36 shrink-0 bg-white">
+                  <Link href={item.href} className="block relative h-44 w-36 shrink-0 bg-white">
                     <Image
                       src={item.image}
                       alt={`${item.title} – kostīmu noma`}
                       fill
                       className="object-contain p-4"
                     />
-                  </div>
+                  </Link>
 
                   <div className="flex flex-1 flex-col justify-between p-4">
                     <div>
                       <h3 className="text-2xl font-bold text-gray-900">
-                        {item.title}
+                        <Link href={item.href} className="transition hover:text-pink-600">
+                          {item.title}
+                        </Link>
                       </h3>
 
                       {item.description && (

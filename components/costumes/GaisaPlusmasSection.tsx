@@ -2,182 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { FiTag } from "react-icons/fi";
 import { TbRulerMeasure } from "react-icons/tb";
-import { loadCostumes } from "@/lib/costumes";
-
-const costumes = [
-  {
-    title: "Vienradzis (1)",
-    image: "/kostimi/gaisa-plusma/vienradzis-1.jpg",
-    price: "25 €",
-    size: "XS-XL",
-  },
-  {
-    title: "Vienradzis (2)",
-    image: "/kostimi/gaisa-plusma/vienradzis-2.jpg",
-    price: "25 €",
-    size: "XS-XL",
-  },
-  {
-    title: "Kaķis",
-    image: "/kostimi/gaisa-plusma/kakis.jpg",
-    price: "25 €",
-    size: "XS-XL",
-  },
-  {
-    title: "Govs",
-    image: "/kostimi/gaisa-plusma/govs.jpg",
-    price: "25 €",
-    size: "XS-XL",
-  },
-  {
-    title: "Banāns",
-    image: "/kostimi/gaisa-plusma/banans.jpg",
-    price: "25 €",
-    size: "XS-L",
-  },
-  {
-    title: "Kapibara",
-    image: "/kostimi/gaisa-plusma/kapibara.jpg",
-    price: "25 €",
-    size: "XS-XL",
-  },
-  {
-    title: "Rozā zaķītis",
-    image: "/kostimi/gaisa-plusma/roza-zakitis.jpg",
-    price: "30 €",
-    size: "XS-XL",
-  },
-  {
-    title: "Kosmonauts",
-    image: "/kostimi/gaisa-plusma/kosmonauts.jpg",
-    price: "25 €",
-    size: "XS-XL",
-  },
-  {
-    title: "Bite",
-    image: "/kostimi/gaisa-plusma/bite.jpg",
-    price: "50 €",
-    size: "XS-XL",
-  },
-  {
-    title: "Dinozaurs (1)",
-    image: "/kostimi/gaisa-plusma/dinazaurs-1.jpg",
-    price: "25 €",
-    size: "3 pieaugušo kostīmi (165–195 cm) + 1 bērnu kostīms (120–150 cm)",
-  },
-  {
-    title: "Dinozaurs (2)",
-    image: "/kostimi/gaisa-plusma/dinazaurs-2.jpg",
-    price: "25 €",
-    size: "150-195cm",
-  },
-  {
-    title: "Vienradzis (3)",
-    image: "/kostimi/gaisa-plusma/vienradzis-3.jpg",
-    price: "25 €",
-    size: "XS-XL",
-  },
-  {
-    title: "Citplanētietis",
-    image: "/kostimi/gaisa-plusma/ciplanetietis.jpg",
-    price: "25 €",
-    size: "160-190 cm",
-  },
-  {
-    title: "Pingvīns",
-    image: "/kostimi/gaisa-plusma/pingvins.jpg",
-    price: "30 €",
-    size: "160-190 cm",
-  },
-  {
-    title: "Olafs",
-    image: "/kostimi/gaisa-plusma/olafs.jpg",
-    price: "30 €",
-    size: "160-190 cm",
-  },
-  {
-    title: "Sirds",
-    image: "/kostimi/gaisa-plusma/sirds.jpg",
-    price: "25 €",
-    size: "140-190 cm",
-  },
-  {
-    title: "Lācis 3,60m",
-    image: "/kostimi/gaisa-plusma/lacis.jpg",
-    price: "50 €",
-    size: "S-XXL",
-  },
-  {
-    title: "Haizivs",
-    image: "/kostimi/gaisa-plusma/haizivs.jpg",
-    price: "25 €",
-    size: "150-190 cm",
-  },
-  {
-    title: "Zaķis garausis",
-    image: "/kostimi/gaisa-plusma/zakis-garausis.jpg",
-    price: "30 €",
-    size: "S-XL",
-  },
-  {
-    title: "Sumo zils",
-    image: "/kostimi/gaisa-plusma/sumo-zils.jpg",
-    price: "20 €",
-    size: "S-XL",
-  },
-  {
-    title: "Sumo sarkans",
-    image: "/kostimi/gaisa-plusma/sumo-sarkans.jpg",
-    price: "20 €",
-    size: "S-XL",
-  },
-  {
-    title: "Lieldienu zaķis",
-    image: "/kostimi/gaisa-plusma/lieldienu-zakis.jpg",
-    price: "30 €",
-    size: "S-XL",
-  },
-  {
-    title: "Flamingo",
-    image: "/kostimi/gaisa-plusma/flamingo.jpg",
-    price: "25 €",
-    size: "XS-L",
-  },
-  {
-    title: "Dinozaurs ar saimnieku (1)",
-    image: "/kostimi/gaisa-plusma/dinozaurs-ar-saimnieku-1.jpg",
-    price: "25 €",
-    size: "XS-L",
-  },
-  {
-    title: "Dinozaurs ar saimnieku (2)",
-    image: "/kostimi/gaisa-plusma/dinozaurs-ar-saimnieku-2.jpg",
-    price: "25 €",
-    size: "XS-L",
-  },
-  {
-    title: "Gailis",
-    image: "/kostimi/gaisa-plusma/gailis.jpg",
-    price: "25 €",
-    size: "XS-L",
-  },
-  {
-    title: "Pīle",
-    image: "/kostimi/gaisa-plusma/pile.jpg",
-    price: "25 €",
-    size: "XS-L",
-  },
-  {
-    title: "Daudz laimes!",
-    image: "/kostimi/gaisa-plusma/daudz-laimes.jpg",
-    price: "25 €",
-    size: "150-190cm",
-  },
-];
+import { loadSectionCards } from "@/lib/costumeCatalog";
 
 export default async function GaisaPlusmaSection() {
-  // Kostīmi nāk no admin paneļa; ja tur nekā nav, rāda augstāk iebūvēto sarakstu.
-  const cards = await loadCostumes("gaisa-plusmas-kostimi", costumes);
+  // Kostīmi nāk no admin paneļa; ja tur nekā nav, rāda iebūvēto sarakstu no data/costumes.
+  const cards = await loadSectionCards("gaisa-plusmas-kostimi");
 
   return (
     <section className="bg-white py-20">
@@ -197,18 +26,20 @@ export default async function GaisaPlusmaSection() {
                 key={`${item.title}-${index}`}
                 className="group flex flex-col overflow-hidden rounded-[30px] border border-zinc-200 bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:border-zinc-300 hover:shadow-2xl"
               >
-                <div className="relative aspect-[3/4] overflow-hidden bg-white">
+                <Link href={item.href} className="block relative aspect-[3/4] overflow-hidden bg-white">
                   <Image
                     src={item.image}
                     alt={`${item.title} – gaisa plūsmas kostīma noma`}
                     fill
                     className="object-contain p-4 transition duration-500 group-hover:scale-105"
                   />
-                </div>
+                </Link>
 
                 <div className="flex flex-1 flex-col p-6">
                   <h3 className="min-h-[64px] text-2xl font-bold tracking-tight text-gray-900">
-                    {item.title}
+                    <Link href={item.href} className="transition hover:text-pink-600">
+                      {item.title}
+                    </Link>
                   </h3>
 
                   {item.description && (
@@ -256,19 +87,21 @@ export default async function GaisaPlusmaSection() {
                 className="overflow-hidden rounded-[26px] border border-zinc-200 bg-white shadow-lg"
               >
                 <div className="flex">
-                  <div className="relative h-44 w-36 shrink-0 bg-white">
+                  <Link href={item.href} className="block relative h-44 w-36 shrink-0 bg-white">
                     <Image
                       src={item.image}
                       alt={`${item.title} – gaisa plūsmas kostīma noma`}
                       fill
                       className="object-contain p-4"
                     />
-                  </div>
+                  </Link>
 
                   <div className="flex flex-1 flex-col justify-between p-4">
                     <div>
                       <h3 className="text-xl font-bold text-gray-900">
-                        {item.title}
+                        <Link href={item.href} className="transition hover:text-pink-600">
+                          {item.title}
+                        </Link>
                       </h3>
 
                       {item.description && (

@@ -2,50 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { FiTag } from "react-icons/fi";
 import { TbRulerMeasure } from "react-icons/tb";
-import { loadCostumes } from "@/lib/costumes";
-
-const funnyCharacters = [
-  {
-    title: "Burgera kostīms",
-    image: "/kostimi/smiekligi-teli/IMG_6517.jpg",
-    price: "15 €",
-    size: "XS-XXXL",
-  },
-  {
-    title: "Zivs kostīms",
-    image: "/kostimi/smiekligi-teli/IMG_6518.jpg",
-    price: "15 €",
-    size: "XS-L",
-  },
-  {
-    title: "Pīle",
-    image: "/kostimi/smiekligi-teli/IMG_6832.jpg",
-    price: "25 €",
-    size: "XS-L",
-  },
-  {
-    title: "Prusaks",
-    image: "/kostimi/smiekligi-teli/IMG_6833.jpg",
-    price: "25 €",
-    size: "XS-L",
-  },
-  {
-    title: "Daudz laimes!",
-    image: "/kostimi/gaisa-plusma/daudz-laimes.jpg",
-    price: "25 €",
-    size: "150-190cm",
-  },
-  {
-    title: "Zirnīši",
-    image: "/kostimi/multfilmu/zirnisi.jpg",
-    price: "20 €",
-    size: "XS-M",
-  },
-];
+import { loadSectionCards } from "@/lib/costumeCatalog";
 
 export default async function SmiekligiTeliSection() {
-  // Kostīmi nāk no admin paneļa; ja tur nekā nav, rāda augstāk iebūvēto sarakstu.
-  const cards = await loadCostumes("smiekligi-teli", funnyCharacters);
+  // Kostīmi nāk no admin paneļa; ja tur nekā nav, rāda iebūvēto sarakstu no data/costumes.
+  const cards = await loadSectionCards("smiekligi-teli");
 
   return (
     <section className="bg-white py-20">
@@ -65,18 +26,20 @@ export default async function SmiekligiTeliSection() {
                 key={item.title}
                 className="group flex flex-col overflow-hidden rounded-[30px] border border-zinc-200 bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:border-zinc-300 hover:shadow-2xl"
               >
-                <div className="relative aspect-[3/4] overflow-hidden bg-white">
+                <Link href={item.href} className="block relative aspect-[3/4] overflow-hidden bg-white">
                   <Image
                     src={item.image}
                     alt={`${item.title} – kostīmu noma`}
                     fill
                     className="object-contain p-4 transition duration-500 group-hover:scale-105"
                   />
-                </div>
+                </Link>
 
                 <div className="flex flex-1 flex-col p-6">
                   <h3 className="min-h-[64px] text-2xl font-bold tracking-tight text-gray-900">
-                    {item.title}
+                    <Link href={item.href} className="transition hover:text-pink-600">
+                      {item.title}
+                    </Link>
                   </h3>
 
                   {item.description && (
@@ -124,19 +87,21 @@ export default async function SmiekligiTeliSection() {
                 className="overflow-hidden rounded-[26px] border border-zinc-200 bg-white shadow-lg"
               >
                 <div className="flex">
-                  <div className="relative h-44 w-36 shrink-0 bg-white">
+                  <Link href={item.href} className="block relative h-44 w-36 shrink-0 bg-white">
                     <Image
                       src={item.image}
                       alt={`${item.title} – kostīmu noma`}
                       fill
                       className="object-contain p-4"
                     />
-                  </div>
+                  </Link>
 
                   <div className="flex flex-1 flex-col justify-between p-4">
                     <div>
                       <h3 className="text-xl font-bold text-gray-900">
-                        {item.title}
+                        <Link href={item.href} className="transition hover:text-pink-600">
+                          {item.title}
+                        </Link>
                       </h3>
 
                       {item.description && (
