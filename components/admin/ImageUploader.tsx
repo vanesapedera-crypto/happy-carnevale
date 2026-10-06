@@ -2,8 +2,7 @@
 
 import { useRef, useState, type ChangeEvent, type DragEvent } from "react";
 import { useRouter } from "next/navigation";
-import { prepareImage } from "@/lib/admin/prepareImage";
-import type { ActionResult, SectionItem } from "@/lib/admin/types";
+import { postImage } from "@/lib/admin/uploadClient";
 import { ACCEPTED_IMAGE_TYPES } from "@/lib/admin/validation";
 
 const MAX_FILES_PER_BATCH = 30;
@@ -33,33 +32,6 @@ const STATUS_CLASS: Record<UploadStatus, string> = {
 
 interface ImageUploaderProps {
   sectionKey: string;
-}
-
-async function uploadOne(sectionKey: string, original: File): Promise<string | null> {
-  let file: File;
-  try {
-    file = await prepareImage(original);
-  } catch {
-    return "Šo failu nevar nolasīt kā attēlu. Izmanto JPG, PNG vai WebP.";
-  }
-
-  const body = new FormData();
-  body.append("sectionKey", sectionKey);
-  body.append("file", file, file.name);
-
-  let response: Response;
-  try {
-    response = await fetch("/api/admin/upload", { method: "POST", body });
-  } catch {
-    return "Neizdevās augšupielādēt. Pārbaudi interneta savienojumu.";
-  }
-
-  try {
-    const result = (await response.json()) as ActionResult<SectionItem>;
-    return result.ok ? null : result.error;
-  } catch {
-    return `Servera kļūda (HTTP ${response.status}).`;
-  }
 }
 
 /** Viena vai vairāku attēlu augšupielāde izvēlētajā sadaļā. */
@@ -93,7 +65,7 @@ export default function ImageUploader({ sectionKey }: ImageUploaderProps) {
     for (let index = 0; index < files.length; index += 1) {
       const entry = entries[index];
       setEntry(entry.id, { status: "uploading" });
-      const error = await uploadOne(sectionKey, files[index]);
+      const error = await postImage("/api/admin/upload", { sectionKey }, files[index]);
       setEntry(
         entry.id,
         error ? { status: "error", message: error } : { status: "done" }

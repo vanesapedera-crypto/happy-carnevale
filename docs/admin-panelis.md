@@ -18,6 +18,7 @@ app/
     login/page.tsx          /admin/login
     dashboard/page.tsx      /admin/dashboard (ielādē sadaļas ierakstus)
   api/admin/upload/route.ts POST: viena attēla augšupielāde + ieraksts datubāzē
+  api/admin/replace-image/route.ts POST: esoša ieraksta bildes nomaiņa
 
 components/
   admin/
@@ -130,6 +131,13 @@ Supabase izvēlņu nosaukumi laika gaitā nedaudz mainās; meklē līdzīgu.
 8. **Publicē no jauna** (Vercel -> Deployments -> Redeploy), lai mainīgie stātos spēkā.
 9. Atver `/admin`, ielogojies, augšupielādē vienu testa attēlu un pārbaudi Helovīna lapu.
 
+## Bildes nomaiņa
+
+Katras kartītes attēla stūrī ir poga "Nomainīt bildi". Tā augšupielādē jaunu attēlu
+(`POST /api/admin/replace-image`, lauki `id` un `file`) un ierakstam nomaina tikai attēlu:
+nosaukums, cena, izmērs, secība un "Rādīt lapā" paliek. Iepriekšējais augšupielādētais
+fails tiek izdzēsts no krātuves; mājaslapas pašas attēli (`/public`) netiek aiztikti.
+
 ## Secības maiņa
 
 Admin panelī kartīti satver aiz attēla un pārvelk vajadzīgajā vietā; rozā līnija rāda,
@@ -168,4 +176,3 @@ starp kaimiņiem); ja starp kaimiņiem vairs nav brīvu skaitļu, pārnumurē vi
 - Pārlūks lielus attēlus pirms augšupielādes samazina līdz 1600 px garākajā malā.
 - Ja sadaļā nav neviena aktīva ieraksta vai datubāze nav sasniedzama, mājaslapa rāda
   kodā iebūvēto sarakstu. Tāpēc sadaļu nevar padarīt pilnīgi tukšu.
-- Attēlu nevar nomainīt esošam ierakstam: augšupielādē jaunu un veco izdzēs vai paslēp.

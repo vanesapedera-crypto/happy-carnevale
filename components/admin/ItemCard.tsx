@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, type DragEvent } from "react";
+import { useRef, useState, type ChangeEvent, type DragEvent } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { deleteItemAction, updateItemAction } from "@/lib/admin/actions";
 import type { SectionItem } from "@/lib/admin/types";
-import { LIMITS } from "@/lib/admin/validation";
+import { postImage } from "@/lib/admin/uploadClient";
+import { ACCEPTED_IMAGE_TYPES, LIMITS } from "@/lib/admin/validation";
 
 const INPUT_CLASS =
   "mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-pink-500 focus:ring-2 focus:ring-pink-200";
@@ -40,6 +41,8 @@ export default function ItemCard({
   const [size, setSize] = useState(item.size);
   const [active, setActive] = useState(item.active);
   const [pending, setPending] = useState(false);
+  const [replacing, setReplacing] = useState(false);
+  const fileRef = useRef<HTMLInputElement>(null);
   const [notice, setNotice] = useState<Notice>(null);
 
   const dirty =
@@ -88,6 +91,26 @@ export default function ItemCard({
     setPending(false);
   }
 
+  async function handleReplace(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    // Lai to pašu failu var izvēlēties vēlreiz.
+    event.target.value = "";
+    if (!file) return;
+
+    setPending(true);
+    setReplacing(true);
+    setNotice(null);
+    const error = await postImage("/api/admin/replace-image", { id: item.id }, file);
+    if (error) {
+      setNotice({ kind: "error", text: error });
+    } else {
+      setNotice({ kind: "success", text: "Bilde nomainīta" });
+      router.refresh();
+    }
+    setReplacing(false);
+    setPending(false);
+  }
+
   const fieldId = (name: string) => `item-${item.id}-${name}`;
 
   return (
@@ -121,6 +144,14 @@ export default function ItemCard({
             Paslēpts
           </span>
         )}
+        <button
+          type="button"
+          onClick={() => fileRef.current?.click()}
+          disabled={pending}
+          className="absolute bottom-3 right-3 rounded-lg bg-white/95 px-3 py-1.5 text-xs font-semibold text-slate-700 shadow ring-1 ring-slate-200 transition hover:bg-white hover:text-pink-600 disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          {replacing ? "Nomaina…" : "Nomainīt bildi"}
+        </button>
       </div>
 
       <div className="flex flex-1 flex-col gap-3 p-4">
@@ -187,8 +218,18 @@ export default function ItemCard({
             disabled={pending || !dirty}
             className="rounded-lg bg-pink-500 px-4 py-2 text-sm font-bold text-white transition hover:bg-pink-600 disabled:cursor-not-allowed disabled:opacity-40"
           >
-            {pending ? "Saglabā…" : "Saglabāt"}
+            {pending && !replacing ? "Saglabā…" : "Saglabāt"}
           </button>
+
+          <input
+            ref={fileRef}
+            type="file"
+            accept={ACCEPTED_IMAGE_TYPES.join(",")}
+            onChange={handleReplace}
+            aria-label="Izvēlies jauno bildi"
+            tabIndex={-1}
+            className="sr-only"
+          />
 
           <button
             type="button"

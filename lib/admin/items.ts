@@ -146,3 +146,33 @@ export async function setSortOrder(
     { sort_order: sortOrder }
   );
 }
+
+export async function getItem(config: AdminConfig, id: string): Promise<SectionItem | null> {
+  const rows = await restSelect<SectionItemRow>(
+    config,
+    config.serviceKey,
+    ITEMS_TABLE,
+    `select=*&id=eq.${encodeURIComponent(id)}&limit=1`
+  );
+  return rows[0] ? rowToItem(rows[0]) : null;
+}
+
+/**
+ * Nomaina tikai ieraksta attēlu. updated_at paliek neskarts, lai admin
+ * panelī atvērtā kartīte nezaudē vēl nesaglabātus labojumus.
+ */
+export async function setImage(
+  config: AdminConfig,
+  id: string,
+  imageUrl: string,
+  imagePath: string
+): Promise<SectionItem | null> {
+  const row = await restUpdate<SectionItemRow>(
+    config,
+    config.serviceKey,
+    ITEMS_TABLE,
+    `id=eq.${encodeURIComponent(id)}`,
+    { image_url: imageUrl, image_path: imagePath }
+  );
+  return row ? rowToItem(row) : null;
+}
