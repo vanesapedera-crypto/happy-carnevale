@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { animatorCharacters } from "@/data/animatorCharacters";
+import type { AnimatorCharacter } from "@/data/animatorCharacters";
 
 type Props = {
+  characters: AnimatorCharacter[];
   open: boolean;
   onClose: () => void;
   onSelect: (character: {
@@ -13,6 +14,7 @@ type Props = {
 };
 
 export default function AnimatorSelectorModal({
+  characters,
   open,
   onClose,
   onSelect,
@@ -44,9 +46,9 @@ export default function AnimatorSelectorModal({
         </div>
 
         <div className="grid grid-cols-2 gap-6 md:grid-cols-4 lg:grid-cols-5">
-          {animatorCharacters.map((item) => (
+          {characters.map((item) => (
             <button
-              key={item.name}
+              key={`${item.name}|${item.image}`}
               type="button"
            onClick={() => {
   onSelect(item);

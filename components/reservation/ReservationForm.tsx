@@ -11,6 +11,7 @@ import AnimatorSelectorModal from "./AnimatorSelectorModal";
 import MascotSelectorModal from "./MascotSelectorModal";
 import SubmitSection from "./SubmitSection";
 import ReservationSuccess from "./ReservationSuccess";
+import type { AnimatorCharacter } from "@/data/animatorCharacters";
 import {
   PartyPopper,
   Palette,
@@ -49,7 +50,14 @@ const INITIAL_FORM = {
   komentars: "",
 };
 
-export default function ReservationForm() {
+interface ReservationFormProps {
+  /** Animatoru tērpi no admin paneļa (vai iebūvētais saraksts). */
+  animatorCharacters: AnimatorCharacter[];
+}
+
+export default function ReservationForm({
+  animatorCharacters,
+}: ReservationFormProps) {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
@@ -317,6 +325,7 @@ export default function ReservationForm() {
         {/* Animators */}
         {form.pakalpojums === "animators" && (
           <AnimatorSection
+            characters={animatorCharacters}
             form={form}
             handleChange={handleChange}
             onChooseCharacter={() =>
@@ -346,6 +355,7 @@ export default function ReservationForm() {
         <SubmitSection loading={loading} error={error} />
       </form>
            <AnimatorSelectorModal
+  characters={animatorCharacters}
   open={openAnimatorSelector}
   onClose={() => setOpenAnimatorSelector(false)}
   onSelect={(character) =>

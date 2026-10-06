@@ -1,9 +1,12 @@
 import ReservationForm from "@/components/reservation/ReservationForm";
+import { loadAnimatorCharacters } from "@/lib/animatorCharacters";
 
-export default function ReservationPage() {
+export default async function ReservationPage() {
+  const animatorCharacters = await loadAnimatorCharacters();
+
   return (
     <main className="bg-pink-50 py-20">
-      <ReservationForm />
+      <ReservationForm animatorCharacters={animatorCharacters} />
     </main>
   );
 }

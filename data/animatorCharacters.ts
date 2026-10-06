@@ -1,4 +1,10 @@
-export const animatorCharacters = [
+export interface AnimatorCharacter {
+  name: string;
+  image: string;
+}
+
+/** Iebūvētais saraksts: tiek rādīts, ja datubāzē nav neviena animatoru tērpa. */
+export const animatorCharacters: AnimatorCharacter[] = [
   // PRINCESES
   { name: "Anna", image: "/kostimi/princesses/anna.jpg" },
   { name: "Barbie", image: "/kostimi/princesses/barbie.jpg" },
@@ -114,7 +120,7 @@ export const animatorCharacters = [
   { name: "Grinčs", image: "/kostimi/ziemassvetki/grincs.jpg" },
   { name: "Ziemassvētku vecītis", image: "/kostimi/ziemassvetki/ziemassvetku-vecitis.jpg" },
   { name: "Rūķis", image: "/kostimi/ziemassvetki/rukis-smaidulis.jpg" },
-  { name: "Eglīte", image: "/kostimi/ziemassvetki/eglite.jpg" },
+  { name: "Eglīte", image: "/kostimi/ziemassvetki/egle.jpg" },
 
   // JAUTRIE TĒLI
   { name: "Smieklīgais tēls 1", image: "/kostimi/smiekligi-teli/IMG_6517.jpg" },

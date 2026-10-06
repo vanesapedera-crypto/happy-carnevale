@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { animatorCharacters } from "@/data/animatorCharacters";
+import type { AnimatorCharacter } from "@/data/animatorCharacters";
 import {
   Clock3,
   WandSparkles,
@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 
 interface AnimatorSectionProps {
+  characters: AnimatorCharacter[];
   form: any;
   handleChange: (
     e: React.ChangeEvent<HTMLInputElement>
@@ -17,13 +18,16 @@ interface AnimatorSectionProps {
 }
 
 export default function AnimatorSection({
+  characters,
   form,
   handleChange,
   onChooseCharacter,
 }: AnimatorSectionProps) {
-  const selectedCharacter = animatorCharacters.find(
-    (c) => c.name === form.tels
-  );
+  // Divi tērpi var saukties vienādi, tāpēc vispirms salīdzina arī attēlu.
+  const selectedCharacter =
+    characters.find(
+      (c) => c.name === form.tels && c.image === form.telsImage
+    ) ?? characters.find((c) => c.name === form.tels);
 
   return (
     <div className="space-y-8">

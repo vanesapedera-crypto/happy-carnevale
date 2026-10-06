@@ -2,6 +2,7 @@
  * Mājaslapas sadaļas, kuru attēlus var pārvaldīt admin panelī.
  * Jaunu sadaļu pievieno šeit un pēc tam publiskajā komponentē
  * nolasa ar loadCostumes("<key>", iebuvetaisSaraksts) (skat. lib/costumes.ts).
+ * Animatoru tērpus nolasa lib/animatorCharacters.ts.
  */
 export interface SectionDefinition {
   /** Unikāla atslēga datubāzē (section_key). Tikai mazie burti, cipari un domuzīmes. */
@@ -24,6 +25,9 @@ const SEZONA = "Sezonālās kolekcijas";
 
 const KINO_PATH = "/kostimu-noma/filmu-un-pasaku-teli";
 const SMIEKLIGI_PATH = "/kostimu-noma/smiekligi-teli";
+
+/** Animatoru tēlu izvēle pasākumu rezervācijas formā. */
+export const ANIMATOR_SECTION_KEY = "animatoru-terpi";
 
 function costumes(key: string, label: string, group: string, path: string): SectionDefinition {
   return { key, label, group, path, hasPriceAndSize: true };
@@ -58,6 +62,14 @@ export const SECTIONS: readonly SectionDefinition[] = [
   ),
   costumes("ziemassvetku-kostimi", "Ziemassvētku tēli", SEZONA, "/kostimu-noma/ziemassvetki"),
   costumes("lieldienu-kostimi", "Lieldienu kostīmi", SEZONA, "/kostimu-noma/lieldienas"),
+  // Tēli, no kuriem klients izvēlas animatoru rezervācijas formā (bez cenas un izmēra).
+  {
+    key: ANIMATOR_SECTION_KEY,
+    label: "Animatoru tērpi",
+    group: "Pasākumi",
+    path: "/rezervacija-pasakumiem",
+    hasPriceAndSize: false,
+  },
 ];
 
 export function getSection(key: string | null | undefined): SectionDefinition | null {

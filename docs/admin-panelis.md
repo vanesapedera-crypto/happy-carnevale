@@ -35,6 +35,7 @@ components/
 lib/
   sections.ts               getSectionItems(key): publiskajām lapām
   costumes.ts               loadCostumes(key, iebūvētaisSaraksts): kostīmu sadaļām
+  animatorCharacters.ts     loadAnimatorCharacters(): animatoru tērpi rezervācijas formai
   admin/
     sections.ts             pārvaldāmo sadaļu saraksts (sectionKey, nosaukums, lapa)
     types.ts                SectionItem, ActionResult
@@ -52,6 +53,7 @@ supabase/
   schema.sql                tabula, piekļuves noteikumi, attēlu krātuve
   seed-helovina-kostimi.sql esošie 29 Helovīna kostīmi un maskas
   seed-kostimi.sql          pārējo 13 kostīmu sadaļu esošie 265 ieraksti
+  seed-animatoru-terpi.sql  esošie 109 animatoru tērpi (rezervācijas forma)
 ```
 
 ## Pārvaldāmās sadaļas
@@ -65,6 +67,15 @@ Visas kostīmu nomas sadaļas (saraksts ir `lib/admin/sections.ts`):
 | Kino tēli un citi interesanti kostīmi | `princeses-un-fejas`, `supervaroni`, `kino-teli`, `profesijas`, `dzivnieku-teli` |
 | Smieklīgi tēli un parūkas | `smiekligi-teli`, `retro-kostimi`, `uzvalki`, `parukas` |
 | Sezonālās kolekcijas | `helovina-kostimi`, `ziemassvetku-kostimi`, `lieldienu-kostimi` |
+
+Pasākumi:
+
+| Lapa | Sadaļa (`section_key`) |
+| --- | --- |
+| Rezervācija pasākumiem (`/rezervacija-pasakumiem`), tēla izvēle animatoram | `animatoru-terpi` |
+
+Animatoru tērpiem ir tikai nosaukums un attēls (bez cenas un izmēra). Lapa tos nolasa
+servera pusē (`app/rezervacija-pasakumiem/page.tsx`) un nodod formai kā `animatorCharacters`.
 
 ## Datu modelis
 
