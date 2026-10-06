@@ -109,7 +109,7 @@ const superheroes = [
   },
     {
     title: "Wonder Woman",
-    image: "/kostimi/supervaroni/wonder-woman.jpg",
+    image: "/kostimi/supervaroni/wonder-women.jpg",
     price: "25 €",
     size: "M",
   },

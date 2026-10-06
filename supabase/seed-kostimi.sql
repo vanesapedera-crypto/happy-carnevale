@@ -111,7 +111,7 @@ select * from (values
   ('supervaroni', 'Halks', '25 €', 'M-L', '/kostimi/supervaroni/halks.jpg', 150),
   ('supervaroni', 'Kaķsieviete', '25 €', 'XS-S', '/kostimi/supervaroni/kaksieviete.jpg', 160),
   ('supervaroni', 'Deadpool', '25 €', 'M-L', '/kostimi/supervaroni/deadpool.jpg', 170),
-  ('supervaroni', 'Wonder Woman', '25 €', 'M', '/kostimi/supervaroni/wonder-woman.jpg', 180)
+  ('supervaroni', 'Wonder Woman', '25 €', 'M', '/kostimi/supervaroni/wonder-women.jpg', 180)
 ) as seed (section_key, title, price, size, image_url, sort_order)
 where not exists (
   select 1 from public.section_items where section_key = 'supervaroni'

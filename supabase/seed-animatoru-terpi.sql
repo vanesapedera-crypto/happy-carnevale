@@ -70,7 +70,7 @@ select * from (values
   ('animatoru-terpi', 'Pirāts', '/kostimi/multfilmu/pirata-zens-1.jpg', 620),
   ('animatoru-terpi', 'Pomni', '/kostimi/multfilmu/pomnija.jpg', 630),
   ('animatoru-terpi', 'Poppy', '/kostimi/multfilmu/poppija.jpg', 640),
-  ('animatoru-terpi', 'Ragana', '/kostimi/multfilmu/Ragana.jpg', 650),
+  ('animatoru-terpi', 'Ragana', '/kostimi/multfilmu/ragana.jpg', 650),
   ('animatoru-terpi', 'Selestija', '/kostimi/multfilmu/selestija-vienradzis.jpg', 660),
   ('animatoru-terpi', 'Simka', '/kostimi/multfilmu/simka-no-fiksiki.jpg', 670),
   ('animatoru-terpi', 'Skaja', '/kostimi/multfilmu/skaja.jpg', 680),

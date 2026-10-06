@@ -74,7 +74,7 @@ export const animatorCharacters: AnimatorCharacter[] = [
   { name: "Pirāts", image: "/kostimi/multfilmu/pirata-zens-1.jpg" },
   { name: "Pomni", image: "/kostimi/multfilmu/pomnija.jpg" },
   { name: "Poppy", image: "/kostimi/multfilmu/poppija.jpg" },
-  { name: "Ragana", image: "/kostimi/multfilmu/Ragana.jpg" },
+  { name: "Ragana", image: "/kostimi/multfilmu/ragana.jpg" },
   { name: "Selestija", image: "/kostimi/multfilmu/selestija-vienradzis.jpg" },
   { name: "Simka", image: "/kostimi/multfilmu/simka-no-fiksiki.jpg" },
   { name: "Skaja", image: "/kostimi/multfilmu/skaja.jpg" },
