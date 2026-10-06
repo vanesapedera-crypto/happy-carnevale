@@ -20,13 +20,20 @@ export interface DragHandle {
 interface ItemCardProps {
   item: SectionItem;
   showPriceAndSize: boolean;
+  /** false galerijām: kartītē ir tikai attēls, "Rādīt lapā" un dzēšana. */
+  showTitle: boolean;
   dragHandle?: DragHandle;
 }
 
 type Notice = { kind: "success" | "error"; text: string } | null;
 
 /** Viens attēls ar labojamiem laukiem: nosaukums, cena, izmērs, rādīt lapā. */
-export default function ItemCard({ item, showPriceAndSize, dragHandle }: ItemCardProps) {
+export default function ItemCard({
+  item,
+  showPriceAndSize,
+  showTitle,
+  dragHandle,
+}: ItemCardProps) {
   const router = useRouter();
   const [title, setTitle] = useState(item.title);
   const [price, setPrice] = useState(item.price);
@@ -46,8 +53,8 @@ export default function ItemCard({ item, showPriceAndSize, dragHandle }: ItemCar
     setNotice(null);
     try {
       const result = await updateItemAction(item.id, {
-        title,
         active,
+        ...(showTitle ? { title } : {}),
         ...(showPriceAndSize ? { price, size } : {}),
       });
       if (result.ok) {
@@ -63,8 +70,8 @@ export default function ItemCard({ item, showPriceAndSize, dragHandle }: ItemCar
   }
 
   async function handleDelete() {
-    const name = item.title || "šo attēlu";
-    if (!window.confirm(`Vai tiešām dzēst "${name}"? To nevarēs atjaunot.`)) return;
+    const name = showTitle && item.title ? `"${item.title}"` : "šo attēlu";
+    if (!window.confirm(`Vai tiešām dzēst ${name}? To nevarēs atjaunot.`)) return;
 
     setPending(true);
     setNotice(null);
@@ -100,7 +107,7 @@ export default function ItemCard({ item, showPriceAndSize, dragHandle }: ItemCar
       >
         <Image
           src={item.imageUrl}
-          alt={item.title}
+          alt={showTitle ? item.title : ""}
           fill
           // Mājaslapas pašas attēli mēdz būt vairākus MB lieli: tiem rāda samazinātu
           // versiju. Augšupielādētie jau ir samazināti un tiek rādīti tieši.
@@ -117,18 +124,20 @@ export default function ItemCard({ item, showPriceAndSize, dragHandle }: ItemCar
       </div>
 
       <div className="flex flex-1 flex-col gap-3 p-4">
-        <div>
-          <label htmlFor={fieldId("title")} className={LABEL_CLASS}>
-            Nosaukums
-          </label>
-          <input
-            id={fieldId("title")}
-            value={title}
-            maxLength={LIMITS.title}
-            onChange={(event) => setTitle(event.target.value)}
-            className={INPUT_CLASS}
-          />
-        </div>
+        {showTitle && (
+          <div>
+            <label htmlFor={fieldId("title")} className={LABEL_CLASS}>
+              Nosaukums
+            </label>
+            <input
+              id={fieldId("title")}
+              value={title}
+              maxLength={LIMITS.title}
+              onChange={(event) => setTitle(event.target.value)}
+              className={INPUT_CLASS}
+            />
+          </div>
+        )}
 
         {showPriceAndSize && (
           <div className="grid grid-cols-2 gap-3">

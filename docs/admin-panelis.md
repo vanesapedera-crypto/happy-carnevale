@@ -36,6 +36,7 @@ lib/
   sections.ts               getSectionItems(key): publiskajām lapām
   costumes.ts               loadCostumes(key, iebūvētaisSaraksts): kostīmu sadaļām
   animatorCharacters.ts     loadAnimatorCharacters(): animatoru tērpi rezervācijas formai
+  gallery.ts                loadGalleryImages(key, iebūvētieAttēli): galerijām
   admin/
     sections.ts             pārvaldāmo sadaļu saraksts (sectionKey, nosaukums, lapa)
     types.ts                SectionItem, ActionResult
@@ -55,6 +56,8 @@ supabase/
   seed-helovina-kostimi.sql esošie 29 Helovīna kostīmi un maskas
   seed-kostimi.sql          pārējo 13 kostīmu sadaļu esošie 265 ieraksti
   seed-animatoru-terpi.sql  esošie 109 animatoru tērpi (rezervācijas forma)
+  seed-parsteiguma-galerija.sql  esošie 10 pārsteiguma tēla galerijas attēli
+  fix-attelu-celi.sql       vienreizējs labojums diviem attēlu ceļiem
 ```
 
 ## Pārvaldāmās sadaļas
@@ -74,9 +77,15 @@ Pasākumi:
 | Lapa | Sadaļa (`section_key`) |
 | --- | --- |
 | Rezervācija pasākumiem (`/rezervacija-pasakumiem`), tēla izvēle animatoram | `animatoru-terpi` |
+| Pārsteiguma tēls (`/pasakumu-organizesana/parsteiguma-tels`), galerija | `parsteiguma-galerija` |
+| Radošās darbnīcas (`/pasakumu-organizesana/radosas-darbnicas`), galerija | `radoso-darbnicu-galerija` |
 
 Animatoru tērpiem ir tikai nosaukums un attēls (bez cenas un izmēra). Lapa tos nolasa
 servera pusē (`app/rezervacija-pasakumiem/page.tsx`) un nodod formai kā `animatorCharacters`.
+
+Galerijām (`hasTitle: false`) ir tikai attēli: admin kartītē nav nosaukuma lauka.
+Pārsteiguma tēla galerija bez ierakstiem rāda 10 iebūvētos attēlus. Radošo darbnīcu
+galerijai iebūvētu attēlu nav: lapā tā parādās tikai tad, kad ir pievienots vismaz viens attēls.
 
 ## Datu modelis
 

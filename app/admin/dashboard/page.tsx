@@ -62,6 +62,8 @@ export default async function AdminDashboardPage({ searchParams }: DashboardPage
             sectionKey={section.key}
             items={items}
             showPriceAndSize={section.hasPriceAndSize}
+            showTitle={section.hasTitle}
+            emptyHint={section.emptyHint}
           />
         )}
       </section>

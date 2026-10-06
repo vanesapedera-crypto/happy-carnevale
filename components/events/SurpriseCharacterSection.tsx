@@ -7,9 +7,27 @@ import {
   Sparkles,
 } from "lucide-react";
 
+import { SURPRISE_GALLERY_KEY } from "@/lib/admin/sections";
+import { loadGalleryImages } from "@/lib/gallery";
 import SurpriseGallery from "./SurpriseGallery";
 
-export default function SurpriseCharacterSection() {
+/** Iebūvētie attēli: tiek rādīti, ja admin panelī galerijā nav neviena attēla. */
+const BUILT_IN_IMAGES = [
+  "/images/surprise/1.jpg",
+  "/images/surprise/2.jpg",
+  "/images/surprise/3.jpg",
+  "/images/surprise/4.jpg",
+  "/images/surprise/5.jpg",
+  "/images/surprise/6.jpg",
+  "/images/surprise/7.jpg",
+  "/images/surprise/8.jpg",
+  "/images/surprise/9.jpg",
+  "/images/surprise/10.jpg",
+];
+
+export default async function SurpriseCharacterSection() {
+  const images = await loadGalleryImages(SURPRISE_GALLERY_KEY, BUILT_IN_IMAGES);
+
   return (
     <section className="bg-gradient-to-b from-white to-pink-50 py-16 lg:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
@@ -17,7 +35,7 @@ export default function SurpriseCharacterSection() {
         <div className="grid items-start gap-12 lg:grid-cols-[1.15fr_0.85fr]">
 
           {/* Galerija */}
-          <SurpriseGallery />
+          <SurpriseGallery images={images} />
 
           {/* Saturs */}
           <div>

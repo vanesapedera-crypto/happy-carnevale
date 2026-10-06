@@ -11,6 +11,9 @@ interface ItemListProps {
   sectionKey: string;
   items: SectionItem[];
   showPriceAndSize: boolean;
+  showTitle: boolean;
+  /** Teksts tukšai sadaļai, ja tas atšķiras no parastā. */
+  emptyHint?: string;
 }
 
 /** Vieta, kur nomest velkamo kartīti: pirms vai pēc kartītes `id`. */
@@ -25,7 +28,13 @@ interface DropTarget {
  * Sadaļas attēlu saraksts tādā secībā, kā tos redz apmeklētājs.
  * Secību maina, pārvelkot kartīti aiz attēla.
  */
-export default function ItemList({ sectionKey, items, showPriceAndSize }: ItemListProps) {
+export default function ItemList({
+  sectionKey,
+  items,
+  showPriceAndSize,
+  showTitle,
+  emptyHint,
+}: ItemListProps) {
   const router = useRouter();
 
   const serverIds = items.map((item) => item.id);
@@ -48,7 +57,8 @@ export default function ItemList({ sectionKey, items, showPriceAndSize }: ItemLi
   if (items.length === 0) {
     return (
       <p className="rounded-2xl border border-slate-200 bg-white px-6 py-10 text-center text-slate-500">
-        Šajā sadaļā vēl nav attēlu. Kamēr tā ir tukša, mājaslapā redzams sākotnējais saturs.
+        {emptyHint ??
+          "Šajā sadaļā vēl nav attēlu. Kamēr tā ir tukša, mājaslapā redzams sākotnējais saturs."}
       </p>
     );
   }
@@ -210,6 +220,7 @@ export default function ItemList({ sectionKey, items, showPriceAndSize }: ItemLi
               key={`${item.id}-${item.updatedAt}`}
               item={item}
               showPriceAndSize={showPriceAndSize}
+              showTitle={showTitle}
               dragHandle={
                 canReorder
                   ? {

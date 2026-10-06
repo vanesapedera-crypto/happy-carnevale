@@ -1,4 +1,7 @@
+import Image from "next/image";
 import Link from "next/link";
+import { WORKSHOP_GALLERY_KEY } from "@/lib/admin/sections";
+import { loadGalleryImages } from "@/lib/gallery";
 
 const activities = [
   "Koka vilciņu meistarklase",
@@ -12,7 +15,10 @@ const activities = [
   "Antistresa vīriņi",
 ];
 
-export default function RadosasDarbnicasSection() {
+export default async function RadosasDarbnicasSection() {
+  // Attēlus pievieno admin panelī; kamēr to nav, galerija lapā netiek rādīta.
+  const images = await loadGalleryImages(WORKSHOP_GALLERY_KEY);
+
   return (
     <section className="py-20">
       <div className="mx-auto max-w-7xl px-6">
@@ -42,6 +48,26 @@ export default function RadosasDarbnicasSection() {
               </div>
             ))}
           </div>
+
+          {images.length > 0 && (
+            <div className="mt-12 columns-1 gap-5 sm:columns-2 lg:columns-3">
+              {images.map((image, index) => (
+                <div
+                  key={`${index}-${image}`}
+                  className="mb-5 overflow-hidden rounded-3xl bg-gray-100 shadow-lg break-inside-avoid"
+                >
+                  <Image
+                    src={image}
+                    alt={`Radošā darbnīca ${index + 1}`}
+                    width={900}
+                    height={1200}
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    className="h-auto w-full"
+                  />
+                </div>
+              ))}
+            </div>
+          )}
 
           <div className="mt-12 rounded-[32px] bg-gradient-to-r from-violet-500 to-violet-400 p-8 text-white">
             <h3 className="text-2xl font-black">

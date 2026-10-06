@@ -2,7 +2,7 @@
  * Mājaslapas sadaļas, kuru attēlus var pārvaldīt admin panelī.
  * Jaunu sadaļu pievieno šeit un pēc tam publiskajā komponentē
  * nolasa ar loadCostumes("<key>", iebuvetaisSaraksts) (skat. lib/costumes.ts).
- * Animatoru tērpus nolasa lib/animatorCharacters.ts.
+ * Animatoru tērpus nolasa lib/animatorCharacters.ts, galerijas: lib/gallery.ts.
  */
 export interface SectionDefinition {
   /** Unikāla atslēga datubāzē (section_key). Tikai mazie burti, cipari un domuzīmes. */
@@ -15,6 +15,10 @@ export interface SectionDefinition {
   path: string;
   /** Vai šīs sadaļas kartītēs rāda cenu un izmēru. */
   hasPriceAndSize: boolean;
+  /** Vai kartītēs rāda nosaukumu. Galerijās ir tikai attēli. */
+  hasTitle: boolean;
+  /** Teksts admin panelī, kamēr sadaļā nav neviena attēla (ja atšķiras no parastā). */
+  emptyHint?: string;
 }
 
 const MASCOTA = "Mascota tēli";
@@ -26,11 +30,17 @@ const SEZONA = "Sezonālās kolekcijas";
 const KINO_PATH = "/kostimu-noma/filmu-un-pasaku-teli";
 const SMIEKLIGI_PATH = "/kostimu-noma/smiekligi-teli";
 
+const PASAKUMI = "Pasākumi";
+
 /** Animatoru tēlu izvēle pasākumu rezervācijas formā. */
 export const ANIMATOR_SECTION_KEY = "animatoru-terpi";
+/** Attēlu galerija lapā "Pārsteiguma tēls". */
+export const SURPRISE_GALLERY_KEY = "parsteiguma-galerija";
+/** Attēlu galerija lapā "Radošās darbnīcas" (lapā redzama tikai tad, ja ir attēli). */
+export const WORKSHOP_GALLERY_KEY = "radoso-darbnicu-galerija";
 
 function costumes(key: string, label: string, group: string, path: string): SectionDefinition {
-  return { key, label, group, path, hasPriceAndSize: true };
+  return { key, label, group, path, hasPriceAndSize: true, hasTitle: true };
 }
 
 export const SECTIONS: readonly SectionDefinition[] = [
@@ -66,9 +76,28 @@ export const SECTIONS: readonly SectionDefinition[] = [
   {
     key: ANIMATOR_SECTION_KEY,
     label: "Animatoru tērpi",
-    group: "Pasākumi",
+    group: PASAKUMI,
     path: "/rezervacija-pasakumiem",
     hasPriceAndSize: false,
+    hasTitle: true,
+  },
+  {
+    key: SURPRISE_GALLERY_KEY,
+    label: "Pārsteiguma tēls: galerija",
+    group: PASAKUMI,
+    path: "/pasakumu-organizesana/parsteiguma-tels",
+    hasPriceAndSize: false,
+    hasTitle: false,
+  },
+  {
+    key: WORKSHOP_GALLERY_KEY,
+    label: "Radošās darbnīcas: galerija",
+    group: PASAKUMI,
+    path: "/pasakumu-organizesana/radosas-darbnicas",
+    hasPriceAndSize: false,
+    hasTitle: false,
+    emptyHint:
+      "Šajā sadaļā vēl nav attēlu. Kad pievienosi pirmo, lapā Radošās darbnīcas parādīsies galerija.",
   },
 ];
 

@@ -1,33 +1,42 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const images = [
-  "/images/surprise/1.jpg",
-  "/images/surprise/2.jpg",
-  "/images/surprise/3.jpg",
-  "/images/surprise/4.jpg",
-  "/images/surprise/5.jpg",
-  "/images/surprise/6.jpg",
-  "/images/surprise/7.jpg",
-  "/images/surprise/8.jpg",
-  "/images/surprise/9.jpg",
-  "/images/surprise/10.jpg",
-];
+interface SurpriseGalleryProps {
+  /** Attēlu adreses rādīšanas secībā (no admin paneļa vai iebūvētās). */
+  images: readonly string[];
+}
 
-export default function SurpriseGallery() {
-  const [current, setCurrent] = useState(0);
+export default function SurpriseGallery({ images }: SurpriseGalleryProps) {
+  const [selected, setSelected] = useState(0);
+  // Ja attēlu kļuvis mazāk (kāds izdzēsts), paliek pie pēdējā.
+  const current = Math.min(selected, Math.max(images.length - 1, 0));
 
-  const next = () =>
-    setCurrent((prev) => (prev + 1) % images.length);
+  // Ja miniatūru ir vairāk, nekā ietilpst rindā, izvēlētā tiek ieritināta redzamajā daļā.
+  const stripRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const strip = stripRef.current;
+    const thumb = strip?.querySelector<HTMLElement>(`[data-index="${current}"]`);
+    if (!strip || !thumb || strip.scrollWidth <= strip.clientWidth) return;
 
-  const prev = () =>
-    setCurrent((prev) => (prev - 1 + images.length) % images.length);
+    const stripBox = strip.getBoundingClientRect();
+    const thumbBox = thumb.getBoundingClientRect();
+    const offset =
+      thumbBox.left - stripBox.left - (stripBox.width - thumbBox.width) / 2;
+    strip.scrollTo({ left: strip.scrollLeft + offset, behavior: "smooth" });
+  }, [current]);
+
+  if (images.length === 0) return null;
+
+  const next = () => setSelected((current + 1) % images.length);
+
+  const prev = () => setSelected((current - 1 + images.length) % images.length);
 
   return (
-    <div className="mx-auto w-full max-w-[340px] lg:mx-0 lg:max-w-none">
+    // min-w-0: gara miniatūru rinda nedrīkst izstiept lapas kolonnu.
+    <div className="mx-auto w-full min-w-0 max-w-[340px] lg:mx-0 lg:max-w-none">
 
       {/* Galvenais attēls */}
       <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl border border-gray-200 shadow-xl">
@@ -57,12 +66,15 @@ export default function SurpriseGallery() {
       </div>
 
       {/* Miniatūras */}
-      <div className="mt-4 flex justify-center gap-2 overflow-x-auto pb-2">
+      <div ref={stripRef} className="mt-4 overflow-x-auto pb-2">
+        {/* w-max + mx-auto: īsa rinda ir centrēta, gara ir ritināma no pirmā attēla. */}
+        <div className="mx-auto flex w-max gap-2">
         {images.map((image, index) => (
           <button
-            key={image}
+            key={`${index}-${image}`}
+            data-index={index}
             type="button"
-            onClick={() => setCurrent(index)}
+            onClick={() => setSelected(index)}
             className={`relative h-12 w-12 shrink-0 overflow-hidden rounded-xl border-2 transition ${
               current === index
                 ? "border-pink-500"
@@ -73,10 +85,12 @@ export default function SurpriseGallery() {
               src={image}
               alt={`Pārsteiguma tēls ${index + 1}`}
               fill
+              sizes="48px"
               className="object-cover"
             />
           </button>
         ))}
+        </div>
       </div>
 
     </div>
