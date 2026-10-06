@@ -111,7 +111,7 @@ className="pointer-events-none hidden lg:block absolute left-[-26px] top-80 z-0 
 <div className="relative h-[320px] sm:h-[360px] lg:h-[420px]">
                     <Image
                     src={item.image}
-                    alt={item.title}
+                    alt={`${item.title} – pasākumu organizēšana`}
                     fill
                     className="object-cover transition duration-700 group-hover:scale-105"
                   />
@@ -207,7 +207,7 @@ className="pointer-events-none hidden lg:block absolute left-[-26px] top-80 z-0 
 <div className="relative h-[320px] sm:h-[360px] lg:h-[420px]">
                   <Image
                   src={item.image}
-                  alt={item.title}
+                  alt={`${item.title} – pasākumu organizēšana`}
                   fill
                   className="object-cover transition duration-700 group-hover:scale-105"
                 />

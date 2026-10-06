@@ -71,7 +71,7 @@ export default function FacePaintingGallery() {
           >
             <Image
               src={image}
-              alt={`Miniatūra ${index + 1}`}
+              alt={`Sejas apgleznošana – miniatūra ${index + 1}`}
               fill
               className="object-cover"
             />

@@ -8,7 +8,7 @@ export default function AnimatorHero() {
       <div className="absolute inset-0 hidden lg:block">
         <Image
           src="/images/hero/animatori-desktop.jpg"
-          alt=""
+          alt="Happy Carnevale animatori bērnu ballītē"
           fill
           priority
           sizes="100vw"
@@ -21,7 +21,7 @@ export default function AnimatorHero() {
       <div className="absolute inset-0 lg:hidden">
         <Image
           src="/images/hero/animatori-mobile.jpg"
-          alt=""
+          alt="Happy Carnevale animatori bērnu ballītē"
           fill
           priority
           className="object-contain p-4"

@@ -103,7 +103,7 @@ export default function ProductsSection() {
               <div className="relative">
                 <Image
                   src={product.image}
-                  alt={product.title}
+                  alt={`${product.title} – milzu ziepju burbuļiem`}
                   width={600}
                   height={600}
                   className="aspect-square w-full object-cover transition duration-500 group-hover:scale-105"

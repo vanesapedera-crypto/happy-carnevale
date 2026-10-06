@@ -164,7 +164,7 @@ export default function KostimuNomaPage() {
 <div className="relative h-[320px] sm:h-[360px] lg:h-[420px]">
                     <Image
                     src={item.image}
-                    alt={item.title}
+                    alt={`Kostīmu noma – ${item.title}`}
                     fill
                     className="object-cover transition duration-700 group-hover:scale-105"
                   />
@@ -262,7 +262,7 @@ export default function KostimuNomaPage() {
               <div className="relative h-[320px] sm:h-[360px] lg:h-[420px]">
                 <Image
                   src={item.image}
-                  alt={item.title}
+                  alt={`Kostīmu noma – ${item.title}`}
                   fill
                   className="object-cover transition duration-700 group-hover:scale-105"
                 />

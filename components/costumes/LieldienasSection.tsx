@@ -110,7 +110,7 @@ export default async function LieldienasSection() {
                 <div className="relative aspect-[3/4] overflow-hidden bg-white">
                   <Image
                     src={item.image}
-                    alt={item.title}
+                    alt={`${item.title} – Lieldienu kostīmu noma`}
                     fill
                     className="object-contain p-4 transition duration-500 group-hover:scale-105"
                   />
@@ -169,7 +169,7 @@ export default async function LieldienasSection() {
                   <div className="relative h-44 w-36 shrink-0 bg-white">
                     <Image
                       src={item.image}
-                      alt={item.title}
+                      alt={`${item.title} – Lieldienu kostīmu noma`}
                       fill
                       className="object-contain p-4"
                     />
