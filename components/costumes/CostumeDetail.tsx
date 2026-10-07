@@ -110,6 +110,7 @@ export default async function CostumeDetail({
 
             <h1 className="mt-5 text-3xl font-black leading-tight text-gray-900 lg:text-5xl">
               {costume.title}
+              <span className="sr-only"> – </span>
               <span className="mt-2 block text-xl font-bold text-gray-500 lg:text-2xl">
                 {category.noun}
               </span>
