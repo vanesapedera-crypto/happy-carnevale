@@ -9,6 +9,8 @@ import {
   reservationHref,
 } from "@/lib/costumeCatalog";
 import { SITE } from "@/lib/constants";
+import { breadcrumbData } from "@/lib/structuredData";
+import JsonLd from "@/components/seo/JsonLd";
 
 /** Nosaukums un apraksts Google rezultātiem. */
 export async function costumeMetadata(
@@ -26,11 +28,28 @@ export async function costumeMetadata(
     .filter(Boolean)
     .join(", ");
 
+  const title = `${costume.title} – ${category.noun} | Happy Carnevale`;
+  const description = `${costume.title} – ${category.noun} Rīgā un visā Latvijā. ${
+    details ? `${details}. ` : ""
+  }Rezervē tiešsaistē.`;
+
   return {
-    title: `${costume.title} – ${category.noun} | Happy Carnevale`,
-    description: `${costume.title} – ${category.noun} Rīgā un visā Latvijā. ${
-      details ? `${details}. ` : ""
-    }Rezervē tiešsaistē.`,
+    title,
+    description,
+    // Daloties ar kostīma saiti, rāda šī kostīma bildi (samazinātu līdz 1200 px)
+    openGraph: {
+      title,
+      description,
+      siteName: SITE.name,
+      locale: "lv_LV",
+      type: "website",
+      images: [
+        {
+          url: `/_next/image?url=${encodeURIComponent(costume.image)}&w=1200&q=75`,
+          alt: `${costume.title} – ${category.noun}`,
+        },
+      ],
+    },
   };
 }
 
@@ -69,6 +88,14 @@ export default async function CostumeDetail({
 
   return (
     <main className="bg-[#fff7fb] pb-20 pt-8">
+      <JsonLd
+        data={breadcrumbData([
+          { name: "Sākums", path: "/" },
+          { name: "Kostīmu noma", path: "/kostimu-noma" },
+          { name: category.name, path: `/kostimu-noma/${category.path}` },
+          { name: costume.title, path: costume.href },
+        ])}
+      />
       <div className="mx-auto max-w-7xl px-5 lg:px-6">
         {/* Ceļš līdz lapai */}
         <nav aria-label="Ceļš" className="mb-6 text-sm text-gray-500">
