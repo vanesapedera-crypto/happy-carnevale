@@ -14,11 +14,17 @@ export function reviewEmailHtml(
   const greeting = name.trim() ? `Sveiki, ${escapeHtml(name.trim())}!` : "Sveiki!";
   const url = escapeHtml(reviewUrl);
   // Otrais teikums atkarībā no tā, ko klients izmantoja.
+  const thanks =
+    kind === "pasakums" && service.trim() === "Sejas apgleznošana"
+      ? "Paldies, ka izvēlējāties mūsu sejas apgleznošanu!"
+      : thankYouLine(kind, service);
   const hope =
     kind === "rezervacija"
       ? "Ceram, ka kostīms lieliski papildināja Jūsu pasākumu."
       : kind === "veikals"
       ? "Ceram, ka ar pirkumu esat apmierināti."
+      : kind === "pasakums" && service.trim() === "Sejas apgleznošana"
+      ? "Ceram, ka tā sagādāja daudz prieka un smaidu."
       : kind === "pasakums" && service.trim() === "Animatori"
       ? "Ceram, ka pasākums izdevās lieliski un mūsu animatori palīdzēja radīt neaizmirstamus mirkļus."
       : kind === "pasakums"
@@ -31,7 +37,7 @@ export function reviewEmailHtml(
       </div>
       <div style="padding:35px;font-size:16px;line-height:1.6;color:#1f2937;">
         <p>${greeting}</p>
-        <p>${escapeHtml(thankYouLine(kind, service))} ${hope}</p>
+        <p>${escapeHtml(thanks)} ${hope}</p>
         <p>Ja atradīsiet minūti, lai atstātu atsauksmi Google, mēs būsim no sirds pateicīgi. Jūsu atsauksme mums ir ļoti svarīgs atbalsts un palīdz arī citiem klientiem atrast mūs.</p>
         <p style="text-align:center;margin:32px 0;">
           <a href="${url}" style="display:inline-block;background:#ec4899;color:#fff;text-decoration:none;font-weight:bold;padding:14px 28px;border-radius:12px;">Uzrakstīt atsauksmi</a>
