@@ -25,6 +25,8 @@ export function reviewEmailHtml(
       ? "Ceram, ka ar pirkumu esat apmierināti."
       : kind === "pasakums" && service.trim() === "Sejas apgleznošana"
       ? "Ceram, ka tā sagādāja daudz prieka un smaidu."
+      : kind === "pasakums" && service.trim() === "Pārsteiguma tēls"
+      ? "Ceram, ka pārsteigums sagādāja daudz prieka un pozitīvu emociju."
       : kind === "pasakums" && service.trim() === "Animatori"
       ? "Ceram, ka pasākums izdevās lieliski un mūsu animatori palīdzēja radīt neaizmirstamus mirkļus."
       : kind === "pasakums"
