@@ -69,16 +69,24 @@ export default async function ReviewsPage() {
             <ReviewLinkForm key={settings.reviewUrl} initialUrl={settings.reviewUrl} />
           </section>
 
-          <section className={CARD}>
-            <h2 className="mb-1 text-lg font-bold">Lūgt atsauksmi citam klientam</h2>
-            <p className="mb-4 text-sm text-slate-500">Klientam, kurš nav sarakstā zemāk, piemēram, pieteicās pa telefonu.</p>
-            <ManualRequest reviewUrl={settings.reviewUrl} />
-          </section>
-
           <section>
-            <h2 className="mb-3 text-lg font-bold">Visi pieteikumi</h2>
+            <h2 className="mb-3 text-lg font-bold">Visi pieteikumi no mājaslapas</h2>
             <ReviewRequestList pending={pending} done={done} reviewUrl={settings.reviewUrl} />
           </section>
+
+          {/* Tikai klientiem, kas pieteicās ārpus mājaslapas; pēc noklusējuma aizvērts. */}
+          <details className={`${CARD} group`}>
+            <summary className="cursor-pointer list-none text-lg font-bold">
+              <span className="mr-2 inline-block transition group-open:rotate-90">›</span>
+              Pievienot klientu ar roku
+              <span className="mt-1 block text-sm font-normal text-slate-500">
+                Tikai tiem, kas pieteicās pa telefonu vai klātienē. Pieteikumi no mājaslapas sarakstā parādās paši.
+              </span>
+            </summary>
+            <div className="mt-4">
+              <ManualRequest reviewUrl={settings.reviewUrl} />
+            </div>
+          </details>
         </div>
       )}
     </AdminShell>
