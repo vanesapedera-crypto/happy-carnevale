@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { setBookingCancelledAction } from "@/lib/admin/bookingActions";
 
-/** "Atcelts" / "Atjaunot" pieteikumam kalendārā. */
+/** "Nenotika" (izņem no kalendāra) / "Atjaunot". */
 export default function CancelButton({ id, cancelled }: { id: string; cancelled: boolean }) {
   const router = useRouter();
   const [pending, setPending] = useState(false);
@@ -28,10 +28,11 @@ export default function CancelButton({ id, cancelled }: { id: string; cancelled:
       <button
         type="button"
         onClick={toggle}
+        title={cancelled ? "Atgriezt pieteikumu kalendārā" : "Noma atcelta vai pasākums nenotika: izņemt no kalendāra"}
         disabled={pending}
         className="rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:bg-slate-50 disabled:opacity-40"
       >
-        {cancelled ? "Atjaunot" : "Atcelt"}
+        {cancelled ? "Atjaunot" : "Atcelts / nenotika"}
       </button>
       {error && (
         <span role="alert" className="text-xs font-medium text-red-600">

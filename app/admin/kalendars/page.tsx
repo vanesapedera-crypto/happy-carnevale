@@ -14,6 +14,7 @@ import {
   monthRange,
   monthWeeks,
   parseMonth,
+  shortDate,
   shiftMonth,
   todayInRiga,
 } from "@/lib/bookings/month";
@@ -57,9 +58,12 @@ export default async function CalendarPage({ searchParams }: CalendarPageProps) 
     }
   }
 
-  const byDate = entriesByDate(bookings, from, to);
+  // Atceltās nomas un nenotikušie pasākumi kalendārā netiek rādīti; tie ir atsevišķā sarakstā zemāk.
+  const active = bookings.filter((booking) => !booking.cancelled);
+  const cancelledBookings = bookings.filter((booking) => booking.cancelled);
+  const byDate = entriesByDate(active, from, to);
   const days = [...byDate.keys()].sort();
-  const total = new Set(bookings.filter((booking) => !booking.cancelled).map((booking) => booking.id)).size;
+  const total = active.length;
   const navLink = (delta: number) => `/admin/kalendars?m=${monthParam(shiftMonth(month, delta))}`;
 
   return (
@@ -235,6 +239,25 @@ export default async function CalendarPage({ searchParams }: CalendarPageProps) 
                   </div>
                 ))}
               </div>
+            )}
+            {cancelledBookings.length > 0 && (
+              <details className="mt-8 rounded-2xl border border-slate-200 bg-white p-4">
+                <summary className="cursor-pointer text-sm font-bold text-slate-600">
+                  Atceltie un nenotikušie ({cancelledBookings.length})
+                </summary>
+                <ul className="mt-3 divide-y divide-slate-100">
+                  {cancelledBookings.map((booking) => (
+                    <li key={booking.id} className="flex flex-wrap items-center justify-between gap-3 py-2 text-sm">
+                      <span className="text-slate-500">
+                        {booking.eventDate ? `${shortDate(booking.eventDate)} · ` : ""}
+                        {booking.title || "—"}
+                        {booking.name ? ` – ${booking.name}` : ""}
+                      </span>
+                      <CancelButton id={booking.id} cancelled />
+                    </li>
+                  ))}
+                </ul>
+              </details>
             )}
           </section>
         </>
