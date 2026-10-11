@@ -186,6 +186,28 @@ export async function restInsert<T>(
 }
 
 /** Atgriež mainīto rindu vai null, ja filtram neatbilst neviena rinda. */
+/** Ievieto vai pārraksta rindu ar to pašu primāro atslēgu. */
+export async function restUpsert<T>(
+  conn: Connection,
+  key: string,
+  table: string,
+  row: Record<string, unknown>
+): Promise<T> {
+  const response = await ensureOk(
+    await send(tableUrl(conn, table, ""), {
+      method: "POST",
+      headers: {
+        ...authHeaders(key),
+        "Content-Type": "application/json",
+        Prefer: "resolution=merge-duplicates,return=representation",
+      },
+      body: JSON.stringify(row),
+    })
+  );
+  const rows = (await response.json()) as T[];
+  return rows[0];
+}
+
 export async function restUpdate<T>(
   conn: Connection,
   key: string,

@@ -2,6 +2,7 @@ import { Resend } from "resend";
 import { NextResponse } from "next/server";
 import { SHIPPING, SITE } from "@/lib/constants";
 import { escapeHtml, invoiceEnabled, invoiceHtml } from "@/lib/invoice";
+import { recordReviewRequest } from "@/lib/reviews/record";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -214,6 +215,15 @@ export async function POST(req: Request) {
     if (confirmationError) {
       console.error(confirmationError);
     }
+
+    // Klients parādās admin paneļa sadaļā "Atsauksmes"; lūgumu sūta tikai ar pogu.
+    await recordReviewRequest({
+      source: "veikals",
+      name,
+      email,
+      phone,
+      service: items.map((item) => item.title).join(", "),
+    });
 
     return NextResponse.json({ ok: true, orderNumber, invoice: sendInvoice });
   } catch (error) {

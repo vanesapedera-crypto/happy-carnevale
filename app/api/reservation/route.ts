@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 import { formatDateLv } from "@/lib/date";
+import { recordReviewRequest } from "@/lib/reviews/record";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -128,6 +129,16 @@ export async function POST(req: Request) {
         }
       );
     }
+
+    // Klients parādās admin paneļa sadaļā "Atsauksmes"; lūgumu sūta tikai ar pogu.
+    await recordReviewRequest({
+      source: "rezervacija",
+      name: body.name,
+      email: body.email,
+      phone: body.phone,
+      service: body.costume,
+      eventDate: body.date,
+    });
 
     return NextResponse.json({
       ok: true,

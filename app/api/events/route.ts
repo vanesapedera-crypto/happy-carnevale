@@ -1,6 +1,13 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 import { formatDateLv } from "@/lib/date";
+import { recordReviewRequest } from "@/lib/reviews/record";
+
+const SERVICE_LABELS: Record<string, string> = {
+  animators: "Animatori",
+  sejinas: "Sejas apgleznošana",
+  parsteigums: "Pārsteiguma tēls",
+};
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -127,6 +134,16 @@ ${body.komentars || "-"}
         }
       );
     }
+
+    // Klients parādās admin paneļa sadaļā "Atsauksmes"; lūgumu sūta tikai ar pogu.
+    await recordReviewRequest({
+      source: "pasakums",
+      name: body.vards,
+      email: body.epasts,
+      phone: body.telefons,
+      service: SERVICE_LABELS[String(body.pakalpojums)] ?? "",
+      eventDate: body.datums,
+    });
 
     return NextResponse.json({
       success: true,

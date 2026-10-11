@@ -176,3 +176,18 @@ starp kaimiņiem); ja starp kaimiņiem vairs nav brīvu skaitļu, pārnumurē vi
 - Pārlūks lielus attēlus pirms augšupielādes samazina līdz 1600 px garākajā malā.
 - Ja sadaļā nav neviena aktīva ieraksta vai datubāze nav sasniedzama, mājaslapa rāda
   kodā iebūvēto sarakstu. Tāpēc sadaļu nevar padarīt pilnīgi tukšu.
+
+## Atsauksmes (`/admin/atsauksmes`)
+
+Admin paneļa sadaļa Google atsauksmju lūgšanai. **Nekas netiek sūtīts automātiski**: lūgums aiziet tikai
+tad, kad admin panelī nospiež pogu (piem., kostīms var netikt iznomāts, lai gan pieteikums ir).
+
+- **Google atsauksmju saite** glabājas tabulā `site_settings` (`google_review_url`).
+- **Visi pieteikumi:** katra kostīma rezervācija (`/api/reservation`), pasākuma pieteikums (`/api/events`) un
+  veikala pasūtījums (`/api/order`) pievieno klientu tabulā `review_requests` (`lib/reviews/record.ts`).
+  Pie katra: "Pieprasīt atsauksmi (e-pasts)", "WhatsApp" (atver wa.me ar gatavu ziņu un atzīmē kā palūgtu),
+  "Nenotika" / "Atjaunot".
+- **Lūgt atsauksmi citam klientam:** ar roku ievadīts klients (WhatsApp vai e-pasts); e-pasts ierakstās sarakstā.
+- Pateicības teikums atbilst veidam (kostīma noma / svētki / veikala pasūtījums): `thankYouLine`
+  `lib/reviews/whatsapp.ts`; e-pasta noformējums `lib/reviews/email.ts`; sūtīšana caur Resend.
+- Iestatīšana: Supabase palaist `supabase/atsauksmes.sql`.
