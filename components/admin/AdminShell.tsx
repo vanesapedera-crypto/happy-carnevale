@@ -5,12 +5,13 @@ import LogoutButton from "./LogoutButton";
 interface AdminShellProps {
   email: string;
   /** Kura sadaļa ir atvērta (izcelta izvēlnē). */
-  current?: "bildes" | "atsauksmes";
+  current?: "bildes" | "kalendars" | "atsauksmes";
   children: ReactNode;
 }
 
 const NAV = [
   { key: "bildes", label: "Bildes", href: "/admin/dashboard" },
+  { key: "kalendars", label: "Kalendārs", href: "/admin/kalendars" },
   { key: "atsauksmes", label: "Atsauksmes", href: "/admin/atsauksmes" },
 ] as const;
 

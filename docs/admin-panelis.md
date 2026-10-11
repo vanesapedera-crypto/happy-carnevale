@@ -190,3 +190,16 @@ tad, kad admin panelī nospiež pogu (piem., kostīms var netikt iznomāts, lai 
 - Pateicības teikums atbilst veidam (kostīma noma / svētki / veikala pasūtījums): `thankYouLine`
   `lib/reviews/whatsapp.ts`; e-pasta noformējums `lib/reviews/email.ts`; sūtīšana caur Resend.
 - Iestatīšana: Supabase palaist `supabase/atsauksmes.sql`.
+
+## Kalendārs (`/admin/kalendars`)
+
+Mēneša kalendārs ar visiem pieteikumiem no mājaslapas.
+
+- Kostīma rezervācija (`/api/reservation`) un pasākuma pieteikums (`/api/events`) pēc veiksmīgas
+  nosūtīšanas tiek saglabāti tabulā `bookings` (`lib/bookings/record.ts`) ar visu informāciju (`details`).
+  Veikala pasūtījumiem datuma nav, tāpēc kalendārā tie neparādās.
+- Kalendārā: rezervācija pasākuma dienā (rozā) un kostīma saņemšanas dienā (dzeltena), pasākums (violets)
+  ar laiku. Zem kalendāra mēneša saraksts pa dienām ar "Visa informācija" un pogu "Atcelt" / "Atjaunot"
+  (atcelts paliek redzams pārsvītrots).
+- Mēneša maiņa ar `?m=2026-10`.
+- Iestatīšana: Supabase palaist `supabase/kalendars.sql`.

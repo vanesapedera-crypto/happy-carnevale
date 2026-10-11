@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 import { formatDateLv } from "@/lib/date";
+import { bookingFromEvent, recordBooking } from "@/lib/bookings/record";
 import { recordReviewRequest } from "@/lib/reviews/record";
 
 const SERVICE_LABELS: Record<string, string> = {
@@ -136,6 +137,8 @@ ${body.komentars || "-"}
     }
 
     // Klients parādās admin paneļa sadaļā "Atsauksmes"; lūgumu sūta tikai ar pogu.
+    // Pieteikums admin paneļa kalendārā un atsauksmju sarakstā.
+    await recordBooking(bookingFromEvent(body));
     await recordReviewRequest({
       source: "pasakums",
       name: body.vards,

@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 import { formatDateLv } from "@/lib/date";
+import { bookingFromReservation, recordBooking } from "@/lib/bookings/record";
 import { recordReviewRequest } from "@/lib/reviews/record";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -131,6 +132,8 @@ export async function POST(req: Request) {
     }
 
     // Klients parādās admin paneļa sadaļā "Atsauksmes"; lūgumu sūta tikai ar pogu.
+    // Pieteikums admin paneļa kalendārā un atsauksmju sarakstā.
+    await recordBooking(bookingFromReservation(body));
     await recordReviewRequest({
       source: "rezervacija",
       name: body.name,
