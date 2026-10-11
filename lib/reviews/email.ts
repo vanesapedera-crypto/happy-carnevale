@@ -19,6 +19,10 @@ export function reviewEmailHtml(
       ? "Ceram, ka kostīms lieliski papildināja Jūsu pasākumu."
       : kind === "veikals"
       ? "Ceram, ka ar pirkumu esat apmierināti."
+      : kind === "pasakums" && service.trim() === "Animatori"
+      ? "Ceram, ka pasākums izdevās lieliski un mūsu animatori palīdzēja radīt neaizmirstamus mirkļus."
+      : kind === "pasakums"
+      ? "Ceram, ka pasākums izdevās lieliski."
       : "Ceram, ka viss izdevās lieliski.";
   return `
     <div style="max-width:600px;margin:auto;font-family:Arial,sans-serif;background:#fff;border-radius:20px;border:1px solid #eee;overflow:hidden;">
