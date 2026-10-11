@@ -187,7 +187,6 @@ tad, kad admin panelī nospiež pogu (piem., kostīms var netikt iznomāts, lai 
   veikala pasūtījums (`/api/order`) pievieno klientu tabulā `review_requests` (`lib/reviews/record.ts`).
   Pie katra: "Pieprasīt atsauksmi (e-pasts)", "WhatsApp" (atver wa.me ar gatavu ziņu un atzīmē kā palūgtu),
   "Nenotika" / "Atjaunot".
-- **Lūgt atsauksmi citam klientam:** ar roku ievadīts klients (WhatsApp vai e-pasts); e-pasts ierakstās sarakstā.
 - Pateicības teikums atbilst veidam (kostīma noma / svētki / veikala pasūtījums): `thankYouLine`
   `lib/reviews/whatsapp.ts`; e-pasta noformējums `lib/reviews/email.ts`; sūtīšana caur Resend.
 - Iestatīšana: Supabase palaist `supabase/atsauksmes.sql`.
