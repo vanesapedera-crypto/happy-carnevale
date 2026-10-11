@@ -20,8 +20,8 @@ export function reviewEmailHtml(
       : "Ceram, ka viss izdevās lieliski.";
   return `
     <div style="max-width:600px;margin:auto;font-family:Arial,sans-serif;background:#fff;border-radius:20px;border:1px solid #eee;overflow:hidden;">
-      <div style="background:#ec4899;padding:25px;text-align:center;">
-        <h1 style="color:#fff;margin:0;">🎭 Happy Carnevale</h1>
+      <div style="background:#fff;padding:28px 25px 22px;text-align:center;border-bottom:4px solid #ec4899;">
+        <img src="${SITE.url}/images/logo-email.png" width="200" alt="Happy Carnevale" style="display:inline-block;width:200px;max-width:60%;height:auto;border:0;" />
       </div>
       <div style="padding:35px;font-size:16px;line-height:1.6;color:#1f2937;">
         <p>${greeting}</p>
