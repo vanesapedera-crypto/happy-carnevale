@@ -203,4 +203,6 @@ Mēneša kalendārs ar visiem pieteikumiem no mājaslapas.
   ar laiku. Zem kalendāra mēneša saraksts pa dienām ar "Visa informācija" un pogu "Atcelt" / "Atjaunot"
   (atcelts paliek redzams pārsvītrots).
 - Mēneša maiņa ar `?m=2026-10`.
+- "+ Pievienot pieteikumu ar roku": veids, kostīms/pakalpojums, pasākuma datums (obligāts), saņemšanas datums vai laiks,
+  kontakti, adrese, piezīmes (`addBookingAction`). Ja ir e-pasts, klients parādās arī atsauksmju sarakstā.
 - Iestatīšana: Supabase palaist `supabase/kalendars.sql`.

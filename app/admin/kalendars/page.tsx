@@ -1,6 +1,7 @@
 import Link from "next/link";
 import AdminShell from "@/components/admin/AdminShell";
 import NotConfigured from "@/components/admin/NotConfigured";
+import AddBookingForm from "@/components/admin/calendar/AddBookingForm";
 import CancelButton from "@/components/admin/calendar/CancelButton";
 import { entriesByDate, entryColor, entryLabel } from "@/components/admin/calendar/entries";
 import { getAdminConfig, getMissingEnv } from "@/lib/admin/config";
@@ -101,6 +102,11 @@ export default async function CalendarPage({ searchParams }: CalendarPageProps) 
         </p>
       ) : (
         <>
+          <details className="mt-6 rounded-2xl border border-slate-200 bg-white p-4 [&[open]>summary]:mb-4">
+            <summary className="cursor-pointer text-sm font-bold text-pink-600">+ Pievienot pieteikumu ar roku</summary>
+            <AddBookingForm />
+          </details>
+
           <div className="mt-6 hidden overflow-hidden rounded-2xl border border-slate-200 bg-white sm:block">
             <div className="grid grid-cols-7 border-b border-slate-200 bg-slate-50 text-center text-xs font-semibold uppercase tracking-wide text-slate-500">
               {WEEKDAYS.map((day) => (
