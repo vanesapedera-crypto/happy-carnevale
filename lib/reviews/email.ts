@@ -13,10 +13,12 @@ export function reviewEmailHtml(
 ): string {
   const greeting = name.trim() ? `Sveiki, ${escapeHtml(name.trim())}!` : "Sveiki!";
   const url = escapeHtml(reviewUrl);
-  // Kostīma nomai Vanesas teikums; pasākumiem un pasūtījumiem vispārīgs.
+  // Otrais teikums atkarībā no tā, ko klients izmantoja.
   const hope =
     kind === "rezervacija"
       ? "Ceram, ka kostīms lieliski papildināja Jūsu pasākumu."
+      : kind === "veikals"
+      ? "Ceram, ka ar pirkumu esat apmierināti."
       : "Ceram, ka viss izdevās lieliski.";
   return `
     <div style="max-width:600px;margin:auto;font-family:Arial,sans-serif;background:#fff;border-radius:20px;border:1px solid #eee;overflow:hidden;">
