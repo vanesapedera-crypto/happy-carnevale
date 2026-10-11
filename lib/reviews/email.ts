@@ -2,6 +2,30 @@ import { SITE } from "@/lib/constants";
 import { escapeHtml } from "@/lib/invoice";
 import { thankYouLine, type ReviewKind } from "./whatsapp";
 
+/** Vīriešu vārdi ar -a galotni un sieviešu vārdi ar -s galotni (izņēmumi). */
+const MALE_A = new Set(["nikita", "luka", "ilja", "saša", "miša", "koļa", "kostja", "vova", "jura", "andrea"]);
+const FEMALE_S = new Set(["agnes", "iris", "doris", "ines", "ingrīds", "dolores", "mercedes"]);
+
+/**
+ * Dzimums pēc vārda (latviešu galotnēm): -a/-e sieviete, -s/-š vīrietis.
+ * Ja nevar noteikt (nav vārda vai ārzemju vārds), null.
+ */
+export function guessGender(name: string): "female" | "male" | null {
+  const first = name.trim().split(/\s+/)[0]?.toLocaleLowerCase("lv") ?? "";
+  if (first.length < 2 || !/^[\p{L}-]+$/u.test(first)) return null;
+  if (MALE_A.has(first)) return "male";
+  if (FEMALE_S.has(first)) return "female";
+  if (/[ae]$/.test(first)) return "female";
+  if (/[sš]$/.test(first)) return "male";
+  return null;
+}
+
+function satisfied(gender: "female" | "male" | null): string {
+  if (gender === "female") return "apmierināta";
+  if (gender === "male") return "apmierināts";
+  return "apmierināti";
+}
+
 export const REVIEW_EMAIL_SUBJECT = "Kā Jums patika? – Happy Carnevale";
 
 /** Automātiskā atsauksmes lūguma e-pasts. */
@@ -22,7 +46,7 @@ export function reviewEmailHtml(
     kind === "rezervacija"
       ? "Ceram, ka kostīms lieliski papildināja Jūsu pasākumu."
       : kind === "veikals"
-      ? "Ceram, ka ar pirkumu esat apmierināti."
+      ? `Ceram, ka ar pirkumu esat ${satisfied(guessGender(name))}.`
       : kind === "pasakums" && service.trim() === "Sejas apgleznošana"
       ? "Ceram, ka tā sagādāja daudz prieka un smaidu."
       : kind === "pasakums" && service.trim() === "Pārsteiguma tēls"
