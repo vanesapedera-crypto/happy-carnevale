@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { WORKSHOP_GALLERY_KEY } from "@/lib/admin/sections";
-import { loadGalleryImages } from "@/lib/gallery";
+import { getSectionItems } from "@/lib/sections";
 
+/** Iebūvētais saraksts: tiek rādīts bez bildēm, ja admin panelī nav nevienas darbnīcas. */
 const activities = [
   "Koka vilciņu meistarklase",
   "Dimanta uzlīmju izveide",
@@ -16,8 +17,9 @@ const activities = [
 ];
 
 export default async function RadosasDarbnicasSection() {
-  // Attēlus pievieno admin panelī; kamēr to nav, galerija lapā netiek rādīta.
-  const images = await loadGalleryImages(WORKSHOP_GALLERY_KEY);
+  // Darbnīcas (bilde + nosaukums) pārvalda admin panelī.
+  const managed = await getSectionItems(WORKSHOP_GALLERY_KEY);
+  const workshops = (managed ?? []).filter((item) => item.imageUrl);
 
   return (
     <section className="py-20">
@@ -38,32 +40,36 @@ export default async function RadosasDarbnicasSection() {
 </p>
           </div>
 
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {activities.map((item) => (
-              <div
-                key={item}
-                className="rounded-[28px] border border-violet-100 bg-violet-50 px-6 py-5 text-lg font-semibold text-gray-900 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
-              >
-                {item}
-              </div>
-            ))}
-          </div>
-
-          {images.length > 0 && (
-            <div className="mt-12 columns-1 gap-5 sm:columns-2 lg:columns-3">
-              {images.map((image, index) => (
+          {workshops.length > 0 ? (
+            <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {workshops.map((workshop) => (
                 <div
-                  key={`${index}-${image}`}
-                  className="mb-5 overflow-hidden rounded-3xl bg-gray-100 shadow-lg break-inside-avoid"
+                  key={workshop.id}
+                  className="overflow-hidden rounded-[28px] border border-violet-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md"
                 >
-                  <Image
-                    src={image}
-                    alt={`Radošā darbnīca ${index + 1}`}
-                    width={900}
-                    height={1200}
-                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                    className="h-auto w-full"
-                  />
+                  <div className="relative aspect-[4/3] bg-white">
+                    <Image
+                      src={workshop.imageUrl}
+                      alt={workshop.title}
+                      fill
+                      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                      className="object-contain"
+                    />
+                  </div>
+                  <div className="bg-violet-50 px-6 py-5 text-lg font-semibold text-gray-900">
+                    {workshop.title}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {activities.map((item) => (
+                <div
+                  key={item}
+                  className="rounded-[28px] border border-violet-100 bg-violet-50 px-6 py-5 text-lg font-semibold text-gray-900 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+                >
+                  {item}
                 </div>
               ))}
             </div>

@@ -36,7 +36,7 @@ const PASAKUMI = "Pasākumi";
 export const ANIMATOR_SECTION_KEY = "animatoru-terpi";
 /** Attēlu galerija lapā "Pārsteiguma tēls". */
 export const SURPRISE_GALLERY_KEY = "parsteiguma-galerija";
-/** Attēlu galerija lapā "Radošās darbnīcas" (lapā redzama tikai tad, ja ir attēli). */
+/** Darbnīcas lapā "Radošās darbnīcas": katrai bilde un nosaukums. */
 export const WORKSHOP_GALLERY_KEY = "radoso-darbnicu-galerija";
 
 function costumes(key: string, label: string, group: string, path: string): SectionDefinition {
@@ -91,13 +91,13 @@ export const SECTIONS: readonly SectionDefinition[] = [
   },
   {
     key: WORKSHOP_GALLERY_KEY,
-    label: "Radošās darbnīcas: galerija",
+    label: "Radošās darbnīcas",
     group: PASAKUMI,
     path: "/pasakumu-organizesana/radosas-darbnicas",
     hasPriceAndSize: false,
-    hasTitle: false,
+    hasTitle: true,
     emptyHint:
-      "Šajā sadaļā vēl nav attēlu. Kad pievienosi pirmo, lapā Radošās darbnīcas parādīsies galerija.",
+      "Šajā sadaļā vēl nav darbnīcu. Kamēr tā ir tukša, lapā redzams darbnīcu saraksts bez bildēm.",
   },
 ];
 

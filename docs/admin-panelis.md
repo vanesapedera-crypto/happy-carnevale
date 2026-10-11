@@ -79,14 +79,15 @@ Pasākumi:
 | --- | --- |
 | Rezervācija pasākumiem (`/rezervacija-pasakumiem`), tēla izvēle animatoram | `animatoru-terpi` |
 | Pārsteiguma tēls (`/pasakumu-organizesana/parsteiguma-tels`), galerija | `parsteiguma-galerija` |
-| Radošās darbnīcas (`/pasakumu-organizesana/radosas-darbnicas`), galerija | `radoso-darbnicu-galerija` |
+| Radošās darbnīcas (`/pasakumu-organizesana/radosas-darbnicas`), darbnīcas ar bildi un nosaukumu | `radoso-darbnicu-galerija` |
 
 Animatoru tērpiem ir tikai nosaukums un attēls (bez cenas un izmēra). Lapa tos nolasa
 servera pusē (`app/rezervacija-pasakumiem/page.tsx`) un nodod formai kā `animatorCharacters`.
 
 Galerijām (`hasTitle: false`) ir tikai attēli: admin kartītē nav nosaukuma lauka.
-Pārsteiguma tēla galerija bez ierakstiem rāda 10 iebūvētos attēlus. Radošo darbnīcu
-galerijai iebūvētu attēlu nav: lapā tā parādās tikai tad, kad ir pievienots vismaz viens attēls.
+Pārsteiguma tēla galerija bez ierakstiem rāda 10 iebūvētos attēlus.
+Radošās darbnīcas (`hasTitle: true`): katra darbnīca ir kartīte ar bildi augšā un nosaukumu apakšā; ja admin
+panelī nav nevienas darbnīcas, lapā redzams iebūvētais saraksts bez bildēm.
 
 ## Datu modelis
 
