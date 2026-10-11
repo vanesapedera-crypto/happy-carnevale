@@ -12,27 +12,27 @@ const mainCategories = [
   {
     title: "Animatori",
     href: "/pasakumu-organizesana/animatori",
-    image: "/images/hero/animatori.png",
+    image: "/images/hero/animatori.jpg",
     description: "Jautras rotaļas, dejas un aktivitātes bērnu svētkiem.",
   },
   {
     title: "Pārsteiguma tēls",
     href: "/pasakumu-organizesana/parsteiguma-tels",
-    image: "/images/hero/parsteiguma-tels.png",
+    image: "/images/hero/parsteiguma-tels.jpg",
     description:
       "Iemīļotais tēls ierodas apsveikt jubilāru un iepriecināt viesus.",
   },
   {
     title: "Sejas apgleznošana",
     href: "/pasakumu-organizesana/sejas-apgleznosana",
-    image: "/images/hero/sejas-apgleznosana.png",
+    image: "/images/hero/sejas-apgleznosana.jpg",
     description:
       "Profesionāla sejas apgleznošana ar drošām un kvalitatīvām krāsām.",
   },
   {
     title: "Radošās darbnīcas",
     href: "/pasakumu-organizesana/radosas-darbnicas",
-    image: "/images/hero/radosas-darbnicas.png",
+    image: "/images/hero/radosas-darbnicas.jpg",
     description: "Radošas un aizraujošas darbnīcas bērniem un pasākumiem.",
   },
 ];
@@ -41,13 +41,13 @@ const seasonalCategories = [
   {
     title: "Ziemassvētki",
     href: "/pasakumu-organizesana/ziemassvetki",
-    image: "/images/hero/ziemassvetki.png",
+    image: "/images/hero/ziemassvetki.jpg",
     description: "Svētku darbnīcas un programmas Ziemassvētku pasākumiem.",
   },
     {
     title: "Helovīns",
     href: "/pasakumu-organizesana/helovins",
-    image: "/images/hero/helovins.png",
+    image: "/images/hero/helovins.jpg",
     description: "Baisi jautras aktivitātes un tematiskas darbnīcas Helovīnam.",
   },
 ];

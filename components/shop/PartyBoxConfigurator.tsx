@@ -34,17 +34,17 @@ const sticks = [
   {
     id: "2",
     title: "Burbuļu kociņš A",
-    image: "/images/shop/burbulu-kocins-11.png",
+    image: "/images/shop/burbulu-kocins-11.jpg",
   },
   {
     id: "3",
     title: "Burbuļu kociņš B",
-    image: "/images/shop/burbulu-kocins-33.png",
+    image: "/images/shop/burbulu-kocins-33.jpg",
   },
   {
     id: "4",
     title: "Burbuļu kociņš C",
-    image: "/images/shop/burbulu-kocins-44.png",
+    image: "/images/shop/burbulu-kocins-44.jpg",
   },
 ];
 
@@ -78,7 +78,7 @@ const addPartyBoxToCart = () => {
     addItem({
       id: `party-box-${selectedBox.id}-${selectedSticks.join("-")}`,
       title: `Party Box — ${selectedBox.title} (${stickTitles.join(", ")})`,
-      image: "/images/shop/party-box.png",
+      image: "/images/shop/party-box.jpg",
       price: selectedBox.price,
     });
   };

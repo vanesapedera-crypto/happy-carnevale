@@ -15,7 +15,7 @@ export default function RadosasDarbnicasPage() {
         badge="PASĀKUMU ORGANIZĒŠANA"
         title="Radošās darbnīcas"
         description="Radošas un pielāgojamas darbnīcas pasākumiem, uzņēmumu svētkiem un bērnu dienām."
-        image="/images/hero/radosas-darbnicas.png"
+        image="/images/hero/radosas-darbnicas.jpg"
       />
 
       <RadosasDarbnicasSection />

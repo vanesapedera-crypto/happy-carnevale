@@ -36,7 +36,7 @@ export default function Hero() {
 
         {/* Burbulīte */}
         <Image
-          src="/images/hero/hero-right.png"
+          src="/images/hero/hero-right.jpg"
           alt="Burbulīte"
           width={1800}
           height={2200}
@@ -99,7 +99,7 @@ export default function Hero() {
         {/* Burbulīte – pirmā lieta zem logo */}
         <div className="relative h-[470px] w-full overflow-hidden bg-pink-100">
           <Image
-            src="/images/hero/hero-right.png"
+            src="/images/hero/hero-right.jpg"
             alt="Burbulīte – Happy Carnevale"
             fill
             priority
@@ -131,9 +131,9 @@ Piedāvājumā:
 
         <div className="flex flex-col gap-2.5 px-5">
           {[
-            { href: "/kostimu-noma", title: "Kostīmu noma", text: "Pieaugušajiem", image: "/images/hero/mascota.png" },
-            { href: "/pasakumu-organizesana/animatori", title: "Animatori", text: "Dzimšanas dienām un pasākumiem", image: "/images/hero/animatori.png" },
-            { href: "/pasakumu-organizesana/parsteiguma-tels", title: "Pārsteiguma tēli", text: "Apsveikumi mājās vai birojā", image: "/images/hero/parsteiguma-tels.png" },
+            { href: "/kostimu-noma", title: "Kostīmu noma", text: "Pieaugušajiem", image: "/images/hero/mascota.jpg" },
+            { href: "/pasakumu-organizesana/animatori", title: "Animatori", text: "Dzimšanas dienām un pasākumiem", image: "/images/hero/animatori.jpg" },
+            { href: "/pasakumu-organizesana/parsteiguma-tels", title: "Pārsteiguma tēli", text: "Apsveikumi mājās vai birojā", image: "/images/hero/parsteiguma-tels.jpg" },
             { href: "/veikals", title: "Ziepju burbuļi", text: "Produkti mūsu veikalā", image: "/images/shop/hero.jpg" },
           ].map(({ href, title, text, image }) => (
             <Link

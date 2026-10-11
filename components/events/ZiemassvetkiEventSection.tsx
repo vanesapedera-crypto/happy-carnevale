@@ -14,7 +14,7 @@ export default function ZiemassvetkiEventSection() {
       {/* Sākums ar lielu bildi */}
       <section className="relative flex min-h-[460px] items-end lg:min-h-[560px]">
         <Image
-          src="/images/hero/ziemassvetki.png"
+          src="/images/hero/ziemassvetki.jpg"
           alt="Ziemassvētku programma bērniem"
           fill
           priority

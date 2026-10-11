@@ -15,7 +15,7 @@ export default function MascotaTeliPage() {
         badge="KOSTĪMU NOMA"
         title="Mascota tēlu noma"
         description="Lielizmēra Mascota kostīmi bērnu ballītēm, uzņēmumu pasākumiem, reklāmas aktivitātēm un svētkiem. Iecienītākie tēli, kas rada neaizmirstamas emocijas."
-        image="/images/hero/mascota.png"
+        image="/images/hero/mascota.jpg"
       />
 
       <MascotaSection />

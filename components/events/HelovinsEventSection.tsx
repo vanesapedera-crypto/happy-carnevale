@@ -15,7 +15,7 @@ export default function HelovinsEventSection() {
       {/* Sākums ar lielu bildi */}
       <section className="relative flex min-h-[460px] items-end lg:min-h-[560px]">
         <Image
-          src="/images/hero/helovins.png"
+          src="/images/hero/helovins.jpg"
           alt="Helovīna ballīte"
           fill
           priority

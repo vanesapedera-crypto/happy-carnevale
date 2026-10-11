@@ -19,7 +19,7 @@ export default function CitiTeliPage() {
         badge="KOSTĪMU NOMA"
         title="Smieklīgu tēlu un parūku noma"
         description="Izvēlies dažādus kostīmus bērnu ballītēm, tematiskajiem pasākumiem un karnevāliem."
-        image="/images/hero/citi-teli.png"
+        image="/images/hero/citi-teli.jpg"
       />
 
       {/* Navigācija */}

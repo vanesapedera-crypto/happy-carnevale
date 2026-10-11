@@ -15,7 +15,7 @@ export default function ParukasPage() {
         badge="KOSTĪMU NOMA"
         title="Parūku noma"
         description="Krāsainas, smieklīgas un tēliem atbilstošas parūkas dažādiem pasākumiem, kostīmiem un svētkiem."
-        image="/images/hero/parukas.png"
+        image="/images/hero/parukas.jpg"
       />
 
       <ParukasSection />

@@ -12,7 +12,7 @@ const mainCategories = [
   {
     title: "Mascota tēli",
     href: "/kostimu-noma/mascota-teli",
-    image: "/images/hero/mascota.png",
+    image: "/images/hero/mascota.jpg",
     description: "Iespaidīgi tēli, kas vienmēr sagādā prieku.",
   },
   {
@@ -24,13 +24,13 @@ const mainCategories = [
   {
     title: "Kino tēli un citi interesanti kostīmi",
     href: "/kostimu-noma/filmu-un-pasaku-teli",
-    image: "/images/hero/filmu-teli.png",
+    image: "/images/hero/filmu-teli.jpg",
     description: "Iemīļoti varoņi bērnu svētkiem.",
   },
   {
     title: "Smieklīgi tēli un parūkas",
     href: "/kostimu-noma/smiekligi-teli",
-    image: "/images/hero/citi-teli.png",
+    image: "/images/hero/citi-teli.jpg",
     description: "Dažādi kostīmi jebkuram pasākumam.",
   },
 ];
@@ -39,19 +39,19 @@ const seasonalCategories = [
   {
     title: "Helovīna kostīmi un maskas",
     href: "/kostimu-noma/helovins",
-    image: "/images/hero/helovins.png",
+    image: "/images/hero/helovins.jpg",
     description: "Baisi forši tēli Helovīnam.",
   },
   {
     title: "Ziemassvētku kostīmi",
     href: "/kostimu-noma/ziemassvetki",
-    image: "/images/hero/ziemassvetki.png",
+    image: "/images/hero/ziemassvetki.jpg",
     description: "Ziemassvētku un rūķu kostīmi.",
   },
   {
     title: "Lieldienu kostīmi",
     href: "/kostimu-noma/lieldienas",
-    image: "/images/hero/lieldienas.png",
+    image: "/images/hero/lieldienas.jpg",
     description: "Lieldienu zaķi un svētku tēli.",
   },
 ];

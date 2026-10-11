@@ -12,7 +12,7 @@ const products = [
     description:
       "Gatavs lietošanai. Veido lielus un izturīgus ziepju burbuļus.",
     price: "5.50 €",
-    image: "/images/shop/ziepju-burbulu-skidrums-3l.png",
+    image: "/images/shop/ziepju-burbulu-skidrums-3l.jpg",
   },
   {
     id: "skidrums-5l",
@@ -20,7 +20,7 @@ const products = [
     title: "Ziepju burbuļu koncentrāts 5 L",
     description: "Lielāks iepakojums biežākai lietošanai un pasākumiem.",
     price: "8.00 €",
-    image: "/images/shop/ziepju-burbulu-skidrums-5l.png",
+    image: "/images/shop/ziepju-burbulu-skidrums-5l.jpg",
   },
   {
     id: "kocins-1",
@@ -28,7 +28,7 @@ const products = [
     title: "Burbuļu kociņš Nr.1",
     description: "Veido vienu lielu ziepju burbuli. Augstums 50 cm.",
     price: "6.00 €",
-    image: "/images/shop/burbulu-kocins-1.png",
+    image: "/images/shop/burbulu-kocins-1.jpg",
   },
   {
     id: "kocins-2",
@@ -36,7 +36,7 @@ const products = [
     title: "Burbuļu kociņš Nr.2",
     description: "Veido vienu lielu ziepju burbuli. Augstums 70 cm.",
     price: "7.00 €",
-    image: "/images/shop/burbulu-kocins-2.png",
+    image: "/images/shop/burbulu-kocins-2.jpg",
   },
   {
     id: "kocins-3",
@@ -44,7 +44,7 @@ const products = [
     title: "Burbuļu kociņš Nr.3",
     description: "Veido vairākus savienotus ziepju burbuļus.",
     price: "8.00 €",
-    image: "/images/shop/burbulu-kocins-3.png",
+    image: "/images/shop/burbulu-kocins-3.jpg",
   },
   {
     id: "kocins-4",
@@ -52,7 +52,7 @@ const products = [
     title: "Burbuļu kociņš Nr.4",
     description: "Veido daudz burbuļus vienlaicīgi.",
     price: "8.00 €",
-    image: "/images/shop/burbulu-kocins-4.png",
+    image: "/images/shop/burbulu-kocins-4.jpg",
   },
   {
     id: "kocins-5",
@@ -60,7 +60,7 @@ const products = [
     title: "Burbuļu kociņš Nr.5",
     description: "Veido daudz burbuļus vienlaicīgi.",
     price: "10.00 €",
-    image: "/images/shop/burbulu-kocins-5.png",
+    image: "/images/shop/burbulu-kocins-5.jpg",
     parcelLocker: false,
   },
     {
@@ -70,7 +70,7 @@ const products = [
   description:
     "Izvēlies sev piemērotāko Party Box komplektu un burbuļu kociņus.",
   price: "No 20 €",
-  image: "/images/shop/party-box.png",
+  image: "/images/shop/party-box.jpg",
   isConfigurable: true,
 }
 ];

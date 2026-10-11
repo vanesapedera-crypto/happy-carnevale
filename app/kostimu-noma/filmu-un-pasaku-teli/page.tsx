@@ -20,7 +20,7 @@ export default function FilmuUnPasakuTeliPage() {
         badge="KOSTĪMU NOMA"
         title="Kino tēlu un citu kostīmu noma"
         description="Izvēlies iemīļotākos filmu, multfilmu un pasaku varoņus bērnu ballītēm, tematiskajiem pasākumiem un karnevāliem."
-        image="/images/hero/filmu-teli.png"
+        image="/images/hero/filmu-teli.jpg"
       />
 
       <PrincessesSection />
