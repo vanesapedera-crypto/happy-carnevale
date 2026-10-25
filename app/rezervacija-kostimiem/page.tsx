@@ -119,6 +119,7 @@ function ReservationContent() {
                 src={image || "/kostimi/no-image.jpg"}
                 alt={costume || "Kostīms"}
                 fill
+                sizes="(min-width: 640px) 50vw, 100vw"
                 className="object-contain p-4"
               />
             </div>

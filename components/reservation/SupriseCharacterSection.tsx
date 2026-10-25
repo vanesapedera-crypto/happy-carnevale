@@ -57,6 +57,7 @@ export default function SurpriseCharacterSection({
               }
               alt=""
               fill
+              sizes="(min-width: 768px) 50vw, 100vw"
               className="object-cover"
             />
 
@@ -103,6 +104,7 @@ export default function SurpriseCharacterSection({
                 }
                 alt=""
                 fill
+                sizes="(min-width: 768px) 50vw, 100vw"
                 className="object-cover"
               />
 

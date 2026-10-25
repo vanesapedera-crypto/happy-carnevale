@@ -23,6 +23,11 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     remotePatterns: supabaseImagePatterns(),
+    // Mazāk izmēru variantu = mazāk bilžu apstrāžu un biežāk gatava bilde no kešatmiņas.
+    deviceSizes: [640, 828, 1080, 1200, 1920],
+    imageSizes: [48, 96, 160, 256, 384],
+    // Apstrādātās bildes glabā 31 dienu (citādi Vercel tās pārstrādā atkal un atkal).
+    minimumCacheTTL: 2678400,
   },
 };
 

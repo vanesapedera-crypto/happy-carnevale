@@ -34,6 +34,7 @@ export default function FacePaintingGallery() {
           src={images[current]}
           alt={`Sejas apgleznošana ${current + 1}`}
           fill
+          sizes="(min-width: 1024px) 50vw, 100vw"
           priority
           className="object-cover"
         />
@@ -73,6 +74,7 @@ export default function FacePaintingGallery() {
               src={image}
               alt={`Sejas apgleznošana – miniatūra ${index + 1}`}
               fill
+              sizes="48px"
               className="object-cover"
             />
           </button>

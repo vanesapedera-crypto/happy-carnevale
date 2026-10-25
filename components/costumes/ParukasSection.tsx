@@ -33,6 +33,7 @@ export default async function ParukasSection() {
                     src={item.image}
                     alt={`${item.title} – parūku noma`}
                     fill
+                    sizes="(min-width: 1024px) 25vw, 50vw"
                     className="object-contain p-4"
                   />
                 </Link>
@@ -94,6 +95,7 @@ export default async function ParukasSection() {
                       src={item.image}
                       alt={`${item.title} – parūku noma`}
                       fill
+                      sizes="144px"
                       className="object-contain p-4"
                     />
                   </Link>

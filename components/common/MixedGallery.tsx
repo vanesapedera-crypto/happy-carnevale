@@ -51,6 +51,7 @@ export default function MixedGallery({
                     src={item.src}
                     alt={item.alt || title || "Galerijas attēls"}
                     fill
+                    sizes="(min-width: 768px) 33vw, 50vw"
                     className="object-cover transition duration-500 group-hover:scale-105"
                   />
                 ) : (

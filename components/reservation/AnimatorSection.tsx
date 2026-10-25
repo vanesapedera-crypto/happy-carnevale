@@ -127,6 +127,7 @@ export default function AnimatorSection({
                   }
                   alt=""
                   fill
+                  sizes="(min-width: 768px) 33vw, 100vw"
                   className="object-cover"
                 />
 
@@ -171,6 +172,7 @@ export default function AnimatorSection({
                   }
                   alt=""
                   fill
+                  sizes="(min-width: 640px) 33vw, 50vw"
                   className="object-cover"
                 />
 
@@ -292,6 +294,7 @@ export default function AnimatorSection({
             src={item.image}
             alt={item.title}
             fill
+            sizes="(min-width: 640px) 33vw, 50vw"
             className="object-cover"
           />
 

@@ -31,6 +31,7 @@ export default async function MultfilmuSection() {
                     src={item.image}
                     alt={`${item.title} – kostīmu noma`}
                     fill
+                    sizes="(min-width: 1024px) 25vw, 50vw"
                     className="object-contain p-4 transition duration-500 group-hover:scale-105"
                   />
                 </Link>
@@ -92,6 +93,7 @@ export default async function MultfilmuSection() {
                       src={item.image}
                       alt={`${item.title} – kostīmu noma`}
                       fill
+                      sizes="144px"
                       className="object-contain p-4"
                     />
                   </Link>
