@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { formatDateLv } from "@/lib/date";
 import { bookingFromReservation, recordBooking } from "@/lib/bookings/record";
 import { recordReviewRequest } from "@/lib/reviews/record";
+import { contactButtonsHtml } from "@/lib/email/contactButtons";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -54,6 +55,13 @@ export async function POST(req: Request) {
           <p><strong>Tālrunis:</strong> ${body.phone || "-"}</p>
 
           <p><strong>E-pasts:</strong> ${body.email || "-"}</p>
+
+          ${contactButtonsHtml({
+            name: body.name,
+            phone: body.phone,
+            email: body.email,
+            about: `kostīma rezervāciju (${body.costume || "kostīms"}${body.date ? ", " + formatDateLv(body.date) : ""})`,
+          })}
 
           <hr style="margin:25px 0;">
 

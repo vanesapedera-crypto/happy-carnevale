@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { formatDateLv } from "@/lib/date";
 import { bookingFromEvent, recordBooking } from "@/lib/bookings/record";
 import { recordReviewRequest } from "@/lib/reviews/record";
+import { contactButtonsHtml } from "@/lib/email/contactButtons";
 
 const SERVICE_LABELS: Record<string, string> = {
   animators: "Animatori",
@@ -47,6 +48,13 @@ ${body.pakalpojums}
 <p><strong>Telefons:</strong> ${body.telefons}</p>
 
 <p><strong>E-pasts:</strong> ${body.epasts || "-"}</p>
+
+${contactButtonsHtml({
+  name: body.vards,
+  phone: body.telefons,
+  email: body.epasts,
+  about: `pasākuma pieteikumu (${body.pakalpojums || "pasākums"}${body.datums ? ", " + formatDateLv(body.datums) : ""})`,
+})}
 
 <hr style="margin:25px 0;">
 

@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { SHIPPING, SITE } from "@/lib/constants";
 import { escapeHtml, invoiceEnabled, invoiceHtml } from "@/lib/invoice";
 import { recordReviewRequest } from "@/lib/reviews/record";
+import { contactButtonsHtml } from "@/lib/email/contactButtons";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -152,6 +153,7 @@ export async function POST(req: Request) {
         <p><strong>Vārds:</strong> ${escapeHtml(name)}</p>
         <p><strong>Tālrunis:</strong> ${escapeHtml(phone)}</p>
         <p><strong>E-pasts:</strong> ${escapeHtml(email)}</p>
+        ${contactButtonsHtml({ name, phone, email, about: `pasūtījumu ${orderNumber}` })}
         <hr style="margin:25px 0;">
         <h3>📦 Piegāde</h3>
         ${deliveryInfo}
