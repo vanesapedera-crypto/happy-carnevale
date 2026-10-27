@@ -7,7 +7,7 @@ import { getSession } from "@/lib/admin/session";
 export default async function AdminLoginPage() {
   const configured = getAdminConfig() !== null;
   if (configured && (await getSession())) {
-    redirect("/admin/dashboard");
+    redirect("/admin/kalendars");
   }
 
   return (

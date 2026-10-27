@@ -195,6 +195,11 @@ tad, kad admin panelī nospiež pogu (piem., kostīms var netikt iznomāts, lai 
 ## Kalendārs (`/admin/kalendars`)
 
 Mēneša kalendārs ar visiem pieteikumiem no mājaslapas.
+Pēc ielogošanās admin panelis atveras tieši kalendārā (izvēlnē pirmais: Kalendārs, Atsauksmes, Bildes).
+Augšā rozā bloks "Tuvākās 2 nedēļas" ar pieteikumiem no šodienas. Katrā pieteikumā pogas
+WhatsApp / SMS / Zvanīt / E-pasts ar sagatavotu ziņu "Sveiki, <vārds>! Rakstām no Happy Carnevale par
+Jūsu ..." (`components/admin/calendar/BookingCard.tsx`, `ContactButtons.tsx`). Tādas pašas pogas ir arī
+paziņojuma e-pastos par jaunu rezervāciju/pasākumu/pasūtījumu (`lib/email/contactButtons.ts`).
 
 - Kostīma rezervācija (`/api/reservation`) un pasākuma pieteikums (`/api/events`) pēc veiksmīgas
   nosūtīšanas tiek saglabāti tabulā `bookings` (`lib/bookings/record.ts`) ar visu informāciju (`details`).

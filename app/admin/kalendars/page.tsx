@@ -2,8 +2,9 @@ import Link from "next/link";
 import AdminShell from "@/components/admin/AdminShell";
 import NotConfigured from "@/components/admin/NotConfigured";
 import AddBookingForm from "@/components/admin/calendar/AddBookingForm";
+import BookingCard from "@/components/admin/calendar/BookingCard";
 import CancelButton from "@/components/admin/calendar/CancelButton";
-import { entriesByDate, entryColor, entryLabel } from "@/components/admin/calendar/entries";
+import { entriesByDate, entryColor, entryLabel, type CalendarEntry } from "@/components/admin/calendar/entries";
 import { getAdminConfig, getMissingEnv } from "@/lib/admin/config";
 import { requireSession } from "@/lib/admin/session";
 import { describeSupabaseError } from "@/lib/admin/supabase";
@@ -29,6 +30,14 @@ interface CalendarPageProps {
 }
 
 const MAX_CHIPS = 3;
+const UPCOMING_DAYS = 14;
+
+/** ISO datums + n dienas (YYYY-MM-DD). */
+function addDays(iso: string, days: number): string {
+  const date = new Date(`${iso}T12:00:00Z`);
+  date.setUTCDate(date.getUTCDate() + days);
+  return date.toISOString().slice(0, 10);
+}
 
 export default async function CalendarPage({ searchParams }: CalendarPageProps) {
   const session = await requireSession();
@@ -49,8 +58,13 @@ export default async function CalendarPage({ searchParams }: CalendarPageProps) 
   let bookings: Booking[] = [];
   let missingTable = false;
   let loadError: string | null = null;
+  const upcomingTo = addDays(today, UPCOMING_DAYS - 1);
+  let upcoming: CalendarEntry[] = [];
   try {
     bookings = await listBookingsInRange(config, from, to);
+    const soon = (await listBookingsInRange(config, today, upcomingTo)).filter((b) => !b.cancelled);
+    const soonByDate = entriesByDate(soon, today, upcomingTo);
+    upcoming = [...soonByDate.keys()].sort().flatMap((day) => soonByDate.get(day) ?? []);
   } catch (error) {
     if (isMissingTable(error)) missingTable = true;
     else {
@@ -102,6 +116,27 @@ export default async function CalendarPage({ searchParams }: CalendarPageProps) 
         </p>
       ) : (
         <>
+          <section className="mt-6 rounded-3xl border-2 border-pink-200 bg-pink-50/60 p-4 sm:p-5">
+            <h2 className="text-lg font-black text-slate-900">
+              Tuvākās 2 nedēļas{" "}
+              <span className="text-sm font-semibold text-slate-500">({upcoming.length})</span>
+            </h2>
+            <p className="mt-1 text-sm text-slate-600">
+              Pieteikumi no šodienas. Ar pogām vari uzreiz atbildēt klientam.
+            </p>
+            {upcoming.length === 0 ? (
+              <p className="mt-4 rounded-2xl bg-white px-4 py-6 text-center text-sm text-slate-500">
+                Tuvāko 2 nedēļu laikā pieteikumu nav.
+              </p>
+            ) : (
+              <ul className="mt-4 space-y-3">
+                {upcoming.map((entry) => (
+                  <BookingCard key={`${entry.booking.id}-${entry.type}`} entry={entry} showDate />
+                ))}
+              </ul>
+            )}
+          </section>
+
           <details className="mt-6 rounded-2xl border border-slate-200 bg-white p-4 [&[open]>summary]:mb-4">
             <summary className="cursor-pointer text-sm font-bold text-pink-600">+ Pievienot pieteikumu ar roku</summary>
             <AddBookingForm />
@@ -182,65 +217,9 @@ export default async function CalendarPage({ searchParams }: CalendarPageProps) 
                       {day === today ? " · šodien" : ""}
                     </h3>
                     <ul className="space-y-3">
-                      {(byDate.get(day) ?? []).map((entry) => {
-                        const { booking } = entry;
-                        return (
-                          <li
-                            key={`${booking.id}-${entry.type}`}
-                            className={`rounded-2xl border border-slate-200 bg-white p-4 ${booking.cancelled ? "opacity-60" : ""}`}
-                          >
-                            <div className="flex flex-wrap items-start justify-between gap-3">
-                              <div className="min-w-0">
-                                <span className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold ${entryColor(entry)}`}>
-                                  {entry.type === "pickup"
-                                    ? "Kostīma saņemšana"
-                                    : booking.kind === "pasakums"
-                                    ? "Pasākums"
-                                    : "Kostīma rezervācija"}
-                                  {booking.cancelled ? " · atcelts" : ""}
-                                </span>
-                                <p className={`mt-2 font-semibold text-slate-900 ${booking.cancelled ? "line-through" : ""}`}>
-                                  {booking.eventTime && entry.type === "event" ? `${booking.eventTime} · ` : ""}
-                                  {booking.title || "—"}
-                                </p>
-                                <p className="mt-1 text-sm text-slate-600">
-                                  {booking.name}
-                                  {booking.phone && (
-                                    <>
-                                      {" · "}
-                                      <a href={`tel:${booking.phone.replace(/\s/g, "")}`} className="text-pink-600 hover:underline">
-                                        {booking.phone}
-                                      </a>
-                                    </>
-                                  )}
-                                  {booking.email && (
-                                    <>
-                                      {" · "}
-                                      <a href={`mailto:${booking.email}`} className="break-all text-pink-600 hover:underline">
-                                        {booking.email}
-                                      </a>
-                                    </>
-                                  )}
-                                </p>
-                              </div>
-                              <CancelButton id={booking.id} cancelled={booking.cancelled} />
-                            </div>
-                            {booking.details.length > 0 && (
-                              <details className="mt-3 text-sm">
-                                <summary className="cursor-pointer font-semibold text-slate-600">Visa informācija</summary>
-                                <dl className="mt-2 grid gap-x-4 gap-y-1 sm:grid-cols-[max-content_1fr]">
-                                  {booking.details.map((detail) => (
-                                    <div key={detail.label} className="contents">
-                                      <dt className="text-slate-500">{detail.label}</dt>
-                                      <dd className="whitespace-pre-line text-slate-900">{detail.value}</dd>
-                                    </div>
-                                  ))}
-                                </dl>
-                              </details>
-                            )}
-                          </li>
-                        );
-                      })}
+                      {(byDate.get(day) ?? []).map((entry) => (
+                        <BookingCard key={`${entry.booking.id}-${entry.type}`} entry={entry} />
+                      ))}
                     </ul>
                   </div>
                 ))}

@@ -20,7 +20,7 @@ export default function LoginForm() {
     try {
       const result = await loginAction(new FormData(event.currentTarget));
       if (result.ok) {
-        router.replace("/admin/dashboard");
+        router.replace("/admin/kalendars");
         router.refresh();
         return;
       }
