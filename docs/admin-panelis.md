@@ -232,3 +232,6 @@ paziņojuma e-pastos par jaunu rezervāciju/pasākumu/pasūtījumu (`lib/email/c
   ja tās nav – pasākuma diena). Pasākumi – pasākuma dienā. Kartītē "Kostīms jāatdod" + "Pasākums dd.mm.".
 - Atsauksmes: pieteikums automātiski pāriet sadaļā "Var lūgt atsauksmi" dienā, kad kostīms atdots
   (review_requests.event_date = saņemšanas diena) vai notika pasākums. Līdz tam – "Vēl gaida". Vēsture saritināta.
+- Kalendārā tikai kostīmu noma (pasākumi netiek rādīti), kartītē kostīma sīktēls (pēc nosaukuma no kataloga).
+- Atzīme "Sazinājos": poga kartītē; WhatsApp/SMS/Zvanīt/E-pasts pogas atzīmē automātiski. Kalendārā sazinātie – zaļi.
+  Kolonna bookings.contacted_at – jāpalaiž supabase/sazinajos.sql.

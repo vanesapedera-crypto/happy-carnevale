@@ -210,6 +210,14 @@ export default async function CalendarPage({ searchParams }: CalendarPageProps) 
                       );
                     })}
                 </div>
+                <div className="mt-3 flex flex-wrap gap-4 text-xs text-[#8b6aa7]">
+                  <span className="inline-flex items-center gap-1.5">
+                    <span className="h-3 w-3 rounded bg-pink-500" /> Jāsazinās
+                  </span>
+                  <span className="inline-flex items-center gap-1.5">
+                    <span className="h-3 w-3 rounded bg-emerald-500" /> Sazinājos
+                  </span>
+                </div>
               </div>
             </section>
           </div>

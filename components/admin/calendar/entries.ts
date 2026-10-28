@@ -38,5 +38,7 @@ export function entryLabel(entry: CalendarEntry): string {
 
 export function entryColor(entry: CalendarEntry): string {
   if (entry.booking.cancelled) return "bg-slate-100 text-slate-400 line-through";
+  // Ar klientu jau sazinājies – zaļš.
+  if (entry.booking.contactedAt) return "bg-emerald-500 text-white";
   return entry.booking.kind === "pasakums" ? "bg-violet-500 text-white" : "bg-pink-500 text-white";
 }

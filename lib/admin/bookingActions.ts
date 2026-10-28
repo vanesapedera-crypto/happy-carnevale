@@ -4,8 +4,9 @@ import { getAdminConfig } from "./config";
 import { getSession } from "./session";
 import type { ActionResult } from "./types";
 import { isUuid } from "./validation";
+import { describeSupabaseError } from "./supabase";
 import { formatDateLv } from "@/lib/date";
-import { insertBooking, setBookingCancelled } from "@/lib/bookings/store";
+import { insertBooking, setBookingCancelled, setBookingContacted } from "@/lib/bookings/store";
 import { parseIsoDate, recordReviewRequest } from "@/lib/reviews/record";
 
 /** Atzīmē pieteikumu kā atceltu (kalendārā pārsvītrots) vai atjauno. */
@@ -80,4 +81,25 @@ export async function addBookingAction(input: unknown): Promise<ActionResult> {
     });
   }
   return { ok: true, data: null };
+}
+
+/** Atzīmē, ka ar klientu jau sazinājies (vai noņem atzīmi). */
+export async function setBookingContactedAction(id: unknown, contacted: unknown): Promise<ActionResult> {
+  const session = await getSession();
+  const config = getAdminConfig();
+  if (!session || !config) return { ok: false, error: "Sesija ir beigusies. Lūdzu, ielogojies vēlreiz." };
+  if (!isUuid(id)) return { ok: false, error: "Nederīgs ieraksts." };
+  try {
+    const found = await setBookingContacted(config, id, contacted === true);
+    return found ? { ok: true, data: null } : { ok: false, error: "Ieraksts vairs neeksistē. Pārlādē lapu." };
+  } catch (error) {
+    console.error("[bookings] contacted failed", error);
+    const message = describeSupabaseError(error);
+    return {
+      ok: false,
+      error: /contacted_at/.test(message)
+        ? "Datubāzē vēl nav kolonnas atzīmei. Supabase SQL Editor palaid failu supabase/sazinajos.sql."
+        : "Neizdevās saglabāt.",
+    };
+  }
 }

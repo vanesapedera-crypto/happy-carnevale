@@ -22,6 +22,8 @@ export interface Booking {
   pickupDate: string | null;
   details: BookingDetail[];
   cancelled: boolean;
+  /** Kad atzīmēts "Sazinājos ar klientu" (null – vēl nav). */
+  contactedAt: string | null;
   createdAt: string;
 }
 
@@ -38,6 +40,8 @@ interface BookingRow {
   details: unknown;
   cancelled: boolean;
   created_at: string;
+  /** Var nebūt, ja nav palaists supabase/sazinajos.sql. */
+  contacted_at?: string | null;
 }
 
 function rowToBooking(row: BookingRow): Booking {
@@ -62,6 +66,7 @@ function rowToBooking(row: BookingRow): Booking {
     pickupDate: row.pickup_date,
     details,
     cancelled: row.cancelled,
+    contactedAt: row.contacted_at ?? null,
     createdAt: row.created_at,
   };
 }
@@ -119,6 +124,22 @@ export async function setBookingCancelled(
     BOOKINGS_TABLE,
     `id=eq.${encodeURIComponent(id)}`,
     { cancelled }
+  );
+  return row !== null;
+}
+
+/** Atzīme "Sazinājos ar klientu" (vai tās noņemšana). */
+export async function setBookingContacted(
+  config: AdminConfig,
+  id: string,
+  contacted: boolean
+): Promise<boolean> {
+  const row = await restUpdate<BookingRow>(
+    config,
+    config.serviceKey,
+    BOOKINGS_TABLE,
+    `id=eq.${encodeURIComponent(id)}`,
+    { contacted_at: contacted ? new Date().toISOString() : null }
   );
   return row !== null;
 }
