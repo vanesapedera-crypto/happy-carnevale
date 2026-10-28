@@ -32,6 +32,7 @@ const ROUTES: { path: string; priority: number }[] = [
   })),
 
   { path: "/kontakti", priority: 0.7 },
+  { path: "/piegade-un-atgriesana", priority: 0.3 },
 ];
 
 // Kostīmu saraksts mainās admin panelī, tāpēc sitemap atjaunojas reizi stundā
