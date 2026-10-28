@@ -1,0 +1,17 @@
+{
+  "name": "Happy Carnevale – Admin",
+  "short_name": "HC Admin",
+  "description": "Happy Carnevale admin panelis: kalendārs, atsauksmes, bildes",
+  "id": "/admin",
+  "start_url": "/admin/kalendars",
+  "scope": "/admin",
+  "display": "standalone",
+  "background_color": "#fff7fb",
+  "theme_color": "#ec4899",
+  "lang": "lv",
+  "icons": [
+    { "src": "/admin-icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/admin-icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/admin-icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
