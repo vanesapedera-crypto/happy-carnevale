@@ -235,3 +235,4 @@ paziņojuma e-pastos par jaunu rezervāciju/pasākumu/pasūtījumu (`lib/email/c
 - Kalendārā tikai kostīmu noma (pasākumi netiek rādīti), kartītē kostīma sīktēls (pēc nosaukuma no kataloga).
 - Atzīme "Sazinājos": poga kartītē; WhatsApp/SMS/Zvanīt/E-pasts pogas atzīmē automātiski. Kalendārā sazinātie – zaļi.
   Kolonna bookings.contacted_at – jāpalaiž supabase/sazinajos.sql.
+- "Mani komentāri": katrā kalendāra kartītē (dzeltens bloks), redzami tikai admin panelī. Kolonna bookings.admin_note – supabase/sazinajos.sql.

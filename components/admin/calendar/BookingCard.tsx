@@ -1,6 +1,7 @@
 import type { CalendarEntry } from "./entries";
 import CancelButton from "./CancelButton";
 import ContactButtons from "./ContactButtons";
+import NoteEditor from "./NoteEditor";
 import { longDate } from "@/lib/bookings/month";
 
 interface BookingCardProps {
@@ -56,6 +57,8 @@ export default function BookingCard({ entry, showDate = false, image }: BookingC
       </div>
 
       <ContactButtons booking={booking} />
+
+      <NoteEditor key={booking.adminNote} id={booking.id} note={booking.adminNote} />
 
       {booking.details.length > 0 && (
         <details className="mt-3 text-sm">

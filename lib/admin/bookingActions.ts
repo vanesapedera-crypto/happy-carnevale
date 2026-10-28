@@ -6,7 +6,7 @@ import type { ActionResult } from "./types";
 import { isUuid } from "./validation";
 import { describeSupabaseError } from "./supabase";
 import { formatDateLv } from "@/lib/date";
-import { insertBooking, setBookingCancelled, setBookingContacted } from "@/lib/bookings/store";
+import { insertBooking, setBookingCancelled, setBookingContacted, setBookingNote } from "@/lib/bookings/store";
 import { parseIsoDate, recordReviewRequest } from "@/lib/reviews/record";
 
 /** Atzīmē pieteikumu kā atceltu (kalendārā pārsvītrots) vai atjauno. */
@@ -99,6 +99,28 @@ export async function setBookingContactedAction(id: unknown, contacted: unknown)
       ok: false,
       error: /contacted_at/.test(message)
         ? "Datubāzē vēl nav kolonnas atzīmei. Supabase SQL Editor palaid failu supabase/sazinajos.sql."
+        : "Neizdevās saglabāt.",
+    };
+  }
+}
+
+/** Saglabā "Mani komentāri" pie pieteikuma (līdz 2000 zīmēm). */
+export async function setBookingNoteAction(id: unknown, note: unknown): Promise<ActionResult> {
+  const session = await getSession();
+  const config = getAdminConfig();
+  if (!session || !config) return { ok: false, error: "Sesija ir beigusies. Lūdzu, ielogojies vēlreiz." };
+  if (!isUuid(id)) return { ok: false, error: "Nederīgs ieraksts." };
+  const text = typeof note === "string" ? note.trim().slice(0, 2000) : "";
+  try {
+    const found = await setBookingNote(config, id, text);
+    return found ? { ok: true, data: null } : { ok: false, error: "Ieraksts vairs neeksistē. Pārlādē lapu." };
+  } catch (error) {
+    console.error("[bookings] note failed", error);
+    const message = describeSupabaseError(error);
+    return {
+      ok: false,
+      error: /admin_note/.test(message)
+        ? "Datubāzē vēl nav kolonnas komentāriem. Supabase SQL Editor palaid failu supabase/sazinajos.sql."
         : "Neizdevās saglabāt.",
     };
   }
