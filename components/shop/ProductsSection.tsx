@@ -85,7 +85,9 @@ export default function ProductsSection() {
           </p>
 
           <h1 className="mt-3 text-5xl font-black text-gray-900">
-            Milzu burbuļu produkti
+            Ziepju burbuļi
+            <span className="sr-only"> – </span>
+            <span className="mt-2 block text-2xl font-bold text-gray-500">milzu burbuļu šķidrums un kociņi</span>
           </h1>
 
           <p className="mt-6 text-lg leading-8 text-gray-600">

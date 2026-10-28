@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import ProductsSection from "@/components/shop/ProductsSection";
 import MixedGallery from "@/components/common/MixedGallery";
+import BubbleInfoSection from "@/components/shop/BubbleInfoSection";
 
 export const metadata: Metadata = {
-  title: "Milzu ziepju burbuļu šķidrums un kociņi | Burbulītes burbuļi",
+  title: "Ziepju burbuļi – milzu burbuļu šķidrums un kociņi | Burbulītes burbuļi",
   description:
     "Profesionāls milzu ziepju burbuļu koncentrāts, burbuļu kociņi un Party Box komplekti. Saņemšana Rīgā vai piegāde uz jebkuru pakomātu.",
 };
@@ -32,6 +33,8 @@ export default function VeikalsPage() {
           { type: "image", src: "/images/shop/gallery/16.jpg", alt: "Milzu ziepju burbuļi – foto 16" },
         ]}
       />
+
+      <BubbleInfoSection />
     </>
   );
 }
