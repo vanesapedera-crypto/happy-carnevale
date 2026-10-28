@@ -31,6 +31,11 @@ interface CalendarPageProps {
 }
 
 const MAX_CHIPS = 3;
+/** "oktobrī", "novembrī" ... */
+const MONTH_LOCATIVE = [
+  "janvārī", "februārī", "martā", "aprīlī", "maijā", "jūnijā",
+  "jūlijā", "augustā", "septembrī", "oktobrī", "novembrī", "decembrī",
+];
 const UPCOMING_DAYS = 14;
 
 /** ISO datums + n dienas (YYYY-MM-DD). */
@@ -95,8 +100,6 @@ export default async function CalendarPage({ searchParams }: CalendarPageProps) 
   }
   const imageFor = (entry: CalendarEntry) => imageByTitle.get(entry.booking.title.trim().toLowerCase());
 
-  const weekTo = addDays(today, 6);
-  const thisWeek = upcoming.filter((entry) => entry.date <= weekTo).length;
   const card = "rounded-[20px] bg-white shadow-[0_6px_18px_rgba(59,7,100,0.06)]";
   const navButton =
     "flex h-9 min-w-9 items-center justify-center rounded-full px-3 text-sm font-bold text-pink-600 transition hover:bg-pink-50";
@@ -105,17 +108,11 @@ export default async function CalendarPage({ searchParams }: CalendarPageProps) 
     <AdminShell email={session.email} current="kalendars">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <h1 className="text-3xl font-black">Kalendārs</h1>
-        <div className="flex gap-3">
-          {[
-            { value: thisWeek, label: "šonedēļ" },
-            { value: upcoming.length, label: "2 nedēļās" },
-            { value: total, label: MONTH_NAMES[month.month - 1].toLowerCase() },
-          ].map((stat) => (
-            <div key={stat.label} className={`${card} min-w-24 px-4 py-2.5`}>
-              <p className="text-2xl font-black leading-tight">{stat.value}</p>
-              <p className="text-xs text-[#8b6aa7]">{stat.label}</p>
-            </div>
-          ))}
+        <div className={`${card} px-5 py-2.5`}>
+          <p className="text-2xl font-black leading-tight">{total}</p>
+          <p className="text-xs text-[#8b6aa7]">
+            {total === 1 ? "kostīms nomā" : "kostīmi nomā"} {MONTH_LOCATIVE[month.month - 1]}
+          </p>
         </div>
       </div>
 
