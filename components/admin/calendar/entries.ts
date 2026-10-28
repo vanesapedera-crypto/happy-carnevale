@@ -8,24 +8,19 @@ export interface CalendarEntry {
 }
 
 /**
- * Sadala pieteikumus pa dienām. Kostīma rezervācija kalendārā ir tikai vienu reizi –
+ * Sadala pieteikumus pa dienām. Kalendārā ir tikai kostīmu noma – katra rezervācija vienu reizi,
  * dienā, kad kostīms jāatdod klientam (saņemšanas diena; ja tās nav – pasākuma diena).
- * Pasākums ir pasākuma dienā.
+ * Pasākumu pieteikumi (animatori u.c.) kalendārā netiek rādīti.
  */
 export function entriesByDate(bookings: Booking[], from: string, to: string): Map<string, CalendarEntry[]> {
   const map = new Map<string, CalendarEntry[]>();
-  const add = (entry: CalendarEntry) => {
-    if (entry.date < from || entry.date > to) return;
-    const list = map.get(entry.date) ?? [];
-    list.push(entry);
-    map.set(entry.date, list);
-  };
   for (const booking of bookings) {
-    if (booking.kind === "rezervacija" && booking.pickupDate) {
-      add({ booking, type: "pickup", date: booking.pickupDate });
-    } else if (booking.eventDate) {
-      add({ booking, type: booking.kind === "rezervacija" ? "pickup" : "event", date: booking.eventDate });
-    }
+    if (booking.kind !== "rezervacija") continue;
+    const date = booking.pickupDate ?? booking.eventDate;
+    if (!date || date < from || date > to) continue;
+    const list = map.get(date) ?? [];
+    list.push({ booking, type: "pickup", date });
+    map.set(date, list);
   }
   for (const list of map.values()) {
     list.sort((a, b) => (a.booking.eventTime || "99").localeCompare(b.booking.eventTime || "99"));

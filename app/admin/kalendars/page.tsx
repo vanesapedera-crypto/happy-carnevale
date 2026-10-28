@@ -22,6 +22,7 @@ import {
 } from "@/lib/bookings/month";
 import { listBookingsInRange, type Booking } from "@/lib/bookings/store";
 import { isMissingTable } from "@/lib/reviews/store";
+import { COSTUME_CATEGORIES, loadCategoryCostumes } from "@/lib/costumeCatalog";
 
 export const dynamic = "force-dynamic";
 
@@ -75,11 +76,24 @@ export default async function CalendarPage({ searchParams }: CalendarPageProps) 
 
   // Atceltās nomas un nenotikušie pasākumi kalendārā netiek rādīti; tie ir atsevišķā sarakstā zemāk.
   const active = bookings.filter((booking) => !booking.cancelled);
-  const cancelledBookings = bookings.filter((booking) => booking.cancelled);
+  const cancelledBookings = bookings.filter((booking) => booking.cancelled && booking.kind === "rezervacija");
   const byDate = entriesByDate(active, from, to);
   const days = [...byDate.keys()].sort();
   const total = [...byDate.values()].reduce((sum, list) => sum + list.length, 0);
   const navLink = (delta: number) => `/admin/kalendars?m=${monthParam(shiftMonth(month, delta))}`;
+
+  // Kostīma sīktēls kartītē: bilde pēc kostīma nosaukuma no kostīmu kataloga.
+  const imageByTitle = new Map<string, string>();
+  try {
+    const lists = await Promise.all(COSTUME_CATEGORIES.map((category) => loadCategoryCostumes(category.path)));
+    for (const costume of lists.flat()) {
+      const key = costume.title.trim().toLowerCase();
+      if (costume.image && !imageByTitle.has(key)) imageByTitle.set(key, costume.image);
+    }
+  } catch (error) {
+    console.error("[bookings] costume images failed", error);
+  }
+  const imageFor = (entry: CalendarEntry) => imageByTitle.get(entry.booking.title.trim().toLowerCase());
 
   const weekTo = addDays(today, 6);
   const thisWeek = upcoming.filter((entry) => entry.date <= weekTo).length;
@@ -123,7 +137,7 @@ export default async function CalendarPage({ searchParams }: CalendarPageProps) 
               ) : (
                 <ul className="space-y-3">
                   {upcoming.map((entry) => (
-                    <BookingCard key={`${entry.booking.id}-${entry.type}`} entry={entry} showDate />
+                    <BookingCard key={`${entry.booking.id}-${entry.type}`} entry={entry} image={imageFor(entry)} showDate />
                   ))}
                 </ul>
               )}
@@ -196,14 +210,6 @@ export default async function CalendarPage({ searchParams }: CalendarPageProps) 
                       );
                     })}
                 </div>
-                <div className="mt-3 flex flex-wrap gap-4 text-xs text-[#8b6aa7]">
-                  <span className="inline-flex items-center gap-1.5">
-                    <span className="h-3 w-3 rounded bg-pink-500" /> Kostīms jāatdod klientam
-                  </span>
-                  <span className="inline-flex items-center gap-1.5">
-                    <span className="h-3 w-3 rounded bg-violet-500" /> Pasākums
-                  </span>
-                </div>
               </div>
             </section>
           </div>
@@ -229,7 +235,7 @@ export default async function CalendarPage({ searchParams }: CalendarPageProps) 
                     </h3>
                     <ul className="space-y-3">
                       {(byDate.get(day) ?? []).map((entry) => (
-                        <BookingCard key={`${entry.booking.id}-${entry.type}`} entry={entry} />
+                        <BookingCard key={`${entry.booking.id}-${entry.type}`} entry={entry} image={imageFor(entry)} />
                       ))}
                     </ul>
                   </div>

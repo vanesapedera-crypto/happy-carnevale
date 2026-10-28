@@ -53,13 +53,6 @@ export default function AddBookingForm() {
   return (
     <form onSubmit={submit} className="grid gap-3 sm:grid-cols-2">
       <div>
-        <label htmlFor="ab-kind" className={LABEL}>Veids</label>
-        <select id="ab-kind" value={form.kind} onChange={set("kind")} className={INPUT}>
-          <option value="rezervacija">Kostīma noma</option>
-          <option value="pasakums">Pasākums</option>
-        </select>
-      </div>
-      <div>
         <label htmlFor="ab-title" className={LABEL}>{rental ? "Kostīms" : "Pakalpojums"}</label>
         <input
           id="ab-title"

@@ -1,16 +1,18 @@
 import type { CalendarEntry } from "./entries";
 import CancelButton from "./CancelButton";
 import ContactButtons from "./ContactButtons";
-import { longDate, shortDate } from "@/lib/bookings/month";
+import { longDate } from "@/lib/bookings/month";
 
 interface BookingCardProps {
   entry: CalendarEntry;
   /** Rādīt datumu kartītē (tuvāko pieteikumu sarakstā). */
   showDate?: boolean;
+  /** Kostīma bilde (sīktēls). */
+  image?: string;
 }
 
 /** Viena pieteikuma kartīte: kas, kad, klients, pogas atbildēt un visa informācija. */
-export default function BookingCard({ entry, showDate = false }: BookingCardProps) {
+export default function BookingCard({ entry, showDate = false, image }: BookingCardProps) {
   const { booking } = entry;
   const rental = booking.kind === "rezervacija";
   return (
@@ -29,18 +31,29 @@ export default function BookingCard({ entry, showDate = false }: BookingCardProp
         </span>
       </div>
 
-      <p className="mt-2 text-base font-bold">
-        {booking.eventTime && !rental ? `${booking.eventTime} · ` : ""}
-        {booking.title || "—"}
-      </p>
-      <p className="mt-0.5 text-sm text-[#7e5a9b]">
-        {booking.name || "—"}
-        {booking.phone ? ` · ${booking.phone}` : ""}
-        {booking.email ? <span className="break-all">{` · ${booking.email}`}</span> : null}
-      </p>
-      {rental && booking.eventDate && booking.eventDate !== entry.date && (
-        <p className="mt-0.5 text-xs text-[#a78bbf]">Pasākums {shortDate(booking.eventDate)}</p>
-      )}
+      <div className="mt-2 flex items-center gap-3">
+        {image && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={image}
+            alt=""
+            loading="lazy"
+            className="h-16 w-14 shrink-0 rounded-xl bg-[#fdf4ff] object-contain p-1"
+          />
+        )}
+        <div className="min-w-0">
+          <p className="text-base font-bold">
+            {booking.eventTime && !rental ? `${booking.eventTime} · ` : ""}
+            {booking.title || "—"}
+          </p>
+          <p className="mt-0.5 text-sm text-[#7e5a9b]">
+            {booking.name || "—"}
+            {booking.phone ? ` · ${booking.phone}` : ""}
+            {booking.email ? <span className="break-all">{` · ${booking.email}`}</span> : null}
+          </p>
+
+        </div>
+      </div>
 
       <ContactButtons booking={booking} />
 
