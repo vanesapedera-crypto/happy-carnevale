@@ -10,9 +10,9 @@ interface AdminShellProps {
 }
 
 const NAV = [
-  { key: "kalendars", label: "📅 Kalendārs", href: "/admin/kalendars" },
-  { key: "atsauksmes", label: "⭐ Atsauksmes", href: "/admin/atsauksmes" },
-  { key: "bildes", label: "🖼️ Bildes", href: "/admin/dashboard" },
+  { key: "kalendars", label: "Kalendārs", href: "/admin/kalendars" },
+  { key: "atsauksmes", label: "Atsauksmes", href: "/admin/atsauksmes" },
+  { key: "bildes", label: "Bildes", href: "/admin/dashboard" },
 ] as const;
 
 /** Admin paneļa rāmis: augšējā josla ar lietotāju un izrakstīšanos. */
