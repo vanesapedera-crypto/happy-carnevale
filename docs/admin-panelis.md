@@ -211,3 +211,14 @@ paziņojuma e-pastos par jaunu rezervāciju/pasākumu/pasūtījumu (`lib/email/c
 - "+ Pievienot pieteikumu ar roku": veids, kostīms/pakalpojums, pasākuma datums (obligāts), saņemšanas datums vai laiks,
   kontakti, adrese, piezīmes (`addBookingAction`). Ja ir e-pasts, klients parādās arī atsauksmju sarakstā.
 - Iestatīšana: Supabase palaist `supabase/kalendars.sql`.
+
+
+## Kostīmu papildu bildes (galerija)
+
+- Kostīmu sadaļās katrai kartītei ir bloks "Papildu bildes": "+ Pievienot bildes" (var izvēlēties vairākas
+  uzreiz, līdz 12), sīktēli ar × dzēšanai. Bildes pirms augšupielādes tiek samazinātas.
+- Kostīma lapā (`/kostimu-noma/<kategorija>/<kostīms>`) un rezervācijas formā (`/rezervacija-kostimiem`)
+  galvenā bilde + papildu bildes kā galerija ar bultiņām un sīktēliem (`components/costumes/CostumeGallery.tsx`).
+- Datubāzē kolonna `section_items.extra_images` (jsonb). Jāpalaiž vienreiz: `supabase/papildu-bildes.sql`.
+- Kods: `app/api/admin/add-image/route.ts`, `removeExtraImageAction` (lib/admin/actions.ts),
+  `components/admin/ExtraImages.tsx`, rezervācijas formai `app/api/costume-images/route.ts`.

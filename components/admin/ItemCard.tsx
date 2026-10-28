@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { deleteItemAction, updateItemAction } from "@/lib/admin/actions";
 import type { SectionItem } from "@/lib/admin/types";
+import ExtraImages from "./ExtraImages";
 import { postImage } from "@/lib/admin/uploadClient";
 import { ACCEPTED_IMAGE_TYPES, LIMITS } from "@/lib/admin/validation";
 
@@ -210,6 +211,9 @@ export default function ItemCard({
           />
           Rādīt lapā
         </label>
+
+        {/* Kostīmiem: vairākas bildes, ko klients var pāršķirt kostīma lapā. */}
+        {showPriceAndSize && <ExtraImages item={item} />}
 
         <div className="mt-auto flex items-center justify-between gap-3 pt-2">
           <button

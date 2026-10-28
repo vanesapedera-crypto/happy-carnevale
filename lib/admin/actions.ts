@@ -1,7 +1,7 @@
 "use server";
 
 import { getAdminConfig, STORAGE_BUCKET } from "./config";
-import { deleteItem, listItems, setSortOrder, updateItem } from "./items";
+import { deleteItem, getItem, listItems, setExtraImages, setSortOrder, updateItem } from "./items";
 import { planReorder } from "./reorder";
 import { revalidateSection } from "./revalidate";
 import { getSection } from "./sections";
@@ -105,9 +105,12 @@ export async function deleteItemAction(id: string): Promise<ActionResult> {
     const item = await deleteItem(config, id);
     if (!item) return { ok: true, data: null };
 
-    if (item.imagePath) {
+    const paths = [item.imagePath, ...item.extraImages.map((image) => image.path)].filter(
+      (path): path is string => !!path
+    );
+    if (paths.length > 0) {
       try {
-        await storageRemove(config, config.serviceKey, STORAGE_BUCKET, [item.imagePath]);
+        await storageRemove(config, config.serviceKey, STORAGE_BUCKET, paths);
       } catch (error) {
         // Ieraksts ir izdzēsts; fails paliek krātuvē, bet lapā vairs netiek rādīts.
         console.error("[admin] storage remove failed", error);
@@ -175,5 +178,39 @@ export async function reorderItemsAction(
     // Daļa izmaiņu var būt saglabāta: publiskā lapa jāatjauno jebkurā gadījumā.
     if (changed) revalidateSection(section);
     return { ok: false, error: REORDER_FAILED };
+  }
+}
+
+/** Izņem vienu papildu bildi no ieraksta (un izdzēš to no krātuves). */
+export async function removeExtraImageAction(id: string, url: string): Promise<ActionResult> {
+  const session = await getSession();
+  const config = getAdminConfig();
+  if (!session || !config) return { ok: false, error: SESSION_EXPIRED };
+  if (!isUuid(id) || typeof url !== "string") return { ok: false, error: "Nederīgs ieraksts." };
+
+  try {
+    const item = await getItem(config, id);
+    if (!item) return { ok: false, error: "Ieraksts vairs neeksistē. Pārlādē lapu." };
+
+    const removed = item.extraImages.find((image) => image.url === url);
+    if (!removed) return { ok: true, data: null };
+
+    await setExtraImages(
+      config,
+      id,
+      item.extraImages.filter((image) => image.url !== url)
+    );
+    if (removed.path) {
+      await storageRemove(config, config.serviceKey, STORAGE_BUCKET, [removed.path]).catch((error) =>
+        console.error("[admin] extra image remove failed", error)
+      );
+    }
+
+    const section = getSection(item.sectionKey);
+    if (section) revalidateSection(section);
+    return { ok: true, data: null };
+  } catch (error) {
+    console.error("[admin] removeExtraImage failed", error);
+    return { ok: false, error: "Neizdevās izdzēst bildi. Lūdzu, mēģini vēlreiz." };
   }
 }

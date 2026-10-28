@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import { Suspense, useState, type FormEvent } from "react";
+import { Suspense, useEffect, useState, type FormEvent } from "react";
 import ReservationSuccess from "@/components/reservation/ReservationSuccess";
 import DateInput from "@/components/common/DateInput";
+import CostumeGallery from "@/components/costumes/CostumeGallery";
 
 type DeliveryMode = "pickup" | "address" | "omniva";
 
@@ -17,6 +17,22 @@ function ReservationContent() {
   const size = searchParams.get("size");
 
   const isMascot = (image || "").includes("/kostimi/mascotas/");
+
+  // Admin panelī pievienotās kostīma papildu bildes
+  const [extraImages, setExtraImages] = useState<string[]>([]);
+  useEffect(() => {
+    if (!image) return;
+    let cancelled = false;
+    fetch(`/api/costume-images?image=${encodeURIComponent(image)}`)
+      .then((response) => (response.ok ? response.json() : { images: [] }))
+      .then((data: { images?: string[] }) => {
+        if (!cancelled && Array.isArray(data.images)) setExtraImages(data.images);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [image]);
 
   const [delivery, setDelivery] = useState<DeliveryMode>("pickup");
   const [name, setName] = useState("");
@@ -114,15 +130,10 @@ function ReservationContent() {
         <div className="mt-12 grid gap-12 lg:grid-cols-2">
           {/* Kreisā puse */}
           <div>
-            <div className="relative aspect-[3/4] overflow-hidden rounded-3xl border border-gray-100 bg-white">
-              <Image
-                src={image || "/kostimi/no-image.jpg"}
-                alt={costume || "Kostīms"}
-                fill
-                sizes="(min-width: 640px) 50vw, 100vw"
-                className="object-contain p-4"
-              />
-            </div>
+            <CostumeGallery
+              images={[image || "/kostimi/no-image.jpg", ...extraImages]}
+              alt={costume || "Kostīms"}
+            />
 
             <div className="mt-6 rounded-3xl bg-pink-50 p-6">
               <h2 className="text-3xl font-bold text-gray-900">

@@ -11,6 +11,7 @@ import {
 import { SITE } from "@/lib/constants";
 import { breadcrumbData } from "@/lib/structuredData";
 import JsonLd from "@/components/seo/JsonLd";
+import CostumeGallery from "@/components/costumes/CostumeGallery";
 
 /** Nosaukums un apraksts Google rezultātiem. */
 export async function costumeMetadata(
@@ -36,7 +37,7 @@ export async function costumeMetadata(
   return {
     title,
     description,
-    // Daloties ar kostīma saiti, rāda šī kostīma bildi (samazinātu līdz 1200 px)
+    // Daloties ar kostīma saiti, rāda šī kostīma bildi
     openGraph: {
       title,
       description,
@@ -45,7 +46,7 @@ export async function costumeMetadata(
       type: "website",
       images: [
         {
-          url: `/_next/image?url=${encodeURIComponent(costume.image)}&w=1200&q=75`,
+          url: costume.image,
           alt: `${costume.title} – ${category.noun}`,
         },
       ],
@@ -119,16 +120,11 @@ export default async function CostumeDetail({
 
         {/* Kostīms */}
         <div className="grid gap-8 rounded-[36px] bg-white p-5 shadow-[0_12px_35px_rgba(0,0,0,0.07)] lg:grid-cols-[1fr_1.1fr] lg:gap-12 lg:p-10">
-          <div className="relative aspect-[3/4] overflow-hidden rounded-[28px] border border-gray-100 bg-white">
-            <Image
-              src={costume.image}
-              alt={`${costume.title} – ${category.noun}`}
-              fill
-              priority
-              sizes="(min-width: 1024px) 45vw, 100vw"
-              className="object-contain p-4"
-            />
-          </div>
+          <CostumeGallery
+            images={[costume.image, ...(costume.images ?? [])]}
+            alt={`${costume.title} – ${category.noun}`}
+            priority
+          />
 
           <div className="flex flex-col">
             <span className="inline-flex w-fit rounded-full bg-pink-100 px-4 py-2 text-xs font-bold uppercase tracking-[0.25em] text-pink-600">

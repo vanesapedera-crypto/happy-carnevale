@@ -1,6 +1,6 @@
 import type { AdminConfig } from "./config";
 import { restDelete, restInsert, restSelect, restUpdate } from "./supabase";
-import type { SectionItem } from "./types";
+import type { ExtraImage, SectionItem } from "./types";
 import type { ItemPatch } from "./validation";
 
 export const ITEMS_TABLE = "section_items";
@@ -15,6 +15,8 @@ export interface SectionItemRow {
   size: string | null;
   image_url: string;
   image_path: string | null;
+  /** Var nebūt, ja datubāzē vēl nav palaists supabase/papildu-bildes.sql. */
+  extra_images?: unknown;
   active: boolean;
   sort_order: number;
   created_at: string;
@@ -31,11 +33,44 @@ export function rowToItem(row: SectionItemRow): SectionItem {
     size: row.size ?? "",
     imageUrl: row.image_url,
     imagePath: row.image_path,
+    extraImages: parseExtraImages(row.extra_images),
     active: row.active,
     sortOrder: row.sort_order,
     createdAt: row.created_at,
     updatedAt: row.updated_at,
   };
+}
+
+/** Maksimālais papildu bilžu skaits vienam ierakstam. */
+export const MAX_EXTRA_IMAGES = 12;
+
+export function parseExtraImages(value: unknown): ExtraImage[] {
+  if (!Array.isArray(value)) return [];
+  return value
+    .filter(
+      (entry): entry is { url: string; path?: unknown } =>
+        !!entry && typeof entry === "object" && typeof (entry as { url?: unknown }).url === "string"
+    )
+    .map((entry) => ({
+      url: entry.url,
+      path: typeof entry.path === "string" ? entry.path : null,
+    }));
+}
+
+/** Saglabā papildu bilžu sarakstu (updated_at neskarts, kā setImage). */
+export async function setExtraImages(
+  config: AdminConfig,
+  id: string,
+  images: ExtraImage[]
+): Promise<SectionItem | null> {
+  const row = await restUpdate<SectionItemRow>(
+    config,
+    config.serviceKey,
+    ITEMS_TABLE,
+    `id=eq.${encodeURIComponent(id)}`,
+    { extra_images: images }
+  );
+  return row ? rowToItem(row) : null;
 }
 
 const ORDER = "order=sort_order.asc,created_at.asc";

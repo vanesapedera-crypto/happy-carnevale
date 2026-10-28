@@ -7,6 +7,8 @@ export interface CostumeCard {
   image: string;
   price: string;
   size: string;
+  /** Papildu bildes (admin panelī pievienotās), rāda kostīma galerijā. */
+  images?: string[];
 }
 
 /**
@@ -27,5 +29,6 @@ export async function loadCostumes(
     image: item.imageUrl,
     price: item.price,
     size: item.size,
+    images: item.extraImages.map((image) => image.url),
   }));
 }

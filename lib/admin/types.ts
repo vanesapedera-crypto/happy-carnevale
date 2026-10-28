@@ -1,3 +1,8 @@
+export interface ExtraImage {
+  url: string;
+  path: string | null;
+}
+
 export interface SectionItem {
   id: string;
   sectionKey: string;
@@ -8,6 +13,8 @@ export interface SectionItem {
   imageUrl: string;
   /** Ceļš Supabase Storage. null, ja attēls ir mājaslapas /public mapē. */
   imagePath: string | null;
+  /** Papildu bildes (kostīma galerijai). path = ceļš Storage, null – /public mapē. */
+  extraImages: ExtraImage[];
   active: boolean;
   sortOrder: number;
   createdAt: string;
