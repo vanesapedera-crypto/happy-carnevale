@@ -106,9 +106,6 @@ export default function ImageUploader({ sectionKey }: ImageUploaderProps) {
         <span className="text-base font-bold text-slate-900">
           {busy ? "Notiek augšupielāde…" : "Izvēlies attēlus vai ievelc tos šeit"}
         </span>
-        <span className="mt-1 text-sm text-slate-500">
-          JPG, PNG vai WebP. Var izvēlēties vairākus uzreiz.
-        </span>
         <input
           ref={inputRef}
           id="admin-upload"

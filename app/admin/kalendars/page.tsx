@@ -86,9 +86,6 @@ export default async function CalendarPage({ searchParams }: CalendarPageProps) 
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-black">Kalendārs</h1>
-          <p className="mt-1 text-sm text-slate-500">
-            Kostīmu rezervācijas un pasākumu pieteikumi no mājaslapas parādās šeit automātiski.
-          </p>
         </div>
         <div className="flex items-center gap-2">
           <Link href={navLink(-1)} aria-label="Iepriekšējais mēnesis" className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold hover:bg-slate-50">
@@ -121,9 +118,6 @@ export default async function CalendarPage({ searchParams }: CalendarPageProps) 
               Tuvākās 2 nedēļas{" "}
               <span className="text-sm font-semibold text-slate-500">({upcoming.length})</span>
             </h2>
-            <p className="mt-1 text-sm text-slate-600">
-              Pieteikumi no šodienas. Ar pogām vari uzreiz atbildēt klientam.
-            </p>
             {upcoming.length === 0 ? (
               <p className="mt-4 rounded-2xl bg-white px-4 py-6 text-center text-sm text-slate-500">
                 Tuvāko 2 nedēļu laikā pieteikumu nav.

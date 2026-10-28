@@ -50,9 +50,6 @@ export default async function ReviewsPage() {
   return (
     <AdminShell email={session.email} current="atsauksmes">
       <h1 className="text-2xl font-black">Atsauksmes</h1>
-      <p className="mt-1 text-sm text-slate-500">
-        Lūdz klientiem atsauksmi Google ar WhatsApp vai e-pastu. Lūgums aiziet tikai tad, kad nospied pogu.
-      </p>
 
       {missingTables ? (
         <p role="alert" className="mt-6 rounded-2xl bg-amber-50 px-5 py-4 text-sm font-medium text-amber-800">

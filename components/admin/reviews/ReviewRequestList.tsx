@@ -161,14 +161,10 @@ export default function ReviewRequestList({ pending, done, reviewUrl }: ReviewRe
   return (
     <div className="space-y-8">
       <div>
-        <h3 className="mb-1 font-bold text-slate-900">Vēl nav palūgts ({pending.length})</h3>
-        <p className="mb-3 text-sm text-slate-500">
-          Katra kostīma rezervācija, pasākuma pieteikums un veikala pasūtījums no mājaslapas šeit parādās
-          automātiski, nekas nav jāaizpilda. Kad kostīms atdots vai svētki notikuši, nospied pogu.
-        </p>
+        <h3 className="mb-3 font-bold text-slate-900">Vēl nav palūgts ({pending.length})</h3>
         {pending.length === 0 ? (
           <p className="rounded-2xl border border-slate-200 bg-white px-4 py-6 text-center text-sm text-slate-500">
-            Pagaidām nav neviena. Jaunie pieteikumi parādīsies šeit paši.
+            Pagaidām nav neviena.
           </p>
         ) : (
           <ul className="space-y-3">

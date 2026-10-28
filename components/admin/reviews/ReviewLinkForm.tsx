@@ -32,9 +32,6 @@ export default function ReviewLinkForm({ initialUrl }: { initialUrl: string }) {
       <label htmlFor="review-url" className="text-sm font-semibold text-slate-700">
         Google atsauksmju saite
       </label>
-      <p className="mt-1 text-sm text-slate-500">
-        Google uzņēmuma profilā spied &quot;Lūgt atsauksmes&quot;, nokopē saiti un ielīmē šeit.
-      </p>
       <div className="mt-3 flex flex-col gap-2 sm:flex-row">
         <input
           id="review-url"

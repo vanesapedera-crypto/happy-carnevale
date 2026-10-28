@@ -16,10 +16,7 @@ export default async function AdminLoginPage() {
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-pink-600">
           Happy Carnevale
         </p>
-        <h1 className="mt-1 text-2xl font-bold text-slate-900">Satura pārvaldība</h1>
-        <p className="mb-6 mt-2 text-sm text-slate-500">
-          Ielogojies, lai mainītu mājaslapas attēlus.
-        </p>
+        <h1 className="mb-6 mt-1 text-2xl font-bold text-slate-900">Satura pārvaldība</h1>
 
         {configured ? <LoginForm /> : <NotConfigured missing={getMissingEnv()} />}
       </div>

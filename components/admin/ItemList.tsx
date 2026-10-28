@@ -177,12 +177,6 @@ export default function ItemList({
 
   return (
     <div>
-      {canReorder && (
-        <p className="mb-3 text-sm text-slate-500">
-          Lai mainītu secību, satver attēlu un pārvelc to vajadzīgajā vietā.
-        </p>
-      )}
-
       <p role="status" aria-live="polite" className="sr-only">
         {saving ? "Saglabā secību" : ""}
       </p>
