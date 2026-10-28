@@ -6,6 +6,8 @@ import { Truck, Package, Clock3 } from "lucide-react";
 import ProductPurchase from "@/components/shop/ProductPurchase";
 import PartyBoxConfigurator from "@/components/shop/PartyBoxConfigurator";
 import { products } from "@/lib/products";
+import { productJsonLd } from "@/lib/productFeed";
+import JsonLd from "@/components/seo/JsonLd";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -32,8 +34,11 @@ export default async function ProductPage({ params }: PageProps) {
 
   if (!product) notFound();
 
+  const structured = productJsonLd(slug, product);
+
   return (
     <main className="bg-[#fff7fb] pb-24 pt-12">
+      {structured && <JsonLd data={structured} />}
       <div className="mx-auto max-w-7xl px-6">
        <Link
   href="/veikals"
