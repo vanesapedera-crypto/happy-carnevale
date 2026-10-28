@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import LogoutButton from "./LogoutButton";
 
@@ -45,12 +44,10 @@ export default function AdminShell({ email, current = "bildes", children }: Admi
       {/* Telefons un planšete */}
       <header className="bg-gradient-to-r from-pink-500 to-violet-500 px-4 pb-3 pt-4 text-white lg:hidden">
         <div className="flex items-center justify-between gap-3">
-          <Link href="/admin/kalendars" className="flex items-center gap-3">
-            <span className="rounded-xl bg-white px-2 py-1 shadow-sm">
-              <Image src="/images/logo-email.png" alt="Happy Carnevale" width={88} height={44} priority />
-            </span>
-            <span className="text-base font-bold">Admin panelis</span>
-          </Link>
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/80">Happy Carnevale</p>
+            <p className="text-lg font-bold">Admin panelis</p>
+          </div>
           <LogoutButton className="rounded-full bg-white/20 px-3 py-1.5 text-sm font-semibold text-white transition hover:bg-white/30 disabled:opacity-60" />
         </div>
         <nav className="mt-3 flex gap-1 overflow-x-auto" aria-label="Admin sadaļas">
@@ -60,12 +57,10 @@ export default function AdminShell({ email, current = "bildes", children }: Admi
 
       {/* Dators */}
       <aside className="sticky top-0 hidden h-screen w-60 shrink-0 flex-col bg-gradient-to-b from-pink-500 to-violet-500 px-4 py-6 text-white lg:flex">
-        <Link href="/admin/kalendars" className="mb-8 block">
-          <span className="block rounded-2xl bg-white px-4 py-3 shadow-sm">
-            <Image src="/images/logo-email.png" alt="Happy Carnevale" width={176} height={88} priority className="mx-auto" />
-          </span>
-          <span className="mt-2 block px-2 text-sm font-semibold text-white/90">Admin panelis</span>
-        </Link>
+        <div className="mb-8 px-2">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/80">Happy Carnevale</p>
+          <p className="text-lg font-bold">Admin panelis</p>
+        </div>
         <nav className="space-y-1" aria-label="Admin sadaļas">
           {NAV.map((item) => link(item, false))}
         </nav>
