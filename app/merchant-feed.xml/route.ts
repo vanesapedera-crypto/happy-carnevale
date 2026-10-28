@@ -1,5 +1,5 @@
 import { SHIPPING, SITE } from "@/lib/constants";
-import { absoluteUrl, feedProducts, plainDescription, SHOP_BRAND } from "@/lib/productFeed";
+import { absoluteUrl, feedProducts, googleCategory, plainDescription, SHOP_BRAND } from "@/lib/productFeed";
 
 export const dynamic = "force-static";
 
@@ -33,6 +33,8 @@ export function GET() {
       <g:price>${price.toFixed(2)} EUR</g:price>
       <g:condition>new</g:condition>
       <g:brand>${xml(SHOP_BRAND)}</g:brand>
+      <g:google_product_category>${googleCategory(slug).id}</g:google_product_category>
+      <g:product_type>${xml(googleCategory(slug).type)}</g:product_type>
       <g:identifier_exists>no</g:identifier_exists>${shipping}
     </item>`;
     })

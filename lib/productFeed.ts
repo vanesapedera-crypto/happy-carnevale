@@ -3,6 +3,18 @@ import { products, type Product } from "@/lib/products";
 
 export const SHOP_BRAND = "Burbulītes burbuļi";
 
+/**
+ * Google produktu kategorija (taksonomijas ID). Bez tās Google šķidrumu
+ * kļūdaini uzskatīja par alkoholisku dzērienu.
+ * 3212 – Toys & Games > Toys > Activity Toys > Bubble Blowing Solution
+ * 3874 – Toys & Games > Toys > Activity Toys > Bubble Blowing Toys
+ */
+export function googleCategory(slug: string): { id: number; type: string } {
+  return slug.includes("skidrums")
+    ? { id: 3212, type: "Ziepju burbuļi > Burbuļu šķidrums" }
+    : { id: 3874, type: "Ziepju burbuļi > Burbuļu kociņi" };
+}
+
 /** "5.50 €" -> 5.5. Mainīgas cenas ("No 20 €") netiek iekļautas Google produktos. */
 export function fixedPrice(product: Product): number | null {
   if (/^\s*no\b/i.test(product.price)) return null;
