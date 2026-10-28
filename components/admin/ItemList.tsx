@@ -56,7 +56,7 @@ export default function ItemList({
 
   if (items.length === 0) {
     return (
-      <p className="rounded-2xl border border-slate-200 bg-white px-6 py-10 text-center text-slate-500">
+      <p className="rounded-[20px] bg-white shadow-[0_6px_18px_rgba(59,7,100,0.06)] px-6 py-10 text-center text-[#8b6aa7]">
         {emptyHint ??
           "Šajā sadaļā vēl nav attēlu. Kamēr tā ir tukša, mājaslapā redzams sākotnējais saturs."}
       </p>

@@ -69,7 +69,15 @@ export async function addBookingAction(input: unknown): Promise<ActionResult> {
 
   // Tāpat kā pieteikumi no mājaslapas: parādās arī atsauksmju sarakstā (ja ir e-pasts).
   if (email) {
-    await recordReviewRequest({ source: kind, name: data.name, email, phone: data.phone, service: title, eventDate });
+    // Atsauksmju sarakstā parādās dienā, kad kostīms atdots (vai pasākuma dienā).
+    await recordReviewRequest({
+      source: kind,
+      name: data.name,
+      email,
+      phone: data.phone,
+      service: title,
+      eventDate: pickupDate ?? eventDate,
+    });
   }
   return { ok: true, data: null };
 }

@@ -11,12 +11,12 @@ export default async function AdminLoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4 py-10">
-      <div className="w-full max-w-sm rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-pink-500 to-violet-500 px-4 py-10">
+      <div className="w-full max-w-sm rounded-[24px] bg-white p-7 shadow-xl">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-pink-600">
           Happy Carnevale
         </p>
-        <h1 className="mb-6 mt-1 text-2xl font-bold text-slate-900">Satura pārvaldība</h1>
+        <h1 className="mb-6 mt-1 text-2xl font-black text-[#3b0764]">Admin panelis</h1>
 
         {configured ? <LoginForm /> : <NotConfigured missing={getMissingEnv()} />}
       </div>

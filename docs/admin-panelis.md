@@ -222,3 +222,13 @@ paziņojuma e-pastos par jaunu rezervāciju/pasākumu/pasūtījumu (`lib/email/c
 - Datubāzē kolonna `section_items.extra_images` (jsonb). Jāpalaiž vienreiz: `supabase/papildu-bildes.sql`.
 - Kods: `app/api/admin/add-image/route.ts`, `removeExtraImageAction` (lib/admin/actions.ts),
   `components/admin/ExtraImages.tsx`, rezervācijas formai `app/api/costume-images/route.ts`.
+
+
+## Noformējums un kalendāra loģika (2026-10-28)
+
+- Admin panelis: rozā–violets sānu panelis (telefonā josla augšā), fons #fff7fb, baltas noapaļotas kartītes.
+  Bez emoji un bez liekiem paskaidrojošiem tekstiem (Vanesas vēlme).
+- Kalendārā kostīma rezervācija redzama TIKAI dienā, kad kostīms jāatdod klientam (saņemšanas diena;
+  ja tās nav – pasākuma diena). Pasākumi – pasākuma dienā. Kartītē "Kostīms jāatdod" + "Pasākums dd.mm.".
+- Atsauksmes: pieteikums automātiski pāriet sadaļā "Var lūgt atsauksmi" dienā, kad kostīms atdots
+  (review_requests.event_date = saņemšanas diena) vai notika pasākums. Līdz tam – "Vēl gaida". Vēsture saritināta.

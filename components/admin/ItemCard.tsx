@@ -116,8 +116,8 @@ export default function ItemCard({
 
   return (
     <article
-      className={`flex h-full w-full flex-col overflow-hidden rounded-2xl border bg-white shadow-sm ${
-        active ? "border-slate-200" : "border-slate-200 opacity-75"
+      className={`flex h-full w-full flex-col overflow-hidden rounded-[20px] bg-white shadow-[0_6px_18px_rgba(59,7,100,0.06)] ${
+        active ? "" : "opacity-75"
       }`}
     >
       <div

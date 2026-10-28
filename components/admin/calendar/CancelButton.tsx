@@ -30,7 +30,7 @@ export default function CancelButton({ id, cancelled }: { id: string; cancelled:
         onClick={toggle}
         title={cancelled ? "Atgriezt pieteikumu kalendārā" : "Noma atcelta vai pasākums nenotika: izņemt no kalendāra"}
         disabled={pending}
-        className="rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:bg-slate-50 disabled:opacity-40"
+        className="rounded-full border border-[#f3e8ff] px-3 py-1 text-xs font-semibold text-[#a78bbf] transition hover:bg-pink-50 hover:text-pink-700 disabled:opacity-40"
       >
         {cancelled ? "Atjaunot" : "Atcelts / nenotika"}
       </button>

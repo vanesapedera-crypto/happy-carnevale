@@ -61,24 +61,24 @@ function RequestRow({ request, reviewUrl }: { request: ReviewRequest; reviewUrl:
   const canSend = ["scheduled", "cancelled", "failed"].includes(request.status);
 
   return (
-    <li className="rounded-2xl border border-slate-200 bg-white p-4">
+    <li className="rounded-[18px] bg-white p-4 shadow-[0_6px_18px_rgba(59,7,100,0.06)]">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
-          <p className="font-semibold text-slate-900">
+          <p className="font-bold">
             {request.name || request.email}
-            <span className="ml-2 text-sm font-normal text-slate-500">
+            <span className="ml-2 text-sm font-normal text-[#8b6aa7]">
               {REVIEW_KIND_LABELS[request.source] ?? request.source}
               {request.service ? `: ${request.service}` : ""}
             </span>
           </p>
-          <p className="mt-1 break-all text-sm text-slate-600">
+          <p className="mt-1 break-all text-sm text-[#7e5a9b]">
             {request.email}
             {request.phone ? ` · ${request.phone}` : ""}
           </p>
-          <p className="mt-1 text-xs text-slate-500">
+          <p className="mt-1 text-xs text-[#a78bbf]">
             Pieteikts {formatDate(request.createdAt)}
             {request.eventDate
-              ? ` · pasākums ${request.eventDate < todayInRiga() ? "bija" : "būs"} ${formatDate(request.eventDate)}`
+              ? ` · ${request.source === "rezervacija" ? "kostīmu atdod" : "pasākums"} ${formatDate(request.eventDate)}`
               : ""}
             {request.status === "sent" && request.sentAt
               ? ` · palūgts ${formatDate(request.sentAt, true)}${
@@ -101,7 +101,7 @@ function RequestRow({ request, reviewUrl }: { request: ReviewRequest; reviewUrl:
             type="button"
             disabled={pending || !reviewUrl}
             onClick={() => run(() => sendRequestNowAction(request.id))}
-            className="rounded-lg bg-pink-500 px-3 py-1.5 text-xs font-bold text-white transition hover:bg-pink-600 disabled:cursor-not-allowed disabled:opacity-40"
+            className="rounded-full bg-pink-500 px-4 py-1.5 text-sm font-bold text-white transition hover:bg-pink-600 disabled:cursor-not-allowed disabled:opacity-40"
           >
             Pieprasīt atsauksmi (e-pasts)
           </button>
@@ -114,7 +114,7 @@ function RequestRow({ request, reviewUrl }: { request: ReviewRequest; reviewUrl:
             onClick={() => {
               if (request.status !== "sent") void run(() => markWhatsAppSentAction(request.id));
             }}
-            className="rounded-lg bg-emerald-500 px-3 py-1.5 text-xs font-bold text-white transition hover:bg-emerald-600"
+            className="rounded-full bg-[#25D366] px-4 py-1.5 text-sm font-bold text-white transition hover:opacity-90"
           >
             WhatsApp
           </a>
@@ -125,7 +125,7 @@ function RequestRow({ request, reviewUrl }: { request: ReviewRequest; reviewUrl:
             disabled={pending}
             onClick={() => run(() => setRequestCancelledAction(request.id, true))}
             title="Kostīms netika iznomāts vai pasākums nenotika: lūgumu nesūtīt"
-            className="rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:bg-slate-50 disabled:opacity-40"
+            className="rounded-full border border-[#f3e8ff] px-4 py-1.5 text-sm font-semibold text-[#a78bbf] transition hover:bg-pink-50 hover:text-pink-700 disabled:opacity-40"
           >
             Nenotika
           </button>
@@ -135,7 +135,7 @@ function RequestRow({ request, reviewUrl }: { request: ReviewRequest; reviewUrl:
             type="button"
             disabled={pending}
             onClick={() => run(() => setRequestCancelledAction(request.id, false))}
-            className="rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:bg-slate-50 disabled:opacity-40"
+            className="rounded-full border border-[#f3e8ff] px-4 py-1.5 text-sm font-semibold text-[#a78bbf] transition hover:bg-pink-50 hover:text-pink-700 disabled:opacity-40"
           >
             Atjaunot
           </button>
@@ -156,34 +156,56 @@ interface ReviewRequestListProps {
   reviewUrl: string;
 }
 
-/** Visi pieteikumi: kam vēl nav lūgts un vēsture. */
+/**
+ * Pieteikumi pāriet sadaļā "Var lūgt atsauksmi" automātiski dienā, kad kostīms atdots
+ * klientam vai notika pasākums. Līdz tam tie ir sadaļā "Vēl gaida".
+ */
 export default function ReviewRequestList({ pending, done, reviewUrl }: ReviewRequestListProps) {
+  const today = todayInRiga();
+  const ready = pending.filter((request) => !request.eventDate || request.eventDate <= today);
+  const waiting = pending
+    .filter((request) => request.eventDate && request.eventDate > today)
+    .sort((a, b) => (a.eventDate ?? "").localeCompare(b.eventDate ?? ""));
+
   return (
     <div className="space-y-8">
       <div>
-        <h3 className="mb-3 font-bold text-slate-900">Vēl nav palūgts ({pending.length})</h3>
-        {pending.length === 0 ? (
-          <p className="rounded-2xl border border-slate-200 bg-white px-4 py-6 text-center text-sm text-slate-500">
+        <h3 className="mb-3 text-lg font-black">Var lūgt atsauksmi ({ready.length})</h3>
+        {ready.length === 0 ? (
+          <p className="rounded-[18px] bg-white px-4 py-6 text-center text-sm text-[#8b6aa7] shadow-[0_6px_18px_rgba(59,7,100,0.06)]">
             Pagaidām nav neviena.
           </p>
         ) : (
           <ul className="space-y-3">
-            {pending.map((request) => (
+            {ready.map((request) => (
               <RequestRow key={`${request.id}-${request.status}`} request={request} reviewUrl={reviewUrl} />
             ))}
           </ul>
         )}
       </div>
 
+      {waiting.length > 0 && (
+        <details className="rounded-[18px] bg-white p-4 shadow-[0_6px_18px_rgba(59,7,100,0.06)]">
+          <summary className="cursor-pointer text-sm font-bold text-[#7e5a9b]">
+            Vēl gaida – kostīms vēl nav atdots vai pasākums nav noticis ({waiting.length})
+          </summary>
+          <ul className="mt-3 space-y-3">
+            {waiting.map((request) => (
+              <RequestRow key={`${request.id}-${request.status}`} request={request} reviewUrl={reviewUrl} />
+            ))}
+          </ul>
+        </details>
+      )}
+
       {done.length > 0 && (
-        <div>
-          <h3 className="mb-3 font-bold text-slate-900">Vēsture</h3>
-          <ul className="space-y-3">
+        <details className="rounded-[18px] bg-white p-4 shadow-[0_6px_18px_rgba(59,7,100,0.06)]">
+          <summary className="cursor-pointer text-sm font-bold text-[#7e5a9b]">Vēsture ({done.length})</summary>
+          <ul className="mt-3 space-y-3">
             {done.map((request) => (
               <RequestRow key={`${request.id}-${request.status}`} request={request} reviewUrl={reviewUrl} />
             ))}
           </ul>
-        </div>
+        </details>
       )}
     </div>
   );

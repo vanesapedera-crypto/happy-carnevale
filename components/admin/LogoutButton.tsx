@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { logoutAction } from "@/lib/admin/actions";
 
-export default function LogoutButton() {
+export default function LogoutButton({ className }: { className?: string }) {
   const router = useRouter();
   const [pending, setPending] = useState(false);
 
@@ -23,7 +23,10 @@ export default function LogoutButton() {
       type="button"
       onClick={handleClick}
       disabled={pending}
-      className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 disabled:opacity-60"
+      className={
+        className ??
+        "rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 disabled:opacity-60"
+      }
     >
       Iziet
     </button>

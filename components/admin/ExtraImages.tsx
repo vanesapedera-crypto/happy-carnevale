@@ -58,7 +58,7 @@ export default function ExtraImages({ item }: { item: SectionItem }) {
   }
 
   return (
-    <div className="rounded-lg border border-slate-200 p-3">
+    <div className="rounded-xl bg-[#fdf4ff] p-3">
       <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
         Papildu bildes ({images.length})
       </p>

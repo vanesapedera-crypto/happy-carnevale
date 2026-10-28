@@ -148,7 +148,8 @@ export async function POST(req: Request) {
       email: body.email,
       phone: body.phone,
       service: body.costume,
-      eventDate: body.date,
+      // Lūgt atsauksmi var no dienas, kad kostīms atdots klientam.
+      eventDate: body.pickupDate || body.date,
     });
 
     return NextResponse.json({

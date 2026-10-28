@@ -78,28 +78,30 @@ export default async function CalendarPage({ searchParams }: CalendarPageProps) 
   const cancelledBookings = bookings.filter((booking) => booking.cancelled);
   const byDate = entriesByDate(active, from, to);
   const days = [...byDate.keys()].sort();
-  const total = active.length;
+  const total = [...byDate.values()].reduce((sum, list) => sum + list.length, 0);
   const navLink = (delta: number) => `/admin/kalendars?m=${monthParam(shiftMonth(month, delta))}`;
+
+  const weekTo = addDays(today, 6);
+  const thisWeek = upcoming.filter((entry) => entry.date <= weekTo).length;
+  const card = "rounded-[20px] bg-white shadow-[0_6px_18px_rgba(59,7,100,0.06)]";
+  const navButton =
+    "flex h-9 min-w-9 items-center justify-center rounded-full px-3 text-sm font-bold text-pink-600 transition hover:bg-pink-50";
 
   return (
     <AdminShell email={session.email} current="kalendars">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h1 className="text-2xl font-black">Kalendārs</h1>
-        </div>
-        <div className="flex items-center gap-2">
-          <Link href={navLink(-1)} aria-label="Iepriekšējais mēnesis" className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold hover:bg-slate-50">
-            ‹
-          </Link>
-          <span className="min-w-36 text-center text-lg font-bold">
-            {MONTH_NAMES[month.month - 1]} {month.year}
-          </span>
-          <Link href={navLink(1)} aria-label="Nākamais mēnesis" className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold hover:bg-slate-50">
-            ›
-          </Link>
-          <Link href="/admin/kalendars" className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold hover:bg-slate-50">
-            Šodien
-          </Link>
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <h1 className="text-3xl font-black">Kalendārs</h1>
+        <div className="flex gap-3">
+          {[
+            { value: thisWeek, label: "šonedēļ" },
+            { value: upcoming.length, label: "2 nedēļās" },
+            { value: total, label: MONTH_NAMES[month.month - 1].toLowerCase() },
+          ].map((stat) => (
+            <div key={stat.label} className={`${card} min-w-24 px-4 py-2.5`}>
+              <p className="text-2xl font-black leading-tight">{stat.value}</p>
+              <p className="text-xs text-[#8b6aa7]">{stat.label}</p>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -113,100 +115,115 @@ export default async function CalendarPage({ searchParams }: CalendarPageProps) 
         </p>
       ) : (
         <>
-          <section className="mt-6 rounded-3xl border-2 border-pink-200 bg-pink-50/60 p-4 sm:p-5">
-            <h2 className="text-lg font-black text-slate-900">
-              Tuvākās 2 nedēļas{" "}
-              <span className="text-sm font-semibold text-slate-500">({upcoming.length})</span>
-            </h2>
-            {upcoming.length === 0 ? (
-              <p className="mt-4 rounded-2xl bg-white px-4 py-6 text-center text-sm text-slate-500">
-                Tuvāko 2 nedēļu laikā pieteikumu nav.
-              </p>
-            ) : (
-              <ul className="mt-4 space-y-3">
-                {upcoming.map((entry) => (
-                  <BookingCard key={`${entry.booking.id}-${entry.type}`} entry={entry} showDate />
-                ))}
-              </ul>
-            )}
-          </section>
+          <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:items-start">
+            <section>
+              <h2 className="mb-3 text-lg font-black">Tuvākās 2 nedēļas</h2>
+              {upcoming.length === 0 ? (
+                <p className={`${card} px-4 py-6 text-center text-sm text-[#8b6aa7]`}>Pieteikumu nav.</p>
+              ) : (
+                <ul className="space-y-3">
+                  {upcoming.map((entry) => (
+                    <BookingCard key={`${entry.booking.id}-${entry.type}`} entry={entry} showDate />
+                  ))}
+                </ul>
+              )}
+            </section>
 
-          <details className="mt-6 rounded-2xl border border-slate-200 bg-white p-4 [&[open]>summary]:mb-4">
-            <summary className="cursor-pointer text-sm font-bold text-pink-600">+ Pievienot pieteikumu ar roku</summary>
+            <section className={`${card} p-4`}>
+              <div className="mb-3 flex items-center justify-between gap-2">
+                <h2 className="text-lg font-black">
+                  {MONTH_NAMES[month.month - 1]} {month.year}
+                </h2>
+                <div className="flex items-center">
+                  <Link href={navLink(-1)} aria-label="Iepriekšējais mēnesis" className={navButton}>
+                    ‹
+                  </Link>
+                  <Link href="/admin/kalendars" className={navButton}>
+                    Šodien
+                  </Link>
+                  <Link href={navLink(1)} aria-label="Nākamais mēnesis" className={navButton}>
+                    ›
+                  </Link>
+                </div>
+              </div>
+              <div className="hidden sm:block">
+                <div className="grid grid-cols-7 gap-1 text-center text-xs font-bold text-[#c4a9d6]">
+                  {WEEKDAYS.map((day) => (
+                    <div key={day} className="py-1">
+                      {day}
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-1 grid grid-cols-7 gap-1">
+                  {monthWeeks(month)
+                    .flat()
+                    .map((day, index) => {
+                      const entries = day ? byDate.get(day) ?? [] : [];
+                      return (
+                        <div
+                          key={day ?? `empty-${index}`}
+                          className={`min-h-20 min-w-0 rounded-xl p-1.5 ${day ? "bg-[#fdf4ff]" : ""}`}
+                        >
+                          {day && (
+                            <>
+                              <div
+                                className={`mb-1 inline-flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold ${
+                                  day === today ? "bg-pink-500 text-white" : "text-[#7e5a9b]"
+                                }`}
+                              >
+                                {Number(day.slice(8, 10))}
+                              </div>
+                              <div className="space-y-1">
+                                {entries.slice(0, MAX_CHIPS).map((entry) => (
+                                  <a
+                                    key={`${entry.booking.id}-${entry.type}`}
+                                    href={`#d-${day}`}
+                                    title={entryLabel(entry)}
+                                    className={`block truncate rounded-md px-1.5 py-0.5 text-[11px] font-semibold ${entryColor(entry)}`}
+                                  >
+                                    {entryLabel(entry)}
+                                  </a>
+                                ))}
+                                {entries.length > MAX_CHIPS && (
+                                  <a href={`#d-${day}`} className="block px-1.5 text-[11px] font-semibold text-[#8b6aa7] hover:underline">
+                                    + vēl {entries.length - MAX_CHIPS}
+                                  </a>
+                                )}
+                              </div>
+                            </>
+                          )}
+                        </div>
+                      );
+                    })}
+                </div>
+                <div className="mt-3 flex flex-wrap gap-4 text-xs text-[#8b6aa7]">
+                  <span className="inline-flex items-center gap-1.5">
+                    <span className="h-3 w-3 rounded bg-pink-500" /> Kostīms jāatdod klientam
+                  </span>
+                  <span className="inline-flex items-center gap-1.5">
+                    <span className="h-3 w-3 rounded bg-violet-500" /> Pasākums
+                  </span>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <details className={`${card} mt-6 p-4 [&[open]>summary]:mb-4`}>
+            <summary className="cursor-pointer text-sm font-bold text-pink-600">+ Pievienot pieteikumu</summary>
             <AddBookingForm />
           </details>
 
-          <div className="mt-6 hidden overflow-hidden rounded-2xl border border-slate-200 bg-white sm:block">
-            <div className="grid grid-cols-7 border-b border-slate-200 bg-slate-50 text-center text-xs font-semibold uppercase tracking-wide text-slate-500">
-              {WEEKDAYS.map((day) => (
-                <div key={day} className="py-2">
-                  {day}
-                </div>
-              ))}
-            </div>
-            {monthWeeks(month).map((week, index) => (
-              <div key={index} className="grid grid-cols-7 border-b border-slate-100 last:border-b-0">
-                {week.map((day, dayIndex) => {
-                  const entries = day ? byDate.get(day) ?? [] : [];
-                  return (
-                    <div
-                      key={day ?? `empty-${dayIndex}`}
-                      className={`min-h-28 border-r border-slate-100 p-1.5 last:border-r-0 ${day ? "" : "bg-slate-50/60"}`}
-                    >
-                      {day && (
-                        <>
-                          <div
-                            className={`mb-1 inline-flex h-6 w-6 items-center justify-center rounded-full text-xs font-semibold ${
-                              day === today ? "bg-pink-500 text-white" : "text-slate-600"
-                            }`}
-                          >
-                            {Number(day.slice(8, 10))}
-                          </div>
-                          <div className="space-y-1">
-                            {entries.slice(0, MAX_CHIPS).map((entry) => (
-                              <a
-                                key={`${entry.booking.id}-${entry.type}`}
-                                href={`#d-${day}`}
-                                title={entryLabel(entry)}
-                                className={`block truncate rounded-md px-1.5 py-0.5 text-[11px] font-semibold ${entryColor(entry)}`}
-                              >
-                                {entryLabel(entry)}
-                              </a>
-                            ))}
-                            {entries.length > MAX_CHIPS && (
-                              <a href={`#d-${day}`} className="block px-1.5 text-[11px] font-semibold text-slate-500 hover:underline">
-                                + vēl {entries.length - MAX_CHIPS}
-                              </a>
-                            )}
-                          </div>
-                        </>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-3 hidden flex-wrap gap-4 text-xs text-slate-500 sm:flex">
-            <span className="inline-flex items-center gap-1.5"><span className="h-3 w-3 rounded bg-pink-100" /> Kostīma rezervācija (pasākuma diena)</span>
-            <span className="inline-flex items-center gap-1.5"><span className="h-3 w-3 rounded bg-amber-50 ring-1 ring-amber-200" /> Kostīma saņemšana</span>
-            <span className="inline-flex items-center gap-1.5"><span className="h-3 w-3 rounded bg-violet-100" /> Pasākums</span>
-          </div>
-
           <section className="mt-8">
-            <h2 className="mb-3 text-lg font-bold">
-              Pieteikumi: {MONTH_NAMES[month.month - 1].toLowerCase()} ({total})
+            <h2 className="mb-3 text-lg font-black">
+              Visi pieteikumi: {MONTH_NAMES[month.month - 1].toLowerCase()} ({total})
             </h2>
             {days.length === 0 ? (
-              <p className="rounded-2xl border border-slate-200 bg-white px-4 py-8 text-center text-sm text-slate-500">
-                Šajā mēnesī pieteikumu nav.
-              </p>
+              <p className={`${card} px-4 py-8 text-center text-sm text-[#8b6aa7]`}>Šajā mēnesī pieteikumu nav.</p>
             ) : (
               <div className="space-y-6">
                 {days.map((day) => (
                   <div key={day} id={`d-${day}`} className="scroll-mt-4">
-                    <h3 className={`mb-2 text-sm font-bold ${day === today ? "text-pink-600" : "text-slate-700"}`}>
+                    <h3 className={`mb-2 text-sm font-bold ${day === today ? "text-pink-600" : "text-[#7e5a9b]"}`}>
                       {longDate(day)}
                       {day === today ? " · šodien" : ""}
                     </h3>
@@ -220,14 +237,14 @@ export default async function CalendarPage({ searchParams }: CalendarPageProps) 
               </div>
             )}
             {cancelledBookings.length > 0 && (
-              <details className="mt-8 rounded-2xl border border-slate-200 bg-white p-4">
-                <summary className="cursor-pointer text-sm font-bold text-slate-600">
+              <details className={`${card} mt-8 p-4`}>
+                <summary className="cursor-pointer text-sm font-bold text-[#7e5a9b]">
                   Atceltie un nenotikušie ({cancelledBookings.length})
                 </summary>
-                <ul className="mt-3 divide-y divide-slate-100">
+                <ul className="mt-3 divide-y divide-pink-50">
                   {cancelledBookings.map((booking) => (
                     <li key={booking.id} className="flex flex-wrap items-center justify-between gap-3 py-2 text-sm">
-                      <span className="text-slate-500">
+                      <span className="text-[#8b6aa7]">
                         {booking.eventDate ? `${shortDate(booking.eventDate)} · ` : ""}
                         {booking.title || "—"}
                         {booking.name ? ` – ${booking.name}` : ""}

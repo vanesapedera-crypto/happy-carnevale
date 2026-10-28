@@ -15,43 +15,64 @@ const NAV = [
   { key: "bildes", label: "Bildes", href: "/admin/dashboard" },
 ] as const;
 
-/** Admin paneļa rāmis: augšējā josla ar lietotāju un izrakstīšanos. */
+/** Admin paneļa rāmis: rozā–violets sānu panelis (telefonā – josla augšā). */
 export default function AdminShell({ email, current = "bildes", children }: AdminShellProps) {
-  return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
-      <header className="border-b border-slate-200 bg-white">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-pink-600">
-              Happy Carnevale
-            </p>
-            <p className="text-lg font-bold">Satura pārvaldība</p>
-          </div>
+  const link = (item: (typeof NAV)[number], mobile: boolean) => {
+    const active = current === item.key;
+    return (
+      <Link
+        key={item.key}
+        href={item.href}
+        aria-current={active ? "page" : undefined}
+        className={
+          mobile
+            ? `whitespace-nowrap rounded-full px-4 py-1.5 text-sm font-semibold transition ${
+                active ? "bg-white text-pink-700" : "text-white/90 hover:bg-white/15"
+              }`
+            : `block rounded-xl px-3.5 py-2.5 text-[15px] font-semibold transition ${
+                active ? "bg-white text-pink-700 shadow-sm" : "text-white/90 hover:bg-white/15"
+              }`
+        }
+      >
+        {item.label}
+      </Link>
+    );
+  };
 
-          <div className="flex items-center gap-3">
-            <span className="hidden text-sm text-slate-500 sm:inline">{email}</span>
-            <LogoutButton />
+  return (
+    <div className="min-h-screen bg-[#fff7fb] text-[#3b0764] lg:flex">
+      {/* Telefons un planšete */}
+      <header className="bg-gradient-to-r from-pink-500 to-violet-500 px-4 pb-3 pt-4 text-white lg:hidden">
+        <div className="flex items-center justify-between gap-3">
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/80">Happy Carnevale</p>
+            <p className="text-lg font-bold">Admin panelis</p>
           </div>
+          <LogoutButton className="rounded-full bg-white/20 px-3 py-1.5 text-sm font-semibold text-white transition hover:bg-white/30 disabled:opacity-60" />
         </div>
-        <nav className="mx-auto flex max-w-6xl gap-1 px-4 sm:px-6" aria-label="Admin sadaļas">
-          {NAV.map((item) => (
-            <Link
-              key={item.key}
-              href={item.href}
-              aria-current={current === item.key ? "page" : undefined}
-              className={`border-b-2 px-3 py-2 text-sm font-semibold transition ${
-                current === item.key
-                  ? "border-pink-500 text-pink-600"
-                  : "border-transparent text-slate-500 hover:text-slate-900"
-              }`}
-            >
-              {item.label}
-            </Link>
-          ))}
+        <nav className="mt-3 flex gap-1 overflow-x-auto" aria-label="Admin sadaļas">
+          {NAV.map((item) => link(item, true))}
         </nav>
       </header>
 
-      <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8">{children}</div>
+      {/* Dators */}
+      <aside className="sticky top-0 hidden h-screen w-60 shrink-0 flex-col bg-gradient-to-b from-pink-500 to-violet-500 px-4 py-6 text-white lg:flex">
+        <div className="mb-8 px-2">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/80">Happy Carnevale</p>
+          <p className="text-lg font-bold">Admin panelis</p>
+        </div>
+        <nav className="space-y-1" aria-label="Admin sadaļas">
+          {NAV.map((item) => link(item, false))}
+        </nav>
+        <div className="mt-auto px-2">
+          <p className="mb-2 break-all text-xs text-white/80">{email}</p>
+          <LogoutButton className="rounded-full bg-white/20 px-4 py-1.5 text-sm font-semibold text-white transition hover:bg-white/30 disabled:opacity-60" />
+        </div>
+      </aside>
+
+      <main className="min-w-0 flex-1">
+        <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:px-8 lg:py-8">{children}</div>
+      </main>
     </div>
   );
 }

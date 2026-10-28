@@ -36,19 +36,20 @@ export default async function AdminDashboardPage({ searchParams }: DashboardPage
 
   return (
     <AdminShell email={session.email}>
-      <section className="rounded-2xl border border-slate-200 bg-white p-5">
+      <h1 className="mb-6 text-3xl font-black">Bildes</h1>
+      <section className="rounded-[20px] bg-white shadow-[0_6px_18px_rgba(59,7,100,0.06)] p-5">
         <SectionPicker sections={SECTIONS} current={section} />
       </section>
 
       <section className="mt-6">
-        <h2 className="mb-3 text-lg font-bold">Pievienot attēlus</h2>
+        <h2 className="mb-3 text-lg font-black">Pievienot attēlus</h2>
         <ImageUploader key={section.key} sectionKey={section.key} />
       </section>
 
       <section className="mt-8">
         <div className="mb-3 flex items-baseline justify-between gap-4">
-          <h2 className="text-lg font-bold">Sadaļas attēli</h2>
-          <p className="text-sm text-slate-500">
+          <h2 className="text-lg font-black">Sadaļas attēli</h2>
+          <p className="text-sm text-[#8b6aa7]">
             {items.length} kopā, {visibleCount} redzami lapā
           </p>
         </div>

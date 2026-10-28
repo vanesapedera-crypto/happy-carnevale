@@ -15,7 +15,7 @@ import {
 
 export const dynamic = "force-dynamic";
 
-const CARD = "rounded-2xl border border-slate-200 bg-white p-5";
+const CARD = "rounded-[20px] bg-white p-5 shadow-[0_6px_18px_rgba(59,7,100,0.06)]";
 
 export default async function ReviewsPage() {
   const session = await requireSession();
@@ -49,7 +49,7 @@ export default async function ReviewsPage() {
 
   return (
     <AdminShell email={session.email} current="atsauksmes">
-      <h1 className="text-2xl font-black">Atsauksmes</h1>
+      <h1 className="text-3xl font-black">Atsauksmes</h1>
 
       {missingTables ? (
         <p role="alert" className="mt-6 rounded-2xl bg-amber-50 px-5 py-4 text-sm font-medium text-amber-800">
@@ -66,7 +66,6 @@ export default async function ReviewsPage() {
           </section>
 
           <section>
-            <h2 className="mb-3 text-lg font-bold">Visi pieteikumi no mājaslapas</h2>
             <ReviewRequestList pending={pending} done={done} reviewUrl={settings.reviewUrl} />
           </section>
         </div>
