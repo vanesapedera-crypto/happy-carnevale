@@ -98,6 +98,16 @@ export default async function CalendarPage({ searchParams }: CalendarPageProps) 
   } catch (error) {
     console.error("[bookings] costume images failed", error);
   }
+  // Kā klienti uzzināja par mums (šī mēneša kostīmu nomas).
+  const sourceCounts = new Map<string, number>();
+  for (const list of byDate.values()) {
+    for (const entry of list) {
+      const heard = entry.booking.details.find((item) => item.label === "Kā uzzināja")?.value || "Nav norādīts";
+      sourceCounts.set(heard, (sourceCounts.get(heard) ?? 0) + 1);
+    }
+  }
+  const sources = [...sourceCounts.entries()].sort((a, b) => b[1] - a[1]);
+
   const imageFor = (entry: CalendarEntry) => imageByTitle.get(entry.booking.title.trim().toLowerCase());
 
   const card = "rounded-[20px] bg-white shadow-[0_6px_18px_rgba(59,7,100,0.06)]";
@@ -218,6 +228,22 @@ export default async function CalendarPage({ searchParams }: CalendarPageProps) 
               </div>
             </section>
           </div>
+
+          {total > 0 && (
+            <section className={`${card} mt-6 p-4`}>
+              <h2 className="mb-3 text-lg font-black">
+                Kā klienti uzzināja – {MONTH_NAMES[month.month - 1].toLowerCase()}
+              </h2>
+              <ul className="flex flex-wrap gap-2">
+                {sources.map(([label, count]) => (
+                  <li key={label} className="rounded-full bg-[#fdf4ff] px-3 py-1.5 text-sm">
+                    <span className="font-semibold">{label}</span>{" "}
+                    <span className="font-black text-pink-600">{count}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
 
           <details className={`${card} mt-6 p-4 [&[open]>summary]:mb-4`}>
             <summary className="cursor-pointer text-sm font-bold text-pink-600">+ Pievienot pieteikumu</summary>

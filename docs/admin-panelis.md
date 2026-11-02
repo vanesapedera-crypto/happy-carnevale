@@ -236,3 +236,4 @@ paziņojuma e-pastos par jaunu rezervāciju/pasākumu/pasūtījumu (`lib/email/c
 - Atzīme "Sazinājos": poga kartītē; WhatsApp/SMS/Zvanīt/E-pasts pogas atzīmē automātiski. Kalendārā sazinātie – zaļi.
   Kolonna bookings.contacted_at – jāpalaiž supabase/sazinajos.sql.
 - "Mani komentāri": katrā kalendāra kartītē (dzeltens bloks), redzami tikai admin panelī. Kolonna bookings.admin_note – supabase/sazinajos.sql.
+- Kostīmu rezervācijā: obligāts "Kā uzzināji par mums?" + automātiski fiksēts avots (Google/Instagram/cita lapa – pēc pirmā apmeklējuma, lib/trafficSource.ts, localStorage 60 d.). Redzams e-pastā, kalendāra kartītē un mēneša kopsavilkumā "Kā klienti uzzināja".

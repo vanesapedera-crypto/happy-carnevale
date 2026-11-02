@@ -10,6 +10,7 @@ import JsonLd from "@/components/seo/JsonLd";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SiteShell from "@/components/layout/SiteShell";
+import SourceTracker from "@/components/common/SourceTracker";
 
 const poppins = Poppins({
   subsets: ["latin", "latin-ext"],
@@ -43,6 +44,7 @@ export default function RootLayout({
     <html lang="lv" className={poppins.variable}>
       <body className="font-sans">
         <JsonLd data={businessData()} />
+        <SourceTracker />
         <CartProvider>
           <SiteShell header={<Header />} footer={<Footer />}>
             {children}
