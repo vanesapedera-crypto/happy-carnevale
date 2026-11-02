@@ -1,4 +1,5 @@
 import type { Booking } from "@/lib/bookings/store";
+import { isPartnerBooking } from "@/lib/bookings/partner";
 
 /** Viens ieraksts kalendāra dienā: pasākums vai kostīma saņemšana. */
 export interface CalendarEntry {
@@ -40,5 +41,7 @@ export function entryColor(entry: CalendarEntry): string {
   if (entry.booking.cancelled) return "bg-slate-100 text-slate-400 line-through";
   // Ar klientu jau sazinājies – zaļš.
   if (entry.booking.contactedAt) return "bg-emerald-500 text-white";
+  // No kostimunoma.lv – violets.
+  if (isPartnerBooking(entry.booking)) return "bg-violet-500 text-white";
   return entry.booking.kind === "pasakums" ? "bg-violet-500 text-white" : "bg-pink-500 text-white";
 }

@@ -3,6 +3,7 @@ import CancelButton from "./CancelButton";
 import ContactButtons from "./ContactButtons";
 import NoteEditor from "./NoteEditor";
 import { longDate } from "@/lib/bookings/month";
+import { isPartnerBooking, PARTNER_SOURCE } from "@/lib/bookings/partner";
 
 interface BookingCardProps {
   entry: CalendarEntry;
@@ -26,6 +27,9 @@ export default function BookingCard({ entry, showDate = false, image }: BookingC
         >
           {rental ? "Kostīms jāatdod" : "Pasākums"}
         </span>
+        {isPartnerBooking(booking) && (
+          <span className="rounded-full bg-violet-500 px-2.5 py-0.5 font-bold text-white">{PARTNER_SOURCE}</span>
+        )}
         {showDate && <span className="font-semibold text-[#8b6aa7]">{longDate(entry.date)}</span>}
         <span className="ml-auto">
           <CancelButton id={booking.id} cancelled={booking.cancelled} />

@@ -23,6 +23,7 @@ import {
 import { listBookingsInRange, type Booking } from "@/lib/bookings/store";
 import { isMissingTable } from "@/lib/reviews/store";
 import { COSTUME_CATEGORIES, loadCategoryCostumes } from "@/lib/costumeCatalog";
+import { isPartnerBooking, PARTNER_SOURCE } from "@/lib/bookings/partner";
 
 export const dynamic = "force-dynamic";
 
@@ -85,6 +86,7 @@ export default async function CalendarPage({ searchParams }: CalendarPageProps) 
   const byDate = entriesByDate(active, from, to);
   const days = [...byDate.keys()].sort();
   const total = [...byDate.values()].reduce((sum, list) => sum + list.length, 0);
+  const partnerTotal = [...byDate.values()].flat().filter((entry) => isPartnerBooking(entry.booking)).length;
   const navLink = (delta: number) => `/admin/kalendars?m=${monthParam(shiftMonth(month, delta))}`;
 
   // Kostīma sīktēls kartītē: bilde pēc kostīma nosaukuma no kostīmu kataloga.
@@ -113,6 +115,11 @@ export default async function CalendarPage({ searchParams }: CalendarPageProps) 
           <p className="text-xs text-[#8b6aa7]">
             {total === 1 ? "kostīms nomā" : "kostīmi nomā"} {MONTH_LOCATIVE[month.month - 1]}
           </p>
+          {partnerTotal > 0 && (
+            <p className="mt-0.5 text-xs font-semibold text-violet-600">
+              no tiem {partnerTotal} no {PARTNER_SOURCE}
+            </p>
+          )}
         </div>
       </div>
 
@@ -213,6 +220,9 @@ export default async function CalendarPage({ searchParams }: CalendarPageProps) 
                   </span>
                   <span className="inline-flex items-center gap-1.5">
                     <span className="h-3 w-3 rounded bg-emerald-500" /> Sazinājos
+                  </span>
+                  <span className="inline-flex items-center gap-1.5">
+                    <span className="h-3 w-3 rounded bg-violet-500" /> {PARTNER_SOURCE}
                   </span>
                 </div>
               </div>

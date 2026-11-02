@@ -8,6 +8,7 @@ import { describeSupabaseError } from "./supabase";
 import { formatDateLv } from "@/lib/date";
 import { insertBooking, setBookingCancelled, setBookingContacted, setBookingNote } from "@/lib/bookings/store";
 import { parseIsoDate, recordReviewRequest } from "@/lib/reviews/record";
+import { PARTNER_SOURCE } from "@/lib/bookings/partner";
 
 /** Atzīmē pieteikumu kā atceltu (kalendārā pārsvītrots) vai atjauno. */
 export async function setBookingCancelledAction(id: unknown, cancelled: unknown): Promise<ActionResult> {
@@ -48,7 +49,7 @@ export async function addBookingAction(input: unknown): Promise<ActionResult> {
     ["Saņemšanas datums", pickupDate ? formatDateLv(pickupDate) : ""],
     [kind === "rezervacija" ? "Piegādes adrese / pakomāts" : "Adrese", text("address", 300)],
     ["Piezīmes", text("comment", 1000)],
-    ["Avots", "Pievienots ar roku admin panelī"],
+    ["Avots", data.source === "kostimunoma" ? PARTNER_SOURCE : "Pievienots ar roku admin panelī"],
   ];
 
   try {

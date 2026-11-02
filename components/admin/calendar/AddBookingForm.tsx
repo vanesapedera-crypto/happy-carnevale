@@ -10,6 +10,7 @@ const LABEL = "text-xs font-semibold uppercase tracking-wide text-slate-500";
 
 const EMPTY = {
   kind: "rezervacija" as "rezervacija" | "pasakums",
+  source: "happycarnevale" as "happycarnevale" | "kostimunoma",
   title: "",
   name: "",
   phone: "",
@@ -52,6 +53,36 @@ export default function AddBookingForm() {
 
   return (
     <form onSubmit={submit} className="grid gap-3 sm:grid-cols-2">
+      <div className="sm:col-span-2">
+        <span className={LABEL}>Rezervācija no</span>
+        <div className="mt-1 flex flex-wrap gap-2">
+          {(
+            [
+              ["happycarnevale", "Happy Carnevale"],
+              ["kostimunoma", "kostimunoma.lv"],
+            ] as const
+          ).map(([value, label]) => (
+            <label
+              key={value}
+              className={`cursor-pointer rounded-full border px-4 py-1.5 text-sm font-semibold transition ${
+                form.source === value
+                  ? "border-pink-500 bg-pink-500 text-white"
+                  : "border-pink-200 bg-white text-[#7e5a9b] hover:bg-pink-50"
+              }`}
+            >
+              <input
+                type="radio"
+                name="ab-source"
+                value={value}
+                checked={form.source === value}
+                onChange={set("source")}
+                className="sr-only"
+              />
+              {label}
+            </label>
+          ))}
+        </div>
+      </div>
       <div>
         <label htmlFor="ab-title" className={LABEL}>{rental ? "Kostīms" : "Pakalpojums"}</label>
         <input

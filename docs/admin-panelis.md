@@ -236,3 +236,4 @@ paziņojuma e-pastos par jaunu rezervāciju/pasākumu/pasūtījumu (`lib/email/c
 - Atzīme "Sazinājos": poga kartītē; WhatsApp/SMS/Zvanīt/E-pasts pogas atzīmē automātiski. Kalendārā sazinātie – zaļi.
   Kolonna bookings.contacted_at – jāpalaiž supabase/sazinajos.sql.
 - "Mani komentāri": katrā kalendāra kartītē (dzeltens bloks), redzami tikai admin panelī. Kolonna bookings.admin_note – supabase/sazinajos.sql.
+- kostimunoma.lv (partnere, Squarespace): rezervācijas pārsūta ar e-pasta filtru uz carnevalehappy@gmail.com; admin "Pievienot pieteikumu" → "Rezervācija no: kostimunoma.lv" (details Avots=kostimunoma.lv, lib/bookings/partner.ts). Kalendārā violetas, kopsavilkumā "no tiem N no kostimunoma.lv".
