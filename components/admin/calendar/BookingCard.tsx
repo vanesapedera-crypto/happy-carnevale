@@ -16,9 +16,6 @@ interface BookingCardProps {
 export default function BookingCard({ entry, showDate = false, image }: BookingCardProps) {
   const { booking } = entry;
   const rental = booking.kind === "rezervacija";
-  const detail = (label: string) => booking.details.find((item) => item.label === label)?.value ?? "";
-  const heardFrom = detail("Kā uzzināja");
-  const autoSource = detail("Atnāca no (automātiski)");
   return (
     <li className="rounded-[18px] bg-white p-4 shadow-[0_6px_18px_rgba(59,7,100,0.06)]">
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
@@ -56,16 +53,6 @@ export default function BookingCard({ entry, showDate = false, image }: BookingC
             {booking.email ? <span className="break-all">{` · ${booking.email}`}</span> : null}
           </p>
 
-          {(heardFrom || autoSource) && (
-            <p className="mt-1 text-xs text-[#a78bbf]">
-              Uzzināja: <span className="font-semibold text-[#7e5a9b]">{heardFrom || "—"}</span>
-              {autoSource ? (
-                <>
-                  {" · "}atnāca no: <span className="font-semibold text-[#7e5a9b]">{autoSource}</span>
-                </>
-              ) : null}
-            </p>
-          )}
         </div>
       </div>
 

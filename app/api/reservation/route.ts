@@ -7,14 +7,6 @@ import { contactButtonsHtml } from "@/lib/email/contactButtons";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-function escapeText(value: unknown): string {
-  return String(value ?? "")
-    .slice(0, 200)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
-}
-
 export async function POST(req: Request) {
   try {
     const body = await req.json();
@@ -118,14 +110,6 @@ export async function POST(req: Request) {
               `
               : ""
           }
-
-          <hr style="margin:25px 0;">
-
-          <h3>🔎 Kā uzzināja par mums</h3>
-
-          <p><strong>Klients norādīja:</strong> ${escapeText(body.heardFrom) || "-"}</p>
-
-          <p><strong>Atnāca no (automātiski):</strong> ${escapeText(body.autoSource) || "-"}</p>
 
           <hr style="margin:25px 0;">
 

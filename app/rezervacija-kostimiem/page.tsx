@@ -5,7 +5,6 @@ import { Suspense, useEffect, useState, type FormEvent } from "react";
 import ReservationSuccess from "@/components/reservation/ReservationSuccess";
 import DateInput from "@/components/common/DateInput";
 import CostumeGallery from "@/components/costumes/CostumeGallery";
-import { HEARD_FROM_OPTIONS, readSource } from "@/lib/trafficSource";
 
 type DeliveryMode = "pickup" | "address" | "omniva";
 
@@ -43,7 +42,6 @@ function ReservationContent() {
   const [pickupDate, setPickupDate] = useState("");
   const [address, setAddress] = useState("");
   const [comment, setComment] = useState("");
-  const [heardFrom, setHeardFrom] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
@@ -76,8 +74,6 @@ function ReservationContent() {
           delivery,
           address,
           message: comment,
-          heardFrom,
-          autoSource: readSource()?.label ?? "",
         }),
       });
 
@@ -97,7 +93,6 @@ function ReservationContent() {
       setPickupDate("");
       setAddress("");
       setComment("");
-      setHeardFrom("");
       setDelivery("pickup");
     } else {
       setError(
@@ -309,28 +304,6 @@ function ReservationContent() {
                   />
                 </div>
               )}
-
-              <div>
-                <label htmlFor="heard-from" className="mb-2 block font-semibold text-gray-900">
-                  Kā uzzināji par mums?
-                </label>
-                <select
-                  id="heard-from"
-                  value={heardFrom}
-                  onChange={(e) => setHeardFrom(e.target.value)}
-                  required
-                  className="w-full rounded-xl border border-gray-300 bg-white p-4 focus:border-pink-500 focus:outline-none"
-                >
-                  <option value="" disabled>
-                    Izvēlies
-                  </option>
-                  {HEARD_FROM_OPTIONS.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-              </div>
 
               <div>
                 <label className="mb-2 block font-semibold text-gray-900">

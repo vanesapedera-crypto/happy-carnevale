@@ -61,8 +61,6 @@ export function bookingFromReservation(body: Body): NewBooking {
       ["Saņemšanas veids", delivery],
       [text(body.delivery) === "omniva" ? "Pakomāts" : "Piegādes adrese", body.address],
       ["Komentārs", body.message],
-      ["Kā uzzināja", body.heardFrom],
-      ["Atnāca no (automātiski)", body.autoSource],
     ]),
   };
 }
