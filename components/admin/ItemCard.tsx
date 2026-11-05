@@ -8,6 +8,11 @@ import type { SectionItem } from "@/lib/admin/types";
 import ExtraImages from "./ExtraImages";
 import { postImage } from "@/lib/admin/uploadClient";
 import { ACCEPTED_IMAGE_TYPES, LIMITS } from "@/lib/admin/validation";
+import { getSection } from "@/lib/admin/sections";
+import { defaultCaption, prepareInstagramImage } from "@/lib/admin/instagramImage";
+import type { ActionResult } from "@/lib/admin/types";
+
+const CAPTION_MAX = 2200;
 
 const INPUT_CLASS =
   "mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-pink-500 focus:ring-2 focus:ring-pink-200";
@@ -45,6 +50,9 @@ export default function ItemCard({
   const [replacing, setReplacing] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
   const [notice, setNotice] = useState<Notice>(null);
+  const [toInstagram, setToInstagram] = useState(false);
+  const [caption, setCaption] = useState("");
+  const [instagramLink, setInstagramLink] = useState<string | null>(null);
 
   const dirty =
     title !== item.title ||
@@ -52,9 +60,46 @@ export default function ItemCard({
     size !== item.size ||
     active !== item.active;
 
+  function toggleInstagram(checked: boolean) {
+    setToInstagram(checked);
+    if (checked && !caption) {
+      setCaption(defaultCaption(title, price, getSection(item.sectionKey)?.path ?? ""));
+    }
+  }
+
+  /** Publicē kartītes bildi Instagram. Atgriež kļūdas tekstu vai null. */
+  async function publishToInstagram(): Promise<string | null> {
+    let file: File;
+    try {
+      file = await prepareInstagramImage(item.imageUrl);
+    } catch {
+      return "Neizdevās sagatavot bildi Instagram.";
+    }
+    const body = new FormData();
+    body.append("caption", caption);
+    body.append("file", file, file.name);
+    try {
+      const response = await fetch("/api/admin/instagram", { method: "POST", body });
+      const result = (await response.json()) as ActionResult<{ permalink: string | null }>;
+      if (!result.ok) return result.error;
+      setInstagramLink(result.data.permalink);
+      return null;
+    } catch {
+      return "Neizdevās publicēt Instagram. Pārbaudi interneta savienojumu.";
+    }
+  }
+
   async function handleSave() {
     setPending(true);
     setNotice(null);
+    setInstagramLink(null);
+    if (toInstagram && !dirty) {
+      const error = await publishToInstagram();
+      setNotice(error ? { kind: "error", text: error } : { kind: "success", text: "Publicēts Instagram" });
+      if (!error) setToInstagram(false);
+      setPending(false);
+      return;
+    }
     try {
       const result = await updateItemAction(item.id, {
         active,
@@ -62,7 +107,17 @@ export default function ItemCard({
         ...(showPriceAndSize ? { price, size } : {}),
       });
       if (result.ok) {
-        setNotice({ kind: "success", text: "Saglabāts" });
+        if (toInstagram) {
+          const error = await publishToInstagram();
+          setNotice(
+            error
+              ? { kind: "error", text: `Saglabāts, bet Instagram: ${error}` }
+              : { kind: "success", text: "Saglabāts un publicēts Instagram" }
+          );
+          if (!error) setToInstagram(false);
+        } else {
+          setNotice({ kind: "success", text: "Saglabāts" });
+        }
         router.refresh();
       } else {
         setNotice({ kind: "error", text: result.error });
@@ -212,6 +267,35 @@ export default function ItemCard({
           Rādīt lapā
         </label>
 
+        <label className="flex cursor-pointer items-center gap-2.5 rounded-lg border border-slate-300 px-3 py-2 text-sm font-semibold text-slate-700">
+          <input
+            type="checkbox"
+            checked={toInstagram}
+            onChange={(event) => toggleInstagram(event.target.checked)}
+            className="h-4 w-4 accent-pink-500"
+          />
+          Publicēt arī Instagram
+        </label>
+
+        {toInstagram && (
+          <div>
+            <label htmlFor={fieldId("caption")} className={LABEL_CLASS}>
+              Apraksts Instagram
+            </label>
+            <textarea
+              id={fieldId("caption")}
+              value={caption}
+              rows={6}
+              maxLength={CAPTION_MAX}
+              onChange={(event) => setCaption(event.target.value)}
+              className={INPUT_CLASS}
+            />
+            <p className="mt-1 text-xs text-slate-500">
+              Publicēs, nospiežot pogu zemāk. Ieraksts Instagram būs uzreiz redzams visiem.
+            </p>
+          </div>
+        )}
+
         {/* Kostīmiem: vairākas bildes, ko klients var pāršķirt kostīma lapā. */}
         {showPriceAndSize && <ExtraImages item={item} />}
 
@@ -219,10 +303,18 @@ export default function ItemCard({
           <button
             type="button"
             onClick={handleSave}
-            disabled={pending || !dirty}
+            disabled={pending || (!dirty && !toInstagram)}
             className="rounded-lg bg-pink-500 px-4 py-2 text-sm font-bold text-white transition hover:bg-pink-600 disabled:cursor-not-allowed disabled:opacity-40"
           >
-            {pending && !replacing ? "Saglabā…" : "Saglabāt"}
+            {pending && !replacing
+              ? toInstagram
+                ? "Publicē…"
+                : "Saglabā…"
+              : toInstagram
+                ? dirty
+                  ? "Saglabāt un publicēt"
+                  : "Publicēt"
+                : "Saglabāt"}
           </button>
 
           <input
@@ -253,6 +345,14 @@ export default function ItemCard({
             }`}
           >
             {notice.text}
+            {instagramLink && (
+              <>
+                {" · "}
+                <a href={instagramLink} target="_blank" rel="noreferrer" className="underline">
+                  Skatīt Instagram
+                </a>
+              </>
+            )}
           </p>
         )}
       </div>
