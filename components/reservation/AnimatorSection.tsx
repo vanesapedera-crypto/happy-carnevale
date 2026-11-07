@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import CharacterPreview from "./CharacterPreview";
 import type { AnimatorCharacter } from "@/data/animatorCharacters";
 import {
   Clock3,
@@ -33,14 +34,14 @@ export default function AnimatorSection({
     <div className="space-y-8">
 
       {/* 4 */}
-      <section className="rounded-[34px] border border-pink-200 bg-white p-8 shadow-sm">
+      <section className="rounded-[34px] border border-pink-200 bg-white p-4 shadow-sm sm:p-8">
 
         <div className="mb-8 flex items-center gap-4">
           <div className="flex h-11 w-11 items-center justify-center rounded-full bg-pink-500 font-bold text-white">
             4
           </div>
 
-          <h2 className="text-3xl font-black">
+          <h2 className="text-2xl font-black sm:text-3xl">
             Animatora programma
           </h2>
         </div>
@@ -120,16 +121,7 @@ export default function AnimatorSection({
 
               <div className="relative mb-4 aspect-[4/3] overflow-hidden rounded-2xl">
 
-                <Image
-                  src={
-                    selectedCharacter?.image ??
-                    "/images/placeholder.jpg"
-                  }
-                  alt=""
-                  fill
-                  sizes="(min-width: 768px) 33vw, 100vw"
-                  className="object-cover"
-                />
+                <CharacterPreview image={selectedCharacter?.image} sizes="(min-width: 768px) 33vw, 100vw" />
 
               </div>
 
@@ -165,24 +157,15 @@ export default function AnimatorSection({
 
               <div className="relative aspect-[4/3]">
 
-                <Image
-                  src={
-                    selectedCharacter?.image ??
-                    "/images/placeholder.jpg"
-                  }
-                  alt=""
-                  fill
-                  sizes="(min-width: 640px) 33vw, 50vw"
-                  className="object-cover"
-                />
+                <CharacterPreview image={selectedCharacter?.image} sizes="(min-width: 640px) 33vw, 50vw" />
 
               </div>
 
-              <div className="flex items-center justify-between p-5">
+              <div className="flex items-center justify-between gap-3 p-4 sm:p-5">
 
-                <div>
+                <div className="min-w-0">
 
-                  <div className="font-bold text-xl">
+                  <div className="text-lg font-bold leading-tight sm:text-xl [overflow-wrap:anywhere] hyphens-auto">
 
                     {selectedCharacter
                       ? selectedCharacter.name
@@ -195,7 +178,7 @@ export default function AnimatorSection({
                 <button
                   type="button"
                   onClick={onChooseCharacter}
-                  className="font-semibold text-pink-500 hover:underline"
+                  className="shrink-0 font-semibold text-pink-500 hover:underline"
                 >
                   Mainīt
                 </button>
@@ -212,7 +195,7 @@ export default function AnimatorSection({
 
       {/* PAPILDU PAKALPOJUMI */}
 
-    <section className="rounded-[34px] border border-pink-200 bg-white p-8 shadow-sm">
+    <section className="rounded-[34px] border border-pink-200 bg-white p-4 shadow-sm sm:p-8">
 
   <div className="mb-8 flex items-center gap-4">
 
@@ -220,7 +203,7 @@ export default function AnimatorSection({
       5
     </div>
 
-    <h2 className="text-3xl font-black">
+    <h2 className="text-2xl font-black sm:text-3xl">
       Papildpakalpojumi
     </h2>
 
@@ -300,9 +283,9 @@ export default function AnimatorSection({
 
         </div>
 
-        <div className="p-4 text-center">
+        <div className="p-2 text-center sm:p-4">
 
-          <h3 className="font-bold">
+          <h3 className="text-sm font-bold leading-tight sm:text-base [overflow-wrap:anywhere] hyphens-auto">
             {item.title}
           </h3>
 

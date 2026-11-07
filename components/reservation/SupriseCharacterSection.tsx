@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import CharacterPreview from "./CharacterPreview";
 import { ArrowRight } from "lucide-react";
 
 import { mascotCharacters } from "@/data/mascotCharacters";
@@ -22,7 +22,7 @@ export default function SurpriseCharacterSection({
   );
 
   return (
-    <section className="rounded-[34px] border border-pink-200 bg-white p-8 shadow-sm">
+    <section className="rounded-[34px] border border-pink-200 bg-white p-4 shadow-sm sm:p-8">
 
       {/* Virsraksts */}
 
@@ -32,7 +32,7 @@ export default function SurpriseCharacterSection({
           4
         </div>
 
-        <h2 className="text-3xl font-black">
+        <h2 className="text-2xl font-black sm:text-3xl">
           Pārsteiguma tēls
         </h2>
 
@@ -50,16 +50,7 @@ export default function SurpriseCharacterSection({
 
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-pink-200 bg-pink-50">
 
-            <Image
-              src={
-                selectedCharacter?.image ??
-                "/images/placeholder.jpg"
-              }
-              alt=""
-              fill
-              sizes="(min-width: 768px) 50vw, 100vw"
-              className="object-cover"
-            />
+            <CharacterPreview image={selectedCharacter?.image} sizes="(min-width: 768px) 50vw, 100vw" />
 
           </div>
 
@@ -97,24 +88,15 @@ export default function SurpriseCharacterSection({
 
             <div className="relative aspect-[4/3] bg-pink-50">
 
-              <Image
-                src={
-                  selectedCharacter?.image ??
-                  "/images/placeholder.jpg"
-                }
-                alt=""
-                fill
-                sizes="(min-width: 768px) 50vw, 100vw"
-                className="object-cover"
-              />
+              <CharacterPreview image={selectedCharacter?.image} sizes="(min-width: 768px) 50vw, 100vw" />
 
             </div>
 
-            <div className="flex items-center justify-between p-5">
+            <div className="flex items-center justify-between gap-3 p-4 sm:p-5">
 
-              <div>
+              <div className="min-w-0">
 
-                <div className="text-xl font-bold">
+                <div className="text-lg font-bold leading-tight sm:text-xl [overflow-wrap:anywhere] hyphens-auto">
                   {selectedCharacter
                     ? selectedCharacter.name
                     : "Nav izvēlēts"}
@@ -125,7 +107,7 @@ export default function SurpriseCharacterSection({
               <button
                 type="button"
                 onClick={onChooseCharacter}
-                className="font-semibold text-pink-500 transition hover:underline"
+                className="shrink-0 font-semibold text-pink-500 transition hover:underline"
               >
                 Mainīt
               </button>

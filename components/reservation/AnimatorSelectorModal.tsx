@@ -22,16 +22,16 @@ export default function AnimatorSelectorModal({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-6">
-      <div className="max-h-[90vh] w-full max-w-7xl overflow-y-auto rounded-3xl bg-white p-8 shadow-2xl">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-2 sm:p-6">
+      <div className="max-h-[90vh] w-full max-w-7xl overflow-y-auto rounded-3xl bg-white p-4 shadow-2xl sm:p-8">
 
-        <div className="mb-8 flex items-center justify-between">
+        <div className="mb-5 flex items-start justify-between gap-3 sm:mb-8 sm:items-center">
           <div>
-            <h2 className="text-3xl font-black">
+            <h2 className="text-xl font-black sm:text-3xl">
               🎭 Izvēlies animatoru tēlu
             </h2>
 
-            <p className="mt-2 text-gray-600">
+            <p className="mt-1 text-sm text-gray-600 sm:mt-2 sm:text-base">
               Izvēlieties vienu no pieejamajiem tēliem.
             </p>
           </div>
@@ -39,13 +39,13 @@ export default function AnimatorSelectorModal({
           <button
             type="button"
             onClick={onClose}
-            className="rounded-xl bg-gray-100 px-4 py-2 font-semibold hover:bg-gray-200"
+            className="shrink-0 rounded-xl bg-gray-100 px-4 py-2 font-semibold hover:bg-gray-200"
           >
             ✕
           </button>
         </div>
 
-        <div className="grid grid-cols-2 gap-6 md:grid-cols-4 lg:grid-cols-5">
+        <div className="grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-4 lg:grid-cols-5">
           {characters.map((item) => (
             <button
               key={`${item.name}|${item.image}`}
@@ -54,7 +54,7 @@ export default function AnimatorSelectorModal({
   onSelect(item);
   onClose();
 }}
-              className="overflow-hidden rounded-3xl border border-pink-100 bg-white transition hover:border-pink-500 hover:shadow-xl"
+              className="min-w-0 overflow-hidden rounded-2xl border sm:rounded-3xl border-pink-100 bg-white transition hover:border-pink-500 hover:shadow-xl"
             >
               <div className="relative aspect-[3/4]">
                 <Image
@@ -66,8 +66,8 @@ export default function AnimatorSelectorModal({
                 />
               </div>
 
-              <div className="p-4">
-                <h3 className="text-center font-bold">
+              <div className="p-2 sm:p-4">
+                <h3 className="text-center text-sm font-bold leading-tight sm:text-base [overflow-wrap:anywhere] hyphens-auto">
                   {item.name}
                 </h3>
               </div>
