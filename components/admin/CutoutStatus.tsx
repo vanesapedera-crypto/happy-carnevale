@@ -1,9 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { removeBackground } from "@/lib/admin/removeBackground";
+import { makeCutout } from "@/lib/admin/cutoutClient";
 import { cutoutFor } from "@/lib/costumeCutouts";
-import type { ActionResult, SectionItem } from "@/lib/admin/types";
+import type { SectionItem } from "@/lib/admin/types";
 
 type State = "ready" | "working" | "error";
 
@@ -28,26 +28,15 @@ export default function CutoutStatus({ item }: { item: SectionItem }) {
     }
     setState("working");
     setMessage("");
-    try {
-      const blob = await removeBackground(item.imageUrl);
-      const body = new FormData();
-      body.append("id", item.id);
-      body.append("source", item.imageUrl);
-      body.append("file", blob, blob.type === "image/png" ? "bez-fona.png" : "bez-fona.webp");
-      const response = await fetch("/api/admin/cutout", { method: "POST", body });
-      const result = (await response.json()) as ActionResult<SectionItem>;
-      if (result.ok) {
-        setState("ready");
-      } else {
-        if (response.status === 409 && result.error.includes("izgriezumi.sql")) databaseMissing = true;
-        setState("error");
-        setMessage(result.error);
-      }
-    } catch (error) {
+    const error = await makeCutout(item);
+    if (!error) {
+      setState("ready");
+    } else {
+      if (error.includes("izgriezumi.sql")) databaseMissing = true;
       setState("error");
-      setMessage(error instanceof Error ? error.message : "Neizdevās noņemt fonu.");
+      setMessage(error);
     }
-  }, [item.id, item.imageUrl]);
+  }, [item]);
 
   useEffect(() => {
     if (!hasCutout) void run();

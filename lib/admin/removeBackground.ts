@@ -7,21 +7,24 @@
  */
 
 const MODEL_URL = "/models/isnet-q8.onnx";
-const ORT_VERSION = "1.23.2";
 const SIZE = 1024;
 const MAX_OUTPUT = 640;
 
-type Ort = typeof import("onnxruntime-web");
-type Session = import("onnxruntime-web").InferenceSession;
+type Ort = typeof import("onnxruntime-web/wasm");
+type Session = import("onnxruntime-web/wasm").InferenceSession;
 
 let sessionPromise: Promise<{ ort: Ort; session: Session }> | null = null;
 
 function loadSession() {
   if (!sessionPromise) {
     sessionPromise = (async () => {
-      const ort = await import("onnxruntime-web");
-      ort.env.wasm.wasmPaths = `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ORT_VERSION}/dist/`;
-      if (!globalThis.crossOriginIsolated) ort.env.wasm.numThreads = 1;
+      const ort = await import("onnxruntime-web/wasm");
+      // public/ort – no node_modules/onnxruntime-web/dist (atjaunojot bibliotēku, jāpārkopē)
+      ort.env.wasm.wasmPaths = "/ort/";
+      // Vairāki procesora kodoli strādā tikai lapā ar COOP/COEP galvenēm (/admin/bez-fona)
+      ort.env.wasm.numThreads = globalThis.crossOriginIsolated
+        ? Math.min(8, Math.max(1, (navigator.hardwareConcurrency || 4) - 1))
+        : 1;
       const session = await ort.InferenceSession.create(MODEL_URL, {
         executionProviders: ["wasm"],
         graphOptimizationLevel: "all",
