@@ -57,3 +57,93 @@
     scroll-behavior: auto !important;
   }
 }
+/* ===== Sākumlapas 3D ziepju burbuļi (components/hero/Bubbles3D.tsx) ===== */
+.bubbles3d { --mx: 0; --my: 0; }
+.bubbles3d-rise {
+  position: absolute;
+  inset: 0;
+  animation: bubbles3d-rise var(--rise) linear var(--delay) infinite;
+}
+.bubbles3d-sway {
+  position: absolute;
+  top: 100%;
+  left: var(--left);
+  animation: bubbles3d-sway var(--sway) ease-in-out var(--delay) infinite alternate;
+}
+.bubbles3d-parallax {
+  transform: translate3d(
+    calc(var(--mx) * var(--depth) * -60px),
+    calc(var(--my) * var(--depth) * -40px),
+    0
+  );
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+.bubbles3d-bubble {
+  position: relative;
+  display: block;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 9999px;
+  cursor: pointer;
+  /* Tālākie burbuļi mazliet izplūduši un blāvāki. */
+  filter: blur(calc((1 - var(--depth)) * 1.6px));
+  opacity: calc(0.45 + var(--depth) * 0.5);
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0) 58%, rgba(255, 255, 255, 0.35) 74%, rgba(255, 255, 255, 0.7) 100%);
+  box-shadow:
+    inset -8px -10px 24px rgba(236, 72, 153, 0.22),
+    inset 10px 8px 22px rgba(56, 189, 248, 0.2),
+    0 10px 30px rgba(236, 72, 153, 0.12);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  animation: bubbles3d-wobble 5s ease-in-out infinite alternate;
+}
+.bubbles3d-film {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 0deg,
+    rgba(255, 0, 170, 0.35),
+    rgba(0, 210, 255, 0.3),
+    rgba(255, 235, 0, 0.3),
+    rgba(150, 0, 255, 0.35),
+    rgba(0, 255, 170, 0.25),
+    rgba(255, 0, 170, 0.35)
+  );
+  -webkit-mask: radial-gradient(circle, transparent 52%, #000 76%);
+  mask: radial-gradient(circle, transparent 52%, #000 76%);
+  mix-blend-mode: screen;
+  animation: bubbles3d-spin 9s linear infinite;
+}
+.bubbles3d-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(ellipse 22% 14% at 32% 24%, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0) 100%),
+    radial-gradient(circle at 70% 76%, rgba(255, 255, 255, 0.45) 0 5%, rgba(255, 255, 255, 0) 12%);
+}
+.bubbles3d-bubble.is-popped {
+  transform: scale(1.35);
+  opacity: 0;
+  pointer-events: none;
+}
+@keyframes bubbles3d-rise {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(0, calc(-100% - 260px), 0); }
+}
+@keyframes bubbles3d-sway {
+  from { transform: translateX(-24px); }
+  to { transform: translateX(24px); }
+}
+@keyframes bubbles3d-wobble {
+  0% { border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%; }
+  50% { border-radius: 52% 48% 49% 51% / 48% 52% 50% 50%; }
+  100% { border-radius: 48% 52% 51% 49% / 51% 49% 52% 48%; }
+}
+@keyframes bubbles3d-spin {
+  to { transform: rotate(360deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bubbles3d-rise { animation: none; transform: translateY(-55%); }
+  .bubbles3d-sway, .bubbles3d-bubble, .bubbles3d-film { animation: none; }
+}

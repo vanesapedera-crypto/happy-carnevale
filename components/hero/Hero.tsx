@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { lp, tr, type Lang } from "@/lib/i18n";
+import Bubbles3D from "./Bubbles3D";
 
 const INTRO = {
   lv: [
@@ -69,30 +70,11 @@ export default function Hero({ lang }: { lang: Lang }) {
 
       <div className="hidden lg:block">
 
-        {/* Burbuļi */}
-        <Image
-          src="/images/hero/bubble.png"
-          alt=""
-          width={260}
-          height={260}
-          className="absolute right-32 top-16 z-0 opacity-40 select-none"
-        />
-
-        <Image
-          src="/images/hero/bubble.png"
-          alt=""
-          width={150}
-          height={150}
-          className="absolute right-12 top-80 z-0 opacity-30 select-none"
-        />
-
-        <Image
-          src="/images/hero/bubble.png"
-          alt=""
-          width={100}
-          height={100}
-          className="absolute bottom-40 right-[430px] z-0 opacity-25 select-none"
-        />
+        {/* 3D burbuļi */}
+        {/* Virs Burbulītes bildes (z-10), zem teksta (z-20). */}
+        <div className="absolute inset-0 z-[15]">
+          <Bubbles3D variant="desktop" />
+        </div>
 
         {/* Burbulīte */}
         <Image
@@ -169,6 +151,8 @@ export default function Hero({ lang }: { lang: Lang }) {
           />
 
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent from-40% via-[#FFF7FB]/85 via-[72%] to-[#FFF7FB]" />
+
+          <Bubbles3D variant="mobile" />
 
           <div className="absolute inset-x-5 bottom-4 z-10 text-center">
             <span className="inline-block rounded-full bg-white px-3 py-1 text-xs font-bold text-pink-700 shadow-sm">
