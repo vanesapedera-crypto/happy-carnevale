@@ -150,8 +150,6 @@
 
 /* Kostīmu kategoriju lapas: slīdošā kostīmu parāde virsrakstā */
 .hc-marquee {
-  /* Bilžu baltais fons saplūst ar virsraksta fonu */
-  mix-blend-mode: multiply;
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
   mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 }

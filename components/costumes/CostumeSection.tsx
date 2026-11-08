@@ -6,6 +6,7 @@ import { loadSectionCards, reservationHref } from "@/lib/costumeCatalog";
 import { localizeCostume } from "@/lib/costumes";
 import { lp, tr, type Lang, type Tr } from "@/lib/i18n";
 import { circleColor } from "@/components/costumes/costumeColors";
+import { cutoutFor } from "@/lib/costumeCutouts";
 import WishButton from "@/components/costumes/WishButton";
 
 export type CostumeSectionProps = {
@@ -72,6 +73,7 @@ export default async function CostumeSection({
           {cards.map(({ item, source }, index) => {
             const href = lp(lang, item.href);
             const reserveHref = lp(lang, reservationHref(source, item.title));
+            const cutout = cutoutFor(item.image);
             return (
               <article
                 key={`${item.slug}-${index}`}
@@ -79,20 +81,34 @@ export default async function CostumeSection({
               >
                 <div className="relative h-[260px] overflow-hidden rounded-[18px] lg:h-[280px]">
                   <Link href={href} className="absolute inset-0 block">
-                    <span
-                      aria-hidden="true"
-                      className="absolute left-1/2 top-5 h-[220px] w-[220px] -translate-x-1/2 rounded-full lg:h-[236px] lg:w-[236px]"
-                      style={{ background: circleColor(index) }}
-                    />
-                    <span className="absolute inset-x-[6%] bottom-2.5 top-3">
-                      <Image
-                        src={item.image}
-                        alt={`${item.title} – ${nounText}`}
-                        fill
-                        sizes="(min-width: 1280px) 320px, (min-width: 640px) 45vw, 90vw"
-                        className="object-contain object-bottom mix-blend-multiply transition duration-500 ease-out group-hover:scale-105"
-                      />
-                    </span>
+                    {cutout ? (
+                      <>
+                        <span
+                          aria-hidden="true"
+                          className="absolute left-1/2 top-5 h-[220px] w-[220px] -translate-x-1/2 rounded-full lg:h-[236px] lg:w-[236px]"
+                          style={{ background: circleColor(index) }}
+                        />
+                        <span className="absolute inset-x-[6%] bottom-2.5 top-3">
+                          <Image
+                            src={cutout}
+                            alt={`${item.title} – ${nounText}`}
+                            fill
+                            sizes="(min-width: 1280px) 320px, (min-width: 640px) 45vw, 90vw"
+                            className="object-contain object-bottom drop-shadow-[0_14px_16px_rgba(20,18,58,0.16)] transition duration-500 ease-out group-hover:scale-105"
+                          />
+                        </span>
+                      </>
+                    ) : (
+                      <span className="absolute inset-0">
+                        <Image
+                          src={item.image}
+                          alt={`${item.title} – ${nounText}`}
+                          fill
+                          sizes="(min-width: 1280px) 320px, (min-width: 640px) 45vw, 90vw"
+                          className="object-contain p-2 transition duration-500 ease-out group-hover:scale-105"
+                        />
+                      </span>
+                    )}
                   </Link>
                   <WishButton
                     id={`${sectionKey}/${item.slug}`}

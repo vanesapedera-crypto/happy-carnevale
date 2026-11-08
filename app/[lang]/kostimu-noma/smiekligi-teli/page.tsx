@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import SectionNav from "@/components/costumes/SectionNav";
 import CostumeHero from "@/components/costumes/CostumeHero";
 import SmiekligiTeliSection from "@/components/costumes/SmiekligiTeliSection";
 import RetroSection from "@/components/costumes/RetroSection";
@@ -44,53 +45,30 @@ export default async function CitiTeliPage({ params }: Props) {
         }}
       />
 
-      {/* Navigācija */}
-      <div className="relative z-20 bg-[#F8F9FC] pt-8">
-        <div className="mx-auto flex max-w-7xl gap-3 overflow-x-auto px-6">
-          <a
-            href="#smiekligi"
-            className="whitespace-nowrap rounded-full bg-violet-500 px-5 py-3 text-sm font-bold text-white transition hover:bg-violet-600"
-          >
-            {tr(lang, { lv: "Smieklīgi tēli", ru: "Смешные персонажи", en: "Funny characters" })}
-          </a>
+      <SectionNav
+        label={tr(lang, { lv: "Sadaļas", ru: "Разделы", en: "Sections" })}
+        items={[
+          { id: "smiekligi", label: tr(lang, { lv: "Smieklīgi tēli", ru: "Смешные персонажи", en: "Funny characters" }) },
+          { id: "retro", label: tr(lang, { lv: "Retro", ru: "Ретро", en: "Retro" }) },
+          { id: "uzvalki", label: tr(lang, { lv: "Uzvalki", ru: "Костюмы-тройки", en: "Suits" }) },
+          { id: "parukas", label: tr(lang, { lv: "Parūkas", ru: "Парики", en: "Wigs" }) },
+        ]}
+      />
 
-          <a
-            href="#uzvalki"
-            className="whitespace-nowrap rounded-full border border-violet-200 bg-white px-5 py-3 text-sm font-semibold text-violet-600 transition hover:bg-violet-50"
-          >
-            {tr(lang, { lv: "Uzvalki", ru: "Костюмы-тройки", en: "Suits" })}
-          </a>
-
-          <a
-            href="#retro"
-            className="whitespace-nowrap rounded-full border border-violet-200 bg-white px-5 py-3 text-sm font-semibold text-violet-600 transition hover:bg-violet-50"
-          >
-            {tr(lang, { lv: "Retro", ru: "Ретро", en: "Retro" })}
-          </a>
-
-            <a
-            href="#parukas"
-            className="whitespace-nowrap rounded-full border border-violet-200 bg-white px-5 py-3 text-sm font-semibold text-violet-600 transition hover:bg-violet-50"
-          >
-            {tr(lang, { lv: "Parūkas", ru: "Парики", en: "Wigs" })}
-          </a>
-        </div>
-      </div>
-
-      <section id="smiekligi" className="scroll-mt-24">
+      <section id="smiekligi" className="scroll-mt-40 lg:scroll-mt-48">
         <SmiekligiTeliSection lang={lang} />
       </section>
 
 
-      <section id="retro" className="scroll-mt-24">
+      <section id="retro" className="scroll-mt-40 lg:scroll-mt-48">
         <RetroSection lang={lang} />
       </section>
 
-      <section id="uzvalki" className="scroll-mt-24">
+      <section id="uzvalki" className="scroll-mt-40 lg:scroll-mt-48">
         <UzvalkiSection lang={lang} />
       </section>
 
-       <section id="parukas" className="scroll-mt-24">
+       <section id="parukas" className="scroll-mt-40 lg:scroll-mt-48">
         <ParukasSection lang={lang} />
       </section>
     </main>

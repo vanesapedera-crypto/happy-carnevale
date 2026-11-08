@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
+import SectionNav from "@/components/costumes/SectionNav";
 import CostumeHero from "@/components/costumes/CostumeHero";
 import PrincessesSection from "@/components/costumes/PrincessesSection";
 import SuperheroesSection from "@/components/costumes/SuperheroesSection";
 import MultfilmuSection from "@/components/costumes/MultfilmuSection";
 import ProfessionsSection from "@/components/costumes/ProfessionsSection";
 import DzivniekiSection from "@/components/costumes/DzivniekiSection";
-import { pageMetadata, toLang } from "@/lib/i18n";
+import { pageMetadata, toLang, tr } from "@/lib/i18n";
 
 type Props = { params: Promise<{ lang: string }> };
 
@@ -44,11 +45,32 @@ export default async function FilmuUnPasakuTeliPage({ params }: Props) {
         }}
       />
 
-      <PrincessesSection lang={lang} />
-      <SuperheroesSection lang={lang} />
-      <MultfilmuSection lang={lang} />
-      <ProfessionsSection lang={lang} />
-      <DzivniekiSection lang={lang} />
+      <SectionNav
+        label={tr(lang, { lv: "Sadaļas", ru: "Разделы", en: "Sections" })}
+        items={[
+          { id: "princeses", label: tr(lang, { lv: "Princeses un fejas", ru: "Принцессы и феи", en: "Princesses and fairies" }) },
+          { id: "supervaroni", label: tr(lang, { lv: "Supervaroņi", ru: "Супергерои", en: "Superheroes" }) },
+          { id: "kino-teli", label: tr(lang, { lv: "Kino tēli", ru: "Герои фильмов", en: "Movie characters" }) },
+          { id: "profesijas", label: tr(lang, { lv: "Profesijas", ru: "Профессии", en: "Professions" }) },
+          { id: "dzivnieki", label: tr(lang, { lv: "Dzīvnieki", ru: "Животные", en: "Animals" }) },
+        ]}
+      />
+
+      <div id="princeses" className="scroll-mt-40 lg:scroll-mt-48">
+        <PrincessesSection lang={lang} />
+      </div>
+      <div id="supervaroni" className="scroll-mt-40 lg:scroll-mt-48">
+        <SuperheroesSection lang={lang} />
+      </div>
+      <div id="kino-teli" className="scroll-mt-40 lg:scroll-mt-48">
+        <MultfilmuSection lang={lang} />
+      </div>
+      <div id="profesijas" className="scroll-mt-40 lg:scroll-mt-48">
+        <ProfessionsSection lang={lang} />
+      </div>
+      <div id="dzivnieki" className="scroll-mt-40 lg:scroll-mt-48">
+        <DzivniekiSection lang={lang} />
+      </div>
     </>
   );
 }

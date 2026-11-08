@@ -3,6 +3,7 @@ import Link from "next/link";
 import { loadSectionCards } from "@/lib/costumeCatalog";
 import { lp, tr, type Lang, type Tr } from "@/lib/i18n";
 import { circleColor } from "@/components/costumes/costumeColors";
+import { cutoutFor } from "@/lib/costumeCutouts";
 
 type Props = {
   lang: Lang;
@@ -31,7 +32,7 @@ export default async function CostumeHero({ lang, title, description, sectionKey
   const longest = Math.max(0, ...lists.map((l) => l.length));
   for (let i = 0; i < longest && images.length < 12; i++) {
     for (const list of lists) {
-      const img = list[i]?.image;
+      const img = cutoutFor(list[i]?.image);
       if (img && !seen.has(img) && images.length < 12) {
         seen.add(img);
         images.push(img);
@@ -81,7 +82,7 @@ export default async function CostumeHero({ lang, title, description, sectionKey
                       alt=""
                       fill
                       sizes="(min-width: 1024px) 220px, 150px"
-                      className="object-contain object-bottom mix-blend-multiply"
+                      className="object-contain object-bottom drop-shadow-[0_14px_16px_rgba(20,18,58,0.14)]"
                     />
                   </div>
                 </div>
