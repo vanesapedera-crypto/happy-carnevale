@@ -1,6 +1,7 @@
 import type { AdminConfig } from "./config";
 import { restDelete, restInsert, restSelect, restUpdate } from "./supabase";
-import type { ExtraImage, SectionItem } from "./types";
+import type { ExtraImage, ItemTranslations, SectionItem } from "./types";
+import { LIMITS } from "./validation";
 import type { ItemPatch } from "./validation";
 
 export const ITEMS_TABLE = "section_items";
@@ -17,6 +18,8 @@ export interface SectionItemRow {
   image_path: string | null;
   /** Var nebūt, ja datubāzē vēl nav palaists supabase/papildu-bildes.sql. */
   extra_images?: unknown;
+  /** Var nebūt, ja datubāzē vēl nav palaists supabase/tulkojumi.sql. */
+  translations?: unknown;
   active: boolean;
   sort_order: number;
   created_at: string;
@@ -34,11 +37,29 @@ export function rowToItem(row: SectionItemRow): SectionItem {
     imageUrl: row.image_url,
     imagePath: row.image_path,
     extraImages: parseExtraImages(row.extra_images),
+    translations: parseTranslations(row.translations),
     active: row.active,
     sortOrder: row.sort_order,
     createdAt: row.created_at,
     updatedAt: row.updated_at,
   };
+}
+
+/** Nolasa tulkojumus no datubāzes (nezināmus laukus izmet). */
+export function parseTranslations(value: unknown): ItemTranslations {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return {};
+  const result: ItemTranslations = {};
+  for (const lang of ["ru", "en"] as const) {
+    const entry = (value as Record<string, unknown>)[lang];
+    if (!entry || typeof entry !== "object") continue;
+    const { title, description } = entry as Record<string, unknown>;
+    const clean: { title?: string; description?: string } = {};
+    if (typeof title === "string" && title.trim()) clean.title = title.trim().slice(0, LIMITS.title);
+    if (typeof description === "string" && description.trim())
+      clean.description = description.trim().slice(0, LIMITS.description);
+    if (clean.title || clean.description) result[lang] = clean;
+  }
+  return result;
 }
 
 /** Maksimālais papildu bilžu skaits vienam ierakstam. */
@@ -139,6 +160,7 @@ export async function updateItem(
   if (patch.size !== undefined) changes.size = patch.size;
   if (patch.active !== undefined) changes.active = patch.active;
   if (patch.sortOrder !== undefined) changes.sort_order = patch.sortOrder;
+  if (patch.translations !== undefined) changes.translations = patch.translations;
 
   const row = await restUpdate<SectionItemRow>(
     config,

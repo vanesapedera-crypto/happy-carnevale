@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+import { lp, tr, type Lang } from "@/lib/i18n";
 import {
   FaInstagram,
   FaFacebookF,
@@ -8,7 +10,7 @@ import {
   FaMapMarkerAlt,
 } from "react-icons/fa";
 
-export default function Footer() {
+export default function Footer({ lang }: { lang: Lang }) {
   return (
     <footer className="border-t border-pink-100 bg-gradient-to-b from-white to-[#FFF4F9]">
       <div className="mx-auto max-w-7xl px-6 py-10">
@@ -27,14 +29,18 @@ export default function Footer() {
             />
 
             <p className="mt-4 max-w-xs text-gray-600 leading-7">
-              Radām neaizmirstamus svētkus bērniem visā Latvijā.
+              {tr(lang, {
+                lv: "Radām neaizmirstamus svētkus bērniem visā Latvijā.",
+                ru: "Создаём незабываемые праздники для детей по всей Латвии.",
+                en: "We create unforgettable parties for kids all over Latvia.",
+              })}
             </p>
           </div>
 
           {/* Kontakti */}
           <div>
             <h3 className="text-lg font-semibold text-gray-900">
-              Kontakti
+              {tr(lang, { lv: "Kontakti", ru: "Контакты", en: "Contact" })}
             </h3>
 
             <div className="mt-4 space-y-3">
@@ -57,7 +63,7 @@ export default function Footer() {
 
               <div className="flex items-center gap-3 text-gray-600">
                 <FaMapMarkerAlt className="text-pink-500 text-sm" />
-                <span>Stabu iela 90, Rīga</span>
+                <span>{tr(lang, { lv: "Stabu iela 90, Rīga", ru: "ул. Стабу 90, Рига", en: "Stabu iela 90, Riga" })}</span>
               </div>
 
             </div>
@@ -66,7 +72,7 @@ export default function Footer() {
           {/* Sociālie tīkli */}
           <div>
             <h3 className="text-lg font-semibold text-gray-900">
-              Seko mums
+              {tr(lang, { lv: "Seko mums", ru: "Мы в соцсетях", en: "Follow us" })}
             </h3>
 
             <div className="mt-4 flex gap-3">
@@ -106,17 +112,22 @@ export default function Footer() {
         {/* Apakšējā līnija */}
         <div className="mt-8 border-t border-pink-100 pt-4">
           <p className="text-center text-sm text-gray-500">
-            © {new Date().getFullYear()} Happy Carnevale. Visas tiesības aizsargātas.
+            © {new Date().getFullYear()} Happy Carnevale.{" "}
+            {tr(lang, { lv: "Visas tiesības aizsargātas.", ru: "Все права защищены.", en: "All rights reserved." })}
           </p>
 
           <p className="mt-2 text-center text-sm">
-            <a href="/piegade-un-atgriesana" className="text-gray-500 hover:text-pink-500">
-              Piegāde un preču atgriešana
-            </a>
+            <Link href={lp(lang, "/piegade-un-atgriesana")} className="text-gray-500 hover:text-pink-500">
+              {tr(lang, {
+                lv: "Piegāde un preču atgriešana",
+                ru: "Доставка и возврат товаров",
+                en: "Delivery and returns",
+              })}
+            </Link>
           </p>
 
           <p className="mt-2 text-center text-xs text-gray-400">
-            Mājaslapu izstrādāja: Vanesa Pabērza ·{" "}
+            {tr(lang, { lv: "Mājaslapu izstrādāja", ru: "Сайт разработала", en: "Website by" })}: Vanesa Pabērza ·{" "}
             <a href="tel:+37128193386" className="hover:text-pink-500">
               +371 28 193 386
             </a>

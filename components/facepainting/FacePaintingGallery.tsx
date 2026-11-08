@@ -14,7 +14,7 @@ const images = [
   "/images/facepainting/7.jpg",
 ];
 
-export default function FacePaintingGallery() {
+export default function FacePaintingGallery({ altLabel = "Sejas apgleznošana" }: { altLabel?: string }) {
   const [current, setCurrent] = useState(0);
 
   const next = () => {
@@ -32,7 +32,7 @@ export default function FacePaintingGallery() {
       <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl border border-gray-200 shadow-xl">
         <Image
           src={images[current]}
-          alt={`Sejas apgleznošana ${current + 1}`}
+          alt={`${altLabel} ${current + 1}`}
           fill
           sizes="(min-width: 1024px) 50vw, 100vw"
           priority
@@ -72,7 +72,7 @@ export default function FacePaintingGallery() {
           >
             <Image
               src={image}
-              alt={`Sejas apgleznošana – miniatūra ${index + 1}`}
+              alt={`${altLabel} ${index + 1}`}
               fill
               sizes="48px"
               className="object-cover"

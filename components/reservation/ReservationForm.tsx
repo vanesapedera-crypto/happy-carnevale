@@ -18,6 +18,7 @@ import {
   Sparkles,
   CheckCircle2,
 } from "lucide-react";
+import { useLang, useTr } from "@/context/LangContext";
 
 const INITIAL_FORM = {
   pakalpojums: "",
@@ -65,6 +66,8 @@ export default function ReservationForm({
   const [openMascotSelector, setOpenMascotSelector] = useState(false);
 
   const [form, setForm] = useState(INITIAL_FORM);
+  const lang = useLang();
+  const t = useTr();
   const [error, setError] = useState("");
 
   function handleChange(
@@ -105,7 +108,13 @@ export default function ReservationForm({
     setError("");
 
     if (!form.pakalpojums) {
-      setError("Lūdzu, izvēlies pakalpojumu (1. solis).");
+      setError(
+        t({
+          lv: "Lūdzu, izvēlies pakalpojumu (1. solis).",
+          ru: "Пожалуйста, выберите услугу (шаг 1).",
+          en: "Please choose a service (step 1).",
+        })
+      );
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
@@ -118,7 +127,7 @@ export default function ReservationForm({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, lang }),
       });
 
       if (!response.ok) {
@@ -129,7 +138,11 @@ export default function ReservationForm({
     } catch (error) {
       console.error(error);
       setError(
-        "Rezervāciju neizdevās nosūtīt. Lūdzu, mēģini vēlreiz vai sazinies ar mums pa tālruni."
+        t({
+          lv: "Rezervāciju neizdevās nosūtīt. Lūdzu, mēģini vēlreiz vai sazinies ar mums pa tālruni.",
+          ru: "Не удалось отправить бронирование. Пожалуйста, попробуйте ещё раз или позвоните нам.",
+          en: "We couldn't send your booking. Please try again or give us a call.",
+        })
       );
     } finally {
       setLoading(false);
@@ -166,7 +179,7 @@ export default function ReservationForm({
     </div>
 
     <h2 className="text-3xl font-black text-slate-800">
-      Izvēlies pakalpojumu
+      {t({ lv: "Izvēlies pakalpojumu", ru: "Выберите услугу", en: "Choose a service" })}
     </h2>
   </div>
 
@@ -205,11 +218,11 @@ export default function ReservationForm({
       </div>
 
       <h3 className="text-2xl font-black">
-        Animatori
+        {t({ lv: "Animatori", ru: "Аниматоры", en: "Entertainers" })}
       </h3>
 
       <p className="mt-2 text-gray-500">
-        Iemīļoti tēli un aizraujošas programmas
+        {t({ lv: "Iemīļoti tēli un aizraujošas programmas", ru: "Любимые персонажи и увлекательные программы", en: "Favourite characters and exciting programmes" })}
       </p>
     </button>
 
@@ -246,11 +259,11 @@ export default function ReservationForm({
       </div>
 
       <h3 className="text-2xl font-black">
-        Sejas apgleznošana
+        {t({ lv: "Sejas apgleznošana", ru: "Аквагрим", en: "Face painting" })}
       </h3>
 
       <p className="mt-2 text-gray-500">
-        Krāsaini zīmējumi un glitter tetovējumi
+        {t({ lv: "Krāsaini zīmējumi un glitter tetovējumi", ru: "Яркие рисунки и глиттер-тату", en: "Colourful designs and glitter tattoos" })}
       </p>
     </button>
 
@@ -287,11 +300,11 @@ export default function ReservationForm({
       </div>
 
       <h3 className="text-2xl font-black">
-        Pārsteiguma tēli
+        {t({ lv: "Pārsteiguma tēli", ru: "Персонажи-сюрпризы", en: "Surprise characters" })}
       </h3>
 
       <p className="mt-2 text-gray-500">
-        Maskoti un gaisa plūsmas kostīmi
+        {t({ lv: "Maskoti un gaisa plūsmas kostīmi", ru: "Ростовые куклы и надувные костюмы", en: "Mascots and inflatable costumes" })}
       </p>
     </button>
 

@@ -6,35 +6,36 @@ import {
   Gift,
   Heart,
 } from "lucide-react";
+import { tr, type Lang } from "@/lib/i18n";
 
 const features = [
   {
     icon: Theater,
-    title: "Teatrāla pasaku tēla ierašanās",
+    title: { lv: "Teatrāla pasaku tēla ierašanās", ru: "Театральное появление сказочного героя", en: "A theatrical fairy-tale character entrance" },
   },
   {
     icon: Dices,
-    title: "Jautras spēles un uzdevumi",
+    title: { lv: "Jautras spēles un uzdevumi", ru: "Весёлые игры и задания", en: "Fun games and challenges" },
   },
   {
     icon: PartyPopper,
-    title: "Balonu modelēšana",
+    title: { lv: "Balonu modelēšana", ru: "Фигуры из воздушных шаров", en: "Balloon modelling" },
   },
   {
     icon: Sparkles,
-    title: "Tematiskie tetovējumi",
+    title: { lv: "Tematiskie tetovējumi", ru: "Тематические тату", en: "Themed tattoos" },
   },
   {
     icon: Gift,
-    title: "Dāvaniņa jubilāram",
+    title: { lv: "Dāvaniņa jubilāram", ru: "Подарок имениннику", en: "A little gift for the birthday child" },
   },
   {
     icon: Heart,
-    title: "Neaizmirstamas emocijas",
+    title: { lv: "Neaizmirstamas emocijas", ru: "Незабываемые эмоции", en: "Unforgettable memories" },
   },
 ];
 
-export default function ProgramSection() {
+export default function ProgramSection({ lang }: { lang: Lang }) {
   return (
     <section className="bg-white py-20">
       <div className="mx-auto max-w-7xl px-6">
@@ -44,16 +45,15 @@ export default function ProgramSection() {
         <div className="mx-auto mb-12 max-w-3xl text-center">
 
           <span className="inline-flex rounded-full bg-pink-100 px-5 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-pink-600">
-            Kas iekļauts programmā
+            {tr(lang, { lv: "Kas iekļauts programmā", ru: "Что входит в программу", en: "What's included" })}
           </span>
 
           <h2 className="mt-5 text-4xl font-black text-slate-900 lg:text-5xl">
-            Viss nepieciešamais jautrai ballītei
+            {tr(lang, { lv: "Viss nepieciešamais jautrai ballītei", ru: "Всё для весёлого праздника", en: "Everything you need for a fun party" })}
           </h2>
 
           <p className="mt-4 text-lg leading-8 text-gray-600">
-            Mūsu programma ir veidota tā, lai katrs bērns justos
-            iesaistīts, priecīgs un pavadītu neaizmirstamu dienu.
+            {tr(lang, { lv: "Mūsu programma ir veidota tā, lai katrs bērns justos iesaistīts, priecīgs un pavadītu neaizmirstamu dienu.", ru: "Наша программа построена так, чтобы каждый ребёнок был вовлечён, радовался и провёл незабываемый день.", en: "Our programme is designed so that every child feels included, happy and has an unforgettable day." })}
           </p>
 
         </div>
@@ -67,7 +67,7 @@ export default function ProgramSection() {
 
             return (
               <div
-                key={item.title}
+                key={item.title.lv}
                 className="group rounded-[24px] border border-pink-100 bg-white px-6 py-8 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-pink-300 hover:shadow-xl"
               >
                 <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-pink-50 transition group-hover:bg-pink-100">
@@ -80,7 +80,7 @@ export default function ProgramSection() {
                 </div>
 
                 <h3 className="mt-6 text-xl font-bold leading-snug text-slate-900">
-                  {item.title}
+                  {tr(lang, item.title)}
                 </h3>
 
               </div>
@@ -97,7 +97,7 @@ export default function ProgramSection() {
 
     return (
       <div
-        key={item.title}
+        key={item.title.lv}
         className="flex items-center gap-4 rounded-2xl border border-pink-100 bg-white px-5 py-4 shadow-sm"
       >
         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-pink-50">
@@ -108,7 +108,7 @@ export default function ProgramSection() {
         </div>
 
         <h3 className="text-base font-semibold text-slate-900">
-          {item.title}
+          {tr(lang, item.title)}
         </h3>
       </div>
     );

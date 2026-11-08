@@ -71,6 +71,7 @@ export const SECTIONS: readonly SectionDefinition[] = [
     "/kostimu-noma/helovins"
   ),
   costumes("ziemassvetku-kostimi", "Ziemassvētku tēli", SEZONA, "/kostimu-noma/ziemassvetki"),
+  costumes("paru-kostimi", "Pāru kostīmi", SEZONA, "/kostimu-noma/paru-kostimi"),
   costumes("lieldienu-kostimi", "Lieldienu kostīmi", SEZONA, "/kostimu-noma/lieldienas"),
   // Tēli, no kuriem klients izvēlas animatoru rezervācijas formā (bez cenas un izmēra).
   {

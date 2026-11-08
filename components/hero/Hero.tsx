@@ -1,7 +1,67 @@
 import Image from "next/image";
 import Link from "next/link";
+import { lp, tr, type Lang } from "@/lib/i18n";
 
-export default function Hero() {
+const INTRO = {
+  lv: [
+    "Priecājos Tevi redzēt!",
+    "Pie mums vari iznomāt košus kostīmus,",
+    "satikt iemīļotus pasaku tēlus,",
+    "uzaicināt animatoru un iegādāties",
+    "visu milzu ziepju burbuļu salūtam.",
+  ],
+  ru: [
+    "Рада тебя видеть!",
+    "У нас можно взять напрокат яркие костюмы,",
+    "встретить любимых сказочных героев,",
+    "пригласить аниматора и купить всё",
+    "для салюта из гигантских пузырей.",
+  ],
+  en: [
+    "Lovely to see you!",
+    "Here you can rent colourful costumes,",
+    "meet favourite fairy-tale characters,",
+    "book an entertainer and get everything",
+    "for a giant soap bubble show.",
+  ],
+};
+
+const OFFERS = [
+  {
+    href: "/kostimu-noma",
+    title: { lv: "Kostīmu noma", ru: "Аренда костюмов", en: "Costume rental" },
+    text: { lv: "Pieaugušajiem", ru: "Для взрослых", en: "For adults" },
+    image: "/images/hero/mascota.jpg",
+  },
+  {
+    href: "/pasakumu-organizesana/animatori",
+    title: { lv: "Animatori", ru: "Аниматоры", en: "Entertainers" },
+    text: {
+      lv: "Dzimšanas dienām un pasākumiem",
+      ru: "На дни рождения и праздники",
+      en: "For birthdays and events",
+    },
+    image: "/images/hero/animatori.jpg",
+  },
+  {
+    href: "/pasakumu-organizesana/parsteiguma-tels",
+    title: { lv: "Pārsteiguma tēli", ru: "Персонажи-сюрпризы", en: "Surprise characters" },
+    text: {
+      lv: "Apsveikumi mājās vai birojā",
+      ru: "Поздравления дома или в офисе",
+      en: "Greetings at home or at the office",
+    },
+    image: "/images/hero/parsteiguma-tels.jpg",
+  },
+  {
+    href: "/veikals",
+    title: { lv: "Ziepju burbuļi", ru: "Мыльные пузыри", en: "Soap bubbles" },
+    text: { lv: "Produkti mūsu veikalā", ru: "Товары в нашем магазине", en: "Products in our shop" },
+    image: "/images/shop/hero.jpg",
+  },
+];
+
+export default function Hero({ lang }: { lang: Lang }) {
   return (
     <section className="relative overflow-clip">
 
@@ -37,7 +97,7 @@ export default function Hero() {
         {/* Burbulīte */}
         <Image
           src="/images/hero/hero-right.jpg"
-          alt="Burbulīte"
+          alt={tr(lang, { lv: "Burbulīte", ru: "Бурбулите", en: "Burbulite" })}
           width={1800}
           height={2200}
           priority
@@ -61,16 +121,17 @@ export default function Hero() {
             {/* Teksts */}
             <div className="absolute left-1/2 top-[58%] w-[380px] -translate-x-1/2">
 
-              <p className="text-[19px] leading-9 text-gray-700">
-                Priecājos Tevi redzēt!
-                <br />
-                Pie mums vari iznomāt košus kostīmus,
-                <br />
-                satikt iemīļotus pasaku tēlus,
-                <br />
-                uzaicināt animatoru un iegādāties
-                <br />
-                visu milzu ziepju burbuļu salūtam.
+              <p
+                className={`text-gray-700 ${
+                  lang === "lv" ? "text-[19px] leading-9" : "text-[17px] leading-8"
+                }`}
+              >
+                {INTRO[lang].map((line, index) => (
+                  <span key={index}>
+                    {index > 0 && <br />}
+                    {line}
+                  </span>
+                ))}
               </p>
 
             </div>
@@ -79,10 +140,10 @@ export default function Hero() {
             <div className="absolute bottom-20 left-1/2 -translate-x-1/2 translate-y-5">
 
               <Link
-                href="/kostimu-noma"
+                href={lp(lang, "/kostimu-noma")}
                 className="flex h-10 w-[250px] items-center justify-center rounded-full bg-pink-500 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl"
               >
-                Kostīmu noma
+                {tr(lang, { lv: "Kostīmu noma", ru: "Аренда костюмов", en: "Costume rental" })}
               </Link>
 
             </div>
@@ -100,7 +161,7 @@ export default function Hero() {
         <div className="relative h-[470px] w-full overflow-hidden bg-pink-100">
           <Image
             src="/images/hero/hero-right.jpg"
-            alt="Burbulīte – Happy Carnevale"
+            alt={tr(lang, { lv: "Burbulīte – Happy Carnevale", ru: "Бурбулите – Happy Carnevale", en: "Burbulite – Happy Carnevale" })}
             fill
             priority
             sizes="100vw"
@@ -111,13 +172,25 @@ export default function Hero() {
 
           <div className="absolute inset-x-5 bottom-4 z-10 text-center">
             <span className="inline-block rounded-full bg-white px-3 py-1 text-xs font-bold text-pink-700 shadow-sm">
-              Sveiki! Es esmu Burbulīte
+              {tr(lang, {
+                lv: "Sveiki! Es esmu Burbulīte",
+                ru: "Привет! Я Бурбулите",
+                en: "Hi! I'm Burbulite",
+              })}
             </span>
 
             <h1 className="mt-2 text-[27px] font-semibold leading-[1.1] text-[#3B0764]">
-              Kostīmu noma un bērnu svētki{" "}
+              {tr(lang, {
+                lv: "Kostīmu noma un bērnu svētki",
+                ru: "Аренда костюмов и детские праздники",
+                en: "Costume rental and kids' parties",
+              })}{" "}
               <span className="mt-1 block text-[17px] font-medium">
-                Rīgā un visā Latvijā
+                {tr(lang, {
+                  lv: "Rīgā un visā Latvijā",
+                  ru: "В Риге и по всей Латвии",
+                  en: "In Riga and all over Latvia",
+                })}
               </span>
             </h1>
 
@@ -126,19 +199,17 @@ export default function Hero() {
 
         {/* Pakalpojumi */}
         <h2 className="mx-5 mb-3 mt-1.5 text-[21px] font-semibold text-gray-900">
-Piedāvājumā:
+          {tr(lang, { lv: "Piedāvājumā:", ru: "Мы предлагаем:", en: "What we offer:" })}
         </h2>
 
         <div className="flex flex-col gap-2.5 px-5">
-          {[
-            { href: "/kostimu-noma", title: "Kostīmu noma", text: "Pieaugušajiem", image: "/images/hero/mascota.jpg" },
-            { href: "/pasakumu-organizesana/animatori", title: "Animatori", text: "Dzimšanas dienām un pasākumiem", image: "/images/hero/animatori.jpg" },
-            { href: "/pasakumu-organizesana/parsteiguma-tels", title: "Pārsteiguma tēli", text: "Apsveikumi mājās vai birojā", image: "/images/hero/parsteiguma-tels.jpg" },
-            { href: "/veikals", title: "Ziepju burbuļi", text: "Produkti mūsu veikalā", image: "/images/shop/hero.jpg" },
-          ].map(({ href, title, text, image }) => (
+          {OFFERS.map(({ href, title: titleTr, text: textTr, image }) => {
+            const title = tr(lang, titleTr);
+            const text = tr(lang, textTr);
+            return (
             <Link
-              key={href + title}
-              href={href}
+              key={href}
+              href={lp(lang, href)}
               className="flex items-center gap-3.5 rounded-[20px] bg-white p-2 shadow-md shadow-pink-900/5"
             >
               <span className="relative h-[84px] w-[84px] shrink-0 overflow-hidden rounded-2xl bg-pink-50">
@@ -160,7 +231,8 @@ Piedāvājumā:
                 →
               </span>
             </Link>
-          ))}
+            );
+          })}
         </div>
 
         <div className="h-8" />
@@ -171,7 +243,7 @@ Piedāvājumā:
             href="tel:+37126126313"
             className="flex-1 rounded-xl bg-pink-500 py-3 text-center text-[15px] font-bold text-white"
           >
-            Zvanīt
+            {tr(lang, { lv: "Zvanīt", ru: "Позвонить", en: "Call" })}
           </a>
 
           <a

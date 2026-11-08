@@ -4,6 +4,7 @@ import { SHIPPING, SITE } from "@/lib/constants";
 import { escapeHtml, invoiceEnabled, invoiceHtml } from "@/lib/invoice";
 import { recordReviewRequest } from "@/lib/reviews/record";
 import { contactButtonsHtml } from "@/lib/email/contactButtons";
+import { toLang, tr, type Lang, type Tr } from "@/lib/i18n";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -17,9 +18,78 @@ type OrderItem = {
   image?: string;
 };
 
-const DELIVERY_LABELS: Record<DeliveryMode, string> = {
-  pickup: "Saņemšana klātienē (Stabu iela 90, Rīga)",
-  pakomats: "Pakomāts",
+const DELIVERY_LABELS: Record<DeliveryMode, Tr> = {
+  pickup: {
+    lv: "Saņemšana klātienē (Stabu iela 90, Rīga)",
+    ru: "Самовывоз (ул. Стабу 90, Рига)",
+    en: "Pick-up in person (Stabu iela 90, Riga)",
+  },
+  pakomats: { lv: "Pakomāts", ru: "Пакомат", en: "Parcel locker" },
+};
+
+/** Klientam redzamie teksti e-pastā un kļūdās (pēc lapas valodas). */
+const TX = {
+  lv: {
+    required: "Lūdzu, aizpildi visus obligātos laukus.",
+    locker: "Lūdzu, norādi pakomātu.",
+    empty: "Grozs ir tukšs.",
+    failed: "Neizdevās nosūtīt pasūtījumu.",
+    item: "Prece",
+    qty: "Skaits",
+    sum: "Summa",
+    items: "Preces",
+    delivery: "Piegāde",
+    free: "Bezmaksas",
+    total: "Kopā",
+    deliveryMode: "Saņemšanas veids",
+    lockerLabel: "Pakomāts",
+    thanks: "Paldies par pasūtījumu!",
+    hello: "Sveiki",
+    received: (n: string) =>
+      `Esam saņēmuši tavu pasūtījumu <strong>${n}</strong>. Drīzumā sazināsimies, lai to apstiprinātu un vienotos par apmaksu.`,
+    questions: (phone: string, email: string) => `Jautājumi? Zvani ${phone} vai raksti ${email}.`,
+  },
+  ru: {
+    required: "Пожалуйста, заполните все обязательные поля.",
+    locker: "Пожалуйста, укажите пакомат.",
+    empty: "Корзина пуста.",
+    failed: "Не удалось отправить заказ.",
+    item: "Товар",
+    qty: "Кол-во",
+    sum: "Сумма",
+    items: "Товары",
+    delivery: "Доставка",
+    free: "Бесплатно",
+    total: "Итого",
+    deliveryMode: "Способ получения",
+    lockerLabel: "Пакомат",
+    thanks: "Спасибо за заказ!",
+    hello: "Здравствуйте",
+    received: (n: string) =>
+      `Мы получили ваш заказ <strong>${n}</strong>. Скоро свяжемся с вами, чтобы подтвердить его и договориться об оплате.`,
+    questions: (phone: string, email: string) =>
+      `Есть вопросы? Звоните ${phone} или пишите на ${email}.`,
+  },
+  en: {
+    required: "Please fill in all required fields.",
+    locker: "Please enter a parcel locker.",
+    empty: "Your cart is empty.",
+    failed: "We couldn't send your order.",
+    item: "Item",
+    qty: "Qty",
+    sum: "Amount",
+    items: "Items",
+    delivery: "Delivery",
+    free: "Free",
+    total: "Total",
+    deliveryMode: "Delivery method",
+    lockerLabel: "Parcel locker",
+    thanks: "Thank you for your order!",
+    hello: "Hi",
+    received: (n: string) =>
+      `We've received your order <strong>${n}</strong>. We'll be in touch soon to confirm it and arrange payment.`,
+    questions: (phone: string, email: string) => `Questions? Call ${phone} or email ${email}.`,
+  },
 };
 
 function money(value: number) {
@@ -33,7 +103,8 @@ function createOrderNumber() {
   return `HC-${date}-${random}`;
 }
 
-function itemsTable(items: OrderItem[]) {
+function itemsTable(items: OrderItem[], lang: Lang = "lv") {
+  const t = TX[lang];
   const rows = items
     .map(
       (item) => `
@@ -49,9 +120,9 @@ function itemsTable(items: OrderItem[]) {
     <table style="width:100%;border-collapse:collapse;font-size:15px;">
       <thead>
         <tr style="color:#888;text-align:left;">
-          <th style="padding-bottom:8px;">Prece</th>
-          <th style="padding-bottom:8px;text-align:center;">Skaits</th>
-          <th style="padding-bottom:8px;text-align:right;">Summa</th>
+          <th style="padding-bottom:8px;">${t.item}</th>
+          <th style="padding-bottom:8px;text-align:center;">${t.qty}</th>
+          <th style="padding-bottom:8px;text-align:right;">${t.sum}</th>
         </tr>
       </thead>
       <tbody>${rows}</tbody>
@@ -79,6 +150,8 @@ export async function POST(req: Request) {
     const address = String(body.address ?? "").trim();
     const comment = String(body.comment ?? "").trim();
     const delivery = body.delivery as DeliveryMode;
+    const lang = toLang(body.lang);
+    const t = TX[lang];
 
     const items: OrderItem[] = Array.isArray(body.items)
       ? body.items
@@ -96,21 +169,21 @@ export async function POST(req: Request) {
 
     if (!name || !phone || !email || !Object.prototype.hasOwnProperty.call(DELIVERY_LABELS, delivery)) {
       return NextResponse.json(
-        { ok: false, error: "Lūdzu, aizpildi visus obligātos laukus." },
+        { ok: false, error: t.required },
         { status: 400 }
       );
     }
 
     if (delivery !== "pickup" && !address) {
       return NextResponse.json(
-        { ok: false, error: "Lūdzu, norādi pakomātu." },
+        { ok: false, error: t.locker },
         { status: 400 }
       );
     }
 
     if (items.length === 0) {
       return NextResponse.json(
-        { ok: false, error: "Grozs ir tukšs." },
+        { ok: false, error: t.empty },
         { status: 400 }
       );
     }
@@ -126,20 +199,25 @@ export async function POST(req: Request) {
     const total = subtotal + shipping;
     const orderNumber = createOrderNumber();
 
-    const totals = `
+    const totalsHtml = (l: Lang) => {
+      const x = TX[l];
+      return `
       <div style="margin-top:20px;font-size:15px;">
-        <p style="display:flex;justify-content:space-between;margin:6px 0;"><span>Preces:</span> <strong>${money(subtotal)}</strong></p>
-        <p style="display:flex;justify-content:space-between;margin:6px 0;"><span>Piegāde:</span> <strong>${shipping === 0 ? "Bezmaksas" : money(shipping)}</strong></p>
-        <p style="display:flex;justify-content:space-between;margin:12px 0 0;font-size:20px;color:#ec4899;"><span>Kopā:</span> <strong>${money(total)}</strong></p>
+        <p style="display:flex;justify-content:space-between;margin:6px 0;"><span>${x.items}:</span> <strong>${money(subtotal)}</strong></p>
+        <p style="display:flex;justify-content:space-between;margin:6px 0;"><span>${x.delivery}:</span> <strong>${shipping === 0 ? x.free : money(shipping)}</strong></p>
+        <p style="display:flex;justify-content:space-between;margin:12px 0 0;font-size:20px;color:#ec4899;"><span>${x.total}:</span> <strong>${money(total)}</strong></p>
       </div>`;
+    };
+    const totals = totalsHtml("lv");
 
-    const deliveryInfo = `
-      <p><strong>Saņemšanas veids:</strong> ${DELIVERY_LABELS[delivery]}</p>
+    const deliveryHtml = (l: Lang) => `
+      <p><strong>${TX[l].deliveryMode}:</strong> ${tr(l, DELIVERY_LABELS[delivery])}</p>
       ${
         delivery !== "pickup"
-          ? `<p><strong>Pakomāts:</strong> ${escapeHtml(address)}</p>`
+          ? `<p><strong>${TX[l].lockerLabel}:</strong> ${escapeHtml(address)}</p>`
           : ""
       }`;
+    const deliveryInfo = deliveryHtml("lv");
 
     const { error } = await resend.emails.send({
       from: "Happy Carnevale <noreply@happycarnevale.lv>",
@@ -153,6 +231,7 @@ export async function POST(req: Request) {
         <p><strong>Vārds:</strong> ${escapeHtml(name)}</p>
         <p><strong>Tālrunis:</strong> ${escapeHtml(phone)}</p>
         <p><strong>E-pasts:</strong> ${escapeHtml(email)}</p>
+        ${lang !== "lv" ? `<p><strong>Valoda:</strong> ${lang.toUpperCase()} (pasūtīts ${lang === "ru" ? "krievu" : "angļu"} valodas lapā)</p>` : ""}
         ${contactButtonsHtml({ name, phone, email, about: `pasūtījumu ${orderNumber}` })}
         <hr style="margin:25px 0;">
         <h3>📦 Piegāde</h3>
@@ -171,7 +250,7 @@ export async function POST(req: Request) {
     if (error) {
       console.error(error);
       return NextResponse.json(
-        { ok: false, error: "Neizdevās nosūtīt pasūtījumu." },
+        { ok: false, error: t.failed },
         { status: 500 }
       );
     }
@@ -187,7 +266,7 @@ export async function POST(req: Request) {
       replyTo: SITE.email,
       subject: sendInvoice
         ? `Rēķins Nr. ${orderNumber} — Happy Carnevale`
-        : `Paldies par pasūtījumu! (${orderNumber})`,
+        : `${t.thanks} (${orderNumber})`,
       html: sendInvoice
         ? invoiceHtml({
             number: orderNumber,
@@ -200,16 +279,16 @@ export async function POST(req: Request) {
             deliveryText: deliveryInfo,
           })
         : emailLayout(
-            "Paldies par pasūtījumu!",
+            t.thanks,
             `
-        <p>Sveiki, ${escapeHtml(name)}!</p>
-        <p>Esam saņēmuši tavu pasūtījumu <strong>${orderNumber}</strong>. Drīzumā sazināsimies, lai to apstiprinātu un vienotos par apmaksu.</p>
+        <p>${t.hello}, ${escapeHtml(name)}!</p>
+        <p>${t.received(orderNumber)}</p>
         <hr style="margin:25px 0;">
-        ${itemsTable(items)}
-        ${totals}
+        ${itemsTable(items, lang)}
+        ${totalsHtml(lang)}
         <hr style="margin:25px 0;">
-        ${deliveryInfo}
-        <p style="margin-top:30px;color:#888;font-size:14px;">Jautājumi? Zvani ${SITE.phone} vai raksti ${SITE.email}.</p>
+        ${deliveryHtml(lang)}
+        <p style="margin-top:30px;color:#888;font-size:14px;">${t.questions(SITE.phone, SITE.email)}</p>
         `
           ),
     });

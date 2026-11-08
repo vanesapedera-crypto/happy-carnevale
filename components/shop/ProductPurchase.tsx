@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ShoppingCart, Minus, Plus } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import { useTr } from "@/context/LangContext";
 
 type Props = {
   slug: string;
@@ -20,6 +21,7 @@ export default function ProductPurchase({
   parcelLocker,
 }: Props) {
   const { addItem } = useCart();
+  const t = useTr();
   const [quantity, setQuantity] = useState(1);
 
   const priceValue = Number(
@@ -41,7 +43,9 @@ export default function ProductPurchase({
 
   return (
     <div className="mt-10">
-      <p className="mb-3 font-semibold text-gray-800">Daudzums</p>
+      <p className="mb-3 font-semibold text-gray-800">
+        {t({ lv: "Daudzums", ru: "Количество", en: "Quantity" })}
+      </p>
 
       <div className="flex w-fit items-center rounded-2xl border border-gray-200 bg-white">
         <button
@@ -69,7 +73,7 @@ export default function ProductPurchase({
         className="mt-8 flex w-full items-center justify-center gap-3 rounded-full bg-gradient-to-r from-pink-500 to-pink-600 px-8 py-5 text-lg font-bold text-white shadow-xl transition hover:scale-[1.02] hover:shadow-2xl"
       >
         <ShoppingCart className="h-6 w-6" />
-        Pievienot grozam
+        {t({ lv: "Pievienot grozam", ru: "Добавить в корзину", en: "Add to cart" })}
       </button>
     </div>
   );

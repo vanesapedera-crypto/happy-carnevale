@@ -4,6 +4,7 @@ import Image from "next/image";
 import { mascotCharacters } from "@/data/mascotCharacters";
 import { airCharacters } from "@/data/airCharacters";
 import { X } from "lucide-react";
+import { useTr } from "@/context/LangContext";
 
 type Props = {
   open: boolean;
@@ -16,6 +17,7 @@ export default function MascotSelectorModal({
   onClose,
   onSelect,
 }: Props) {
+  const t = useTr();
   if (!open) return null;
 
   return (
@@ -35,11 +37,11 @@ export default function MascotSelectorModal({
 
             <div>
               <h2 className="text-xl font-black sm:text-3xl">
-                Izvēlies pārsteiguma tēlu
+                {t({ lv: "Izvēlies pārsteiguma tēlu", ru: "Выберите персонажа-сюрприз", en: "Choose a surprise character" })}
               </h2>
 
               <p className="text-sm text-gray-500 sm:text-base">
-                Izvēlieties kādu no pieejamajiem tēliem
+                {t({ lv: "Izvēlieties kādu no pieejamajiem tēliem", ru: "Выберите одного из доступных персонажей", en: "Pick one of the available characters" })}
               </p>
             </div>
 
@@ -61,7 +63,7 @@ export default function MascotSelectorModal({
           <div className="mb-8 sm:mb-12">
 
             <h3 className="mb-4 text-xl font-black text-pink-600 sm:mb-6 sm:text-2xl">
-              Maskoti
+              {t({ lv: "Maskoti", ru: "Ростовые куклы", en: "Mascots" })}
             </h3>
 
             <div className="grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-4 xl:grid-cols-5">
@@ -104,7 +106,7 @@ export default function MascotSelectorModal({
           <div>
 
             <h3 className="mb-4 text-xl font-black text-pink-600 sm:mb-6 sm:text-2xl">
-              Gaisa plūsmas kostīmi
+              {t({ lv: "Gaisa plūsmas kostīmi", ru: "Надувные костюмы", en: "Inflatable costumes" })}
             </h3>
 
             <div className="grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-4 xl:grid-cols-5">

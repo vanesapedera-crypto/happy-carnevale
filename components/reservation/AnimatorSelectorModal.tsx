@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import type { AnimatorCharacter } from "@/data/animatorCharacters";
+import { useTr } from "@/context/LangContext";
 
 type Props = {
   characters: AnimatorCharacter[];
@@ -19,6 +20,7 @@ export default function AnimatorSelectorModal({
   onClose,
   onSelect,
 }: Props) {
+  const t = useTr();
   if (!open) return null;
 
   return (
@@ -28,11 +30,11 @@ export default function AnimatorSelectorModal({
         <div className="mb-5 flex items-start justify-between gap-3 sm:mb-8 sm:items-center">
           <div>
             <h2 className="text-xl font-black sm:text-3xl">
-              🎭 Izvēlies animatoru tēlu
+              🎭 {t({ lv: "Izvēlies animatoru tēlu", ru: "Выберите персонажа аниматора", en: "Choose your entertainer’s character" })}
             </h2>
 
             <p className="mt-1 text-sm text-gray-600 sm:mt-2 sm:text-base">
-              Izvēlieties vienu no pieejamajiem tēliem.
+              {t({ lv: "Izvēlieties vienu no pieejamajiem tēliem.", ru: "Выберите одного из доступных персонажей.", en: "Pick one of the available characters." })}
             </p>
           </div>
 

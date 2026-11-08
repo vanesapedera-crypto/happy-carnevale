@@ -49,7 +49,7 @@ export default function MixedGallery({
                 {item.type === "image" ? (
                   <Image
                     src={item.src}
-                    alt={item.alt || title || "Galerijas attēls"}
+                    alt={item.alt || title || ""}
                     fill
                     sizes="(min-width: 768px) 33vw, 50vw"
                     className="object-cover transition duration-500 group-hover:scale-105"
@@ -65,7 +65,6 @@ export default function MixedGallery({
                     poster={item.poster}
                   >
                     <source src={item.src} />
-                    Tava pārlūkprogramma neatbalsta video atskaņošanu.
                   </video>
                 )}
 

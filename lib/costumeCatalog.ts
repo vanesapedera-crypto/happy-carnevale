@@ -1,6 +1,7 @@
 import { cache } from "react";
 import { loadCostumes, type CostumeCard } from "@/lib/costumes";
 import { slugify } from "@/lib/costumeSlug";
+import type { Tr } from "@/lib/i18n";
 
 import { mascots } from "@/data/costumes/mascota-teli";
 import { costumes as airCostumes } from "@/data/costumes/gaisa-plusmas-kostimi";
@@ -34,11 +35,11 @@ export type CostumeCategory = {
   /** Adreses daļa: /kostimu-noma/<path> */
   path: string;
   /** Kategorijas nosaukums saitēs un "maizes drupačās" */
-  name: string;
+  name: Tr;
   /** Ko pieliek kostīma nosaukumam virsrakstā: "Betmens – kostīma noma" */
-  noun: string;
+  noun: Tr;
   /** Kopīgais apraksts visiem šīs kategorijas kostīmiem */
-  intro: string;
+  intro: Tr;
   /** false — kostīmus nesūta ar pakomātu */
   parcelLocker: boolean;
   sections: CatalogSection[];
@@ -47,27 +48,25 @@ export type CostumeCategory = {
 export const COSTUME_CATEGORIES: CostumeCategory[] = [
   {
     path: "mascota-teli",
-    name: "Mascota tēli",
-    noun: "mascota tēla noma",
-    intro:
-      "Lielizmēra mascota kostīms bērnu ballītēm, uzņēmumu pasākumiem, reklāmas aktivitātēm un svētkiem.",
+    name: { lv: "Mascota tēli", ru: "Ростовые куклы", en: "Mascot costumes" },
+    noun: { lv: "mascota tēla noma", ru: "аренда ростовой куклы", en: "mascot costume rental" },
+    intro: { lv: "Lielizmēra mascota kostīms bērnu ballītēm, uzņēmumu pasākumiem, reklāmas aktivitātēm un svētkiem.", ru: "Ростовая кукла для детских праздников, корпоративов, рекламных акций и торжеств.", en: "A full-size mascot costume for kids' parties, corporate events, promotions and celebrations." },
     parcelLocker: false,
     sections: [{ key: "mascota-teli", fallback: mascots }],
   },
   {
     path: "gaisa-plusmas-kostimi",
-    name: "Gaisa plūsmas kostīmi",
-    noun: "gaisa plūsmas kostīma noma",
-    intro:
-      "Krāsains un iespaidīgs piepūšamais kostīms ballītēm, tematiskajiem pasākumiem un svētkiem.",
+    name: { lv: "Gaisa plūsmas kostīmi", ru: "Надувные костюмы", en: "Inflatable costumes" },
+    noun: { lv: "gaisa plūsmas kostīma noma", ru: "аренда надувного костюма", en: "inflatable costume rental" },
+    intro: { lv: "Krāsains un iespaidīgs piepūšamais kostīms ballītēm, tematiskajiem pasākumiem un svētkiem.", ru: "Яркий и эффектный надувной костюм для вечеринок, тематических мероприятий и праздников.", en: "A colourful, eye-catching inflatable costume for parties, themed events and celebrations." },
     parcelLocker: true,
     sections: [{ key: "gaisa-plusmas-kostimi", fallback: airCostumes }],
   },
   {
     path: "filmu-un-pasaku-teli",
-    name: "Kino tēli un citi kostīmi",
-    noun: "kostīma noma",
-    intro: "Kostīms ballītēm, tematiskajiem pasākumiem un karnevāliem.",
+    name: { lv: "Kino tēli un citi kostīmi", ru: "Герои фильмов и другие костюмы", en: "Movie characters and more" },
+    noun: { lv: "kostīma noma", ru: "аренда костюма", en: "costume rental" },
+    intro: { lv: "Kostīms ballītēm, tematiskajiem pasākumiem un karnevāliem.", ru: "Костюм для вечеринок, тематических мероприятий и карнавалов.", en: "A costume for parties, themed events and carnivals." },
     parcelLocker: true,
     sections: [
       { key: "princeses-un-fejas", fallback: princesses },
@@ -79,9 +78,9 @@ export const COSTUME_CATEGORIES: CostumeCategory[] = [
   },
   {
     path: "smiekligi-teli",
-    name: "Smieklīgi tēli",
-    noun: "kostīma noma",
-    intro: "Kostīms ballītēm, tematiskajiem pasākumiem un karnevāliem.",
+    name: { lv: "Smieklīgi tēli", ru: "Смешные персонажи", en: "Funny characters" },
+    noun: { lv: "kostīma noma", ru: "аренда костюма", en: "costume rental" },
+    intro: { lv: "Kostīms ballītēm, tematiskajiem pasākumiem un karnevāliem.", ru: "Костюм для вечеринок, тематических мероприятий и карнавалов.", en: "A costume for parties, themed events and carnivals." },
     parcelLocker: true,
     sections: [
       { key: "smiekligi-teli", fallback: funnyCharacters },
@@ -91,33 +90,46 @@ export const COSTUME_CATEGORIES: CostumeCategory[] = [
   },
   {
     path: "parukas",
-    name: "Parūkas",
-    noun: "parūkas noma",
-    intro: "Parūka dažādiem pasākumiem, kostīmiem un svētkiem.",
+    name: { lv: "Parūkas", ru: "Парики", en: "Wigs" },
+    noun: { lv: "parūkas noma", ru: "аренда парика", en: "wig rental" },
+    intro: { lv: "Parūka dažādiem pasākumiem, kostīmiem un svētkiem.", ru: "Парик для разных мероприятий, костюмов и праздников.", en: "A wig for all kinds of events, costumes and parties." },
     parcelLocker: true,
     sections: [{ key: "parukas", fallback: parukas }],
   },
   {
     path: "helovins",
-    name: "Helovīna kostīmi",
-    noun: "Helovīna kostīma noma",
-    intro: "Kostīms Helovīna ballītēm un tematiskajiem pasākumiem.",
+    name: { lv: "Helovīna kostīmi", ru: "Костюмы на Хэллоуин", en: "Halloween costumes" },
+    noun: { lv: "Helovīna kostīma noma", ru: "аренда костюма на Хэллоуин", en: "Halloween costume rental" },
+    intro: { lv: "Kostīms Helovīna ballītēm un tematiskajiem pasākumiem.", ru: "Костюм для вечеринок на Хэллоуин и тематических мероприятий.", en: "A costume for Halloween parties and themed events." },
     parcelLocker: true,
     sections: [{ key: "helovina-kostimi", fallback: halloween }],
   },
   {
     path: "ziemassvetki",
-    name: "Ziemassvētku kostīmi",
-    noun: "Ziemassvētku kostīma noma",
-    intro: "Kostīms Ziemassvētku pasākumiem un svētku ballītēm.",
+    name: { lv: "Ziemassvētku kostīmi", ru: "Рождественские костюмы", en: "Christmas costumes" },
+    noun: { lv: "Ziemassvētku kostīma noma", ru: "аренда рождественского костюма", en: "Christmas costume rental" },
+    intro: { lv: "Kostīms Ziemassvētku pasākumiem un svētku ballītēm.", ru: "Костюм для рождественских мероприятий и праздничных вечеринок.", en: "A costume for Christmas events and festive parties." },
     parcelLocker: true,
     sections: [{ key: "ziemassvetku-kostimi", fallback: christmas }],
   },
   {
+    path: "paru-kostimi",
+    name: { lv: "Pāru kostīmi", ru: "Парные костюмы", en: "Couples costumes" },
+    noun: { lv: "pāru kostīma noma", ru: "аренда парного костюма", en: "couples costume rental" },
+    intro: {
+      lv: "Saskaņoti kostīmi diviem – ballītēm, karnevāliem, Helovīnam un tematiskajiem pasākumiem.",
+      ru: "Парные костюмы для двоих – для вечеринок, карнавалов, Хэллоуина и тематических мероприятий.",
+      en: "Matching costumes for two – for parties, carnivals, Halloween and themed events.",
+    },
+    parcelLocker: true,
+    // Kostīmus pievieno admin panelī (sadaļa "Pāru kostīmi"); iebūvētā saraksta nav.
+    sections: [{ key: "paru-kostimi", fallback: [] }],
+  },
+  {
     path: "lieldienas",
-    name: "Lieldienu kostīmi",
-    noun: "Lieldienu kostīma noma",
-    intro: "Kostīms Lieldienu pasākumiem un svētkiem.",
+    name: { lv: "Lieldienu kostīmi", ru: "Пасхальные костюмы", en: "Easter costumes" },
+    noun: { lv: "Lieldienu kostīma noma", ru: "аренда пасхального костюма", en: "Easter costume rental" },
+    intro: { lv: "Kostīms Lieldienu pasākumiem un svētkiem.", ru: "Костюм для пасхальных мероприятий и праздников.", en: "A costume for Easter events and celebrations." },
     parcelLocker: true,
     sections: [{ key: "lieldienu-kostimi", fallback: easter }],
   },
@@ -189,14 +201,19 @@ export async function findCostume(path: string, slug: string) {
   return all.find((item) => item.slug === slug);
 }
 
-/** Saite uz rezervācijas formu ar izvēlēto kostīmu. */
-export function reservationHref(item: CostumeCard) {
+/**
+ * Saite uz rezervācijas formu ar izvēlēto kostīmu.
+ * kostims/price/size paliek latviski (tie nonāk rezervācijas e-pastā),
+ * `displayTitle` — nosaukums lapas valodā, ko rāda formā.
+ */
+export function reservationHref(item: CostumeCard, displayTitle?: string) {
   const params = new URLSearchParams({
     kostims: item.title,
     image: item.image,
     price: item.price ?? "",
     size: item.size ?? "",
   });
+  if (displayTitle && displayTitle !== item.title) params.set("nosaukums", displayTitle);
 
   return `/rezervacija-kostimiem?${params.toString()}`;
 }

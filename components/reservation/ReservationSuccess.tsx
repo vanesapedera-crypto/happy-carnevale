@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect } from "react";
 import { CheckCircle2 } from "lucide-react";
+import { useLp, useTr } from "@/context/LangContext";
 
 type ReservationSuccessProps = {
   title?: string;
@@ -12,11 +13,13 @@ type ReservationSuccessProps = {
 };
 
 export default function ReservationSuccess({
-  title = "Paldies! Rezervācija nosūtīta",
-  text = "Esam saņēmuši tavu rezervācijas pieprasījumu. Drīzumā sazināsimies, lai precizētu detaļas un apstiprinātu rezervāciju.",
+  title,
+  text,
   onReset,
-  resetLabel = "Nosūtīt vēl vienu rezervāciju",
+  resetLabel,
 }: ReservationSuccessProps) {
+  const t = useTr();
+  const lp = useLp();
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
@@ -28,19 +31,24 @@ export default function ReservationSuccess({
       </div>
 
       <h1 className="mt-8 text-4xl font-black text-gray-900 md:text-5xl">
-        {title}
+        {title ?? t({ lv: "Paldies! Rezervācija nosūtīta", ru: "Спасибо! Бронирование отправлено", en: "Thank you! Your booking has been sent" })}
       </h1>
 
       <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-gray-600">
-        {text}
+        {text ??
+          t({
+            lv: "Esam saņēmuši tavu rezervācijas pieprasījumu. Drīzumā sazināsimies, lai precizētu detaļas un apstiprinātu rezervāciju.",
+            ru: "Мы получили ваш запрос на бронирование. Скоро свяжемся с вами, чтобы уточнить детали и подтвердить бронь.",
+            en: "We've received your booking request. We'll be in touch soon to go over the details and confirm your booking.",
+          })}
       </p>
 
       <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
         <Link
-          href="/"
+          href={lp("/")}
           className="inline-flex rounded-full bg-pink-500 px-8 py-4 text-lg font-bold text-white transition hover:bg-pink-600"
         >
-          Uz sākumlapu
+          {t({ lv: "Uz sākumlapu", ru: "На главную", en: "Back to home" })}
         </Link>
 
         {onReset && (
@@ -49,7 +57,8 @@ export default function ReservationSuccess({
             onClick={onReset}
             className="inline-flex rounded-full border-2 border-pink-200 px-8 py-4 text-lg font-bold text-pink-600 transition hover:bg-pink-50"
           >
-            {resetLabel}
+            {resetLabel ??
+              t({ lv: "Nosūtīt vēl vienu rezervāciju", ru: "Отправить ещё одно бронирование", en: "Send another booking" })}
           </button>
         )}
       </div>

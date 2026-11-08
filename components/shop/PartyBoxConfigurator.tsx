@@ -6,24 +6,25 @@ import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { Droplets, WandSparkles } from "lucide-react";
+import { useLp, useTr } from "@/context/LangContext";
 
 
   const boxes = [
   {
     id: "small",
-    title: "Mazais komplekts",
+    title: { lv: "Mazais komplekts", ru: "Малый набор", en: "Small set" },
     price: 20,
     ropes: 1,
   },
   {
     id: "medium",
-    title: "Vidējais komplekts",
+    title: { lv: "Vidējais komplekts", ru: "Средний набор", en: "Medium set" },
     price: 25,
     ropes: 2,
   },
   {
     id: "large",
-    title: "Lielais komplekts",
+    title: { lv: "Lielais komplekts", ru: "Большой набор", en: "Large set" },
     price: 30,
     ropes: 3,
   },
@@ -33,22 +34,24 @@ import { Droplets, WandSparkles } from "lucide-react";
 const sticks = [
   {
     id: "2",
-    title: "Burbuļu kociņš A",
+    title: { lv: "Burbuļu kociņš A", ru: "Палочка для пузырей A", en: "Bubble wand A" },
     image: "/images/shop/burbulu-kocins-11.jpg",
   },
   {
     id: "3",
-    title: "Burbuļu kociņš B",
+    title: { lv: "Burbuļu kociņš B", ru: "Палочка для пузырей B", en: "Bubble wand B" },
     image: "/images/shop/burbulu-kocins-33.jpg",
   },
   {
     id: "4",
-    title: "Burbuļu kociņš C",
+    title: { lv: "Burbuļu kociņš C", ru: "Палочка для пузырей C", en: "Bubble wand C" },
     image: "/images/shop/burbulu-kocins-44.jpg",
   },
 ];
 
 export default function PartyBoxConfigurator() {
+  const t = useTr();
+  const lp = useLp();
   const { addItem } = useCart();
   const [selectedBox, setSelectedBox] = useState(boxes[0]);
 
@@ -72,12 +75,15 @@ const addPartyBoxToCart = () => {
     if (!allSelected) return;
 
     const stickTitles = selectedSticks.map(
-      (id) => sticks.find((stick) => stick.id === id)?.title ?? id
+      (id) => {
+        const stick = sticks.find((item) => item.id === id);
+        return stick ? t(stick.title) : id;
+      }
     );
 
     addItem({
       id: `party-box-${selectedBox.id}-${selectedSticks.join("-")}`,
-      title: `Party Box — ${selectedBox.title} (${stickTitles.join(", ")})`,
+      title: `Party Box — ${t(selectedBox.title)} (${stickTitles.join(", ")})`,
       image: "/images/shop/party-box.jpg",
       price: selectedBox.price,
     });
@@ -87,10 +93,10 @@ const addPartyBoxToCart = () => {
   <div className="mx-auto max-w-7xl px-6">
 
     <Link
-      href="/veikals"
+      href={lp("/veikals")}
       className="mb-8 inline-flex items-center gap-2 text-lg font-semibold text-pink-500 hover:text-pink-600 transition"
     >
-      ← Atpakaļ uz veikalu
+      ← {t({ lv: "Atpakaļ uz veikalu", ru: "Назад в магазин", en: "Back to shop" })}
     </Link>
 
     <div className="rounded-[40px] bg-[#fff7fb] p-10 shadow-xl">
@@ -101,13 +107,17 @@ const addPartyBoxToCart = () => {
   </span>
 
   <h2 className="mt-4 text-3xl font-black text-[#17223b] md:text-5xl">
-    Izvēlies savu Party Box
+    {t({ lv: "Izvēlies savu Party Box", ru: "Выберите свой Party Box", en: "Choose your Party Box" })}
   </h2>
 
   <p className="mt-4 text-base leading-7 text-gray-600 md:text-lg">
-    Katrā komplektā ietilpst <strong>5 L ziepju burbuļu koncentrāts</strong> un
-    noteikts burbuļu kociņu skaits. Izvēlies komplektu un pēc tam izvēlies
-    burbuļu kociņus.
+    {t({ lv: "Katrā komplektā ietilpst", ru: "В каждый набор входит", en: "Every set includes" })}{" "}
+    <strong>{t({ lv: "5 L ziepju burbuļu koncentrāts", ru: "5 л концентрата для мыльных пузырей", en: "5 L of soap bubble concentrate" })}</strong>{" "}
+    {t({
+      lv: "un noteikts burbuļu kociņu skaits. Izvēlies komplektu un pēc tam izvēlies burbuļu kociņus.",
+      ru: "и определённое количество палочек для пузырей. Выберите набор, а затем палочки.",
+      en: "and a set number of bubble wands. Choose a set, then pick your wands.",
+    })}
   </p>
 </div>
 
@@ -126,7 +136,7 @@ const addPartyBoxToCart = () => {
               }`}
             >
               <h3 className="text-2xl font-black text-pink-500">
-                {box.title}
+                {t(box.title)}
               </h3>
 
              <p className="mt-3 text-5xl font-black text-[#17223b]">
@@ -139,7 +149,7 @@ const addPartyBoxToCart = () => {
     <Droplets className="h-5 w-5 text-pink-500" />
 
     <span className="text-sm font-medium text-gray-700">
-      5L ziepju burbuļu koncentrāts
+      {t({ lv: "5L ziepju burbuļu koncentrāts", ru: "5 л концентрата для пузырей", en: "5 L bubble concentrate" })}
     </span>
   </div>
 
@@ -147,7 +157,10 @@ const addPartyBoxToCart = () => {
     <WandSparkles className="h-5 w-5 text-pink-500" />
 
     <span className="text-sm font-medium text-gray-700">
-      {box.ropes} burbuļu kociņ{box.ropes > 1 ? "i" : "š"}
+      {box.ropes}{" "}
+      {box.ropes > 1
+        ? t({ lv: "burbuļu kociņi", ru: box.ropes < 5 ? "палочки для пузырей" : "палочек для пузырей", en: "bubble wands" })
+        : t({ lv: "burbuļu kociņš", ru: "палочка для пузырей", en: "bubble wand" })}
     </span>
   </div>
 
@@ -162,18 +175,26 @@ const addPartyBoxToCart = () => {
   {/* Burbuļu kociņi */}
   <div className="rounded-3xl bg-white p-6 shadow-md">
     <h3 className="text-3xl font-black text-[#17223b]">
-      Izvēlies burbuļu kociņus
+      {t({ lv: "Izvēlies burbuļu kociņus", ru: "Выберите палочки для пузырей", en: "Choose your bubble wands" })}
     </h3>
 
     <p className="mt-2 text-gray-600">
-      Izvēlies līdz {selectedBox.ropes} burbuļu kociņiem.
+      {t({
+        lv: `Izvēlies līdz ${selectedBox.ropes} burbuļu kociņiem.`,
+        ru: `Выберите до ${selectedBox.ropes} палочек.`,
+        en: `Choose up to ${selectedBox.ropes} bubble wands.`,
+      })}
     </p>
 
     <div className="mt-6 space-y-6">
       {Array.from({ length: selectedBox.ropes }).map((_, index) => (
         <div key={index}>
           <h4 className="mb-4 text-xl font-bold text-[#17223b]">
-            {index + 1}. burbuļu kociņa izvēle
+            {t({
+              lv: `${index + 1}. burbuļu kociņa izvēle`,
+              ru: `Палочка №${index + 1}`,
+              en: `Bubble wand ${index + 1}`,
+            })}
           </h4>
 
           <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
@@ -190,14 +211,14 @@ const addPartyBoxToCart = () => {
               >
                 <Image
                   src={stick.image}
-                  alt={stick.title}
+                  alt={t(stick.title)}
                   width={140}
                   height={140}
                   className="mx-auto h-24 w-24 object-contain"
                 />
 
                 <p className="mt-3 text-center text-sm font-semibold text-[#17223b]">
-                  {stick.title}
+                  {t(stick.title)}
                 </p>
 
                 <div className="mt-3 flex justify-center">
@@ -224,12 +245,16 @@ const addPartyBoxToCart = () => {
     className="flex w-full items-center justify-center gap-3 rounded-2xl bg-pink-500 px-6 py-4 text-lg font-bold text-white transition hover:bg-pink-600 disabled:cursor-not-allowed disabled:opacity-40"
   >
     <ShoppingCart className="h-5 w-5" />
-    Pievienot grozam
+    {t({ lv: "Pievienot grozam", ru: "Добавить в корзину", en: "Add to cart" })}
   </button>
 
   {!allSelected && (
     <p className="mt-3 text-center text-sm text-gray-500">
-      Izvēlies visus burbuļu kociņus, lai turpinātu.
+      {t({
+        lv: "Izvēlies visus burbuļu kociņus, lai turpinātu.",
+        ru: "Выберите все палочки, чтобы продолжить.",
+        en: "Choose all the bubble wands to continue.",
+      })}
     </p>
   )}
 </div>
@@ -238,11 +263,15 @@ const addPartyBoxToCart = () => {
 
 <div className="mt-16 rounded-3xl border border-pink-100 bg-white p-6 shadow-sm">
   <h3 className="text-2xl font-bold text-[#17223b]">
-    Video instrukcija
+    {t({ lv: "Video instrukcija", ru: "Видеоинструкция", en: "Video guide" })}
   </h3>
 
   <p className="mt-2 text-gray-600">
-    Noskaties kā uzjaukt labāko milzu ziepju burbuļu šķidrumu un izmantot kociņus!
+    {t({
+      lv: "Noskaties kā uzjaukt labāko milzu ziepju burbuļu šķidrumu un izmantot kociņus!",
+      ru: "Посмотрите, как приготовить лучшую жидкость для гигантских пузырей и пользоваться палочками!",
+      en: "Watch how to mix the best giant bubble solution and use the wands!",
+    })}
   </p>
 
   <video

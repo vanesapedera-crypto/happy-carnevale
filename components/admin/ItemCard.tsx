@@ -11,6 +11,7 @@ import { ACCEPTED_IMAGE_TYPES, LIMITS } from "@/lib/admin/validation";
 import { getSection } from "@/lib/admin/sections";
 import { defaultCaption, prepareInstagramImage } from "@/lib/admin/instagramImage";
 import type { ActionResult } from "@/lib/admin/types";
+import { translateCostumeName } from "@/lib/costumeNames";
 
 const CAPTION_MAX = 2200;
 
@@ -43,6 +44,8 @@ export default function ItemCard({
 }: ItemCardProps) {
   const router = useRouter();
   const [title, setTitle] = useState(item.title);
+  const [titleRu, setTitleRu] = useState(item.translations.ru?.title ?? "");
+  const [titleEn, setTitleEn] = useState(item.translations.en?.title ?? "");
   const [price, setPrice] = useState(item.price);
   const [size, setSize] = useState(item.size);
   const [active, setActive] = useState(item.active);
@@ -54,8 +57,13 @@ export default function ItemCard({
   const [caption, setCaption] = useState("");
   const [instagramLink, setInstagramLink] = useState<string | null>(null);
 
+  const translationsDirty =
+    titleRu !== (item.translations.ru?.title ?? "") ||
+    titleEn !== (item.translations.en?.title ?? "");
+
   const dirty =
     title !== item.title ||
+    translationsDirty ||
     price !== item.price ||
     size !== item.size ||
     active !== item.active;
@@ -104,6 +112,16 @@ export default function ItemCard({
       const result = await updateItemAction(item.id, {
         active,
         ...(showTitle ? { title } : {}),
+        // Tulkojumus sūta tikai tad, ja tie mainīti (lai saglabāšana strādā arī,
+        // kamēr datubāzē vēl nav palaists supabase/tulkojumi.sql).
+        ...(showTitle && translationsDirty
+          ? {
+              translations: {
+                ru: { ...item.translations.ru, title: titleRu },
+                en: { ...item.translations.en, title: titleEn },
+              },
+            }
+          : {}),
         ...(showPriceAndSize ? { price, size } : {}),
       });
       if (result.ok) {
@@ -223,6 +241,41 @@ export default function ItemCard({
               onChange={(event) => setTitle(event.target.value)}
               className={INPUT_CLASS}
             />
+
+            {/* Mājaslapas krievu un angļu versijai. Tukšs — rāda automātisko tulkojumu vai latvisko. */}
+            <details
+              className="mt-2 rounded-lg border border-slate-200 px-3 py-2"
+              open={Boolean(titleRu || titleEn) || undefined}
+            >
+              <summary className="cursor-pointer text-xs font-semibold text-slate-500">
+                Nosaukums krieviski / angliski
+              </summary>
+              <label htmlFor={fieldId("title-ru")} className={`${LABEL_CLASS} mt-2 block`}>
+                RU
+              </label>
+              <input
+                id={fieldId("title-ru")}
+                value={titleRu}
+                maxLength={LIMITS.title}
+                placeholder={translateCostumeName(title, "ru")}
+                onChange={(event) => setTitleRu(event.target.value)}
+                className={INPUT_CLASS}
+              />
+              <label htmlFor={fieldId("title-en")} className={`${LABEL_CLASS} mt-2 block`}>
+                EN
+              </label>
+              <input
+                id={fieldId("title-en")}
+                value={titleEn}
+                maxLength={LIMITS.title}
+                placeholder={translateCostumeName(title, "en")}
+                onChange={(event) => setTitleEn(event.target.value)}
+                className={INPUT_CLASS}
+              />
+              <p className="mt-1 text-xs text-slate-400">
+                Ja lauks tukšs, mājaslapā rāda pelēko (automātisko) tulkojumu.
+              </p>
+            </details>
           </div>
         )}
 

@@ -1,5 +1,6 @@
 import { SHIPPING, SITE } from "@/lib/constants";
-import { products, type Product } from "@/lib/products";
+import { productText, products, type Product } from "@/lib/products";
+import { lp, type Lang } from "@/lib/i18n";
 
 export const SHOP_BRAND = "Burbulītes burbuļi";
 
@@ -38,15 +39,20 @@ export function feedProducts() {
 }
 
 /** schema.org Product dati produkta lapai. */
-export function productJsonLd(slug: string, product: Product): Record<string, unknown> | null {
+export function productJsonLd(
+  slug: string,
+  product: Product,
+  lang: Lang = "lv"
+): Record<string, unknown> | null {
   const price = fixedPrice(product);
   if (price === null) return null;
-  const url = absoluteUrl(`/veikals/${slug}`);
+  const url = absoluteUrl(lp(lang, `/veikals/${slug}`));
+  const text = productText(product, lang);
   return {
     "@context": "https://schema.org",
     "@type": "Product",
-    name: product.title,
-    description: plainDescription(product),
+    name: text.title,
+    description: plainDescription({ ...product, ...text }),
     image: [absoluteUrl(product.image)],
     sku: slug,
     brand: { "@type": "Brand", name: SHOP_BRAND },

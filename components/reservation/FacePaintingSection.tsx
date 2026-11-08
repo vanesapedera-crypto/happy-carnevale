@@ -1,3 +1,7 @@
+"use client";
+
+import { useTr } from "@/context/LangContext";
+
 interface FacePaintingSectionProps {
   form: any;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -7,14 +11,15 @@ export default function FacePaintingSection({
   form,
   handleChange,
 }: FacePaintingSectionProps) {
+  const t = useTr();
   return (
     <div className="rounded-3xl border border-pink-200 bg-pink-50 p-8">
       <h2 className="mb-2 text-2xl font-black">
-        🎨 Sejas apgleznošana
+        🎨 {t({ lv: "Sejas apgleznošana", ru: "Аквагрим", en: "Face painting" })}
       </h2>
 
       <p className="mb-6 text-gray-600">
-        Izvēlieties vēlamo pakalpojuma ilgumu.
+        {t({ lv: "Izvēlieties vēlamo pakalpojuma ilgumu.", ru: "Выберите желаемую продолжительность услуги.", en: "Choose how long you'd like the service." })}
       </p>
 
       <div className="grid gap-6 md:grid-cols-2">
@@ -36,11 +41,11 @@ export default function FacePaintingSection({
           />
 
           <h3 className="text-2xl font-bold">
-            1,5 stundas
+            {t({ lv: "1,5 stundas", ru: "1,5 часа", en: "1.5 hours" })}
           </h3>
 
           <p className="mt-3 text-gray-500">
-            Mazākiem pasākumiem
+            {t({ lv: "Mazākiem pasākumiem", ru: "Для небольших мероприятий", en: "For smaller events" })}
           </p>
 
           <p className="mt-5 text-4xl font-black text-pink-500">
@@ -65,15 +70,15 @@ export default function FacePaintingSection({
           />
 
           <span className="rounded-full bg-pink-500 px-3 py-1 text-xs font-bold text-white">
-            Populārākā izvēle
+            {t({ lv: "Populārākā izvēle", ru: "Самый популярный выбор", en: "Most popular" })}
           </span>
 
           <h3 className="mt-4 text-2xl font-bold">
-            2 stundas
+            {t({ lv: "2 stundas", ru: "2 часа", en: "2 hours" })}
           </h3>
 
           <p className="mt-3 text-gray-500">
-            Lielākiem pasākumiem
+            {t({ lv: "Lielākiem pasākumiem", ru: "Для больших мероприятий", en: "For bigger events" })}
           </p>
 
           <p className="mt-5 text-4xl font-black text-pink-500">

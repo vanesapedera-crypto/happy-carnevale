@@ -8,6 +8,7 @@ import {
   WandSparkles,
   Sparkles,
 } from "lucide-react";
+import { useTr } from "@/context/LangContext";
 
 interface AnimatorSectionProps {
   characters: AnimatorCharacter[];
@@ -24,6 +25,7 @@ export default function AnimatorSection({
   handleChange,
   onChooseCharacter,
 }: AnimatorSectionProps) {
+  const t = useTr();
   // Divi tērpi var saukties vienādi, tāpēc vispirms salīdzina arī attēlu.
   const selectedCharacter =
     characters.find(
@@ -42,7 +44,7 @@ export default function AnimatorSection({
           </div>
 
           <h2 className="text-2xl font-black sm:text-3xl">
-            Animatora programma
+            {t({ lv: "Animatora programma", ru: "Программа аниматора", en: "Entertainer programme" })}
           </h2>
         </div>
 
@@ -57,7 +59,7 @@ export default function AnimatorSection({
                 size={20}
                 className="text-pink-500"
               />
-              Ilgums
+              {t({ lv: "Ilgums", ru: "Продолжительность", en: "Duration" })}
             </div>
 
             <div className="space-y-4">
@@ -65,14 +67,17 @@ export default function AnimatorSection({
               {[
   {
     label: "1 stunda",
+    text: { lv: "1 stunda", ru: "1 час", en: "1 hour" },
     price: "160 €",
   },
   {
     label: "1,5 stundas",
+    text: { lv: "1,5 stundas", ru: "1,5 часа", en: "1.5 hours" },
     price: "175 €",
   },
   {
     label: "2 stundas",
+    text: { lv: "2 stundas", ru: "2 часа", en: "2 hours" },
     price: "190 €",
   },
 ].map((item) => (
@@ -94,7 +99,7 @@ export default function AnimatorSection({
       />
 
       <div>
-        <div className="font-bold">{item.label}</div>
+        <div className="font-bold">{t(item.text)}</div>
         <div className="text-sm text-gray-500">{item.price}</div>
       </div>
     </div>
@@ -114,7 +119,7 @@ export default function AnimatorSection({
                 size={20}
                 className="text-pink-500"
               />
-              Izvēlies tēlu
+              {t({ lv: "Izvēlies tēlu", ru: "Выберите персонажа", en: "Choose a character" })}
             </div>
 
             <div className="rounded-3xl border bg-gray-50 p-4">
@@ -130,11 +135,11 @@ export default function AnimatorSection({
                 onClick={onChooseCharacter}
                 className="w-full rounded-full bg-gradient-to-r from-pink-500 to-fuchsia-500 px-6 py-4 font-bold text-white shadow-lg transition hover:scale-105"
               >
-                Izvēlēties tēlu
+                {t({ lv: "Izvēlēties tēlu", ru: "Выбрать персонажа", en: "Choose a character" })}
               </button>
 
               <p className="mt-4 text-center text-sm text-gray-500">
-                Atveras galerija ar visiem tēliem
+                {t({ lv: "Atveras galerija ar visiem tēliem", ru: "Откроется галерея со всеми персонажами", en: "Opens a gallery of all characters" })}
               </p>
 
             </div>
@@ -150,7 +155,7 @@ export default function AnimatorSection({
                 size={20}
                 className="text-pink-500"
               />
-              Izvēlētais tēls
+              {t({ lv: "Izvēlētais tēls", ru: "Выбранный персонаж", en: "Selected character" })}
             </div>
 
             <div className="overflow-hidden rounded-3xl border bg-white">
@@ -169,7 +174,7 @@ export default function AnimatorSection({
 
                     {selectedCharacter
                       ? selectedCharacter.name
-                      : "Nav izvēlēts"}
+                      : t({ lv: "Nav izvēlēts", ru: "Не выбран", en: "Not chosen" })}
 
                   </div>
 
@@ -180,7 +185,7 @@ export default function AnimatorSection({
                   onClick={onChooseCharacter}
                   className="shrink-0 font-semibold text-pink-500 hover:underline"
                 >
-                  Mainīt
+                  {t({ lv: "Mainīt", ru: "Изменить", en: "Change" })}
                 </button>
 
               </div>
@@ -204,11 +209,11 @@ export default function AnimatorSection({
     </div>
 
     <h2 className="text-2xl font-black sm:text-3xl">
-      Papildpakalpojumi
+      {t({ lv: "Papildpakalpojumi", ru: "Дополнительные услуги", en: "Add-ons" })}
     </h2>
 
     <span className="text-gray-500">
-      (pēc izvēles)
+      ({t({ lv: "pēc izvēles", ru: "по желанию", en: "optional" })})
     </span>
 
   </div>
@@ -218,32 +223,32 @@ export default function AnimatorSection({
   {[
   {
     key: "eksperimenti",
-    title: "Eksperimenti",
+    title: { lv: "Eksperimenti", ru: "Эксперименты", en: "Experiments" },
     image: "/images/events/animatori/eksperimenti.jpg",
   },
   {
     key: "slaims",
-    title: "Slaimu meistarklase",
+    title: { lv: "Slaimu meistarklase", ru: "Мастер-класс по слаймам", en: "Slime workshop" },
     image: "/images/events/animatori/slaims.jpg",
   },
   {
     key: "burbuli",
-    title: "Milzu ziepju burbuļi",
+    title: { lv: "Milzu ziepju burbuļi", ru: "Гигантские мыльные пузыри", en: "Giant soap bubbles" },
     image: "/images/events/animatori/burbuli.jpg",
   },
   {
     key: "darbnica",
-    title: "Radošā darbnīca",
+    title: { lv: "Radošā darbnīca", ru: "Творческая мастерская", en: "Craft workshop" },
     image: "/images/events/animatori/radosa-darbnica.jpg",
   },
   {
     key: "led",
-    title: "LED Disco",
+    title: { lv: "LED Disco", ru: "LED-дискотека", en: "LED disco" },
     image: "/images/events/animatori/led-disco.jpg",
   },
   {
     key: "folija",
-    title: "Folijas Disco",
+    title: { lv: "Folijas Disco", ru: "Фольга-дискотека", en: "Foil disco" },
     image: "/images/events/animatori/folijas-disco.jpg",
   },
 ].map((item) => (
@@ -275,7 +280,7 @@ export default function AnimatorSection({
 
           <Image
             src={item.image}
-            alt={item.title}
+            alt={t(item.title)}
             fill
             sizes="(min-width: 640px) 33vw, 50vw"
             className="object-cover"
@@ -286,7 +291,7 @@ export default function AnimatorSection({
         <div className="p-2 text-center sm:p-4">
 
           <h3 className="text-sm font-bold leading-tight sm:text-base [overflow-wrap:anywhere] hyphens-auto">
-            {item.title}
+            {t(item.title)}
           </h3>
 
         </div>

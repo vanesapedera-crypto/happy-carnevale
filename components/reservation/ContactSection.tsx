@@ -5,6 +5,7 @@ import {
   Phone,
   Mail,
 } from "lucide-react";
+import { useTr } from "@/context/LangContext";
 
 interface ContactSectionProps {
   form: {
@@ -21,6 +22,7 @@ export default function ContactSection({
   form,
   handleChange,
 }: ContactSectionProps) {
+  const t = useTr();
   return (
     <section className="space-y-6">
 
@@ -32,7 +34,7 @@ export default function ContactSection({
         </div>
 
         <h2 className="text-3xl font-black text-slate-800">
-          Kontaktinformācija
+          {t({ lv: "Kontaktinformācija", ru: "Контактные данные", en: "Contact details" })}
         </h2>
       </div>
 
@@ -51,7 +53,7 @@ export default function ContactSection({
                 className="text-pink-500"
               />
 
-              Vārds un uzvārds
+              {t({ lv: "Vārds un uzvārds", ru: "Имя и фамилия", en: "Full name" })}
               <span className="text-pink-500">*</span>
             </label>
 
@@ -61,7 +63,7 @@ export default function ContactSection({
               value={form.name}
               onChange={handleChange}
               required
-              placeholder="Piemēram, Anna Bērziņa"
+              placeholder={t({ lv: "Piemēram, Anna Bērziņa", ru: "Например, Анна Берзиня", en: "E.g. Anna Berzina" })}
               className="h-14 w-full rounded-2xl border border-gray-200 px-5 text-lg outline-none transition focus:border-pink-500 focus:ring-4 focus:ring-pink-100"
             />
           </div>
@@ -75,7 +77,7 @@ export default function ContactSection({
                 className="text-pink-500"
               />
 
-              Telefona numurs
+              {t({ lv: "Telefona numurs", ru: "Номер телефона", en: "Phone number" })}
               <span className="text-pink-500">*</span>
             </label>
 
@@ -99,7 +101,7 @@ export default function ContactSection({
                 className="text-pink-500"
               />
 
-              E-pasts
+              {t({ lv: "E-pasts", ru: "Эл. почта", en: "Email" })}
               <span className="text-pink-500">*</span>
             </label>
 

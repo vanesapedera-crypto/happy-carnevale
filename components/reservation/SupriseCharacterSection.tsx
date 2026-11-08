@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 
 import { mascotCharacters } from "@/data/mascotCharacters";
 import { airCharacters } from "@/data/airCharacters";
+import { useTr } from "@/context/LangContext";
 
 interface Props {
   form: any;
@@ -15,6 +16,7 @@ export default function SurpriseCharacterSection({
   form,
   onChooseCharacter,
 }: Props) {
+  const t = useTr();
   const allCharacters = [...mascotCharacters, ...airCharacters];
 
   const selectedCharacter = allCharacters.find(
@@ -33,7 +35,7 @@ export default function SurpriseCharacterSection({
         </div>
 
         <h2 className="text-2xl font-black sm:text-3xl">
-          Pārsteiguma tēls
+          {t({ lv: "Pārsteiguma tēls", ru: "Персонаж-сюрприз", en: "Surprise character" })}
         </h2>
 
       </div>
@@ -45,7 +47,7 @@ export default function SurpriseCharacterSection({
         <div>
 
           <div className="mb-4 font-bold">
-            Izvēlies tēlu
+            {t({ lv: "Izvēlies tēlu", ru: "Выберите персонажа", en: "Choose a character" })}
           </div>
 
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-pink-200 bg-pink-50">
@@ -65,13 +67,13 @@ export default function SurpriseCharacterSection({
             onClick={onChooseCharacter}
             className="flex items-center gap-3 rounded-full bg-gradient-to-r from-pink-500 to-pink-400 px-8 py-4 text-lg font-bold text-white shadow-lg transition hover:scale-105"
           >
-            Izvēlēties tēlu
+            {t({ lv: "Izvēlēties tēlu", ru: "Выбрать персонажа", en: "Choose a character" })}
 
             <ArrowRight size={22} />
           </button>
 
           <p className="mt-4 text-center text-gray-500">
-            Atveras galerija ar visiem tēliem
+            {t({ lv: "Atveras galerija ar visiem tēliem", ru: "Откроется галерея со всеми персонажами", en: "Opens a gallery of all characters" })}
           </p>
 
         </div>
@@ -81,7 +83,7 @@ export default function SurpriseCharacterSection({
         <div>
 
           <div className="mb-4 font-bold">
-            Izvēlētais tēls
+            {t({ lv: "Izvēlētais tēls", ru: "Выбранный персонаж", en: "Selected character" })}
           </div>
 
           <div className="overflow-hidden rounded-3xl border border-pink-200 bg-white shadow-sm">
@@ -99,7 +101,7 @@ export default function SurpriseCharacterSection({
                 <div className="text-lg font-bold leading-tight sm:text-xl [overflow-wrap:anywhere] hyphens-auto">
                   {selectedCharacter
                     ? selectedCharacter.name
-                    : "Nav izvēlēts"}
+                    : t({ lv: "Nav izvēlēts", ru: "Не выбран", en: "Not chosen" })}
                 </div>
 
               </div>
@@ -109,7 +111,7 @@ export default function SurpriseCharacterSection({
                 onClick={onChooseCharacter}
                 className="shrink-0 font-semibold text-pink-500 transition hover:underline"
               >
-                Mainīt
+                {t({ lv: "Mainīt", ru: "Изменить", en: "Change" })}
               </button>
 
             </div>

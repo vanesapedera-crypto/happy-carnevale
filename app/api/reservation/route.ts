@@ -56,6 +56,8 @@ export async function POST(req: Request) {
 
           <p><strong>E-pasts:</strong> ${body.email || "-"}</p>
 
+          ${body.lang === "ru" || body.lang === "en" ? `<p><strong>Valoda:</strong> ${body.lang === "ru" ? "krievu" : "angļu"} (pieteikums no ${String(body.lang).toUpperCase()} lapas)</p>` : ""}
+
           ${contactButtonsHtml({
             name: body.name,
             phone: body.phone,

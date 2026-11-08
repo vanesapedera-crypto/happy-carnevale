@@ -27,6 +27,8 @@ export function cleanText(value: unknown, maxLength: number): string | null {
 
 export interface ItemPatch {
   title?: string;
+  /** Nosaukuma/apraksta tulkojumi: { ru: { title }, en: { title } } */
+  translations?: Partial<Record<"ru" | "en", { title?: string; description?: string }>>;
   description?: string;
   price?: string;
   size?: string;
@@ -63,6 +65,34 @@ export function parseItemPatch(input: unknown): PatchResult {
       };
     }
     patch[field] = text;
+  }
+
+  if (source.translations !== undefined) {
+    const value = source.translations;
+    if (!value || typeof value !== "object" || Array.isArray(value)) {
+      return { ok: false, error: "Nederīgi tulkojumi." };
+    }
+    const translations: NonNullable<ItemPatch["translations"]> = {};
+    for (const lang of ["ru", "en"] as const) {
+      const entry = (value as Record<string, unknown>)[lang];
+      if (entry === undefined) continue;
+      if (!entry || typeof entry !== "object") return { ok: false, error: "Nederīgi tulkojumi." };
+      const clean: { title?: string; description?: string } = {};
+      for (const field of ["title", "description"] as const) {
+        const raw = (entry as Record<string, unknown>)[field];
+        if (raw === undefined) continue;
+        const text = cleanText(raw, LIMITS[field]);
+        if (text === null) {
+          return {
+            ok: false,
+            error: `Tulkojums (${lang.toUpperCase()}): ne vairāk kā ${LIMITS[field]} rakstzīmes.`,
+          };
+        }
+        if (text) clean[field] = text;
+      }
+      if (clean.title || clean.description) translations[lang] = clean;
+    }
+    patch.translations = translations;
   }
 
   if (source.active !== undefined) {

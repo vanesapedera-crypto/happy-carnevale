@@ -9,6 +9,7 @@ import {
   ClipboardList,
 } from "lucide-react";
 import DateInput from "@/components/common/DateInput";
+import { useTr } from "@/context/LangContext";
 
 interface EventSectionProps {
   form: {
@@ -40,6 +41,7 @@ export default function EventSection({
   handleChange,
 }: EventSectionProps) {
   const [hour = "", minute = ""] = form.eventTime.split(":");
+  const t = useTr();
 
   function setTime(nextHour: string, nextMinute: string) {
     const value = nextHour ? `${nextHour}:${nextMinute || "00"}` : "";
@@ -60,7 +62,7 @@ export default function EventSection({
         </div>
 
         <h2 className="text-3xl font-black text-slate-800">
-          Pasākuma informācija
+          {t({ lv: "Pasākuma informācija", ru: "Информация о мероприятии", en: "Event details" })}
         </h2>
       </div>
 
@@ -79,7 +81,7 @@ export default function EventSection({
                 className="text-pink-500"
               />
 
-              Datums
+              {t({ lv: "Datums", ru: "Дата", en: "Date" })}
               <span className="text-pink-500">*</span>
             </label>
 
@@ -91,7 +93,7 @@ export default function EventSection({
                 } as React.ChangeEvent<HTMLInputElement>)
               }
               required
-              ariaLabel="Pasākuma datums"
+              ariaLabel={t({ lv: "Pasākuma datums", ru: "Дата мероприятия", en: "Event date" })}
               className="h-14 w-full rounded-2xl border border-gray-200 bg-white px-5 text-lg outline-none transition focus:border-pink-500 focus:ring-4 focus:ring-pink-100"
             />
           </div>
@@ -105,13 +107,13 @@ export default function EventSection({
                 className="text-pink-500"
               />
 
-              Laiks
+              {t({ lv: "Laiks", ru: "Время", en: "Time" })}
               <span className="text-pink-500">*</span>
             </label>
 
             <div className="flex items-center gap-2">
               <select
-                aria-label="Stunda"
+                aria-label={t({ lv: "Stunda", ru: "Час", en: "Hour" })}
                 value={hour}
                 onChange={(e) => setTime(e.target.value, minute)}
                 required
@@ -130,7 +132,7 @@ export default function EventSection({
               <span className="text-2xl font-bold text-gray-400">:</span>
 
               <select
-                aria-label="Minūtes"
+                aria-label={t({ lv: "Minūtes", ru: "Минуты", en: "Minutes" })}
                 value={hour ? minute || "00" : ""}
                 onChange={(e) => setTime(hour, e.target.value)}
                 disabled={!hour}
@@ -157,7 +159,7 @@ export default function EventSection({
                 className="text-pink-500"
               />
 
-              Adrese
+              {t({ lv: "Adrese", ru: "Адрес", en: "Address" })}
               <span className="text-pink-500">*</span>
             </label>
 
@@ -167,7 +169,7 @@ export default function EventSection({
               value={form.address}
               onChange={handleChange}
               required
-              placeholder="Rīga, Brīvības iela 10"
+              placeholder={t({ lv: "Rīga, Brīvības iela 10", ru: "Рига, ул. Бривибас 10", en: "Riga, Brīvības iela 10" })}
               className="h-14 w-full rounded-2xl border border-gray-200 px-5 text-lg outline-none transition focus:border-pink-500 focus:ring-4 focus:ring-pink-100"
             />
           </div>
@@ -181,7 +183,7 @@ export default function EventSection({
                 className="text-pink-500"
               />
 
-              Bērnu skaits
+              {t({ lv: "Bērnu skaits", ru: "Количество детей", en: "Number of children" })}
               <span className="text-pink-500">*</span>
             </label>
 
@@ -206,7 +208,7 @@ export default function EventSection({
                 className="text-pink-500"
               />
 
-              Vecums
+              {t({ lv: "Vecums", ru: "Возраст", en: "Age" })}
             </label>
 
             <input
@@ -214,7 +216,7 @@ export default function EventSection({
               name="childrenAge"
               value={form.childrenAge}
               onChange={handleChange}
-              placeholder="Piemēram, 4–8 gadi"
+              placeholder={t({ lv: "Piemēram, 4–8 gadi", ru: "Например, 4–8 лет", en: "E.g. 4–8 years" })}
               className="h-14 w-full rounded-2xl border border-gray-200 px-5 text-lg outline-none transition focus:border-pink-500 focus:ring-4 focus:ring-pink-100"
             />
           </div>
@@ -228,7 +230,7 @@ export default function EventSection({
                 className="text-pink-500"
               />
 
-              Papildus informācija
+              {t({ lv: "Papildus informācija", ru: "Дополнительная информация", en: "Additional information" })}
             </label>
 
             <input
@@ -236,7 +238,7 @@ export default function EventSection({
               name="comment"
               value={form.comment}
               onChange={handleChange}
-              placeholder="Telpas īpatnības, vēlmes u.c."
+              placeholder={t({ lv: "Telpas īpatnības, vēlmes u.c.", ru: "Особенности помещения, пожелания и т.д.", en: "Venue details, wishes etc." })}
               className="h-14 w-full rounded-2xl border border-gray-200 px-5 text-lg outline-none transition focus:border-pink-500 focus:ring-4 focus:ring-pink-100"
             />
           </div>

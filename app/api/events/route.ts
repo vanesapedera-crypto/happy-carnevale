@@ -49,6 +49,8 @@ ${body.pakalpojums}
 
 <p><strong>E-pasts:</strong> ${body.epasts || "-"}</p>
 
+${body.lang === "ru" || body.lang === "en" ? `<p><strong>Valoda:</strong> ${body.lang === "ru" ? "krievu" : "angļu"} (pieteikums no ${String(body.lang).toUpperCase()} lapas)</p>` : ""}
+
 ${contactButtonsHtml({
   name: body.vards,
   phone: body.telefons,

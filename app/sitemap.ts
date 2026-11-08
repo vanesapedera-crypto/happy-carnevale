@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { SITE } from "@/lib/constants";
 import { products } from "@/lib/products";
 import { COSTUME_CATEGORIES, loadCategoryCostumes } from "@/lib/costumeCatalog";
+import { LANGS, lp } from "@/lib/i18n";
 
 // Visas publiskās lapas. Pievienojot jaunu lapu, ieraksti to arī šeit.
 const ROUTES: { path: string; priority: number }[] = [
@@ -15,6 +16,7 @@ const ROUTES: { path: string; priority: number }[] = [
   { path: "/kostimu-noma/parukas", priority: 0.8 },
   { path: "/kostimu-noma/helovins", priority: 0.8 },
   { path: "/kostimu-noma/ziemassvetki", priority: 0.8 },
+  { path: "/kostimu-noma/paru-kostimi", priority: 0.8 },
   { path: "/kostimu-noma/lieldienas", priority: 0.8 },
 
   { path: "/pasakumu-organizesana", priority: 0.9 },
@@ -48,10 +50,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .flat()
     .map((item) => ({ path: item.href, priority: 0.6 }));
 
-  return [...ROUTES, ...costumeRoutes].map(({ path, priority }) => ({
-    url: `${SITE.url}${path === "/" ? "" : path}`,
-    lastModified,
-    changeFrequency: "weekly" as const,
-    priority,
-  }));
+  const url = (path: string) => {
+    const full = `${SITE.url}${path}`;
+    return full.endsWith("/") ? full.slice(0, -1) : full;
+  };
+
+  // Katra lapa visās valodās (lv bez prefiksa, /ru, /en) ar hreflang saitēm
+  return [...ROUTES, ...costumeRoutes].flatMap(({ path, priority }) => {
+    const languages = Object.fromEntries(LANGS.map((lang) => [lang, url(lp(lang, path))]));
+    return LANGS.map((lang) => ({
+      url: url(lp(lang, path)),
+      lastModified,
+      changeFrequency: "weekly" as const,
+      // Svešvalodu versijām nedaudz zemāka prioritāte
+      priority: lang === "lv" ? priority : Math.round(priority * 8) / 10,
+      alternates: { languages },
+    }));
+  });
 }

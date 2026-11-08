@@ -7,9 +7,11 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 interface SurpriseGalleryProps {
   /** Attēlu adreses rādīšanas secībā (no admin paneļa vai iebūvētās). */
   images: readonly string[];
+  /** Bildes apraksta sākums, piem., "Pārsteiguma tēls" (pēc valodas). */
+  altLabel?: string;
 }
 
-export default function SurpriseGallery({ images }: SurpriseGalleryProps) {
+export default function SurpriseGallery({ images, altLabel = "Pārsteiguma tēls" }: SurpriseGalleryProps) {
   const [selected, setSelected] = useState(0);
   // Ja attēlu kļuvis mazāk (kāds izdzēsts), paliek pie pēdējā.
   const current = Math.min(selected, Math.max(images.length - 1, 0));
@@ -42,7 +44,7 @@ export default function SurpriseGallery({ images }: SurpriseGalleryProps) {
       <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl border border-gray-200 shadow-xl">
         <Image
           src={images[current]}
-          alt={`Pārsteiguma tēls ${current + 1}`}
+          alt={`${altLabel} ${current + 1}`}
           fill
           priority
           className="object-cover"
@@ -83,7 +85,7 @@ export default function SurpriseGallery({ images }: SurpriseGalleryProps) {
           >
             <Image
               src={image}
-              alt={`Pārsteiguma tēls ${index + 1}`}
+              alt={`${altLabel} ${index + 1}`}
               fill
               sizes="48px"
               className="object-cover"

@@ -3,23 +3,25 @@
 import { useEffect, useRef, useState } from "react";
 import { CalendarDays, ChevronLeft, ChevronRight } from "lucide-react";
 import { formatDateLv, toIsoDate } from "@/lib/date";
+import { useLang } from "@/context/LangContext";
 
-const MONTHS = [
-  "Janvāris",
-  "Februāris",
-  "Marts",
-  "Aprīlis",
-  "Maijs",
-  "Jūnijs",
-  "Jūlijs",
-  "Augusts",
-  "Septembris",
-  "Oktobris",
-  "Novembris",
-  "Decembris",
-];
+const MONTHS = {
+  lv: ["Janvāris", "Februāris", "Marts", "Aprīlis", "Maijs", "Jūnijs", "Jūlijs", "Augusts", "Septembris", "Oktobris", "Novembris", "Decembris"],
+  ru: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+  en: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+};
 
-const WEEKDAYS = ["P", "O", "T", "C", "Pk", "S", "Sv"];
+const WEEKDAYS = {
+  lv: ["P", "O", "T", "C", "Pk", "S", "Sv"],
+  ru: ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"],
+  en: ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
+};
+
+const TX = {
+  lv: { placeholder: "dd.mm.gggg", pick: "Lūdzu, izvēlies datumu.", prev: "Iepriekšējais mēnesis", next: "Nākamais mēnesis", date: "Datums" },
+  ru: { placeholder: "дд.мм.гггг", pick: "Пожалуйста, выберите дату.", prev: "Предыдущий месяц", next: "Следующий месяц", date: "Дата" },
+  en: { placeholder: "dd.mm.yyyy", pick: "Please choose a date.", prev: "Previous month", next: "Next month", date: "Date" },
+};
 
 type DateInputProps = {
   /** Vērtība formātā YYYY-MM-DD (tukša, ja nav izvēlēts) */
@@ -46,8 +48,10 @@ export default function DateInput({
   min,
   max,
   className = "",
-  ariaLabel = "Datums",
+  ariaLabel,
 }: DateInputProps) {
+  const lang = useLang();
+  const t = TX[lang];
   const today = toIsoDate(new Date());
   const minDate = min ?? today;
 
@@ -111,12 +115,12 @@ export default function DateInput({
       <button
         type="button"
         onClick={toggle}
-        aria-label={ariaLabel}
+        aria-label={ariaLabel ?? t.date}
         aria-expanded={open}
         className={`flex items-center justify-between gap-3 text-left ${className}`}
       >
         <span className={value ? "text-gray-900" : "text-gray-400"}>
-          {value ? formatDateLv(value) : "dd.mm.gggg"}
+          {value ? formatDateLv(value) : t.placeholder}
         </span>
         <CalendarDays className="h-5 w-5 shrink-0 text-pink-500" />
       </button>
@@ -129,7 +133,7 @@ export default function DateInput({
         onChange={() => {}}
         required={required}
         onInvalid={(e) => {
-          (e.target as HTMLInputElement).setCustomValidity("Lūdzu, izvēlies datumu.");
+          (e.target as HTMLInputElement).setCustomValidity(t.pick);
         }}
         onInput={(e) => (e.target as HTMLInputElement).setCustomValidity("")}
         className="pointer-events-none absolute bottom-0 left-4 h-px w-px opacity-0"
@@ -141,20 +145,20 @@ export default function DateInput({
             <button
               type="button"
               onClick={() => shiftMonth(-1)}
-              aria-label="Iepriekšējais mēnesis"
+              aria-label={t.prev}
               className="flex h-9 w-9 items-center justify-center rounded-full transition hover:bg-pink-50"
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
 
             <span className="font-bold text-gray-900">
-              {MONTHS[view.month]} {view.year}
+              {MONTHS[lang][view.month]} {view.year}
             </span>
 
             <button
               type="button"
               onClick={() => shiftMonth(1)}
-              aria-label="Nākamais mēnesis"
+              aria-label={t.next}
               className="flex h-9 w-9 items-center justify-center rounded-full transition hover:bg-pink-50"
             >
               <ChevronRight className="h-5 w-5" />
@@ -162,7 +166,7 @@ export default function DateInput({
           </div>
 
           <div className="grid grid-cols-7 gap-1 text-center text-xs font-bold uppercase text-gray-400">
-            {WEEKDAYS.map((d) => (
+            {WEEKDAYS[lang].map((d) => (
               <span key={d} className="py-1">
                 {d}
               </span>

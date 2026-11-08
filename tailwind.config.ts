@@ -28,7 +28,8 @@ const config: Config = {
         ink: "#1F2937",
       },
       fontFamily: {
-        sans: ["var(--font-poppins)", "sans-serif"],
+        // Poppins nav kirilicas: krievu burtus rāda Montserrat (tikai /ru lapās)
+        sans: ["var(--font-poppins)", "var(--font-cyrillic)", "sans-serif"],
       },
       borderRadius: {
         "4xl": "2rem",
