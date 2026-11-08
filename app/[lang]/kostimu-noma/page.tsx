@@ -1,8 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { lp, pageMetadata, toLang, tr } from "@/lib/i18n";
-import { loadSectionCards } from "@/lib/costumeCatalog";
+import { lp, pageMetadata, toLang, tr, type Tr } from "@/lib/i18n";
 
 type Props = { params: Promise<{ lang: string }> };
 
@@ -65,8 +64,8 @@ const seasonalCategories = [
   {
     title: { lv: "Pāru kostīmi", ru: "Парные костюмы", en: "Couples costumes" },
     href: "/kostimu-noma/paru-kostimi",
-    // Bilde: pirmais admin panelī pievienotais pāru kostīms (skat. lapas funkciju zemāk)
-    image: "/images/hero/citi-teli.jpg",
+    image: "/kostimi/multfilmu/minioni.jpg",
+    focus: "object-top",
     description: { lv: "Saskaņoti tērpi diviem.", ru: "Согласованные образы для двоих.", en: "Matching outfits for two." },
   },
   {
@@ -82,13 +81,8 @@ export default async function KostimuNomaPage({ params }: Props) {
   const rental = tr(lang, { lv: "Kostīmu noma", ru: "Аренда костюмов", en: "Costume rental" });
   const view = tr(lang, { lv: "Skatīt", ru: "Смотреть", en: "View" });
 
-  // Pāru kostīmu kartītē rāda pirmā admin panelī ielikta pāru kostīma bildi
-  const [firstCouple] = await loadSectionCards("paru-kostimi");
-  const seasonal = seasonalCategories.map((item) =>
-    item.href === "/kostimu-noma/paru-kostimi" && firstCouple
-      ? { ...item, image: firstCouple.image }
-      : item
-  );
+  const seasonal: { title: Tr; href: string; image: string; description: Tr; focus?: string }[] =
+    seasonalCategories;
   return (
     <main className="bg-[#fff7fb] pb-24">
 <section className="relative overflow-hidden pb-12 lg:pb-20">
@@ -298,7 +292,7 @@ export default async function KostimuNomaPage({ params }: Props) {
                   alt={`${rental} – ${tr(lang, item.title)}`}
                   fill
                   sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                  className="object-cover transition duration-700 group-hover:scale-105"
+                  className={`object-cover ${item.focus ?? ""} transition duration-700 group-hover:scale-105`}
                 />
 
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
