@@ -5,7 +5,7 @@ import LogoutButton from "./LogoutButton";
 interface AdminShellProps {
   email: string;
   /** Kura sadaļa ir atvērta (izcelta izvēlnē). */
-  current?: "bildes" | "kalendars" | "atsauksmes" | "bez-fona";
+  current?: "bildes" | "kalendars" | "atsauksmes";
   children: ReactNode;
 }
 
@@ -13,17 +13,14 @@ const NAV = [
   { key: "kalendars", label: "Kalendārs", href: "/admin/kalendars" },
   { key: "atsauksmes", label: "Atsauksmes", href: "/admin/atsauksmes" },
   { key: "bildes", label: "Bildes", href: "/admin/dashboard" },
-  { key: "bez-fona", label: "Bildes bez fona", href: "/admin/bez-fona" },
 ] as const;
 
 /** Admin paneļa rāmis: rozā–violets sānu panelis (telefonā – josla augšā). */
 export default function AdminShell({ email, current = "bildes", children }: AdminShellProps) {
   const link = (item: (typeof NAV)[number], mobile: boolean) => {
     const active = current === item.key;
-    // "Bildes bez fona" jāatver kā pilna lapa (tai ir īpašas galvenes ātrākai darbībai)
-    const Tag = item.key === "bez-fona" ? "a" : Link;
     return (
-      <Tag
+      <Link
         key={item.key}
         href={item.href}
         aria-current={active ? "page" : undefined}
@@ -38,7 +35,7 @@ export default function AdminShell({ email, current = "bildes", children }: Admi
         }
       >
         {item.label}
-      </Tag>
+      </Link>
     );
   };
 

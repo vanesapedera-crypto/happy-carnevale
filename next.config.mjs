@@ -28,11 +28,11 @@ const nextConfig = {
     // rādām tieši no /public (tās jau ir samazinātas skriptā), bez Vercel apstrādes.
     unoptimized: true,
   },
-  // Admin lapa "Bildes bez fona": izolēta, lai fona noņemšana var izmantot visus procesora kodolus
+  // Admin bilžu lapa izolēta, lai fona noņemšana ("Noņemt fonu") var izmantot visus procesora kodolus
   async headers() {
     return [
       {
-        source: "/admin/bez-fona",
+        source: "/admin/dashboard",
         headers: [
           { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
           { key: "Cross-Origin-Embedder-Policy", value: "credentialless" },
