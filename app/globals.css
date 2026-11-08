@@ -182,3 +182,19 @@
 @media (prefers-reduced-motion: reduce) {
   .hc-marquee-track { animation: none; }
 }
+
+/* Rezervācijas lapa: lēni peldoši konfeti un formas lauku parādīšanās */
+.hc-drift { animation: hc-drift 9s ease-in-out infinite; }
+.hc-drift2 { animation: hc-drift 11s ease-in-out -4s infinite; }
+@keyframes hc-drift {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 6px -10px; }
+}
+.hc-fade-in { animation: hc-fade-in 0.3s ease-out; }
+@keyframes hc-fade-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hc-drift, .hc-drift2, .hc-fade-in { animation: none; }
+}
