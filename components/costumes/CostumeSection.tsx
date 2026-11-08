@@ -5,7 +5,6 @@ import { TbRulerMeasure } from "react-icons/tb";
 import { loadSectionCards, reservationHref } from "@/lib/costumeCatalog";
 import { localizeCostume } from "@/lib/costumes";
 import { lp, tr, type Lang, type Tr } from "@/lib/i18n";
-import { circleColor } from "@/components/costumes/costumeColors";
 import { cutoutFor } from "@/lib/costumeCutouts";
 import WishButton from "@/components/costumes/WishButton";
 
@@ -83,11 +82,6 @@ export default async function CostumeSection({
                   <Link href={href} className="absolute inset-0 block">
                     {cutout ? (
                       <>
-                        <span
-                          aria-hidden="true"
-                          className="absolute left-1/2 top-5 h-[220px] w-[220px] -translate-x-1/2 rounded-full lg:h-[236px] lg:w-[236px]"
-                          style={{ background: circleColor(index) }}
-                        />
                         <span className="absolute inset-x-[6%] bottom-2.5 top-3">
                           <Image
                             src={cutout}
