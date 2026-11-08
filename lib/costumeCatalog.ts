@@ -214,6 +214,7 @@ export function reservationHref(item: CostumeCard, displayTitle?: string) {
     size: item.size ?? "",
   });
   if (displayTitle && displayTitle !== item.title) params.set("nosaukums", displayTitle);
+  if (item.cutout) params.set("cutout", item.cutout);
 
   return `/rezervacija-kostimiem?${params.toString()}`;
 }

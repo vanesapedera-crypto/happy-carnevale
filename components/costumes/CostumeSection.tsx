@@ -73,7 +73,7 @@ export default async function CostumeSection({
           {cards.map(({ item, source }, index) => {
             const href = lp(lang, item.href);
             const reserveHref = lp(lang, reservationHref(source, item.title));
-            const cutout = cutoutFor(item.image);
+            const cutout = cutoutFor(item.image, item.cutout);
             return (
               <article
                 key={`${item.slug}-${index}`}

@@ -32,7 +32,7 @@ export default async function CostumeHero({ lang, title, description, sectionKey
   const longest = Math.max(0, ...lists.map((l) => l.length));
   for (let i = 0; i < longest && images.length < 12; i++) {
     for (const list of lists) {
-      const img = cutoutFor(list[i]?.image);
+      const img = cutoutFor(list[i]?.image, list[i]?.cutout);
       if (img && !seen.has(img) && images.length < 12) {
         seen.add(img);
         images.push(img);

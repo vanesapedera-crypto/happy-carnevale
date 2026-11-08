@@ -1,6 +1,6 @@
 import type { AdminConfig } from "./config";
 import { restDelete, restInsert, restSelect, restUpdate } from "./supabase";
-import type { ExtraImage, ItemTranslations, SectionItem } from "./types";
+import type { ExtraImage, ItemCutout, ItemTranslations, SectionItem } from "./types";
 import { LIMITS } from "./validation";
 import type { ItemPatch } from "./validation";
 
@@ -20,6 +20,8 @@ export interface SectionItemRow {
   extra_images?: unknown;
   /** Var nebūt, ja datubāzē vēl nav palaists supabase/tulkojumi.sql. */
   translations?: unknown;
+  /** Var nebūt, ja datubāzē vēl nav palaists supabase/izgriezumi.sql. */
+  cutout?: unknown;
   active: boolean;
   sort_order: number;
   created_at: string;
@@ -38,6 +40,7 @@ export function rowToItem(row: SectionItemRow): SectionItem {
     imagePath: row.image_path,
     extraImages: parseExtraImages(row.extra_images),
     translations: parseTranslations(row.translations),
+    cutout: parseCutout(row.cutout),
     active: row.active,
     sortOrder: row.sort_order,
     createdAt: row.created_at,
@@ -60,6 +63,29 @@ export function parseTranslations(value: unknown): ItemTranslations {
     if (clean.title || clean.description) result[lang] = clean;
   }
   return result;
+}
+
+export function parseCutout(value: unknown): ItemCutout | null {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return null;
+  const { url, path, source } = value as Record<string, unknown>;
+  if (typeof url !== "string" || typeof path !== "string" || typeof source !== "string") return null;
+  return { url, path, source };
+}
+
+/** Saglabā bildi bez fona (updated_at neskarts, kā setImage). */
+export async function setCutout(
+  config: AdminConfig,
+  id: string,
+  cutout: ItemCutout
+): Promise<SectionItem | null> {
+  const row = await restUpdate<SectionItemRow>(
+    config,
+    config.serviceKey,
+    ITEMS_TABLE,
+    `id=eq.${encodeURIComponent(id)}`,
+    { cutout }
+  );
+  return row ? rowToItem(row) : null;
 }
 
 /** Maksimālais papildu bilžu skaits vienam ierakstam. */

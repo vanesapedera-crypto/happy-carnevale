@@ -24,6 +24,9 @@ function ReservationContent() {
   const image = searchParams.get("image");
   const price = searchParams.get("price");
   const size = searchParams.get("size");
+  // Tikai mūsu Supabase krātuves bildes (admin panelī izveidotās bez fona)
+  const cutoutRaw = searchParams.get("cutout");
+  const cutoutParam = cutoutRaw && /^https:\/\/[a-z0-9-]+\.supabase\.co\/storage\/v1\/object\/public\//.test(cutoutRaw) ? cutoutRaw : null;
 
   const isMascot = (image || "").includes("/kostimi/mascotas/");
 
@@ -169,7 +172,7 @@ function ReservationContent() {
 
   const gallery = [image || "/kostimi/no-image.jpg", ...extraImages];
   const shown = gallery[Math.min(photo, gallery.length - 1)];
-  const cut = photo === 0 ? cutoutFor(image) : null;
+  const cut = photo === 0 ? cutoutFor(image, cutoutParam) : null;
 
   return (
     <main className="relative overflow-hidden bg-gradient-to-b from-[#FBF9FF] via-[#F6F1FF] to-[#FFF4FA] px-4 pb-20 pt-10 lg:px-8 lg:pb-28 lg:pt-14">
@@ -213,10 +216,6 @@ function ReservationContent() {
             className="self-start rounded-[32px] bg-white p-5 shadow-[0_24px_60px_rgba(108,59,255,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_30px_70px_rgba(108,59,255,0.12)] lg:sticky lg:top-32 lg:p-6"
           >
             <div className="relative h-[360px] overflow-hidden rounded-[24px] bg-gradient-to-b from-[#FBF8FF] to-white sm:h-[440px]">
-              <div
-                aria-hidden="true"
-                className="absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-[#E6DCFF] via-[#FFD6EA] to-[#FFE9F4] sm:h-[370px] sm:w-[370px]"
-              />
               <div className="absolute inset-x-6 bottom-4 top-6">
                 <Image
                   key={shown}

@@ -8,6 +8,13 @@ export type ItemTranslations = Partial<
   Record<"ru" | "en", { title?: string; description?: string }>
 >;
 
+/** Bilde bez fona; derīga tikai, ja `source` sakrīt ar pašreizējo imageUrl. */
+export interface ItemCutout {
+  url: string;
+  path: string;
+  source: string;
+}
+
 export interface SectionItem {
   id: string;
   sectionKey: string;
@@ -21,6 +28,8 @@ export interface SectionItem {
   /** Papildu bildes (kostīma galerijai). path = ceļš Storage, null – /public mapē. */
   extraImages: ExtraImage[];
   translations: ItemTranslations;
+  /** null, ja fons vēl nav noņemts (vai datubāzē nav palaists supabase/izgriezumi.sql). */
+  cutout: ItemCutout | null;
   active: boolean;
   sortOrder: number;
   createdAt: string;
