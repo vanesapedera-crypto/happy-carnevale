@@ -32,14 +32,17 @@ export interface ReviewCustomer {
 export async function recordReviewRequest(customer: ReviewCustomer): Promise<boolean> {
   try {
     const config = getAdminConfig();
-    const email = clean(customer.email, 254).toLowerCase();
-    if (!config || !EMAIL_PATTERN.test(email)) return false;
+    const typed = clean(customer.email, 254).toLowerCase();
+    const email = EMAIL_PATTERN.test(typed) ? typed : "";
+    const phone = clean(customer.phone, 40);
+    // Vajag vismaz e-pastu vai telefonu (lūgumu var sūtīt arī caur WhatsApp)
+    if (!config || (!email && !phone)) return false;
 
     await insertReviewRequest(config, {
       source: customer.source,
       name: clean(customer.name, 120),
       email,
-      phone: clean(customer.phone, 40),
+      phone,
       service: clean(customer.service, 200),
       eventDate: parseIsoDate(customer.eventDate),
     });

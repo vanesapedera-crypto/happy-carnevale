@@ -65,15 +65,14 @@ function RequestRow({ request, reviewUrl }: { request: ReviewRequest; reviewUrl:
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="font-bold">
-            {request.name || request.email}
+            {request.name || request.email || request.phone}
             <span className="ml-2 text-sm font-normal text-[#8b6aa7]">
               {REVIEW_KIND_LABELS[request.source] ?? request.source}
               {request.service ? `: ${request.service}` : ""}
             </span>
           </p>
           <p className="mt-1 break-all text-sm text-[#7e5a9b]">
-            {request.email}
-            {request.phone ? ` · ${request.phone}` : ""}
+            {[request.email, request.phone].filter(Boolean).join(" · ")}
           </p>
           <p className="mt-1 text-xs text-[#a78bbf]">
             Pieteikts {formatDate(request.createdAt)}
@@ -96,7 +95,7 @@ function RequestRow({ request, reviewUrl }: { request: ReviewRequest; reviewUrl:
       </div>
 
       <div className="mt-3 flex flex-wrap gap-2">
-        {canSend && (
+        {canSend && request.email && (
           <button
             type="button"
             disabled={pending || !reviewUrl}

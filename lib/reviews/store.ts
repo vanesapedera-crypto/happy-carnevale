@@ -108,6 +108,8 @@ export interface NewReviewRequest {
   status?: ReviewStatus;
   channel?: ReviewChannel | null;
   sentAt?: string | null;
+  /** Kad pieteikums saņemts (veciem pieteikumiem no kalendāra). Citādi – tagad. */
+  createdAt?: string;
 }
 
 export async function insertReviewRequest(
@@ -124,6 +126,7 @@ export async function insertReviewRequest(
     ...(request.status ? { status: request.status } : {}),
     ...(request.channel ? { channel: request.channel } : {}),
     ...(request.sentAt ? { sent_at: request.sentAt } : {}),
+    ...(request.createdAt ? { created_at: request.createdAt } : {}),
   });
 }
 
@@ -188,4 +191,16 @@ export async function markSentViaWhatsApp(config: AdminConfig, id: string): Prom
     { status: "sent", channel: "whatsapp", sent_at: new Date().toISOString(), error: null }
   );
   return row ? rowToRequest(row) : null;
+}
+
+/** Visu ierakstu kontakti, pakalpojumi un datumi – lai vienu pieteikumu nepievieno divreiz. */
+export async function listRequestKeys(
+  config: AdminConfig
+): Promise<{ email: string; phone: string; service: string; event_date: string | null }[]> {
+  return restSelect(
+    config,
+    config.serviceKey,
+    REQUESTS_TABLE,
+    "select=email,phone,service,event_date&limit=10000"
+  );
 }

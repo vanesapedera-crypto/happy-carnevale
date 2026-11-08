@@ -69,8 +69,8 @@ export async function addBookingAction(input: unknown): Promise<ActionResult> {
     return { ok: false, error: "Neizdevās saglabāt. Vai Supabase ir palaists kalendars.sql?" };
   }
 
-  // Tāpat kā pieteikumi no mājaslapas: parādās arī atsauksmju sarakstā (ja ir e-pasts).
-  if (email) {
+  // Tāpat kā pieteikumi no mājaslapas: parādās arī atsauksmju sarakstā (ja ir e-pasts vai telefons).
+  if (email || data.phone) {
     // Atsauksmju sarakstā parādās dienā, kad kostīms atdots (vai pasākuma dienā).
     await recordReviewRequest({
       source: kind,

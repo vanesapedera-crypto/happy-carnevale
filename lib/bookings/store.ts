@@ -159,3 +159,14 @@ export async function setBookingNote(config: AdminConfig, id: string, note: stri
   );
   return row !== null;
 }
+
+/** Visi neatceltie pieteikumi (jaunākie vispirms) – atsauksmju saraksta papildināšanai. */
+export async function listActiveBookings(config: AdminConfig): Promise<Booking[]> {
+  const rows = await restSelect<BookingRow>(
+    config,
+    config.serviceKey,
+    BOOKINGS_TABLE,
+    "select=*&cancelled=eq.false&order=created_at.desc&limit=2000"
+  );
+  return rows.map(rowToBooking);
+}

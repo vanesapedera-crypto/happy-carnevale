@@ -12,6 +12,7 @@ import {
   type ReviewRequest,
   type ReviewSettings,
 } from "@/lib/reviews/store";
+import { syncReviewsFromBookings } from "@/lib/reviews/sync";
 
 export const dynamic = "force-dynamic";
 
@@ -33,6 +34,13 @@ export default async function ReviewsPage() {
   let done: ReviewRequest[] = [];
   let missingTables = false;
   let loadError: string | null = null;
+  // Visi kalendāra pieteikumi (arī bez e-pasta un vecie) parādās arī šeit
+  try {
+    await syncReviewsFromBookings(config);
+  } catch (error) {
+    if (!isMissingTable(error)) console.error("[reviews] sync from bookings failed", error);
+  }
+
   try {
     const [loadedSettings, lists] = await Promise.all([getReviewSettings(config), listReviewRequests(config)]);
     settings = loadedSettings;
