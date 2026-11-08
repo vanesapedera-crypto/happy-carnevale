@@ -1,7 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
 import type { Metadata } from "next";
-import { lp, pageMetadata, toLang, tr } from "@/lib/i18n";
+import { pageMetadata, toLang, tr } from "@/lib/i18n";
+import FlipCard from "@/components/events/FlipCard";
 
 type Props = { params: Promise<{ lang: string }> };
 
@@ -26,12 +26,14 @@ const mainCategories = [
     title: { lv: "Animatori", ru: "Аниматоры", en: "Entertainers" },
     href: "/pasakumu-organizesana/animatori",
     image: "/images/hero/animatori.jpg",
+    price: { lv: "no 160 €", ru: "от 160 €", en: "from €160" },
     description: { lv: "Jautras rotaļas, dejas un aktivitātes bērnu svētkiem.", ru: "Весёлые игры, танцы и развлечения для детских праздников.", en: "Fun games, dancing and activities for kids’ parties." },
   },
   {
     title: { lv: "Pārsteiguma tēls", ru: "Персонаж-сюрприз", en: "Surprise character" },
     href: "/pasakumu-organizesana/parsteiguma-tels",
     image: "/images/hero/parsteiguma-tels.jpg",
+    price: { lv: "110 €", ru: "110 €", en: "€110" },
     description: {
       lv: "Iemīļotais tēls ierodas apsveikt jubilāru un iepriecināt viesus.",
       ru: "Любимый персонаж приходит поздравить именинника и порадовать гостей.",
@@ -74,7 +76,6 @@ const seasonalCategories = [
 export default async function PasakumuOrganizesanaPage({ params }: Props) {
   const lang = toLang((await params).lang);
   const events = tr(lang, { lv: "Pasākumu organizēšana", ru: "Организация праздников", en: "Party services" });
-  const view = tr(lang, { lv: "Skatīt", ru: "Смотреть", en: "View" });
   return (
     <main className="bg-[#fff7fb] pb-24">
 <section className="relative overflow-hidden pt-4 pb-12 lg:pt-10 lg:pb-20">
@@ -125,37 +126,13 @@ className="pointer-events-none hidden lg:block absolute left-[-26px] top-80 z-0 
 
 <div className="grid gap-6 lg:grid-cols-4">
               {mainCategories.map((item) => (
-              <Link
+              <FlipCard
                 key={item.href}
-                href={lp(lang, item.href)}
-                className="group overflow-hidden rounded-[36px] border-[8px] border-white bg-white shadow-[0_12px_35px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-[0_25px_60px_rgba(236,72,153,0.22)]"
-              >
-<div className="relative h-[320px] sm:h-[360px] lg:h-[420px]">
-                    <Image
-                    src={item.image}
-                    alt={`${tr(lang, item.title)} – ${events}`}
-                    fill
-                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                    className="object-cover transition duration-700 group-hover:scale-105"
-                  />
-
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
-
-<div className="absolute inset-x-0 bottom-0 p-5 lg:p-7 lg:pb-8">
-  <h3 className="text-2xl lg:text-3xl font-black leading-tight text-white">
-                        {tr(lang, item.title)}
-                    </h3>
-
-<p className="mt-2 text-sm leading-6 text-white/90 lg:mt-3 lg:text-base lg:leading-7">                      {tr(lang, item.description)}
-                    </p>
-
-                    <span className="mt-6 inline-flex w-fit items-center gap-2 whitespace-nowrap rounded-full bg-pink-500 px-5 py-3 text-sm font-bold text-white transition duration-300 group-hover:bg-pink-600">
-                      {view}
-                      <span>→</span>
-                    </span>
-                  </div>
-                </div>
-              </Link>
+                lang={lang}
+                item={item}
+                alt={`${tr(lang, item.title)} – ${events}`}
+                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+              />
             ))}
           </div>
         </div>
@@ -222,39 +199,14 @@ className="pointer-events-none hidden lg:block absolute left-[-26px] top-80 z-0 
 
         <div className="relative z-10 mx-auto grid max-w-4xl gap-8 lg:grid-cols-2">
           {seasonalCategories.map((item) => (
-            <Link
-              key={item.href}
-              href={lp(lang, item.href)}
-              className="group overflow-hidden rounded-[36px] border-[8px] border-white bg-white shadow-[0_12px_35px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-[0_25px_60px_rgba(236,72,153,0.22)]"
-            >
-<div className="relative h-[320px] sm:h-[360px] lg:h-[420px]">
-                  <Image
-                  src={item.image}
-                  alt={`${tr(lang, item.title)} – ${events}`}
-                  fill
-                  sizes="(min-width: 640px) 50vw, 100vw"
-                  className="object-cover transition duration-700 group-hover:scale-105"
-                />
-
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
-
-<div className="absolute inset-x-0 bottom-0 p-5 lg:p-7 lg:pb-8">
-<h3 className="text-2xl lg:text-3xl font-black leading-tight text-white">
-                      {tr(lang, item.title)}
-                  </h3>
-
-<p className="mt-2 text-sm leading-6 text-white/90 lg:mt-3 lg:text-base lg:leading-7">
-                    {tr(lang, item.description)}
-                  </p>
-
-                  <span className="mt-6 inline-flex w-fit items-center gap-2 whitespace-nowrap rounded-full bg-pink-500 px-5 py-3 text-sm font-bold text-white transition duration-300 group-hover:bg-pink-600">
-                    {view}
-                    <span>→</span>
-                  </span>
-                </div>
-              </div>
-            </Link>
-          ))}
+              <FlipCard
+                key={item.href}
+                lang={lang}
+                item={item}
+                alt={`${tr(lang, item.title)} – ${events}`}
+                sizes="(min-width: 640px) 50vw, 100vw"
+              />
+            ))}
         </div>
       </section>
     </main>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Heart, ArrowRight } from "lucide-react";
 import { useLp, useTr } from "@/context/LangContext";
+import Bubbles3D from "@/components/hero/Bubbles3D";
 
 const products = [
   {
@@ -78,8 +79,16 @@ export default function ProductsSection() {
   const t = useTr();
   const lp = useLp();
   return (
-<section className="bg-[#FFF7FB] pt-16 pb-20 lg:pt-12 lg:pb-28">
-        <div className="mx-auto max-w-7xl px-6">
+<section className="relative overflow-hidden bg-[#FFF7FB] pt-16 pb-20 lg:pt-12 lg:pb-28">
+        {/* 3D burbuļi virsraksta zonā */}
+        <div className="absolute inset-x-0 top-0 z-0 hidden h-[560px] lg:block">
+          <Bubbles3D variant="desktop" />
+        </div>
+        <div className="absolute inset-x-0 top-0 z-0 h-[420px] lg:hidden">
+          <Bubbles3D variant="mobile" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-7xl px-6">
            <div className="mx-auto max-w-3xl text-center">
           <p className="font-bold uppercase tracking-[0.3em] text-pink-500">
             {t({ lv: "VEIKALS", ru: "МАГАЗИН", en: "SHOP" })}
