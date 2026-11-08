@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { lp, tr, type Lang } from "@/lib/i18n";
 import Bubbles3D from "./Bubbles3D";
-import Reveal3D from "@/components/effects/Reveal3D";
 
 const INTRO = {
   lv: [
@@ -188,12 +187,12 @@ export default function Hero({ lang }: { lang: Lang }) {
         </h2>
 
         <div className="flex flex-col gap-2.5 px-5">
-          {OFFERS.map(({ href, title: titleTr, text: textTr, image }, index) => {
+          {OFFERS.map(({ href, title: titleTr, text: textTr, image }) => {
             const title = tr(lang, titleTr);
             const text = tr(lang, textTr);
             return (
-            <Reveal3D key={href} index={index}>
             <Link
+              key={href}
               href={lp(lang, href)}
               className="flex items-center gap-3.5 rounded-[20px] bg-white p-2 shadow-md shadow-pink-900/5"
             >
@@ -216,7 +215,6 @@ export default function Hero({ lang }: { lang: Lang }) {
                 →
               </span>
             </Link>
-            </Reveal3D>
             );
           })}
         </div>

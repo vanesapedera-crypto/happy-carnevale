@@ -5,7 +5,6 @@ import { TbRulerMeasure } from "react-icons/tb";
 import { loadSectionCards, reservationHref } from "@/lib/costumeCatalog";
 import { localizeCostume } from "@/lib/costumes";
 import { lp, tr, type Lang, type Tr } from "@/lib/i18n";
-import Tilt3D from "@/components/effects/Tilt3D";
 
 export type CostumeSectionProps = {
   lang: Lang;
@@ -68,9 +67,9 @@ export default async function CostumeSection({
               const href = lp(lang, item.href);
               const reserveHref = lp(lang, reservationHref(source, item.title));
               return (
-                <Tilt3D
+                <div
                   key={`${item.slug}-${index}`}
-                  className="group flex flex-col overflow-hidden rounded-[30px] border border-zinc-200 bg-white shadow-lg hover:border-zinc-300 hover:shadow-2xl"
+                  className="group flex flex-col overflow-hidden rounded-[30px] border border-zinc-200 bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:border-zinc-300 hover:shadow-2xl"
                 >
                   <Link href={href} className="relative block aspect-[3/4] overflow-hidden bg-white">
                     <Image
@@ -114,7 +113,7 @@ export default async function CostumeSection({
                       {reserve}
                     </Link>
                   </div>
-                </Tilt3D>
+                </div>
               );
             })}
           </div>
@@ -125,7 +124,7 @@ export default async function CostumeSection({
               const href = lp(lang, item.href);
               const reserveHref = lp(lang, reservationHref(source, item.title));
               return (
-                <Tilt3D
+                <div
                   key={`${item.slug}-${index}`}
                   className="overflow-hidden rounded-[26px] border border-zinc-200 bg-white shadow-lg"
                 >
@@ -175,7 +174,7 @@ export default async function CostumeSection({
                       </Link>
                     </div>
                   </div>
-                </Tilt3D>
+                </div>
               );
             })}
           </div>

@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import Tilt3D from "@/components/effects/Tilt3D";
 import type { Metadata } from "next";
 import { lp, pageMetadata, toLang, tr } from "@/lib/i18n";
 import { loadSectionCards } from "@/lib/costumeCatalog";
@@ -189,11 +188,10 @@ export default async function KostimuNomaPage({ params }: Props) {
 
 <div className="grid gap-8 lg:grid-cols-4">
               {mainCategories.map((item) => (
-              <Tilt3D key={item.href} className="rounded-[36px]">
-<Link
-                
+              <Link
+                key={item.href}
                 href={lp(lang, item.href)}
-                className="group block h-full overflow-hidden rounded-[36px] border-[8px] border-white bg-white shadow-[0_12px_35px_rgba(0,0,0,0.08)] transition-shadow duration-300 hover:shadow-[0_25px_60px_rgba(236,72,153,0.22)]"
+                className="group overflow-hidden rounded-[36px] border-[8px] border-white bg-white shadow-[0_12px_35px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-[0_25px_60px_rgba(236,72,153,0.22)]"
               >
 <div className="relative h-[320px] sm:h-[360px] lg:h-[420px]">
                     <Image
@@ -221,7 +219,6 @@ export default async function KostimuNomaPage({ params }: Props) {
                   </div>
                 </div>
               </Link>
-</Tilt3D>
             ))}
           </div>
         </div>
@@ -290,11 +287,10 @@ export default async function KostimuNomaPage({ params }: Props) {
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {seasonal.map((item) => (
-            <Tilt3D key={item.href} className="rounded-[36px]">
-<Link
-              
+            <Link
+              key={item.href}
               href={lp(lang, item.href)}
-              className="group block h-full overflow-hidden rounded-[36px] border-[8px] border-white bg-white shadow-[0_12px_35px_rgba(0,0,0,0.08)] transition-shadow duration-300 hover:shadow-[0_25px_60px_rgba(236,72,153,0.22)]"
+              className="group overflow-hidden rounded-[36px] border-[8px] border-white bg-white shadow-[0_12px_35px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-[0_25px_60px_rgba(236,72,153,0.22)]"
             >
               <div className="relative h-[320px] sm:h-[360px] lg:h-[420px]">
                 <Image
@@ -321,7 +317,6 @@ export default async function KostimuNomaPage({ params }: Props) {
                 </div>
               </div>
             </Link>
-</Tilt3D>
           ))}
         </div>
       </section>
