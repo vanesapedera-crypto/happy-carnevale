@@ -14,7 +14,7 @@ export const REQUESTS_TABLE = "review_requests";
 export const SETTING_REVIEW_URL = "google_review_url";
 
 export type ReviewSource = ReviewKind;
-export type ReviewStatus = "scheduled" | "sending" | "sent" | "cancelled" | "failed";
+export type ReviewStatus = "scheduled" | "sending" | "sent" | "cancelled" | "failed" | "reviewed";
 export type ReviewChannel = "email" | "whatsapp";
 
 export interface ReviewSettings {
@@ -157,7 +157,7 @@ export async function listReviewRequests(
       config,
       config.serviceKey,
       REQUESTS_TABLE,
-      "select=*&status=in.(sent,cancelled)&order=created_at.desc&limit=100"
+      "select=*&status=in.(sent,cancelled,reviewed)&order=created_at.desc&limit=300"
     ),
   ]);
   return { pending: pending.map(rowToRequest), done: done.map(rowToRequest) };
@@ -203,4 +203,33 @@ export async function listRequestKeys(
     REQUESTS_TABLE,
     "select=email,phone,service,event_date&limit=10000"
   );
+}
+
+/**
+ * "Atsauksme jau sniegta": klients atsauksmi jau uzrakstījis, vairs nelūgt.
+ * Noņemot atzīmi, atgriežas "palūgta" (ja lūgums bija sūtīts) vai "nav lūgts".
+ */
+export async function setReviewed(
+  config: AdminConfig,
+  id: string,
+  reviewed: boolean
+): Promise<ReviewRequest | null> {
+  if (reviewed) {
+    const row = await restUpdate<ReviewRequestRow>(
+      config,
+      config.serviceKey,
+      REQUESTS_TABLE,
+      `id=eq.${encodeURIComponent(id)}&status=in.(scheduled,sent,cancelled,failed)`,
+      { status: "reviewed" }
+    );
+    return row ? rowToRequest(row) : null;
+  }
+  const rows = await restSelect<ReviewRequestRow>(
+    config,
+    config.serviceKey,
+    REQUESTS_TABLE,
+    `select=*&id=eq.${encodeURIComponent(id)}&limit=1`
+  );
+  const back: ReviewStatus = rows[0]?.sent_at ? "sent" : "scheduled";
+  return changeStatus(config, id, "reviewed", back);
 }

@@ -6,6 +6,7 @@ import {
   markWhatsAppSentAction,
   sendRequestNowAction,
   setRequestCancelledAction,
+  setRequestReviewedAction,
 } from "@/lib/admin/reviewActions";
 import type { ReviewRequest, ReviewStatus } from "@/lib/reviews/store";
 import { REVIEW_KIND_LABELS, defaultReviewMessage, whatsappUrl } from "@/lib/reviews/whatsapp";
@@ -16,6 +17,7 @@ const STATUS: Record<ReviewStatus, { label: string; className: string }> = {
   sent: { label: "Atsauksme palūgta", className: "bg-emerald-50 text-emerald-700" },
   cancelled: { label: "Nenotika", className: "bg-slate-100 text-slate-600" },
   failed: { label: "E-pasts neizdevās", className: "bg-red-50 text-red-700" },
+  reviewed: { label: "Atsauksme sniegta ★", className: "bg-violet-50 text-violet-700" },
 };
 
 function todayInRiga(): string {
@@ -59,6 +61,7 @@ function RequestRow({ request, reviewUrl }: { request: ReviewRequest; reviewUrl:
       ? whatsappUrl(request.phone, defaultReviewMessage(request.name, reviewUrl, request.source, request.service))
       : null;
   const canSend = ["scheduled", "cancelled", "failed"].includes(request.status);
+  const reviewed = request.status === "reviewed";
 
   return (
     <li className="rounded-[18px] bg-white p-4 shadow-[0_6px_18px_rgba(59,7,100,0.06)]">
@@ -105,7 +108,7 @@ function RequestRow({ request, reviewUrl }: { request: ReviewRequest; reviewUrl:
             Pieprasīt atsauksmi (e-pasts)
           </button>
         )}
-        {waLink && (
+        {waLink && !reviewed && (
           <a
             href={waLink}
             target="_blank"
@@ -138,6 +141,18 @@ function RequestRow({ request, reviewUrl }: { request: ReviewRequest; reviewUrl:
           >
             Atjaunot
           </button>
+        )}
+        {request.status !== "sending" && (
+          <label className="ml-auto inline-flex cursor-pointer items-center gap-2 rounded-full border border-[#f3e8ff] px-3 py-1.5 text-sm font-semibold text-[#7e5a9b] transition hover:bg-violet-50">
+            <input
+              type="checkbox"
+              checked={reviewed}
+              disabled={pending}
+              onChange={(event) => void run(() => setRequestReviewedAction(request.id, event.target.checked))}
+              className="h-4 w-4 accent-violet-600"
+            />
+            Atsauksme jau sniegta
+          </label>
         )}
       </div>
       {error && (

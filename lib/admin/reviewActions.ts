@@ -11,6 +11,7 @@ import {
   isMissingTable,
   markSentViaWhatsApp,
   saveSetting,
+  setReviewed,
 } from "@/lib/reviews/store";
 import { isValidReviewUrl } from "@/lib/reviews/whatsapp";
 
@@ -90,6 +91,19 @@ export async function markWhatsAppSentAction(id: unknown): Promise<ActionResult>
   try {
     await markSentViaWhatsApp(config, id);
     return { ok: true, data: null };
+  } catch (error) {
+    return failure(error, "Neizdevās saglabāt.");
+  }
+}
+
+/** Atzīmē "Atsauksme jau sniegta" (vai noņem atzīmi). */
+export async function setRequestReviewedAction(id: unknown, reviewed: unknown): Promise<ActionResult> {
+  const config = await adminConfig();
+  if (!config) return { ok: false, error: SESSION_EXPIRED };
+  if (!isUuid(id)) return { ok: false, error: "Nederīgs ieraksts." };
+  try {
+    const updated = await setReviewed(config, id, reviewed === true);
+    return updated ? { ok: true, data: null } : { ok: false, error: "Ieraksts jau ir mainīts. Pārlādē lapu." };
   } catch (error) {
     return failure(error, "Neizdevās saglabāt.");
   }
