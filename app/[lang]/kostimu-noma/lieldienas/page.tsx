@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import CostumeHero from "@/components/costumes/CostumeHero";
 import LieldienasSection from "@/components/costumes/LieldienasSection";
 import { pageMetadata, toLang } from "@/lib/i18n";
 
@@ -24,6 +25,12 @@ export default async function LieldienasPage({ params }: Props) {
   const lang = toLang((await params).lang);
   return (
     <>
+      <CostumeHero
+        lang={lang}
+        sectionKeys={["lieldienu-kostimi"]}
+        title={{ lv: "Lieldienu kostīmu noma", ru: "Аренда пасхальных костюмов", en: "Easter costume rental" }}
+        description={{ lv: "Zaķu tērpi un citi svētku tēli Lieldienu pasākumiem.", ru: "Костюмы зайцев и другие праздничные персонажи для пасхальных мероприятий.", en: "Bunny costumes and other festive characters for Easter events." }}
+      />
       <LieldienasSection lang={lang} />
     </>
   );

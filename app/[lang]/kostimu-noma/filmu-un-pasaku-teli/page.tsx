@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import PageHero from "@/components/common/PageHero";
+import CostumeHero from "@/components/costumes/CostumeHero";
 import PrincessesSection from "@/components/costumes/PrincessesSection";
 import SuperheroesSection from "@/components/costumes/SuperheroesSection";
 import MultfilmuSection from "@/components/costumes/MultfilmuSection";
 import ProfessionsSection from "@/components/costumes/ProfessionsSection";
 import DzivniekiSection from "@/components/costumes/DzivniekiSection";
-import { pageMetadata, toLang, tr } from "@/lib/i18n";
+import { pageMetadata, toLang } from "@/lib/i18n";
 
 type Props = { params: Promise<{ lang: string }> };
 
@@ -29,19 +29,19 @@ export default async function FilmuUnPasakuTeliPage({ params }: Props) {
   const lang = toLang((await params).lang);
   return (
     <>
-      <PageHero
-        badge={tr(lang, { lv: "KOSTĪMU NOMA", ru: "АРЕНДА КОСТЮМОВ", en: "COSTUME RENTAL" })}
-        title={tr(lang, {
+      <CostumeHero
+        lang={lang}
+        sectionKeys={["princeses-un-fejas", "supervaroni", "kino-teli", "profesijas", "dzivnieku-teli"]}
+        title={{
           lv: "Kino tēlu un citu kostīmu noma",
           ru: "Аренда костюмов героев фильмов и не только",
           en: "Movie character and other costume rental",
-        })}
-        description={tr(lang, {
+        }}
+        description={{
           lv: "Izvēlies iemīļotākos filmu, multfilmu un pasaku varoņus bērnu ballītēm, tematiskajiem pasākumiem un karnevāliem.",
           ru: "Выбирайте любимых героев фильмов, мультфильмов и сказок для детских праздников, тематических мероприятий и карнавалов.",
           en: "Choose favourite movie, cartoon and fairy-tale heroes for kids' parties, themed events and carnivals.",
-        })}
-        image="/images/hero/filmu-teli.jpg"
+        }}
       />
 
       <PrincessesSection lang={lang} />

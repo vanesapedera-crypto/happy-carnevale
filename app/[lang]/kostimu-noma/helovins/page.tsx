@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import CostumeHero from "@/components/costumes/CostumeHero";
 import HelovinsSection from "@/components/costumes/HelovinsSection";
 import { pageMetadata, toLang } from "@/lib/i18n";
 
@@ -24,6 +25,12 @@ export default async function HelovinsPage({ params }: Props) {
   const lang = toLang((await params).lang);
   return (
     <>
+      <CostumeHero
+        lang={lang}
+        sectionKeys={["helovina-kostimi"]}
+        title={{ lv: "Helovīna kostīmu un masku noma", ru: "Аренда костюмов и масок на Хэллоуин", en: "Halloween costume and mask rental" }}
+        description={{ lv: "Raganas, skeleti, ķirbji un citi spocīgi tēli Helovīna ballītēm.", ru: "Ведьмы, скелеты, тыквы и другие жуткие образы для вечеринок на Хэллоуин.", en: "Witches, skeletons, pumpkins and other spooky looks for Halloween parties." }}
+      />
       <HelovinsSection lang={lang} />
     </>
   );

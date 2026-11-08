@@ -6,9 +6,8 @@ export default function HelovinsSection({ lang }: { lang: Lang }) {
     <CostumeSection
       lang={lang}
       sectionKey="helovina-kostimi"
-      heading={{ lv: "Helovīna kostīmu un masku noma", ru: "Аренда костюмов и масок на Хэллоуин", en: "Halloween costume and mask rental" }}
+      heading={{ lv: "Visi Helovīna kostīmi un maskas", ru: "Все костюмы и маски на Хэллоуин", en: "All Halloween costumes and masks" }}
       noun={{ lv: "Helovīna kostīmu noma", ru: "аренда костюма на Хэллоуин", en: "Halloween costume rental" }}
-      as="h1"
     />
   );
 }

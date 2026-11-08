@@ -6,10 +6,8 @@ export default function ZiemassvetkiSection({ lang }: { lang: Lang }) {
     <CostumeSection
       lang={lang}
       sectionKey="ziemassvetku-kostimi"
-      heading={{ lv: "Ziemassvētku kostīmu noma", ru: "Аренда рождественских костюмов", en: "Christmas costume rental" }}
+      heading={{ lv: "Visi Ziemassvētku kostīmi", ru: "Все рождественские костюмы", en: "All Christmas costumes" }}
       noun={{ lv: "Ziemassvētku kostīmu noma", ru: "аренда рождественского костюма", en: "Christmas costume rental" }}
-      as="h1"
-      topPadding
     />
   );
 }

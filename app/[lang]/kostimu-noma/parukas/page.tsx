@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import PageHero from "@/components/common/PageHero";
+import CostumeHero from "@/components/costumes/CostumeHero";
 import ParukasSection from "@/components/costumes/ParukasSection";
-import { pageMetadata, toLang, tr } from "@/lib/i18n";
+import { pageMetadata, toLang } from "@/lib/i18n";
 
 type Props = { params: Promise<{ lang: string }> };
 
@@ -25,19 +25,19 @@ export default async function ParukasPage({ params }: Props) {
   const lang = toLang((await params).lang);
   return (
     <>
-      <PageHero
-        badge={tr(lang, { lv: "KOSTĪMU NOMA", ru: "АРЕНДА КОСТЮМОВ", en: "COSTUME RENTAL" })}
-        title={tr(lang, {
+      <CostumeHero
+        lang={lang}
+        sectionKeys={["parukas"]}
+        title={{
           lv: "Parūku noma",
           ru: "Аренда париков",
           en: "Wig rental",
-        })}
-        description={tr(lang, {
+        }}
+        description={{
           lv: "Krāsainas, smieklīgas un tēliem atbilstošas parūkas dažādiem pasākumiem, kostīmiem un svētkiem.",
           ru: "Яркие, смешные и подходящие к образу парики для разных мероприятий, костюмов и праздников.",
           en: "Colourful, funny and character wigs for all kinds of events, costumes and parties.",
-        })}
-        image="/images/hero/parukas.jpg"
+        }}
       />
 
       <ParukasSection lang={lang} />

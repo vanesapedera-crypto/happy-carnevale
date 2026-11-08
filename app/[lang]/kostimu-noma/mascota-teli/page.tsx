@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import PageHero from "@/components/common/PageHero";
+import CostumeHero from "@/components/costumes/CostumeHero";
 import MascotaSection from "@/components/costumes/MascotaSection";
-import { pageMetadata, toLang, tr } from "@/lib/i18n";
+import { pageMetadata, toLang } from "@/lib/i18n";
 
 type Props = { params: Promise<{ lang: string }> };
 
@@ -25,19 +25,19 @@ export default async function MascotaTeliPage({ params }: Props) {
   const lang = toLang((await params).lang);
   return (
     <>
-      <PageHero
-        badge={tr(lang, { lv: "KOSTĪMU NOMA", ru: "АРЕНДА КОСТЮМОВ", en: "COSTUME RENTAL" })}
-        title={tr(lang, {
+      <CostumeHero
+        lang={lang}
+        sectionKeys={["mascota-teli"]}
+        title={{
           lv: "Mascota tēlu noma",
           ru: "Аренда ростовых кукол",
           en: "Mascot costume rental",
-        })}
-        description={tr(lang, {
+        }}
+        description={{
           lv: "Lielizmēra Mascota kostīmi bērnu ballītēm, uzņēmumu pasākumiem, reklāmas aktivitātēm un svētkiem. Iecienītākie tēli, kas rada neaizmirstamas emocijas.",
           ru: "Ростовые куклы для детских праздников, корпоративов, рекламных акций и торжеств. Любимые персонажи, которые дарят незабываемые эмоции.",
           en: "Full-size mascot costumes for kids' parties, corporate events, promotions and celebrations. Favourite characters that create unforgettable moments.",
-        })}
-        image="/images/hero/mascota.jpg"
+        }}
       />
 
       <MascotaSection lang={lang} />

@@ -147,3 +147,40 @@
   .bubbles3d-rise { animation: none; transform: translateY(-55%); }
   .bubbles3d-sway, .bubbles3d-bubble, .bubbles3d-film { animation: none; }
 }
+
+/* Kostīmu kategoriju lapas: slīdošā kostīmu parāde virsrakstā */
+.hc-marquee {
+  /* Bilžu baltais fons saplūst ar virsraksta fonu */
+  mix-blend-mode: multiply;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.hc-marquee-track {
+  animation: hc-marquee 45s linear infinite;
+}
+.hc-marquee:hover .hc-marquee-track {
+  animation-play-state: paused;
+}
+.hc-marquee-item {
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.hc-marquee-item:hover {
+  transform: translateY(-10px);
+}
+@keyframes hc-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+/* Rezervēšanas poga: krāsu pāreja slīd, uzbraucot ar peli */
+.hc-cta {
+  background-image: linear-gradient(90deg, #6C3BFF 0%, #A24BFF 35%, #FF4BA5 70%, #6C3BFF 100%);
+  background-size: 200% 100%;
+  background-position: 0% 0;
+  transition: background-position 0.45s, transform 0.2s, box-shadow 0.3s;
+}
+.hc-cta:hover {
+  background-position: 100% 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hc-marquee-track { animation: none; }
+}

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import PageHero from "@/components/common/PageHero";
+import CostumeHero from "@/components/costumes/CostumeHero";
 import SmiekligiTeliSection from "@/components/costumes/SmiekligiTeliSection";
 import RetroSection from "@/components/costumes/RetroSection";
 import UzvalkiSection from "@/components/costumes/UzvalkiSection";
@@ -28,24 +28,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function CitiTeliPage({ params }: Props) {
   const lang = toLang((await params).lang);
   return (
-    <main className="scroll-smooth bg-white pb-16">
-      <PageHero
-        badge={tr(lang, { lv: "KOSTĪMU NOMA", ru: "АРЕНДА КОСТЮМОВ", en: "COSTUME RENTAL" })}
-        title={tr(lang, {
+    <main className="scroll-smooth bg-[#F8F9FC] pb-16">
+      <CostumeHero
+        lang={lang}
+        sectionKeys={["smiekligi-teli", "retro-kostimi", "uzvalki", "parukas"]}
+        title={{
           lv: "Smieklīgu tēlu un parūku noma",
           ru: "Аренда смешных костюмов и париков",
           en: "Funny character and wig rental",
-        })}
-        description={tr(lang, {
+        }}
+        description={{
           lv: "Izvēlies dažādus kostīmus bērnu ballītēm, tematiskajiem pasākumiem un karnevāliem.",
           ru: "Выбирайте разные костюмы для детских праздников, тематических мероприятий и карнавалов.",
           en: "Pick from all kinds of costumes for kids' parties, themed events and carnivals.",
-        })}
-        image="/images/hero/citi-teli.jpg"
+        }}
       />
 
       {/* Navigācija */}
-      <div className="relative z-20 bg-white py-2 shadow-sm">
+      <div className="relative z-20 bg-[#F8F9FC] pt-8">
         <div className="mx-auto flex max-w-7xl gap-3 overflow-x-auto px-6">
           <a
             href="#smiekligi"

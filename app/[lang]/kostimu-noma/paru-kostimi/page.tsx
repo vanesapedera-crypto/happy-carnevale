@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import CostumeHero from "@/components/costumes/CostumeHero";
 import CostumeSection from "@/components/costumes/CostumeSection";
 import { pageMetadata, toLang } from "@/lib/i18n";
 
@@ -24,18 +25,21 @@ export default async function ParuKostimiPage({ params }: Props) {
   const lang = toLang((await params).lang);
   return (
     <>
-      <CostumeSection
+      <CostumeHero
         lang={lang}
-        sectionKey="paru-kostimi"
-        as="h1"
-        topPadding
-        heading={{ lv: "Pāru kostīmu noma", ru: "Аренда парных костюмов", en: "Couples costume rental" }}
-        noun={{ lv: "pāru kostīma noma", ru: "аренда парного костюма", en: "couples costume rental" }}
-        intro={{
+        sectionKeys={["paru-kostimi"]}
+        title={{ lv: "Pāru kostīmu noma", ru: "Аренда парных костюмов", en: "Couples costume rental" }}
+        description={{
           lv: "Saskaņoti kostīmi diviem – ballītēm, karnevāliem, Helovīnam un tematiskajiem pasākumiem.",
           ru: "Парные костюмы для двоих – для вечеринок, карнавалов, Хэллоуина и тематических мероприятий.",
           en: "Matching costumes for two – for parties, carnivals, Halloween and themed events.",
         }}
+      />
+      <CostumeSection
+        lang={lang}
+        sectionKey="paru-kostimi"
+        heading={{ lv: "Visi pāru kostīmi", ru: "Все парные костюмы", en: "All couples costumes" }}
+        noun={{ lv: "pāru kostīma noma", ru: "аренда парного костюма", en: "couples costume rental" }}
         emptyText={{
           lv: "Pāru kostīmi drīzumā! Pa to laiku zvani +371 26 126 313 – palīdzēsim atrast tērpus diviem.",
           ru: "Парные костюмы скоро появятся! А пока звоните +371 26 126 313 – поможем подобрать костюмы для двоих.",

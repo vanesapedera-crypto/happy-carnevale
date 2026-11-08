@@ -1,10 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FiTag } from "react-icons/fi";
+import { FiArrowRight } from "react-icons/fi";
 import { TbRulerMeasure } from "react-icons/tb";
 import { loadSectionCards, reservationHref } from "@/lib/costumeCatalog";
 import { localizeCostume } from "@/lib/costumes";
 import { lp, tr, type Lang, type Tr } from "@/lib/i18n";
+import { circleColor } from "@/components/costumes/costumeColors";
+import WishButton from "@/components/costumes/WishButton";
 
 export type CostumeSectionProps = {
   lang: Lang;
@@ -16,13 +18,16 @@ export type CostumeSectionProps = {
   intro?: Tr;
   /** h1, ja lapā nav cita galvenā virsraksta */
   as?: "h1" | "h2";
-  /** Atkāpe no augšas, ja virs sadaļas nav lapas galvenes bildes */
+  /** Atkāpe no augšas, ja virs sadaļas nav lapas galvenes */
   topPadding?: boolean;
   /** Teksts, ja sadaļā vēl nav neviena kostīma */
   emptyText?: Tr;
 };
 
-const RESERVE: Tr = { lv: "Rezervēt →", ru: "Забронировать →", en: "Book now →" };
+const RESERVE: Tr = { lv: "Rezervēt", ru: "Забронировать", en: "Book now" };
+const SIZE: Tr = { lv: "Izmērs", ru: "Размер", en: "Size" };
+const WISH_ADD: Tr = { lv: "Pievienot vēlmju sarakstam", ru: "Добавить в избранное", en: "Add to wishlist" };
+const WISH_REMOVE: Tr = { lv: "Noņemt no vēlmju saraksta", ru: "Убрать из избранного", en: "Remove from wishlist" };
 
 /**
  * Kostīmu kartīšu sadaļa. Kostīmi nāk no admin paneļa;
@@ -44,140 +49,98 @@ export default async function CostumeSection({
   const reserve = tr(lang, RESERVE);
 
   return (
-    <section className={`bg-white pb-20 ${topPadding ? "pt-32" : "pt-20"}`}>
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="rounded-[40px] border border-zinc-200 bg-white p-10 shadow-xl">
-          <div className="mb-12">
-            <Heading className="text-4xl font-black text-gray-900">{tr(lang, heading)}</Heading>
-            <div className="mt-3 h-1 w-24 rounded-full bg-violet-500" />
-            {intro && (
-              <p className="mt-5 max-w-3xl text-lg leading-8 text-gray-600">{tr(lang, intro)}</p>
-            )}
-          </div>
-
-          {cards.length === 0 && emptyText && (
-            <p className="rounded-3xl bg-pink-50 p-6 text-center text-lg text-gray-600">
-              {tr(lang, emptyText)}
+    <section className={`bg-[#F8F9FC] pb-16 lg:pb-24 ${topPadding ? "pt-24 lg:pt-32" : "pt-12 lg:pt-16"}`}>
+      <div className="mx-auto max-w-[1400px] px-4 lg:px-8">
+        <div className="mb-8 lg:mb-10">
+          <Heading className="text-[28px] font-extrabold leading-tight tracking-[-0.03em] text-[#14123A] lg:text-[42px]">
+            {tr(lang, heading)}
+          </Heading>
+          {intro && (
+            <p className="mt-3 max-w-3xl text-base leading-7 text-[#4B4860] lg:text-lg lg:leading-8">
+              {tr(lang, intro)}
             </p>
           )}
+        </div>
 
-          {/* DESKTOP */}
-          <div className="hidden gap-8 lg:grid lg:grid-cols-4">
-            {cards.map(({ item, source }, index) => {
-              const href = lp(lang, item.href);
-              const reserveHref = lp(lang, reservationHref(source, item.title));
-              return (
-                <div
-                  key={`${item.slug}-${index}`}
-                  className="group flex flex-col overflow-hidden rounded-[30px] border border-zinc-200 bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:border-zinc-300 hover:shadow-2xl"
-                >
-                  <Link href={href} className="relative block aspect-[3/4] overflow-hidden bg-white">
-                    <Image
-                      src={item.image}
-                      alt={`${item.title} – ${nounText}`}
-                      fill
-                      sizes="(min-width: 1024px) 25vw, 50vw"
-                      className="object-contain p-4 transition duration-500 group-hover:scale-105"
+        {cards.length === 0 && emptyText && (
+          <p className="rounded-3xl bg-white p-8 text-center text-lg text-[#4B4860] shadow-[0_16px_40px_rgba(23,23,23,0.06)]">
+            {tr(lang, emptyText)}
+          </p>
+        )}
+
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3 xl:grid-cols-4">
+          {cards.map(({ item, source }, index) => {
+            const href = lp(lang, item.href);
+            const reserveHref = lp(lang, reservationHref(source, item.title));
+            return (
+              <article
+                key={`${item.slug}-${index}`}
+                className="group flex flex-col rounded-3xl bg-white p-4 shadow-[0_16px_40px_rgba(23,23,23,0.06)] transition duration-300 ease-out hover:-translate-y-2 hover:shadow-[0_30px_60px_rgba(23,23,23,0.10)]"
+              >
+                <div className="relative h-[260px] overflow-hidden rounded-[18px] lg:h-[280px]">
+                  <Link href={href} className="absolute inset-0 block">
+                    <span
+                      aria-hidden="true"
+                      className="absolute left-1/2 top-5 h-[220px] w-[220px] -translate-x-1/2 rounded-full lg:h-[236px] lg:w-[236px]"
+                      style={{ background: circleColor(index) }}
                     />
-                  </Link>
-
-                  <div className="flex flex-1 flex-col p-6">
-                    <h3 className="min-h-[64px] text-2xl font-bold leading-tight tracking-tight text-gray-900">
-                      <Link href={href} className="transition hover:text-pink-600">
-                        {item.title}
-                      </Link>
-                    </h3>
-
-                    {item.description && (
-                      <p className="mt-2 text-sm leading-6 text-gray-600">{item.description}</p>
-                    )}
-
-                    {item.price && (
-                      <div className="mt-5 flex items-center gap-2 text-pink-600">
-                        <FiTag className="h-5 w-5" />
-                        <span className="font-semibold">{item.price}</span>
-                      </div>
-                    )}
-
-                    {item.size && (
-                      <div className="mb-7 mt-2 flex items-center gap-2 text-gray-600">
-                        <TbRulerMeasure className="h-5 w-5" />
-                        <span>{item.size}</span>
-                      </div>
-                    )}
-
-                    <Link
-                      href={reserveHref}
-                      className="mt-auto flex w-full items-center justify-center rounded-full bg-gradient-to-r from-violet-500 to-violet-400 py-3.5 font-semibold text-white shadow-md transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
-                    >
-                      {reserve}
-                    </Link>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* MOBILE */}
-          <div className="flex flex-col gap-5 lg:hidden">
-            {cards.map(({ item, source }, index) => {
-              const href = lp(lang, item.href);
-              const reserveHref = lp(lang, reservationHref(source, item.title));
-              return (
-                <div
-                  key={`${item.slug}-${index}`}
-                  className="overflow-hidden rounded-[26px] border border-zinc-200 bg-white shadow-lg"
-                >
-                  <div className="flex">
-                    <Link href={href} className="relative block h-44 w-36 shrink-0 bg-white">
+                    <span className="absolute inset-x-[6%] bottom-2.5 top-3">
                       <Image
                         src={item.image}
                         alt={`${item.title} – ${nounText}`}
                         fill
-                        sizes="144px"
-                        className="object-contain p-4"
+                        sizes="(min-width: 1280px) 320px, (min-width: 640px) 45vw, 90vw"
+                        className="object-contain object-bottom mix-blend-multiply transition duration-500 ease-out group-hover:scale-105"
                       />
-                    </Link>
-
-                    <div className="flex flex-1 flex-col justify-between p-4">
-                      <div>
-                        <h3 className="text-xl font-bold text-gray-900">
-                          <Link href={href} className="transition hover:text-pink-600">
-                            {item.title}
-                          </Link>
-                        </h3>
-
-                        {item.description && (
-                          <p className="mt-2 text-sm leading-6 text-gray-600">{item.description}</p>
-                        )}
-
-                        {item.price && (
-                          <div className="mt-4 flex items-center gap-2 text-pink-600">
-                            <FiTag className="h-5 w-5" />
-                            <span className="font-semibold">{item.price}</span>
-                          </div>
-                        )}
-
-                        {item.size && (
-                          <div className="mt-2 flex items-center gap-2 text-gray-600">
-                            <TbRulerMeasure className="h-5 w-5" />
-                            <span>{item.size}</span>
-                          </div>
-                        )}
-                      </div>
-
-                      <Link
-                        href={reserveHref}
-                        className="mt-5 flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-fuchsia-500 font-semibold text-white"
-                      >
-                        {reserve}
-                      </Link>
-                    </div>
-                  </div>
+                    </span>
+                  </Link>
+                  <WishButton
+                    id={`${sectionKey}/${item.slug}`}
+                    addLabel={`${tr(lang, WISH_ADD)}: ${item.title}`}
+                    removeLabel={`${tr(lang, WISH_REMOVE)}: ${item.title}`}
+                    className="absolute right-3 top-3"
+                  />
                 </div>
-              );
-            })}
-          </div>
+
+                <div className="flex flex-1 flex-col gap-3 px-2 pb-1 pt-5">
+                  <h3 className="text-2xl font-extrabold leading-tight tracking-[-0.02em] text-[#171717] lg:text-[28px]">
+                    <Link href={href} className="transition hover:text-[#6C3BFF]">
+                      {item.title}
+                    </Link>
+                  </h3>
+
+                  {item.description && (
+                    <p className="text-[15px] leading-6 text-[#4B4860]">{item.description}</p>
+                  )}
+
+                  {(item.price || item.size) && (
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                      {item.price && (
+                        <p className="text-[26px] font-extrabold tracking-[-0.02em] text-[#6C3BFF] lg:text-[28px]">
+                          {item.price}
+                        </p>
+                      )}
+                      {item.size && (
+                        <p className="flex items-center gap-2 rounded-full bg-[#F6F4FB] px-3 py-1.5 text-[15px] font-semibold text-[#4B4860]">
+                          <TbRulerMeasure className="h-[18px] w-[18px] text-[#6C3BFF]" aria-hidden="true" />
+                          <span className="sr-only">{tr(lang, SIZE)}: </span>
+                          {item.size}
+                        </p>
+                      )}
+                    </div>
+                  )}
+
+                  <Link
+                    href={reserveHref}
+                    className="hc-cta mt-auto flex h-[52px] items-center justify-center gap-2 rounded-2xl text-base font-extrabold text-white shadow-[0_10px_24px_rgba(108,59,255,0.22)] hover:scale-[1.02] group-hover:shadow-[0_14px_30px_rgba(255,75,165,0.35)] lg:mt-auto"
+                  >
+                    {reserve}
+                    <FiArrowRight className="h-[18px] w-[18px]" aria-hidden="true" />
+                  </Link>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

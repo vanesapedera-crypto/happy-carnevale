@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import CostumeHero from "@/components/costumes/CostumeHero";
 import ZiemassvetkiSection from "@/components/costumes/ZiemassvetkiSection";
 import { pageMetadata, toLang } from "@/lib/i18n";
 
@@ -24,6 +25,12 @@ export default async function ZiemassvetkiPage({ params }: Props) {
   const lang = toLang((await params).lang);
   return (
     <>
+      <CostumeHero
+        lang={lang}
+        sectionKeys={["ziemassvetku-kostimi"]}
+        title={{ lv: "Ziemassvētku kostīmu noma", ru: "Аренда рождественских костюмов", en: "Christmas costume rental" }}
+        description={{ lv: "Ziemassvētku vecītis, rūķis, Grinčs, sniegavīrs un citi tēli svētku pasākumiem.", ru: "Дед Мороз, гном, Гринч, снеговик и другие персонажи для праздничных мероприятий.", en: "Santa Claus, elf, Grinch, snowman and other characters for festive events." }}
+      />
       <ZiemassvetkiSection lang={lang} />
     </>
   );
