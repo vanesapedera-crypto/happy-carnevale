@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import { deleteItemAction, updateItemAction } from "@/lib/admin/actions";
 import type { SectionItem } from "@/lib/admin/types";
 import ExtraImages from "./ExtraImages";
-import CutoutStatus from "./CutoutStatus";
 import { postImage } from "@/lib/admin/uploadClient";
 import { ACCEPTED_IMAGE_TYPES, LIMITS } from "@/lib/admin/validation";
 import { getSection } from "@/lib/admin/sections";
@@ -214,7 +213,6 @@ export default function ItemCard({
           draggable={false}
           className="pointer-events-none select-none object-contain"
         />
-        {showPriceAndSize && active && <CutoutStatus key={item.imageUrl} item={item} />}
         {!active && (
           <span className="absolute left-3 top-3 rounded-full bg-slate-900/80 px-3 py-1 text-xs font-semibold text-white">
             Paslēpts

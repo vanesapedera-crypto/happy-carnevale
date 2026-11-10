@@ -2,8 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { loadSectionCards } from "@/lib/costumeCatalog";
 import { lp, tr, type Lang, type Tr } from "@/lib/i18n";
-import { circleColor } from "@/components/costumes/costumeColors";
-import { cutoutFor } from "@/lib/costumeCutouts";
 
 type Props = {
   lang: Lang;
@@ -32,7 +30,7 @@ export default async function CostumeHero({ lang, title, description, sectionKey
   const longest = Math.max(0, ...lists.map((l) => l.length));
   for (let i = 0; i < longest && images.length < 12; i++) {
     for (const list of lists) {
-      const img = cutoutFor(list[i]?.image, list[i]?.cutout);
+      const img = list[i]?.image;
       if (img && !seen.has(img) && images.length < 12) {
         seen.add(img);
         images.push(img);
@@ -70,19 +68,15 @@ export default async function CostumeHero({ lang, title, description, sectionKey
               {loop.map((src, index) => (
                 <div
                   key={`${src}-${index}`}
-                  className="hc-marquee-item relative flex h-[180px] w-[150px] shrink-0 items-end justify-center lg:h-[260px] lg:w-[220px]"
+                  className="hc-marquee-item relative h-[180px] w-[140px] shrink-0 overflow-hidden rounded-2xl bg-white p-2 shadow-[0_10px_26px_rgba(23,23,23,0.07)] lg:h-[260px] lg:w-[200px] lg:rounded-3xl lg:p-3"
                 >
-                  <div
-                    className="absolute bottom-0 left-1/2 h-[140px] w-[140px] -translate-x-1/2 rounded-full lg:h-[200px] lg:w-[200px]"
-                    style={{ background: circleColor(index % images.length) }}
-                  />
-                  <div className="relative h-[166px] w-full lg:h-[240px]">
+                  <div className="relative h-full w-full">
                     <Image
                       src={src}
                       alt=""
                       fill
-                      sizes="(min-width: 1024px) 220px, 150px"
-                      className="object-contain object-bottom drop-shadow-[0_14px_16px_rgba(20,18,58,0.14)]"
+                      sizes="(min-width: 1024px) 200px, 140px"
+                      className="object-contain"
                     />
                   </div>
                 </div>

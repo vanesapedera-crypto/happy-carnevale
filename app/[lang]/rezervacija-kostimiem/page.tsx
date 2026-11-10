@@ -6,7 +6,6 @@ import Image from "next/image";
 import { ArrowRight, Lock, MapPin, MessageCircle, Package, Phone, Ruler, Store, Truck, User } from "lucide-react";
 import ReservationSuccess from "@/components/reservation/ReservationSuccess";
 import DateInput from "@/components/common/DateInput";
-import { cutoutFor } from "@/lib/costumeCutouts";
 import { useLang, useTr } from "@/context/LangContext";
 import { translateCostumeDetail } from "@/lib/costumeNames";
 
@@ -24,9 +23,6 @@ function ReservationContent() {
   const image = searchParams.get("image");
   const price = searchParams.get("price");
   const size = searchParams.get("size");
-  // Tikai mūsu Supabase krātuves bildes (admin panelī izveidotās bez fona)
-  const cutoutRaw = searchParams.get("cutout");
-  const cutoutParam = cutoutRaw && /^https:\/\/[a-z0-9-]+\.supabase\.co\/storage\/v1\/object\/public\//.test(cutoutRaw) ? cutoutRaw : null;
 
   const isMascot = (image || "").includes("/kostimi/mascotas/");
 
@@ -172,7 +168,6 @@ function ReservationContent() {
 
   const gallery = [image || "/kostimi/no-image.jpg", ...extraImages];
   const shown = gallery[Math.min(photo, gallery.length - 1)];
-  const cut = photo === 0 ? cutoutFor(image, cutoutParam) : null;
 
   return (
     <main className="relative overflow-hidden bg-gradient-to-b from-[#FBF9FF] via-[#F6F1FF] to-[#FFF4FA] px-4 pb-20 pt-10 lg:px-8 lg:pb-28 lg:pt-14">
@@ -219,12 +214,12 @@ function ReservationContent() {
               <div className="absolute inset-x-6 bottom-4 top-6">
                 <Image
                   key={shown}
-                  src={cut || shown}
+                  src={shown}
                   alt={displayName || t({ lv: "Kostīms", ru: "Костюм", en: "Costume" })}
                   fill
                   priority
                   sizes="(min-width: 1024px) 40vw, 90vw"
-                  className={`object-contain ${cut ? "drop-shadow-[0_20px_24px_rgba(20,18,58,0.18)]" : "rounded-2xl bg-white p-2"}`}
+                  className="rounded-2xl bg-white object-contain p-2"
                 />
               </div>
             </div>

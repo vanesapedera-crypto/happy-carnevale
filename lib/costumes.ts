@@ -12,8 +12,6 @@ export interface CostumeCard {
   size: string;
   /** Papildu bildes (admin panelī pievienotās), rāda kostīma galerijā. */
   images?: string[];
-  /** Bilde bez fona (admin panelī izveidotā). */
-  cutout?: string;
   /** Admin panelī ierakstītie tulkojumi (krievu/angļu lapām). */
   translations?: ItemTranslations;
 }
@@ -54,6 +52,5 @@ export async function loadCostumes(
     size: item.size,
     images: item.extraImages.map((image) => image.url),
     translations: item.translations,
-    cutout: item.cutout && item.cutout.source === item.imageUrl ? item.cutout.url : undefined,
   }));
 }
