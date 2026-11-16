@@ -63,6 +63,7 @@ export const SECTIONS: readonly SectionDefinition[] = [
   costumes("uzvalki", "Uzvalki", SMIEKLIGI, SMIEKLIGI_PATH),
   // Parūkas rāda divās lapās: /kostimu-noma/parukas un /kostimu-noma/smiekligi-teli.
   costumes("parukas", "Parūkas", SMIEKLIGI, "/kostimu-noma/parukas"),
+  costumes("paru-kostimi", "Pāru kostīmi", SMIEKLIGI, "/kostimu-noma/paru-kostimi"),
 
   costumes(
     "helovina-kostimi",
@@ -71,7 +72,6 @@ export const SECTIONS: readonly SectionDefinition[] = [
     "/kostimu-noma/helovins"
   ),
   costumes("ziemassvetku-kostimi", "Ziemassvētku tēli", SEZONA, "/kostimu-noma/ziemassvetki"),
-  costumes("paru-kostimi", "Pāru kostīmi", SEZONA, "/kostimu-noma/paru-kostimi"),
   costumes("lieldienu-kostimi", "Lieldienu kostīmi", SEZONA, "/kostimu-noma/lieldienas"),
   // Tēli, no kuriem klients izvēlas animatoru rezervācijas formā (bez cenas un izmēra).
   {

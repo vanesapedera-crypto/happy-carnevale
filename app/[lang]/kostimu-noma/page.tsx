@@ -46,6 +46,12 @@ const mainCategories = [
     image: "/images/hero/citi-teli.jpg",
     description: { lv: "Dažādi kostīmi jebkuram pasākumam.", ru: "Разные костюмы для любого мероприятия.", en: "All sorts of costumes for any occasion." },
   },
+  {
+    title: { lv: "Pāru kostīmi", ru: "Парные костюмы", en: "Couples costumes" },
+    href: "/kostimu-noma/paru-kostimi",
+    image: "/images/hero/paru-kostimi.jpg",
+    description: { lv: "Saskaņoti tērpi diviem.", ru: "Согласованные образы для двоих.", en: "Matching outfits for two." },
+  },
 ];
 
 const seasonalCategories = [
@@ -60,13 +66,6 @@ const seasonalCategories = [
     href: "/kostimu-noma/ziemassvetki",
     image: "/images/hero/ziemassvetki.jpg",
     description: { lv: "Ziemassvētku un rūķu kostīmi.", ru: "Костюмы Деда Мороза и гномов.", en: "Santa and elf costumes." },
-  },
-  {
-    title: { lv: "Pāru kostīmi", ru: "Парные костюмы", en: "Couples costumes" },
-    href: "/kostimu-noma/paru-kostimi",
-    image: "/kostimi/multfilmu/minioni.jpg",
-    focus: "object-top",
-    description: { lv: "Saskaņoti tērpi diviem.", ru: "Согласованные образы для двоих.", en: "Matching outfits for two." },
   },
   {
     title: { lv: "Lieldienu kostīmi", ru: "Пасхальные костюмы", en: "Easter costumes" },
@@ -180,7 +179,7 @@ export default async function KostimuNomaPage({ params }: Props) {
   <div className="hidden h-px w-28 bg-pink-200 lg:block" />
 </div>
 
-<div className="grid gap-8 lg:grid-cols-4">
+<div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
               {mainCategories.map((item) => (
               <Link
                 key={item.href}
@@ -192,7 +191,7 @@ export default async function KostimuNomaPage({ params }: Props) {
                     src={item.image}
                     alt={`${rental} – ${tr(lang, item.title)}`}
                     fill
-                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                    sizes="(min-width: 1024px) 20vw, (min-width: 640px) 50vw, 100vw"
                     className="object-cover transition duration-700 group-hover:scale-105"
                   />
 
@@ -279,7 +278,7 @@ export default async function KostimuNomaPage({ params }: Props) {
   <div className="relative z-10 grid gap-8 lg:grid-cols-3">
   </div>
 
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {seasonal.map((item) => (
             <Link
               key={item.href}
