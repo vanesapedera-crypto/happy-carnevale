@@ -21,8 +21,6 @@ export type CostumeSectionProps = {
   topPadding?: boolean;
   /** Teksts, ja sadaļā vēl nav neviena kostīma */
   emptyText?: Tr;
-  /** Titulbilde blakus virsrakstam (piem. pāru kostīmiem) */
-  cover?: string;
 };
 
 const RESERVE: Tr = { lv: "Rezervēt", ru: "Забронировать", en: "Book now" };
@@ -43,7 +41,6 @@ export default async function CostumeSection({
   as: Heading = "h2",
   topPadding = false,
   emptyText,
-  cover,
 }: CostumeSectionProps) {
   const original = await loadSectionCards(sectionKey);
   const cards = original.map((item) => ({ item: localizeCostume(item, lang), source: item }));
@@ -53,32 +50,15 @@ export default async function CostumeSection({
   return (
     <section className={`bg-[#F8F9FC] pb-16 lg:pb-24 ${topPadding ? "pt-24 lg:pt-32" : "pt-12 lg:pt-16"}`}>
       <div className="mx-auto max-w-[1400px] px-4 lg:px-8">
-        <div
-          className={`mb-8 lg:mb-10 ${
-            cover ? "flex flex-col gap-6 sm:flex-row sm:items-center sm:gap-10" : ""
-          }`}
-        >
-          {cover && (
-            <div className="relative h-72 w-full shrink-0 overflow-hidden rounded-[28px] bg-white shadow-[0_16px_40px_rgba(23,23,23,0.08)] sm:h-[340px] sm:w-[240px] lg:h-[400px] lg:w-[280px]">
-              <Image
-                src={cover}
-                alt={`${tr(lang, heading)} – ${tr(lang, noun)}`}
-                fill
-                sizes="(min-width: 1024px) 280px, (min-width: 640px) 240px, 100vw"
-                className="object-cover object-top"
-              />
-            </div>
+        <div className="mb-8 lg:mb-10">
+          <Heading className="text-[28px] font-extrabold leading-tight tracking-[-0.03em] text-[#14123A] lg:text-[42px]">
+            {tr(lang, heading)}
+          </Heading>
+          {intro && (
+            <p className="mt-3 max-w-3xl text-base leading-7 text-[#4B4860] lg:text-lg lg:leading-8">
+              {tr(lang, intro)}
+            </p>
           )}
-          <div>
-            <Heading className="text-[28px] font-extrabold leading-tight tracking-[-0.03em] text-[#14123A] lg:text-[42px]">
-              {tr(lang, heading)}
-            </Heading>
-            {intro && (
-              <p className="mt-3 max-w-3xl text-base leading-7 text-[#4B4860] lg:text-lg lg:leading-8">
-                {tr(lang, intro)}
-              </p>
-            )}
-          </div>
         </div>
 
         {cards.length === 0 && emptyText && (

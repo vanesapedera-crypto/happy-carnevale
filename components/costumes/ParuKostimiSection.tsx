@@ -7,7 +7,6 @@ export default function ParuKostimiSection({ lang }: { lang: Lang }) {
     <CostumeSection
       lang={lang}
       sectionKey="paru-kostimi"
-      cover="/images/hero/paru-kostimi.jpg"
       heading={{ lv: "Pāru kostīmi", ru: "Парные костюмы", en: "Couples costumes" }}
       noun={{ lv: "pāru kostīma noma", ru: "аренда парного костюма", en: "couples costume rental" }}
       intro={{
