@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import SectionNav from "@/components/costumes/SectionNav";
 import CostumeHero from "@/components/costumes/CostumeHero";
 import SmiekligiTeliSection from "@/components/costumes/SmiekligiTeliSection";
+import ParuKostimiSection from "@/components/costumes/ParuKostimiSection";
 import RetroSection from "@/components/costumes/RetroSection";
 import UzvalkiSection from "@/components/costumes/UzvalkiSection";
 import ParukasSection from "@/components/costumes/ParukasSection";
@@ -32,7 +33,7 @@ export default async function CitiTeliPage({ params }: Props) {
     <main className="scroll-smooth bg-[#F8F9FC] pb-16">
       <CostumeHero
         lang={lang}
-        sectionKeys={["smiekligi-teli", "retro-kostimi", "uzvalki", "parukas"]}
+        sectionKeys={["smiekligi-teli", "paru-kostimi", "retro-kostimi", "uzvalki", "parukas"]}
         title={{
           lv: "Smieklīgu tēlu un parūku noma",
           ru: "Аренда смешных костюмов и париков",
@@ -49,6 +50,7 @@ export default async function CitiTeliPage({ params }: Props) {
         label={tr(lang, { lv: "Sadaļas", ru: "Разделы", en: "Sections" })}
         items={[
           { id: "smiekligi", label: tr(lang, { lv: "Smieklīgi tēli", ru: "Смешные персонажи", en: "Funny characters" }) },
+          { id: "paru-kostimi", label: tr(lang, { lv: "Pāru kostīmi", ru: "Парные костюмы", en: "Couples costumes" }) },
           { id: "retro", label: tr(lang, { lv: "Retro", ru: "Ретро", en: "Retro" }) },
           { id: "uzvalki", label: tr(lang, { lv: "Uzvalki", ru: "Костюмы-тройки", en: "Suits" }) },
           { id: "parukas", label: tr(lang, { lv: "Parūkas", ru: "Парики", en: "Wigs" }) },
@@ -57,6 +59,10 @@ export default async function CitiTeliPage({ params }: Props) {
 
       <section id="smiekligi" className="scroll-mt-40 lg:scroll-mt-48">
         <SmiekligiTeliSection lang={lang} />
+      </section>
+
+      <section id="paru-kostimi" className="scroll-mt-40 lg:scroll-mt-48">
+        <ParuKostimiSection lang={lang} />
       </section>
 
 
