@@ -60,13 +60,13 @@ export const costumes: CostumeCard[] = [
     title: "Dinozaurs (1)",
     image: "/kostimi/gaisa-plusma/dinazaurs-1.jpg",
     price: "25 €",
-    size: "3 pieaugušo kostīmi (165–195 cm) + 1 bērnu kostīms (120–150 cm)",
+    size: "150-195cm",
   },
   {
     title: "Dinozaurs (2)",
     image: "/kostimi/gaisa-plusma/dinazaurs-2.jpg",
     price: "25 €",
-    size: "150-195cm",
+    size: "3 pieaugušo kostīmi (165–195 cm) + 1 bērnu kostīms (120–150 cm)",
   },
   {
     title: "Vienradzis (3)",
